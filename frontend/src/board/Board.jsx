@@ -80,7 +80,6 @@ const VideoConferencePanel = safeImport(() => import("../components/VideoConfere
 
 // Optional panels - set to null if not available
 const SettingsSuite      = null;
-const PastryLibrary      = null;
 const SchedulerPanel     = Schedule;
 const WidgetStudio       = null;
 const PageViewer         = null;
