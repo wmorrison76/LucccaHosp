@@ -139,11 +139,11 @@ export default function Sidebar({
     <aside
       aria-label="App sidebar"
       data-collapsed={!isOpen}
-      className="fixed top-0 left-0 h-screen z-[9999] transition-[width] duration-300 will-change-[width]"
-      style={{ width: widthPx, minWidth: widthPx, flexBasis: widthPx }}
+      className="fixed top-0 left-0 h-screen z-[10000] transition-[width] duration-300 will-change-[width]"
+      style={{ width: widthPx, minWidth: widthPx, flexBasis: widthPx, position: "fixed" }}
     >
       <div className={[
-        "relative h-full flex flex-col backdrop-blur-xl border-r overflow-hidden",
+        "relative h-full w-full flex flex-col backdrop-blur-xl border-r overflow-hidden",
         isDarkMode ? "sb-shell-dark text-cyan-50 border-cyan-400/30"
                    : "sb-shell-light text-slate-900 border-black/10",
       ].join(" ")}>
