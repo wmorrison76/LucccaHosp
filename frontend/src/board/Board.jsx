@@ -69,6 +69,7 @@ const KitchenLibraryTabs = safeImport(() => import("../components/KitchenLibrary
 const Schedule           = safeImport(() => import("../modules/scheduling/Schedule.jsx"), "Schedule");
 const EchoRecipeProPanel = safeImport(() => import("../components/EchoRecipePro/EchoRecipeProPanel.jsx"), "EchoRecipeProPanel");
 const PurchasingPanel    = safeImport(() => import("../components/Purchasing/PurchasingPanel.jsx"), "PurchasingPanel");
+const EchoEventStudioPanel = safeImport(() => import("../components/EchoEventStudio/EchoEventStudioPanel.jsx"), "EchoEventStudioPanel");
 
 // Optional panels - set to null if not available
 const SettingsSuite      = null;
