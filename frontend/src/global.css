@@ -23,7 +23,7 @@ html.dark, body.dark, .dark {
   color: #e0f2fe;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
+/* ════════════���══════════════════════════════════════════════════════════════
    DASHBOARD BUTTON & CARD STYLES
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -219,7 +219,7 @@ html.light .gd-card-tool-btn:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════��════════════════════
    SIDEBAR STYLES - GLASS MORPHISM (LIGHT) & TRON NEON (DARK)
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -256,10 +256,10 @@ html.light .gd-card-tool-btn:hover {
 .sb-menu-item {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 12px;
   width: 100%;
-  padding: 10px 12px;
+  padding: 0;
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
