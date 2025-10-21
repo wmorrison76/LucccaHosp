@@ -1,6 +1,5 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
 
@@ -12,13 +11,9 @@ if (!window.cancelIdleCallback) {
   window.cancelIdleCallback = (id) => clearTimeout(id);
 }
 
-// Simple render
+// Simple render without BrowserRouter
 const rootEl = document.getElementById("root");
 if (rootEl) {
   const root = createRoot(rootEl);
-  root.render(
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  );
+  root.render(<App />);
 }
