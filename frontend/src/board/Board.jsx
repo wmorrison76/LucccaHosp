@@ -78,7 +78,7 @@ const PastryPanel        = safeImport(() => import("../components/PastryPanel.js
 // Optional panels - set to null if not available
 const SettingsSuite      = null;
 const PastryLibrary      = null;
-const MixologyPanel      = safeImport(() => import("../components/MixologyTabs.jsx").catch(() => ({ default: () => <div style={{ padding: "20px", color: "#7ff3ff" }}>Mixology Panel Coming Soon</div> })), "Mixology");
+const MixologyPanel      = safeImport(() => import("../components/MixologyFallback.jsx"), "Mixology");
 const SchedulerPanel     = Schedule;
 const WidgetStudio       = null;
 const PageViewer         = null;
