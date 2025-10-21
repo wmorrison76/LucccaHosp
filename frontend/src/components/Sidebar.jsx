@@ -173,7 +173,7 @@ export default function Sidebar({
           <div className="space-y-1">
             {bottomRoutes.map(({ path, label, icon }) => (
               <button key={path} type="button" title={label} aria-label={label} className={itemClasses(false)} onClick={() => {}}>
-                <img src={icon} alt="" className="justify-self-center w-[44px] h-[44px] object-contain aspect-square" />
+                <img src={icon} alt={label} className="sb-menu-icon" />
                 <Label>{label}</Label>
               </button>
             ))}
