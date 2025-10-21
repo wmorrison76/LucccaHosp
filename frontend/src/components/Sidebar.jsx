@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { NavLink } from "react-router-dom";
 import { Menu, Sun, Moon, Clock3, Settings as Cog } from "lucide-react";
 
 import dashboardIcon from "../assets/analytics.png";
@@ -157,10 +156,10 @@ export default function Sidebar({
 
           {/* Route-based modules */}
           {routeModules.map(({ path, label, icon }) => (
-            <NavLink key={path} to={path} title={label} aria-label={label} className={({ isActive }) => itemClasses(isActive)}>
+            <button key={path} type="button" title={label} aria-label={label} className={itemClasses(false)} onClick={() => {}}>
               <img src={icon} alt="" className="justify-self-center w-[44px] h-[44px] object-contain aspect-square" />
               <Label>{label}</Label>
-            </NavLink>
+            </button>
           ))}
 
           {/* Recent (opens a small panel via Board) */}
@@ -181,10 +180,10 @@ export default function Sidebar({
           <hr className={`border-t ${isDarkMode ? "border-cyan-500/25" : "border-black/10"} mb-2`} />
           <div className="space-y-1">
             {bottomRoutes.map(({ path, label, icon }) => (
-              <NavLink key={path} to={path} title={label} aria-label={label} className={({ isActive }) => itemClasses(isActive)}>
+              <button key={path} type="button" title={label} aria-label={label} className={itemClasses(false)} onClick={() => {}}>
                 <img src={icon} alt="" className="justify-self-center w-[44px] h-[44px] object-contain aspect-square" />
                 <Label>{label}</Label>
-              </NavLink>
+              </button>
             ))}
 
             {/* Settings opens the SettingsSuite panel directly */}
