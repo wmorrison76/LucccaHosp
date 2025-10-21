@@ -53,15 +53,19 @@ body {
 
 /* Title bar */
 .panel-header{
-  height:36px; padding:0 8px; display:flex; align-items:center;
-  background:linear-gradient(180deg, rgba(240,243,247,.95), rgba(226,230,236,.95));
-  border-bottom:1px solid rgba(0,0,0,.14);
+  height:36px; padding:0 10px; display:flex; align-items:center;
+  background:linear-gradient(180deg, rgba(240,243,247,.96), rgba(226,230,236,.92));
+  border-bottom:1px solid rgba(0,0,0,.1);
+  transition:all 0.18s ease;
 }
 .dark .panel-header{
-  background:linear-gradient(180deg, rgba(9,18,31,.96), rgba(9,18,31,.88));
-  border-bottom:1px solid rgba(34,211,238,.22);
+  background:linear-gradient(180deg, rgba(12,22,36,.96), rgba(10,18,32,.88));
+  border-bottom:1px solid rgba(34,211,238,.2);
 }
-.panel-title{ font-weight:700; letter-spacing:.25px; }
+.dark .panel-window:hover .panel-header{
+  border-bottom-color:rgba(34,211,238,.28);
+}
+.panel-title{ font-weight:700; letter-spacing:.3px; font-size:14px; }
 
 /* Mac dots */
 .panel-header .dot{ width:14px; height:14px; border-radius:999px; display:grid; place-items:center;
