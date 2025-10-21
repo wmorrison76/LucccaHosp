@@ -92,7 +92,20 @@ export default function PurchasingPanel() {
         <h2 style={{ fontSize: '24px', fontWeight: 'bold', margin: 0 }}>
           Purchasing
         </h2>
-        
+
+        {loadError && (
+          <div style={{
+            padding: '16px',
+            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+            borderRadius: '8px',
+            border: '1px solid rgba(239, 68, 68, 0.5)',
+            color: '#fca5a5',
+          }}>
+            <div style={{ fontWeight: 'bold', marginBottom: '8px' }}>Error loading Purchasing</div>
+            <div style={{ fontSize: '12px' }}>{loadError}</div>
+          </div>
+        )}
+
         <div style={{
           flex: 1,
           padding: '24px',
@@ -143,14 +156,16 @@ export default function PurchasingPanel() {
                 </div>
               ))}
             </div>
-            
-            <p style={{ margin: '24px 0 8px 0', fontSize: '14px' }}>Loading Purchasing module from Builder.io...</p>
+
+            <p style={{ margin: '24px 0 8px 0', fontSize: '14px' }}>
+              {isLoading ? 'Loading Purchasing module from Builder.io...' : 'Purchasing module ready'}
+            </p>
             <p style={{ margin: 0, fontSize: '11px', opacity: 0.6 }}>
               Project: b7fb23f08dac4694b1ae40ac60e1f16a
             </p>
           </div>
         </div>
-        
+
         {/* Builder.io content renders here */}
         <div id="builder-purchasing-container" style={{ flex: 1 }} />
       </div>
