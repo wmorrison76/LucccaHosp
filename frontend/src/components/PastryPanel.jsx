@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, Suspense } from 'react';
-import { ChefHat, Image, Cube, Paintbrush } from 'lucide-react';
+import { ChefHat, Image, Cube, Paintbrush, BookOpen, Plus, Trash2, X } from 'lucide-react';
 
 // Gallery Tab Component
 const GalleryTab = () => {
@@ -434,6 +434,346 @@ const CanvasStudioTab = () => {
   );
 };
 
+// Recipes Tab Component
+const RecipesTab = () => {
+  const [recipes, setRecipes] = useState([
+    { id: 1, name: 'Classic Chocolate Cake', servings: 8, time: '45 min', difficulty: 'Easy' },
+    { id: 2, name: 'Vanilla Sponge', servings: 10, time: '50 min', difficulty: 'Medium' },
+    { id: 3, name: 'Berry Tart', servings: 6, time: '30 min', difficulty: 'Medium' },
+  ]);
+
+  const [showForm, setShowForm] = useState(false);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    servings: '',
+    time: '',
+    difficulty: 'Easy',
+  });
+
+  const handleAddRecipe = (e) => {
+    e.preventDefault();
+    if (formData.name && formData.servings && formData.time) {
+      setRecipes([
+        ...recipes,
+        {
+          id: Date.now(),
+          ...formData,
+          servings: Number(formData.servings),
+        },
+      ]);
+      setFormData({ name: '', servings: '', time: '', difficulty: 'Easy' });
+      setShowForm(false);
+    }
+  };
+
+  const handleDeleteRecipe = (id) => {
+    setRecipes(recipes.filter((r) => r.id !== id));
+    setSelectedRecipe(null);
+  };
+
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', height: '100%' }}>
+      {/* Recipes List */}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '8px',
+        overflowY: 'auto',
+        paddingRight: '8px',
+      }}>
+        <button
+          onClick={() => setShowForm(!showForm)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            padding: '12px',
+            backgroundColor: 'rgba(0, 217, 255, 0.15)',
+            border: '1px solid rgba(0, 217, 255, 0.3)',
+            borderRadius: '8px',
+            color: '#7ff3ff',
+            fontSize: '12px',
+            fontWeight: '600',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+            textTransform: 'uppercase',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(0, 217, 255, 0.25)';
+            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 217, 255, 0.2)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(0, 217, 255, 0.15)';
+            e.currentTarget.style.boxShadow = 'none';
+          }}
+        >
+          <Plus size={16} />
+          New Recipe
+        </button>
+
+        {recipes.map((recipe) => (
+          <button
+            key={recipe.id}
+            onClick={() => setSelectedRecipe(recipe)}
+            style={{
+              padding: '12px',
+              backgroundColor: selectedRecipe?.id === recipe.id ? 'rgba(0, 217, 255, 0.2)' : 'rgba(15, 23, 42, 0.4)',
+              border: selectedRecipe?.id === recipe.id ? '1px solid rgba(0, 217, 255, 0.5)' : '1px solid rgba(0, 217, 255, 0.15)',
+              borderRadius: '8px',
+              color: '#b0e0ff',
+              textAlign: 'left',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => {
+              if (selectedRecipe?.id !== recipe.id) {
+                e.currentTarget.style.backgroundColor = 'rgba(30, 41, 59, 0.4)';
+                e.currentTarget.style.borderColor = 'rgba(0, 217, 255, 0.3)';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (selectedRecipe?.id !== recipe.id) {
+                e.currentTarget.style.backgroundColor = 'rgba(15, 23, 42, 0.4)';
+                e.currentTarget.style.borderColor = 'rgba(0, 217, 255, 0.15)';
+              }
+            }}
+          >
+            <div style={{ fontSize: '12px', fontWeight: '600', marginBottom: '4px' }}>{recipe.name}</div>
+            <div style={{ fontSize: '11px', opacity: 0.7 }}>
+              {recipe.servings} servings • {recipe.time} • {recipe.difficulty}
+            </div>
+          </button>
+        ))}
+      </div>
+
+      {/* Recipe Detail or Form */}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '12px',
+        padding: '16px',
+        backgroundColor: 'rgba(30, 41, 59, 0.3)',
+        borderRadius: '12px',
+        border: '1px solid rgba(0, 217, 255, 0.15)',
+        overflowY: 'auto',
+      }}>
+        {showForm ? (
+          <>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+              <h3 style={{ margin: 0, fontSize: '14px', fontWeight: '600', color: '#00ffff' }}>New Recipe</h3>
+              <button
+                onClick={() => setShowForm(false)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#7ff3ff',
+                  cursor: 'pointer',
+                  fontSize: '14px',
+                }}
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            <form onSubmit={handleAddRecipe}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div>
+                  <label style={{ fontSize: '11px', color: '#7ff3ff', display: 'block', marginBottom: '4px', textTransform: 'uppercase' }}>
+                    Recipe Name
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    placeholder="e.g., Chocolate Cake"
+                    style={{
+                      width: '100%',
+                      padding: '8px 12px',
+                      backgroundColor: 'rgba(15, 23, 42, 0.5)',
+                      border: '1px solid rgba(0, 217, 255, 0.2)',
+                      borderRadius: '6px',
+                      color: '#e2e8f0',
+                      fontSize: '12px',
+                      boxSizing: 'border-box',
+                    }}
+                  />
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                  <div>
+                    <label style={{ fontSize: '11px', color: '#7ff3ff', display: 'block', marginBottom: '4px', textTransform: 'uppercase' }}>
+                      Servings
+                    </label>
+                    <input
+                      type="number"
+                      value={formData.servings}
+                      onChange={(e) => setFormData({ ...formData, servings: e.target.value })}
+                      placeholder="8"
+                      style={{
+                        width: '100%',
+                        padding: '8px 12px',
+                        backgroundColor: 'rgba(15, 23, 42, 0.5)',
+                        border: '1px solid rgba(0, 217, 255, 0.2)',
+                        borderRadius: '6px',
+                        color: '#e2e8f0',
+                        fontSize: '12px',
+                        boxSizing: 'border-box',
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ fontSize: '11px', color: '#7ff3ff', display: 'block', marginBottom: '4px', textTransform: 'uppercase' }}>
+                      Time
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.time}
+                      onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+                      placeholder="45 min"
+                      style={{
+                        width: '100%',
+                        padding: '8px 12px',
+                        backgroundColor: 'rgba(15, 23, 42, 0.5)',
+                        border: '1px solid rgba(0, 217, 255, 0.2)',
+                        borderRadius: '6px',
+                        color: '#e2e8f0',
+                        fontSize: '12px',
+                        boxSizing: 'border-box',
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label style={{ fontSize: '11px', color: '#7ff3ff', display: 'block', marginBottom: '4px', textTransform: 'uppercase' }}>
+                    Difficulty
+                  </label>
+                  <select
+                    value={formData.difficulty}
+                    onChange={(e) => setFormData({ ...formData, difficulty: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: '8px 12px',
+                      backgroundColor: 'rgba(15, 23, 42, 0.5)',
+                      border: '1px solid rgba(0, 217, 255, 0.2)',
+                      borderRadius: '6px',
+                      color: '#e2e8f0',
+                      fontSize: '12px',
+                      boxSizing: 'border-box',
+                    }}
+                  >
+                    <option>Easy</option>
+                    <option>Medium</option>
+                    <option>Hard</option>
+                  </select>
+                </div>
+
+                <button
+                  type="submit"
+                  style={{
+                    padding: '10px',
+                    backgroundColor: 'rgba(0, 217, 255, 0.2)',
+                    border: '1px solid rgba(0, 217, 255, 0.4)',
+                    borderRadius: '6px',
+                    color: '#00ffff',
+                    fontSize: '12px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    textTransform: 'uppercase',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'rgba(0, 217, 255, 0.3)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 217, 255, 0.2)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'rgba(0, 217, 255, 0.2)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
+                  Add Recipe
+                </button>
+              </div>
+            </form>
+          </>
+        ) : selectedRecipe ? (
+          <>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+              <div>
+                <h3 style={{ margin: '0 0 4px 0', fontSize: '14px', fontWeight: '600', color: '#00ffff' }}>
+                  {selectedRecipe.name}
+                </h3>
+                <div style={{ fontSize: '11px', opacity: 0.7 }}>
+                  {selectedRecipe.servings} servings • {selectedRecipe.time}
+                </div>
+              </div>
+              <button
+                onClick={() => handleDeleteRecipe(selectedRecipe.id)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#f87171',
+                  cursor: 'pointer',
+                  padding: '4px',
+                }}
+              >
+                <Trash2 size={16} />
+              </button>
+            </div>
+
+            <div style={{
+              padding: '12px',
+              backgroundColor: 'rgba(15, 23, 42, 0.4)',
+              borderRadius: '8px',
+              border: '1px solid rgba(0, 217, 255, 0.1)',
+              fontSize: '12px',
+            }}>
+              <div style={{ marginBottom: '8px' }}>
+                <span style={{ color: '#7ff3ff', fontWeight: '600' }}>Difficulty:</span>
+                <span style={{ marginLeft: '8px' }}>{selectedRecipe.difficulty}</span>
+              </div>
+              <div>
+                <span style={{ color: '#7ff3ff', fontWeight: '600' }}>Prep Time:</span>
+                <span style={{ marginLeft: '8px' }}>{selectedRecipe.time}</span>
+              </div>
+            </div>
+
+            <div style={{
+              flex: 1,
+              padding: '12px',
+              backgroundColor: 'rgba(15, 23, 42, 0.3)',
+              borderRadius: '8px',
+              fontSize: '12px',
+              color: '#cbd5e1',
+              textAlign: 'center',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              Detailed recipe content coming soon...
+            </div>
+          </>
+        ) : (
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%',
+            color: '#7ff3ff',
+            fontSize: '12px',
+            textAlign: 'center',
+          }}>
+            Select a recipe or create a new one
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 // Main Pastry Panel with Tabs
 export default function PastryPanel() {
   const [activeTab, setActiveTab] = useState('gallery');
@@ -442,6 +782,7 @@ export default function PastryPanel() {
     { id: 'gallery', label: 'Gallery', icon: Image },
     { id: 'cake3d', label: '3D Cake', icon: Cube },
     { id: 'canvas', label: 'Canvas Studio', icon: Paintbrush },
+    { id: 'recipes', label: 'Recipes', icon: BookOpen },
   ];
 
   return (
@@ -532,6 +873,7 @@ export default function PastryPanel() {
         {activeTab === 'gallery' && <GalleryTab />}
         {activeTab === 'cake3d' && <Cake3DTab />}
         {activeTab === 'canvas' && <CanvasStudioTab />}
+        {activeTab === 'recipes' && <RecipesTab />}
       </div>
     </div>
   );
