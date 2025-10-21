@@ -119,6 +119,3 @@
   transform: translateY(var(--wb-offset-y)) scale(var(--wb-scale));
   transform-origin: top right;
 }
-
-/* keep your echo-orb import */
-@import './echo-orb/styles/echo-orb.css';
