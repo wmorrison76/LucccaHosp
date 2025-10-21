@@ -140,7 +140,7 @@ export default function Sidebar({
                 justifyContent: isOpen ? 'flex-start' : 'center',
                 width: '100%',
                 height: '45px',
-                padding: isOpen ? '10px 12px' : '0',
+                padding: '0 12px',
                 minWidth: '45px',
               }}
             >
@@ -162,14 +162,14 @@ export default function Sidebar({
                 justifyContent: isOpen ? 'flex-start' : 'center',
                 width: '100%',
                 height: '45px',
-                padding: isOpen ? '10px 12px' : '0',
+                padding: '0 12px',
                 minWidth: '45px',
               }}
             >
               <img src={icon} alt={label} className="sb-menu-icon" style={{ width: '45px', height: '45px', flexShrink: 0 }} />
               {isOpen && <Label>{label}</Label>}
             </button>
-          ))}
+          ))}}
 
           {/* Recent (opens a small panel via Board) */}
           <button
@@ -182,7 +182,7 @@ export default function Sidebar({
               justifyContent: isOpen ? 'flex-start' : 'center',
               width: '100%',
               height: '45px',
-              padding: isOpen ? '10px 12px' : '0',
+              padding: '0 12px',
               minWidth: '45px',
             }}
           >
@@ -207,7 +207,7 @@ export default function Sidebar({
                   justifyContent: isOpen ? 'flex-start' : 'center',
                   width: '100%',
                   height: '45px',
-                  padding: isOpen ? '10px 12px' : '0',
+                  padding: '0 12px',
                   minWidth: '45px',
                 }}
               >
@@ -227,7 +227,7 @@ export default function Sidebar({
                 justifyContent: isOpen ? 'flex-start' : 'center',
                 width: '100%',
                 height: '45px',
-                padding: isOpen ? '10px 12px' : '0',
+                padding: '0 12px',
                 minWidth: '45px',
               }}
             >
