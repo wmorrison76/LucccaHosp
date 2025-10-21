@@ -136,7 +136,7 @@ export default function Sidebar({
             <button
               key={panelId}
               type="button"
-              onClick={() => panelId === "eventstudio" ? openEventStudioWindow() : openPanel(panelId)}
+              onClick={() => openPanel(panelId)}
               title={label}
               aria-label={label}
               data-panel-id={panelId}
