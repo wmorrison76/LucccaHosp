@@ -1,4 +1,4 @@
-import React, { useState, useCallback, Suspense } from "react";
+import React, { useState, useCallback, Suspense, useEffect } from "react";
 
 const Sidebar = React.lazy(() => import("./components/Sidebar.jsx"));
 const Board = React.lazy(() => import("./board/Board.jsx"));
