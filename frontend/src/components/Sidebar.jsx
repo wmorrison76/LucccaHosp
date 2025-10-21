@@ -186,7 +186,7 @@ export default function Sidebar({
               title="Settings"
               aria-label="Settings"
             >
-              <img src={settingsIcon} alt="" className="justify-self-center w-[44px] h-[44px] object-contain aspect-square" />
+              <img src={settingsIcon} alt="Settings" className="sb-menu-icon" />
               <Label>SETTINGS</Label>
             </button>
           </div>
