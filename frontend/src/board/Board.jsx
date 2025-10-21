@@ -53,6 +53,7 @@ const safeImport = (importFn) =>
 const GlowDesk           = safeImport(() => import("../components/GlowyDesk.jsx"));
 const KitchenLibraryTabs = safeImport(() => import("../components/KitchenLibraryTabs.jsx"));
 const Schedule           = safeImport(() => import("../modules/scheduling/Schedule.jsx"));
+const EchoRecipeProPanel = safeImport(() => import("../components/EchoRecipePro/EchoRecipeProPanel.jsx"));
 
 // Optional panels - set to null if not available
 const SettingsSuite      = null;
@@ -62,7 +63,6 @@ const SchedulerPanel     = Schedule;
 const WidgetStudio       = null;
 const PageViewer         = null;
 const CakeBuilder        = null;
-const EchoRecipeProPanel = null;
 const WhiteboardPanel    = null;
 const StickyNotePanelLazy = null;
 
@@ -81,7 +81,7 @@ import pastryIcon   from "../assets/baking-&-Pastry.png";
 import mixologyIcon from "../assets/mixology.png";
 import scheduleIcon from "../assets/schedule.png";
 
-/* ─────────────── Error boundary ─────────────── */
+/* ────────���────── Error boundary ─────────────── */
 class PanelErrorBoundary extends React.Component {
   constructor(p){ super(p); this.state = { error: null }; }
   static getDerivedStateFromError(error){ return { error }; }
