@@ -74,7 +74,7 @@ const MaestroBQTPanel    = safeImport(() => import("../components/MaestroBQTPane
 const EchoAurumPanel     = safeImport(() => import("../components/EchoAurumPanel.jsx"), "EchoAurumPanel");
 const ECHOLayoutPanel    = safeImport(() => import("../components/ECHOLayoutPanel.jsx"), "ECHOLayoutPanel");
 const PastryPanel        = safeImport(() => import("../components/PastryPanel.jsx"), "PastryPanel");
-const WhiteboardPanel    = safeImport(() => import("../modules/EchoDesk_Framework/src/panels/WhiteboardPanel.jsx").catch(() => import("../components/WhiteboardPanel.jsx")), "WhiteboardPanel");
+const WhiteboardPanel    = safeImport(() => import("../components/WhiteboardPanel.jsx"), "WhiteboardPanel");
 const MixologyPanel      = safeImport(() => import("../components/MixologyFallback.jsx"), "Mixology");
 const VideoConferencePanel = safeImport(() => import("../components/VideoConference.tsx").catch(() => ({ default: () => <div style={{ padding: '20px', color: '#7ff3ff' }}>Video Conference Panel</div> })), "VideoConference");
 
