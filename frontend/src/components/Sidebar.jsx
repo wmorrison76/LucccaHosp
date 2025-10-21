@@ -140,9 +140,8 @@ export default function Sidebar({
               aria-label={label}
               data-panel-id={panelId}
               className={itemClasses(false)}
-              style={{ boxShadow: "none", filter: "none" }}
             >
-              <img src={icon} alt="" className="justify-self-center w-[44px] h-[44px] object-contain aspect-square" />
+              <img src={icon} alt={label} className="sb-menu-icon" />
               <Label>{label}</Label>
             </button>
           ))}
