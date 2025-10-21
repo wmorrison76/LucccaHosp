@@ -15,21 +15,28 @@ export default function EchoBackboard({
 
   // echo status -> tiny glow + toast for assistant text
   useEffect(() => {
-    const bus = getEchoBus();
-    const onStatus = (e) => setStatus(e.detail?.status || "connecting");
-    const onAssistant = (e) => {
-      const text = e.detail?.text;
-      if (!text) return;
-      window.dispatchEvent(new CustomEvent("echo-notify", { detail: { text, tone: "info", ms: 4500 } }));
-      setPulse(true);
-      setTimeout(() => setPulse(false), 900);
-    };
-    bus.addEventListener("status", onStatus);
-    bus.addEventListener("assistant_text", onAssistant);
-    return () => {
-      bus.removeEventListener("status", onStatus);
-      bus.removeEventListener("assistant_text", onAssistant);
-    };
+    try {
+      const bus = getEchoBus();
+      if (!bus) return; // Echo bus not available
+
+      const onStatus = (e) => setStatus(e.detail?.status || "connecting");
+      const onAssistant = (e) => {
+        const text = e.detail?.text;
+        if (!text) return;
+        window.dispatchEvent(new CustomEvent("echo-notify", { detail: { text, tone: "info", ms: 4500 } }));
+        setPulse(true);
+        setTimeout(() => setPulse(false), 900);
+      };
+      bus.addEventListener("status", onStatus);
+      bus.addEventListener("assistant_text", onAssistant);
+      return () => {
+        bus.removeEventListener("status", onStatus);
+        bus.removeEventListener("assistant_text", onAssistant);
+      };
+    } catch (err) {
+      console.warn("[EchoBackboard] Echo bus initialization failed:", err);
+      setStatus("offline");
+    }
   }, []);
 
   // local stickies
