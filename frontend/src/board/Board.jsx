@@ -119,12 +119,21 @@ class PanelErrorBoundary extends React.Component {
 const PANEL_REGISTRY = {};
 
 // Add only panels with valid components
+console.log('[Board] Initializing PANEL_REGISTRY');
+console.log('[Board] GlowDesk:', !!GlowDesk);
+console.log('[Board] KitchenLibraryTabs:', !!KitchenLibraryTabs);
+console.log('[Board] Schedule:', !!Schedule);
+console.log('[Board] EchoRecipeProPanel:', !!EchoRecipeProPanel);
+console.log('[Board] PurchasingPanel:', !!PurchasingPanel);
+
 if (GlowDesk) PANEL_REGISTRY.dashboard = { title: "Dashboard", Component: GlowDesk, icon: null };
 if (GlowDesk) PANEL_REGISTRY.home = { title: "Welcome", Component: GlowDesk, icon: null };
 if (KitchenLibraryTabs) PANEL_REGISTRY.culinary = { title: "Kitchen Library", Component: KitchenLibraryTabs, icon: kitchenIcon };
 if (Schedule) PANEL_REGISTRY.scheduling = { title: "Schedules", Component: Schedule, icon: scheduleIcon };
 if (EchoRecipeProPanel) PANEL_REGISTRY.recipepro = { title: "EchoRecipePro", Component: EchoRecipeProPanel, icon: null };
 if (PurchasingPanel) PANEL_REGISTRY.purchasing = { title: "Purchasing", Component: PurchasingPanel, icon: null };
+
+console.log('[Board] Final PANEL_REGISTRY keys:', Object.keys(PANEL_REGISTRY));
 
 // Always add EchoDesk stubs
 PANEL_REGISTRY.calendar = { title: "Calendar", Component: CalendarOverlay, icon: null };
