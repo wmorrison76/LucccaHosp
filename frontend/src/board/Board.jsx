@@ -120,7 +120,7 @@ class PanelErrorBoundary extends React.Component {
   }
 }
 
-/* ─────────────── Registry ──────���──────── */
+/* ─────────────── Registry ─────────────── */
 const PANEL_REGISTRY = {};
 
 // Add only panels with valid components
@@ -134,6 +134,7 @@ console.log('[Board] EchoEventStudioPanel:', !!EchoEventStudioPanel);
 console.log('[Board] MaestroBQTPanel:', !!MaestroBQTPanel);
 console.log('[Board] EchoAurumPanel:', !!EchoAurumPanel);
 console.log('[Board] ECHOLayoutPanel:', !!ECHOLayoutPanel);
+console.log('[Board] PastryPanel:', !!PastryPanel);
 
 if (GlowDesk) PANEL_REGISTRY.dashboard = { title: "Dashboard", Component: GlowDesk, icon: null };
 if (GlowDesk) PANEL_REGISTRY.home = { title: "Welcome", Component: GlowDesk, icon: null };
@@ -497,7 +498,7 @@ export default function Board() {
         })}
       </div>
 
-      {/* orb/chat removed ��� no portal, no extra styles */}
+      {/* orb/chat removed → no portal, no extra styles */}
       <style>{`
         .tb2-shell{ display:flex; align-items:center; gap:10px; padding:6px 8px; border-radius:14px; border:1px solid rgba(22,224,255,.28); background:rgba(10,16,28,.72); box-shadow:0 16px 60px rgba(0,0,0,.45), 0 0 16px rgba(22,224,255,.14), inset 0 0 0 1px rgba(255,255,255,.05); backdrop-filter: blur(8px); user-select:none; }
         .tb2-handle{ display:inline-flex; align-items:center; gap:6px; height:28px; padding:0 8px; font-size:12px; border-radius:10px; border:1px solid rgba(22,224,255,.28); background:rgba(255,255,255,.06); color:#d7f6ff; cursor:grab; }
