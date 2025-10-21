@@ -23,7 +23,7 @@ html.dark, body.dark, .dark {
   color: #e0f2fe;
 }
 
-/* ════════════���═══════════════════════════���══════════════════════════════════
+/* ════════════���══════════════════════════════════════════════════════════════
    DASHBOARD BUTTON & CARD STYLES
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -335,11 +335,12 @@ html.light .gd-card-tool-btn:hover {
 
 /* Menu icon - stays visible when collapsed (45px) */
 .sb-menu-icon {
-  width: 45px;
-  height: 45px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
   flex-shrink: 0;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
 }
 
 /* Menu label - hidden when collapsed, shown when expanded */
