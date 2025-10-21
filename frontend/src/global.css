@@ -2,7 +2,7 @@
 
 /* ════════════════════════��══════════════════════════════════════════════════
    APP CONTAINER & ROOT STYLING
-   ═══════════════════════════════════════════════════════════��═══════════���═══ */
+   ═══════════════════════════════════════════════════════════��═══════════════ */
 
 html, body {
   margin: 0;
@@ -397,7 +397,7 @@ aside .flex-shrink-0 {
   padding-bottom: 10px;
 }
 
-/* ════════════════════════════════════════════════════════════════��═══════���══
+/* ════════════════════════════════════════════════════════════════��══════════
    TOOLBAR STYLES - DARK (TRON NEON) & LIGHT (APPLE GLASS)
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -501,12 +501,12 @@ html.light .tb2-handle:hover {
   height: 20px;
   min-width: 20px;
   padding: 0 4px;
-  border-radius: 8px;
-  border: 1px solid rgba(0, 217, 255, 0.25);
+  border-radius: 6px;
+  border: 1px solid rgba(0, 217, 255, 0.2);
   background: rgba(0, 217, 255, 0.08);
-  color: #7ff3ff;
+  color: #8ff4ff;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.12s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
