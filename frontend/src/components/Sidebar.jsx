@@ -136,9 +136,15 @@ export default function Sidebar({
               aria-label={label}
               data-panel-id={panelId}
               className={itemClasses(false)}
+              style={{
+                justifyContent: isOpen ? 'flex-start' : 'center',
+                width: isOpen ? '100%' : '45px',
+                height: '45px',
+                padding: isOpen ? '10px 12px' : '0',
+              }}
             >
-              <img src={icon} alt={label} className="sb-menu-icon" />
-              <Label>{label}</Label>
+              <img src={icon} alt={label} className="sb-menu-icon" style={{ width: '45px', height: '45px' }} />
+              {isOpen && <Label>{label}</Label>}
             </button>
           ))}
 
