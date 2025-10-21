@@ -52,12 +52,13 @@ const safeImport = (importFn) =>
 
 const GlowDesk           = safeImport(() => import("../components/GlowyDesk.jsx"));
 const KitchenLibraryTabs = safeImport(() => import("../components/KitchenLibraryTabs.jsx"));
+const Schedule           = safeImport(() => import("../modules/scheduling/Schedule.jsx"));
 
 // Optional panels - set to null if not available
 const SettingsSuite      = null;
 const PastryLibrary      = null;
 const Mixology           = null;
-const SchedulerPanel     = null;
+const SchedulerPanel     = Schedule;
 const WidgetStudio       = null;
 const PageViewer         = null;
 const CakeBuilder        = null;
