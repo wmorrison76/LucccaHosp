@@ -39,7 +39,7 @@ const lazyPick = (loader, key = "default") =>
     loader().then((m) => ({ default: m?.[key] ?? m?.default ?? m }))
   );
 
-/* ───────────────── Panels (lazy) ───────────────── */
+/* ───────────────── Panels (lazy) ─��─────────────── */
 
 // Simplified lazy-loaded panels with error handling
 const safeImport = (importFn, name = 'Unknown') =>
@@ -64,11 +64,11 @@ const safeImport = (importFn, name = 'Unknown') =>
       });
   });
 
-const GlowDesk           = safeImport(() => import("../components/GlowyDesk.jsx"));
-const KitchenLibraryTabs = safeImport(() => import("../components/KitchenLibraryTabs.jsx"));
-const Schedule           = safeImport(() => import("../modules/scheduling/Schedule.jsx"));
-const EchoRecipeProPanel = safeImport(() => import("../components/EchoRecipePro/EchoRecipeProPanel.jsx"));
-const PurchasingPanel    = safeImport(() => import("../components/Purchasing/PurchasingPanel.jsx"));
+const GlowDesk           = safeImport(() => import("../components/GlowyDesk.jsx"), "GlowyDesk");
+const KitchenLibraryTabs = safeImport(() => import("../components/KitchenLibraryTabs.jsx"), "KitchenLibraryTabs");
+const Schedule           = safeImport(() => import("../modules/scheduling/Schedule.jsx"), "Schedule");
+const EchoRecipeProPanel = safeImport(() => import("../components/EchoRecipePro/EchoRecipeProPanel.jsx"), "EchoRecipeProPanel");
+const PurchasingPanel    = safeImport(() => import("../components/Purchasing/PurchasingPanel.jsx"), "PurchasingPanel");
 
 // Optional panels - set to null if not available
 const SettingsSuite      = null;
@@ -96,7 +96,7 @@ import pastryIcon   from "../assets/baking-&-Pastry.png";
 import mixologyIcon from "../assets/mixology.png";
 import scheduleIcon from "../assets/schedule.png";
 
-/* ─────────���───── Error boundary ─────────────── */
+/* ─────────────── Error boundary ─────────────── */
 class PanelErrorBoundary extends React.Component {
   constructor(p){ super(p); this.state = { error: null }; }
   static getDerivedStateFromError(error){ return { error }; }
@@ -143,7 +143,7 @@ const LS = {
   allowOffscreen: "lu:allowOffscreen",
 };
 
-/* ─────────────── Component ─────────────── */
+/* ─────��───────── Component ─────────────── */
 export default function Board() {
   const layerRef = useRef(null);
   const [windows, setWindows] = useState([]);
