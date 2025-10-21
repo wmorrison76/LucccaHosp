@@ -54,6 +54,7 @@ const GlowDesk           = safeImport(() => import("../components/GlowyDesk.jsx"
 const KitchenLibraryTabs = safeImport(() => import("../components/KitchenLibraryTabs.jsx"));
 const Schedule           = safeImport(() => import("../modules/scheduling/Schedule.jsx"));
 const EchoRecipeProPanel = safeImport(() => import("../components/EchoRecipePro/EchoRecipeProPanel.jsx"));
+const PurchasingPanel    = safeImport(() => import("../components/Purchasing/PurchasingPanel.jsx"));
 
 // Optional panels - set to null if not available
 const SettingsSuite      = null;
