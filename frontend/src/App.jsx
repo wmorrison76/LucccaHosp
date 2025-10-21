@@ -1,8 +1,13 @@
 import React, { useState, useCallback, Suspense } from "react";
+import Sidebar from "./components/Sidebar.jsx";
 
-// Lazy load Board to catch issues
-const Board = React.lazy(() => import("./board/Board.jsx"));
-const Sidebar = React.lazy(() => import("./components/Sidebar.jsx"));
+// Lazy load Board with error handling
+const Board = React.lazy(() =>
+  import("./board/Board.jsx").catch(err => {
+    console.error("Board import error:", err);
+    return { default: () => <div style={{ padding: "20px", color: "#f87171" }}>Board failed to load: {err.message}</div> };
+  })
+);
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(true);
@@ -14,19 +19,12 @@ export default function App() {
   return (
     <div style={{ display: "flex", width: "100vw", height: "100vh", margin: 0, padding: 0, backgroundColor: "#0f1c2e", color: "white", fontFamily: "system-ui, sans-serif" }}>
       {/* Sidebar */}
-      <Suspense fallback={<div style={{ width: "60px", background: "#111" }} />}>
-        <React.lazy>
-          {React.lazy(() => import("./components/Sidebar.jsx")).type && (
-            React.lazy(() => import("./components/Sidebar.jsx"))
-          )}
-        </React.lazy>
-        <Sidebar
-          isOpen={isOpen}
-          toggleSidebar={toggleSidebar}
-          isDarkMode={isDark}
-          toggleDarkMode={toggleDark}
-        />
-      </Suspense>
+      <Sidebar
+        isOpen={isOpen}
+        toggleSidebar={toggleSidebar}
+        isDarkMode={isDark}
+        toggleDarkMode={toggleDark}
+      />
 
       {/* Main Content - Full Board */}
       <main style={{ flex: 1, overflow: "hidden" }}>
