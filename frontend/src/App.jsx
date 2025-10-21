@@ -1,19 +1,6 @@
 import React, { useState, useCallback, Suspense } from "react";
-
-let SidebarComponent = null;
-let BoardComponent = null;
-
-try {
-  SidebarComponent = require("./components/Sidebar.jsx").default;
-} catch (e) {
-  console.error("Sidebar error:", e);
-}
-
-try {
-  BoardComponent = require("./board/Board.jsx").default;
-} catch (e) {
-  console.error("Board error:", e);
-}
+import Sidebar from "./components/Sidebar.jsx";
+import Board from "./board/Board.jsx";
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(true);
@@ -22,17 +9,9 @@ export default function App() {
   const toggleSidebar = useCallback(() => setIsOpen(v => !v), []);
   const toggleDark = useCallback(() => setIsDark(v => !v), []);
 
-  if (!SidebarComponent) {
-    return <div style={{ color: "red", padding: "20px" }}>Sidebar failed to load</div>;
-  }
-
-  if (!BoardComponent) {
-    return <div style={{ color: "red", padding: "20px" }}>Board failed to load</div>;
-  }
-
   return (
     <div style={{ display: "flex", width: "100vw", height: "100vh", margin: 0, padding: 0, backgroundColor: "#0f1c2e", color: "white", fontFamily: "system-ui, sans-serif" }}>
-      <SidebarComponent
+      <Sidebar
         isOpen={isOpen}
         toggleSidebar={toggleSidebar}
         isDarkMode={isDark}
@@ -45,7 +24,7 @@ export default function App() {
             Loading dashboard...
           </div>
         }>
-          <BoardComponent />
+          <Board />
         </Suspense>
       </main>
     </div>
