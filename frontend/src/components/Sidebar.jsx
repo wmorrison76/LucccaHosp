@@ -107,7 +107,7 @@ export default function Sidebar({
     { label: "ECHO AURUM",        icon: echoAurum,     panelId: "echoaurum", fallback: <Radio size={20} /> },
     { label: "ECHO LAYOUT",       icon: echoLayout,    panelId: "echolayout", fallback: <Layout size={20} /> },
     { label: "CULINARY",          icon: kitchenIcon,   panelId: "culinary", fallback: <ChefHat size={20} /> },
-    { label: "BAKING & PASTRY",   icon: pastryIcon,    panelId: "pastry", fallback: <ChefHat size={20} /> },
+    { label: "BAKING & PASTRY",   icon: pastryIcon,    panelId: "pastry", fallback: <ChefHat size={20} /> }, // Uses PastryLibrary (original with all tabs)
     { label: "MIXOLOGY",          icon: mixologyIcon,  panelId: "mixology", fallback: <Radio size={20} /> },
     { label: "WHITEBOARD",        icon: null,          panelId: "whiteboard", fallback: <Radio size={20} /> },
     { label: "VIDEO CONFERENCING", icon: null,         panelId: "videoconference", fallback: <Radio size={20} /> },
