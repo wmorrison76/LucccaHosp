@@ -8,7 +8,6 @@ import { Routes, Route } from 'react-router-dom';
 import UserRoleManager from './UserRoleManager';
 import useModuleToggleSync from '../hooks/useModuleToggleSync';
 import OverrideVault from './OverrideVault';
-import OverrideUnlock from './OverrideUnlock';
 import DownloadOverridePDF from './DownloadOverridePDF';
 
 // Roles and Permissions Definitions
@@ -71,7 +70,6 @@ export default function AdminPanel() {
         <Route path="/admin" element={<AdminPanel />} />
         <Route path="/admin/roles" element={<UserRoleManager />} />
         <Route path="/admin/override" element={<OverrideVault />} />
-        <Route path="/admin/unlock" element={<OverrideUnlock />} />
         <Route path="/admin/instructions" element={<DownloadOverridePDF />} />
       </Routes>
     </div>
