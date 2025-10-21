@@ -42,13 +42,27 @@ const lazyPick = (loader, key = "default") =>
 /* ───────────────── Panels (lazy) ───────────────── */
 
 // Simplified lazy-loaded panels with error handling
-const safeImport = (importFn) =>
-  React.lazy(() =>
-    importFn().catch(err => {
-      console.error('Panel import failed:', err);
-      return { default: () => <div style={{ padding: '20px', color: '#f87171' }}>Panel failed to load</div> };
-    })
-  );
+const safeImport = (importFn, name = 'Unknown') =>
+  React.lazy(() => {
+    console.log(`[safeImport] Loading panel: ${name}`);
+    return importFn()
+      .then(m => {
+        console.log(`[safeImport] Successfully loaded: ${name}`, m);
+        return m;
+      })
+      .catch(err => {
+        console.error(`[safeImport] Failed to load ${name}:`, err);
+        return {
+          default: () => (
+            <div style={{ padding: '20px', color: '#f87171', whiteSpace: 'pre-wrap', fontSize: '12px' }}>
+              <div style={{ fontWeight: 'bold', marginBottom: '8px' }}>Panel failed to load: {name}</div>
+              <div>{String(err?.message || err)}</div>
+              {err?.stack && <div style={{ marginTop: '8px', fontSize: '10px', opacity: 0.7 }}>{err.stack}</div>}
+            </div>
+          )
+        };
+      });
+  });
 
 const GlowDesk           = safeImport(() => import("../components/GlowyDesk.jsx"));
 const KitchenLibraryTabs = safeImport(() => import("../components/KitchenLibraryTabs.jsx"));
@@ -82,7 +96,7 @@ import pastryIcon   from "../assets/baking-&-Pastry.png";
 import mixologyIcon from "../assets/mixology.png";
 import scheduleIcon from "../assets/schedule.png";
 
-/* ─────────────── Error boundary ─────────────── */
+/* ─────────���───── Error boundary ─────────────── */
 class PanelErrorBoundary extends React.Component {
   constructor(p){ super(p); this.state = { error: null }; }
   static getDerivedStateFromError(error){ return { error }; }
