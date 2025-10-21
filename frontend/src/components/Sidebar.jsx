@@ -13,6 +13,8 @@ import supportIcon   from "../assets/help-desk.png";
 import settingsIcon  from "../assets/settings.png";
 import chefNetIcon   from "../assets/ChefNet.png";
 import maestroBQT    from "../assets/MaestroBQT.png";
+import echoAurum     from "../assets/Echo-Ai.png";
+import echoLayout    from "../assets/Echo_F.png";
 
 
 export default function Sidebar({
