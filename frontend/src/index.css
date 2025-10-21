@@ -2,8 +2,6 @@
 @import url('./global.css');
 @import url('./styles/modern-theme.css');
 @import url('./styles/layout.css');
-@import url('./styles/sidebar-professional.css');
-@import url('./styles/dashboard-professional.css');
 
 @tailwind base;
 @tailwind components;
