@@ -74,8 +74,8 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-      <div style={{ display: "flex", width: "100vw", height: "100vh", margin: 0, padding: 0, backgroundColor: "#0f1c2e", color: "white", fontFamily: "system-ui, sans-serif" }}>
-        <Suspense fallback={<div style={{ width: "60px", background: "#111" }} />}>
+      <div className={isDark ? "dark" : "light"} style={{ display: "flex", width: "100vw", height: "100vh", margin: 0, padding: 0, fontFamily: "system-ui, sans-serif" }}>
+        <Suspense fallback={<div style={{ width: "60px" }} />}>
           <Sidebar
             isOpen={isOpen}
             toggleSidebar={toggleSidebar}
@@ -86,7 +86,7 @@ export default function App() {
 
         <main style={{ flex: 1, overflow: "hidden" }}>
           <Suspense fallback={
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%", color: "#999" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%", fontSize: "16px" }}>
               Loading dashboard...
             </div>
           }>
