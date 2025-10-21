@@ -15,6 +15,7 @@ import chefNetIcon   from "../assets/ChefNet.png";
 import maestroBQT    from "../assets/MaestroBQT.png";
 import echoAurum     from "../assets/Echo-Ai.png";
 import echoLayout    from "../assets/Echo_F.png";
+import echoCanvas    from "../assets/Echo_Canvas.png";
 
 // Fallback SVG icon maker - generates a colored square with emoji/icon
 const IconFallback = ({ label, color = "#00d9ff" }) => (
