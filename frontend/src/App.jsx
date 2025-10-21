@@ -1,19 +1,4 @@
-import React, { lazy, Suspense, useEffect, useState, useCallback } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import Sidebar from "./components/Sidebar.jsx";
-import Board from "./board/Board.jsx";
-import { PresenceProvider, MultiCursorOverlay } from "./framework/presence/PresenceProvider";
-import { TelemetryOverlay } from "./framework/telemetry/TelemetryOverlay";
-import { RescueShell } from "./framework/errors/RescueShell";
-import { CommandPalette } from "./framework/command/CommandPalette";
-
-const Culinary     = lazy(() => import("./components/KitchenLibraryTabs.jsx"));
-const BakingPastry = lazy(() => import("./components/PastryLibrary/PastryLibrary.jsx"));
-const Mixology     = lazy(() => import("./components/MixologyTabs.jsx"));
-const Scheduling   = lazy(() => import("./modules/scheduling/client/App.tsx"));
-const EchoBuilder  = lazy(() => import("./modules/EchoBuilder/EchoBuilder.jsx"));
-
-const REAL_DASHBOARD_PATH = "/whiteboard";
+import React from "react";
 
 export default function App() {
   return (
