@@ -23,7 +23,7 @@ html.dark, body.dark, .dark {
   color: #e0f2fe;
 }
 
-/* ════════════���══════════════════════════════════════════════════════════════
+/* ════════════���═══════════════════════════════════════════════════���══════════
    DASHBOARD BUTTON & CARD STYLES
    ═════════════════��═════════════════════════════════════════════════════════ */
 
@@ -228,6 +228,7 @@ html.light .gd-card-tool-btn:hover {
   background: linear-gradient(180deg, rgba(10, 20, 35, 0.98), rgba(8, 15, 28, 0.98));
   color: #00d9ff;
   border-right-color: rgba(0, 217, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(0, 217, 255, 0.1);
 }
 
 .sb-shell-dark::before {
@@ -250,11 +251,6 @@ html.light .gd-card-tool-btn:hover {
   color: #1f2937;
   border-right-color: rgba(0, 0, 0, 0.08);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-}
-
-/* Dark mode sidebar shell - add drop shadow */
-.sb-shell-dark {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(0, 217, 255, 0.1);
 }
 
 /* Sidebar menu items - collapsed/expanded state */
@@ -368,7 +364,7 @@ aside[data-collapsed="true"] .sb-menu-label {
   opacity: 0;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════════════��══════════
    TOOLBAR STYLES - DARK (TRON NEON) & LIGHT (APPLE GLASS)
    ═══════════════════════════════════════════════════════════════════════════ */
 
