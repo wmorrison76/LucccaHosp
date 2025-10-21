@@ -100,33 +100,20 @@ class PanelErrorBoundary extends React.Component {
 }
 
 /* ─────────────── Registry ─────────────── */
-const PANEL_REGISTRY = {
-  dashboard:   { title: "Dashboard",       Component: GlowDesk,            icon: null },
-  whiteboard:  { title: "Whiteboard",      Component: WhiteboardPanel,     icon: null },
-  home:        { title: "Welcome",         Component: GlowDesk,            icon: null },
-  viewer:      { title: "Page Viewer",     Component: PageViewer,          icon: null },
-  studio:      { title: "Widget Studio",   Component: WidgetStudio,        icon: null },
-  cake:        { title: "Cake Builder",    Component: CakeBuilder,         icon: null },
-  culinary:    { title: "Kitchen Library", Component: KitchenLibraryTabs,  icon: kitchenIcon },
-  pastry:      { title: "Baking & Pastry", Component: PastryLibrary,       icon: pastryIcon },
-  mixology:    { title: "Mixology",        Component: Mixology,            icon: mixologyIcon },
-  scheduling:  { title: "Schedules",       Component: SchedulerPanel,      icon: scheduleIcon },
+const PANEL_REGISTRY = {};
 
-  // NEW: EchoRecipePro panel (Recipe Search / Photos / Add Recipe / Production)
-  recipepro:   { title: "EchoRecipePro",   Component: EchoRecipeProPanel,  icon: null },
+// Add only panels with valid components
+if (GlowDesk) PANEL_REGISTRY.dashboard = { title: "Dashboard", Component: GlowDesk, icon: null };
+if (GlowDesk) PANEL_REGISTRY.home = { title: "Welcome", Component: GlowDesk, icon: null };
+if (KitchenLibraryTabs) PANEL_REGISTRY.culinary = { title: "Kitchen Library", Component: KitchenLibraryTabs, icon: kitchenIcon };
 
-  note:        { title: "Note",            Component: StickyNotePanelLazy, icon: null },
-
-  // EchoDesk stubs (quick open from toolbar or via open-panel)
-  calendar:       { title: "Calendar",        Component: CalendarOverlay,   icon: null },
-  teleconference: { title: "Teleconference",  Component: Teleconference,    icon: null },
-  exporail:       { title: "Expo Rail",       Component: ExpoRailPanel,     icon: null },
-  templates:      { title: "Templates",       Component: TemplatesLibrary,  icon: null },
-  ruler:          { title: "Ruler & Snap",    Component: RulerSnapOverlay,  icon: null },
-  lasso:          { title: "Lasso / Copy",    Component: LassoCopyTool,     icon: null },
-
-  settings:    { title: "Settings",        Component: SettingsSuite,       icon: null },
-};
+// Always add EchoDesk stubs
+PANEL_REGISTRY.calendar = { title: "Calendar", Component: CalendarOverlay, icon: null };
+PANEL_REGISTRY.teleconference = { title: "Teleconference", Component: Teleconference, icon: null };
+PANEL_REGISTRY.exporail = { title: "Expo Rail", Component: ExpoRailPanel, icon: null };
+PANEL_REGISTRY.templates = { title: "Templates", Component: TemplatesLibrary, icon: null };
+PANEL_REGISTRY.ruler = { title: "Ruler & Snap", Component: RulerSnapOverlay, icon: null };
+PANEL_REGISTRY.lasso = { title: "Lasso / Copy", Component: LassoCopyTool, icon: null };
 
 /* ─────────────── Helpers ─────────────── */
 let zCounter = 10;
