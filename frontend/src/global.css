@@ -221,7 +221,7 @@ html.light .gd-card-tool-btn:hover {
 
 /* ══════════════════════════════════════════════════════��════════════════════
    SIDEBAR STYLES - GLASS MORPHISM (LIGHT) & TRON NEON (DARK)
-   ════════════════════════��════════════════════════��════════���════════════════ */
+   ═════════════════════════════════════════════════��════════���════════════════ */
 
 /* Dark mode - TRON Neon futuristic look */
 .sb-shell-dark {
@@ -316,28 +316,28 @@ html.light .gd-card-tool-btn:hover {
 
 /* Light mode menu item styles - Apple glass */
 .sb-shell-light .sb-menu-item {
-  color: #374151;
-  border-color: rgba(0, 0, 0, 0.08);
-  background: rgba(255, 255, 255, 0.3);
+  color: #475569;
+  border-color: rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.35);
 }
 
 .sb-shell-light .sb-menu-item::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
   z-index: -1;
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.18s ease;
 }
 
 .sb-shell-light .sb-menu-item:hover {
   background: rgba(255, 255, 255, 0.65);
-  border-color: rgba(0, 0, 0, 0.15);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  transform: translateY(-1px);
-  color: #111827;
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-0.5px);
+  color: #1e293b;
 }
 
 .sb-shell-light .sb-menu-item:active {
@@ -345,10 +345,10 @@ html.light .gd-card-tool-btn:hover {
 }
 
 .sb-shell-light .sb-menu-item.active {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 0, 0, 0.15);
   color: #0f172a;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.1);
 }
 
 /* Menu icon - stays visible when collapsed (45px) */
