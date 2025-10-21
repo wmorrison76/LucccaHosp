@@ -180,12 +180,13 @@ export default function Sidebar({
             aria-label="Recent"
             style={{
               justifyContent: isOpen ? 'flex-start' : 'center',
-              width: isOpen ? '100%' : '45px',
+              width: '100%',
               height: '45px',
               padding: isOpen ? '10px 12px' : '0',
+              minWidth: '45px',
             }}
           >
-            <Clock3 className="justify-self-center flex-shrink-0" style={{ width: '45px', height: '45px' }} />
+            <Clock3 className="flex-shrink-0" style={{ width: '45px', height: '45px' }} />
             {isOpen && <Label>RECENT</Label>}
           </button>
         </nav>
