@@ -57,8 +57,10 @@ export default function Sidebar({
   // left column – panel buttons (no route change)
   const panelModules = useMemo(() => [
     { label: "DASHBOARD",         icon: dashboardIcon, panelId: "dashboard" },
-    { label: "ECHO EVENT STUDIO", icon: LUCCCA_ECHO,   panelId: "eventstudio" }, // external
+    { label: "ECHO EVENT STUDIO", icon: LUCCCA_ECHO,   panelId: "eventstudio" },
     { label: "MAESTRO BQT",       icon: maestroBQT,    panelId: "maestrobqt" },
+    { label: "ECHO AURUM",        icon: echoAurum,     panelId: "echoaurum" },
+    { label: "ECHO LAYOUT",       icon: echoLayout,    panelId: "echolayout" },
     { label: "CULINARY",          icon: kitchenIcon,   panelId: "recipepro" },
     { label: "BAKING & PASTRY",   icon: pastryIcon,    panelId: "pastry" },
     { label: "MIXOLOGY",          icon: mixologyIcon,  panelId: "mixology" },
