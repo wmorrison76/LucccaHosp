@@ -115,7 +115,7 @@ class PanelErrorBoundary extends React.Component {
   }
 }
 
-/* ──────────────�� Registry ─────────────── */
+/* ─────────────── Registry ─────────────── */
 const PANEL_REGISTRY = {};
 
 // Add only panels with valid components
@@ -162,7 +162,7 @@ export default function Board() {
     return () => cancel(id);
   }, []);
 
-  // Toolbar position (draggable, persistent) �� SINGLE declaration ✅
+  // Toolbar position (draggable, persistent) — SINGLE declaration ✅
   const [tbPos, setTbPos] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem(LS.toolbar) || "") || { x: window.innerWidth/2 - 240, y: 12 };
@@ -407,8 +407,13 @@ export default function Board() {
       <div ref={layerRef} className="pane-layer absolute inset-0" style={{ overflow: allowOffscreen ? "visible" : "hidden" }}>
         {windows.map((win) => {
           const baseKey = (win.id.includes("-") ? win.id.split("-")[0] : win.id);
+          console.log(`[Board] Rendering window: ${win.id}, baseKey: ${baseKey}`);
           const entry = PANEL_REGISTRY[baseKey];
-          if (!entry || !entry.Component) return null;
+          if (!entry || !entry.Component) {
+            console.warn(`[Board] No component found for baseKey "${baseKey}" in registry`);
+            return null;
+          }
+          console.log(`[Board] Rendering component for ${baseKey}`);
           const Component = entry.Component;
 
           return (
