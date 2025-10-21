@@ -155,36 +155,44 @@ export default function Sidebar({
         )}
 
         {/* Toggle puck */}
-        <div className="relative px-2 pt-2 pb-1">
-          <div className="absolute top-2 -right-[12px] z-[10000]">
+        <div className="relative px-2 pt-3 pb-2">
+          <div className="absolute top-3 -right-[12px] z-[10000]">
             <button
               onClick={toggleSidebar}
-              className="rounded-full p-[6px] shadow-none border bg-white/90 text-cyan-700 border-cyan-400 dark:bg-slate-900/90 dark:text-cyan-300 hover:scale-110 active:scale-95 transition"
+              className="rounded-full p-[5px] shadow-none border bg-white/90 text-cyan-700 border-cyan-400 dark:bg-slate-900/90 dark:text-cyan-300 hover:scale-110 active:scale-95 transition"
               aria-label={isOpen ? "Collapse sidebar" : "Expand sidebar"}
-              style={{ boxShadow: "none" }}
+              style={{ boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center" }}
             >
-              <Menu size={16} />
+              <Menu size={15} />
             </button>
           </div>
 
           {isOpen && (
-            <div className="mt-2 leading-tight tracking-wide select-none text-center">
-              <div className="text-[18px] font-extrabold text-cyan-300 uppercase flex items-center justify-center gap-2">
+            <div className="mt-1 leading-tight tracking-wide select-none">
+              <div className="px-2 py-3 rounded-10 flex items-center justify-center gap-3"
+                   style={{
+                     background: "rgba(0, 217, 255, 0.08)",
+                     border: "1px solid rgba(0, 217, 255, 0.15)",
+                     borderRadius: "10px"
+                   }}>
                 <span style={{
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  width: "32px",
-                  height: "32px",
-                  borderRadius: "6px",
-                  background: "rgba(0, 217, 255, 0.15)",
-                  border: "1px solid rgba(0, 217, 255, 0.3)",
-                  fontSize: "16px",
-                  fontWeight: "bold"
+                  width: "36px",
+                  height: "36px",
+                  borderRadius: "8px",
+                  background: "rgba(0, 217, 255, 0.2)",
+                  border: "1px solid rgba(0, 217, 255, 0.35)",
+                  fontSize: "18px",
+                  fontWeight: "bold",
+                  color: "#00d9ff"
                 }}>L</span>
-                UCCCA
+                <div style={{ flex: 1 }}>
+                  <div className="text-[14px] font-extrabold text-cyan-300 uppercase">UCCCA</div>
+                  <div className="text-xs opacity-50 leading-tight">Professional<br/>Kitchen</div>
+                </div>
               </div>
-              <div className="text-xs opacity-60 mt-1">Professional Kitchen</div>
             </div>
           )}
         </div>
