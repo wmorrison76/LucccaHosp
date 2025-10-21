@@ -190,7 +190,7 @@ export default function Sidebar({
         </div>
 
         {/* Core panel list */}
-        <nav className="px-2 pt-1 space-y-1 no-scrollbar flex-1 overflow-y-auto flex flex-col" style={{ msOverflowStyle: "none", scrollbarWidth: "none" }}>
+        <nav className="px-2 pt-2 no-scrollbar flex-1 overflow-y-auto flex flex-col gap-1" style={{ msOverflowStyle: "none", scrollbarWidth: "none" }}>
           {panelModules.map(({ label, icon, panelId, fallback }) => (
             <button
               key={panelId}
