@@ -15,8 +15,14 @@ if (typeof window !== 'undefined') {
 }
 
 const root = document.getElementById("root");
-createRoot(root).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-);
+if (root) {
+  root.style.width = "100vw";
+  root.style.height = "100vh";
+  root.style.margin = "0";
+  root.style.padding = "0";
+  createRoot(root).render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
+}
