@@ -110,6 +110,7 @@ if (GlowDesk) PANEL_REGISTRY.home = { title: "Welcome", Component: GlowDesk, ico
 if (KitchenLibraryTabs) PANEL_REGISTRY.culinary = { title: "Kitchen Library", Component: KitchenLibraryTabs, icon: kitchenIcon };
 if (Schedule) PANEL_REGISTRY.scheduling = { title: "Schedules", Component: Schedule, icon: scheduleIcon };
 if (EchoRecipeProPanel) PANEL_REGISTRY.recipepro = { title: "EchoRecipePro", Component: EchoRecipeProPanel, icon: null };
+if (PurchasingPanel) PANEL_REGISTRY.purchasing = { title: "Purchasing", Component: PurchasingPanel, icon: null };
 
 // Always add EchoDesk stubs
 PANEL_REGISTRY.calendar = { title: "Calendar", Component: CalendarOverlay, icon: null };
