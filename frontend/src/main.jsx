@@ -21,9 +21,17 @@ if (root) {
   root.style.height = "100vh";
   root.style.margin = "0";
   root.style.padding = "0";
-  createRoot(root).render(
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  );
+  try {
+    createRoot(root).render(
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    );
+  } catch (err) {
+    console.error("[Root Error]", err);
+    root.innerHTML = `<div style="width:100vw; height:100vh; display:flex; align-items:center; justify-content:center; flex-direction:column; background:#0f1c2e; color:#fff; font-family:system-ui">
+      <h1 style="color:#7fffd4">ERROR</h1>
+      <pre style="color:#f87171; max-width:90%; white-space:pre-wrap; overflow:auto; max-height:60vh; font-size:12px">${err.message}\n\n${err.stack}</pre>
+    </div>`;
+  }
 }
