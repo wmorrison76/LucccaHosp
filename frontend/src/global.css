@@ -1,6 +1,29 @@
 /* Global styles - echo orb removed */
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   APP CONTAINER & ROOT STYLING
+   ═══════════════════════════════════════════════════════════��═══════════════ */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Light mode */
+html, body, .light {
+  background: #ffffff;
+  color: #1f2937;
+}
+
+/* Dark mode - TRON neon */
+html.dark, body.dark, .dark {
+  background: #0a1420;
+  color: #e0f2fe;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    DASHBOARD BUTTON & CARD STYLES
    ═══════════════════════════════════════════════════════════════════════════ */
 
