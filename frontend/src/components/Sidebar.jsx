@@ -155,15 +155,8 @@ export default function Sidebar({
               aria-label={label}
               className={itemClasses(false)}
               onClick={() => {}}
-              style={{
-                justifyContent: isOpen ? 'flex-start' : 'center',
-                width: '100%',
-                height: '45px',
-                padding: '0 12px',
-                minWidth: '45px',
-              }}
             >
-              <img src={icon} alt={label} className="sb-menu-icon" style={{ width: '45px', height: '45px', flexShrink: 0 }} />
+              <img src={icon} alt={label} className="sb-menu-icon" />
               {isOpen && <Label>{label}</Label>}
             </button>
           ))}
@@ -175,15 +168,8 @@ export default function Sidebar({
             className={itemClasses(false)}
             title="Recent"
             aria-label="Recent"
-            style={{
-              justifyContent: isOpen ? 'flex-start' : 'center',
-              width: '100%',
-              height: '45px',
-              padding: '0 12px',
-              minWidth: '45px',
-            }}
           >
-            <Clock3 className="flex-shrink-0" style={{ width: '45px', height: '45px' }} />
+            <Clock3 className="sb-menu-icon flex-shrink-0" />
             {isOpen && <Label>RECENT</Label>}
           </button>
         </nav>
@@ -200,15 +186,8 @@ export default function Sidebar({
                 aria-label={label}
                 className={itemClasses(false)}
                 onClick={() => {}}
-                style={{
-                  justifyContent: isOpen ? 'flex-start' : 'center',
-                  width: '100%',
-                  height: '45px',
-                  padding: '0 12px',
-                  minWidth: '45px',
-                }}
               >
-                <img src={icon} alt={label} className="sb-menu-icon" style={{ width: '45px', height: '45px', flexShrink: 0 }} />
+                <img src={icon} alt={label} className="sb-menu-icon" />
                 {isOpen && <Label>{label}</Label>}
               </button>
             ))}
@@ -220,15 +199,8 @@ export default function Sidebar({
               className={itemClasses(false)}
               title="Settings"
               aria-label="Settings"
-              style={{
-                justifyContent: isOpen ? 'flex-start' : 'center',
-                width: '100%',
-                height: '45px',
-                padding: '0 12px',
-                minWidth: '45px',
-              }}
             >
-              <img src={settingsIcon} alt="Settings" className="sb-menu-icon" style={{ width: '45px', height: '45px', flexShrink: 0 }} />
+              <img src={settingsIcon} alt="Settings" className="sb-menu-icon" />
               {isOpen && <Label>SETTINGS</Label>}
             </button>
           </div>
