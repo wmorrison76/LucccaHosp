@@ -2,7 +2,7 @@
 
 /* ════════════════════════��══════════════════════════════════════════════════
    APP CONTAINER & ROOT STYLING
-   ═══════════════════════════════════════════════════════════��═══════════════ */
+   ═══════════════════════════════════════════════════════════��═══════════���═══ */
 
 html, body {
   margin: 0;
@@ -382,10 +382,22 @@ aside[data-collapsed="true"] .sb-menu-label {
   display: none !important;
   opacity: 0;
   max-width: 0;
-  transition: max-width 0.2s ease, opacity 0.2s ease;
+  transition: max-width 0.18s ease, opacity 0.18s ease;
 }
 
-/* ════════════════════════════════════════════════════════════════��══════════
+/* Sidebar bottom section separator */
+aside hr {
+  margin: 6px 8px;
+  transition: all 0.2s ease;
+}
+
+/* Better spacing for sidebar sections */
+aside .flex-shrink-0 {
+  padding-top: 8px;
+  padding-bottom: 10px;
+}
+
+/* ════════════════════════════════════════════════════════════════��═══════���══
    TOOLBAR STYLES - DARK (TRON NEON) & LIGHT (APPLE GLASS)
    ═══════════════════════════════════════════════════════════════════════════ */
 
