@@ -205,12 +205,13 @@ export default function Sidebar({
                 onClick={() => {}}
                 style={{
                   justifyContent: isOpen ? 'flex-start' : 'center',
-                  width: isOpen ? '100%' : '45px',
+                  width: '100%',
                   height: '45px',
                   padding: isOpen ? '10px 12px' : '0',
+                  minWidth: '45px',
                 }}
               >
-                <img src={icon} alt={label} className="sb-menu-icon" style={{ width: '45px', height: '45px' }} />
+                <img src={icon} alt={label} className="sb-menu-icon" style={{ width: '45px', height: '45px', flexShrink: 0 }} />
                 {isOpen && <Label>{label}</Label>}
               </button>
             ))}
@@ -224,12 +225,13 @@ export default function Sidebar({
               aria-label="Settings"
               style={{
                 justifyContent: isOpen ? 'flex-start' : 'center',
-                width: isOpen ? '100%' : '45px',
+                width: '100%',
                 height: '45px',
                 padding: isOpen ? '10px 12px' : '0',
+                minWidth: '45px',
               }}
             >
-              <img src={settingsIcon} alt="Settings" className="sb-menu-icon" style={{ width: '45px', height: '45px' }} />
+              <img src={settingsIcon} alt="Settings" className="sb-menu-icon" style={{ width: '45px', height: '45px', flexShrink: 0 }} />
               {isOpen && <Label>SETTINGS</Label>}
             </button>
           </div>
