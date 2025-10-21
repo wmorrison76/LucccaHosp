@@ -1,6 +1,6 @@
 /* Global styles - echo orb removed */
 
-/* ═══════════════════════════��═══════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════════════════
    DASHBOARD BUTTON & CARD STYLES
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -333,99 +333,210 @@ aside[data-collapsed="true"] .sb-menu-label {
   display: none;
 }
 
-/* Toolbar styles */
+/* ═══════════════════════════════════════════════════════════════════════════
+   TOOLBAR STYLES - DARK (TRON NEON) & LIGHT (APPLE GLASS)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 .tb2 {
   pointer-events: auto;
   z-index: 1200;
 }
 
+/* Dark mode toolbar shell - TRON neon */
 .tb2-shell {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 8px;
+  padding: 8px 12px;
   border-radius: 14px;
-  background: rgba(10, 16, 28, 0.72);
-  border: 1px solid rgba(22, 224, 255, 0.28);
-  box-shadow: 0 16px 60px rgba(0, 0, 0, 0.45), 0 0 16px rgba(22, 224, 255, 0.14), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(8px);
+  background: linear-gradient(135deg, rgba(10, 16, 28, 0.85), rgba(8, 15, 28, 0.85));
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5),
+              0 0 24px rgba(0, 217, 255, 0.2),
+              inset 0 1px 0 rgba(0, 217, 255, 0.1);
+  backdrop-filter: blur(12px);
   user-select: none;
+  transition: all 0.2s ease;
 }
 
+.tb2-shell:hover {
+  border-color: rgba(0, 217, 255, 0.4);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6),
+              0 0 32px rgba(0, 217, 255, 0.25),
+              inset 0 1px 0 rgba(0, 217, 255, 0.15);
+}
+
+/* Light mode toolbar shell - Apple glass */
+html.light .tb2-shell {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+html.light .tb2-shell:hover {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12),
+              inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Toolbar handle */
 .tb2-handle {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   height: 28px;
-  padding: 0 8px;
+  padding: 0 10px;
   font-size: 12px;
   border-radius: 10px;
-  border: 1px solid rgba(22, 224, 255, 0.28);
-  background: rgba(255, 255, 255, 0.06);
-  color: #d7f6ff;
+  border: 1px solid rgba(0, 217, 255, 0.25);
+  background: rgba(0, 217, 255, 0.08);
+  color: #b0e0ff;
   cursor: grab;
+  transition: all 0.15s ease;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.tb2-handle:hover {
+  background: rgba(0, 217, 255, 0.15);
+  border-color: rgba(0, 217, 255, 0.4);
+  box-shadow: 0 0 12px rgba(0, 217, 255, 0.15);
 }
 
 .tb2-handle:active {
   cursor: grabbing;
+  background: rgba(0, 217, 255, 0.2);
+  box-shadow: 0 0 16px rgba(0, 217, 255, 0.25);
 }
 
+/* Light mode toolbar handle */
+html.light .tb2-handle {
+  border-color: rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.04);
+  color: #374151;
+}
+
+html.light .tb2-handle:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Toolbar group */
 .tb2-group {
   display: inline-flex;
   gap: 6px;
   align-items: center;
 }
 
+/* Toolbar button */
 .tb2-btn {
   height: 28px;
   min-width: 28px;
-  padding: 0 6px;
+  padding: 0 8px;
   border-radius: 8px;
-  border: 1px solid rgba(22, 224, 255, 0.28);
-  background: rgba(255, 255, 255, 0.04);
-  color: #d7f6ff;
+  border: 1px solid rgba(0, 217, 255, 0.25);
+  background: rgba(0, 217, 255, 0.08);
+  color: #7ff3ff;
   cursor: pointer;
   transition: all 0.15s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  font-weight: 500;
 }
 
 .tb2-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(22, 224, 255, 0.4);
+  background: rgba(0, 217, 255, 0.15);
+  border-color: rgba(0, 217, 255, 0.4);
+  box-shadow: 0 0 12px rgba(0, 217, 255, 0.15);
 }
 
+.tb2-btn:active {
+  transform: scale(0.95);
+  background: rgba(0, 217, 255, 0.25);
+}
+
+/* Light mode toolbar button */
+html.light .tb2-btn {
+  border-color: rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.04);
+  color: #374151;
+}
+
+html.light .tb2-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Toolbar separator */
 .tb2-sep {
   width: 1px;
   height: 20px;
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(0, 217, 255, 0.15);
   margin: 0 4px;
 }
 
+html.light .tb2-sep {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* Toolbar dock chips */
 .tb2-dock .dock-chip {
   width: 28px;
   height: 28px;
   display: grid;
   place-items: center;
   border-radius: 8px;
-  border: 1px solid rgba(22, 224, 255, 0.28);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(0, 217, 255, 0.25);
+  background: rgba(0, 217, 255, 0.08);
   cursor: pointer;
   transition: all 0.15s ease;
   padding: 0;
+}
+
+.tb2-dock .dock-chip:hover {
+  background: rgba(0, 217, 255, 0.15);
+  border-color: rgba(0, 217, 255, 0.4);
+  box-shadow: 0 0 12px rgba(0, 217, 255, 0.15);
+}
+
+html.light .tb2-dock .dock-chip {
+  border-color: rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+html.light .tb2-dock .dock-chip:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .tb2-dock img {
   width: 18px;
   height: 18px;
   display: block;
+  transition: all 0.15s ease;
+}
+
+.tb2-dock .dock-chip:hover img {
+  filter: brightness(1.2);
 }
 
 .chip-fallback {
   width: 10px;
   height: 10px;
-  background: #9be;
+  background: #00d9ff;
   border-radius: 3px;
   display: block;
+  box-shadow: 0 0 8px rgba(0, 217, 255, 0.4);
+}
+
+html.light .chip-fallback {
+  background: #1f2937;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
