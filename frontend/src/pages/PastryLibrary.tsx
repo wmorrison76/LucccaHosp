@@ -3,7 +3,7 @@ import { Tabs } from '../components/Tabs';
 
 // Lazy-load Studio from CustomCakeStudio and gracefully support either default or named export
 const LazyStudio = lazy(() =>
-  import('src/modules/CustomCakeStudio/pages/Studio.tsx')
+  import('../modules/CustomCakeStudio/pages/Studio.tsx')
     .then(m => ({ default: (m as any).default ?? (m as any).Studio }))
     .catch(() => ({
       default: () => <div className="p-4 text-amber-600">EchoCanvas module not available</div>
