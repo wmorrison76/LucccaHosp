@@ -5,6 +5,15 @@ import App from "./App.jsx";
 import "./index.css";
 import "./styles/theme-base.css";
 
+if (typeof window !== 'undefined') {
+  if (!window.requestIdleCallback) {
+    window.requestIdleCallback = (callback) => setTimeout(callback, 1);
+  }
+  if (!window.cancelIdleCallback) {
+    window.cancelIdleCallback = (id) => clearTimeout(id);
+  }
+}
+
 const root = document.getElementById("root");
 createRoot(root).render(
   <BrowserRouter>
