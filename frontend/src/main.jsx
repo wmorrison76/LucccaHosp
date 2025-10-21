@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
 import "./styles/theme-base.css";
+import "./echo-orb/styles/echo-orb.css";
 
 if (typeof window !== 'undefined') {
   if (!window.requestIdleCallback) {
