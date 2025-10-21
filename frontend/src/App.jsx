@@ -1,6 +1,8 @@
 import React, { useState, useCallback, Suspense } from "react";
-import Sidebar from "./components/Sidebar.jsx";
-import Board from "./board/Board.jsx";
+
+// Lazy load Board to catch issues
+const Board = React.lazy(() => import("./board/Board.jsx"));
+const Sidebar = React.lazy(() => import("./components/Sidebar.jsx"));
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(true);
@@ -12,12 +14,19 @@ export default function App() {
   return (
     <div style={{ display: "flex", width: "100vw", height: "100vh", margin: 0, padding: 0, backgroundColor: "#0f1c2e", color: "white", fontFamily: "system-ui, sans-serif" }}>
       {/* Sidebar */}
-      <Sidebar
-        isOpen={isOpen}
-        toggleSidebar={toggleSidebar}
-        isDarkMode={isDark}
-        toggleDarkMode={toggleDark}
-      />
+      <Suspense fallback={<div style={{ width: "60px", background: "#111" }} />}>
+        <React.lazy>
+          {React.lazy(() => import("./components/Sidebar.jsx")).type && (
+            React.lazy(() => import("./components/Sidebar.jsx"))
+          )}
+        </React.lazy>
+        <Sidebar
+          isOpen={isOpen}
+          toggleSidebar={toggleSidebar}
+          isDarkMode={isDark}
+          toggleDarkMode={toggleDark}
+        />
+      </Suspense>
 
       {/* Main Content - Full Board */}
       <main style={{ flex: 1, overflow: "hidden" }}>
