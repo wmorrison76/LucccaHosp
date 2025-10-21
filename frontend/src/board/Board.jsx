@@ -73,6 +73,7 @@ const EchoEventStudioPanel = safeImport(() => import("../components/EchoEventStu
 const MaestroBQTPanel    = safeImport(() => import("../components/MaestroBQTPanel.jsx"), "MaestroBQTPanel");
 const EchoAurumPanel     = safeImport(() => import("../components/EchoAurumPanel.jsx"), "EchoAurumPanel");
 const ECHOLayoutPanel    = safeImport(() => import("../components/ECHOLayoutPanel.jsx"), "ECHOLayoutPanel");
+const PastryPanel        = safeImport(() => import("../components/PastryPanel.jsx"), "PastryPanel");
 
 // Optional panels - set to null if not available
 const SettingsSuite      = null;
@@ -119,7 +120,7 @@ class PanelErrorBoundary extends React.Component {
   }
 }
 
-/* ─────────────── Registry ─────────────── */
+/* ─────────────── Registry ──────���──────── */
 const PANEL_REGISTRY = {};
 
 // Add only panels with valid components
@@ -496,7 +497,7 @@ export default function Board() {
         })}
       </div>
 
-      {/* orb/chat removed → no portal, no extra styles */}
+      {/* orb/chat removed ��� no portal, no extra styles */}
       <style>{`
         .tb2-shell{ display:flex; align-items:center; gap:10px; padding:6px 8px; border-radius:14px; border:1px solid rgba(22,224,255,.28); background:rgba(10,16,28,.72); box-shadow:0 16px 60px rgba(0,0,0,.45), 0 0 16px rgba(22,224,255,.14), inset 0 0 0 1px rgba(255,255,255,.05); backdrop-filter: blur(8px); user-select:none; }
         .tb2-handle{ display:inline-flex; align-items:center; gap:6px; height:28px; padding:0 8px; font-size:12px; border-radius:10px; border:1px solid rgba(22,224,255,.28); background:rgba(255,255,255,.06); color:#d7f6ff; cursor:grab; }
