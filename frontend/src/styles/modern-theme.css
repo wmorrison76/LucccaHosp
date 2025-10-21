@@ -2,9 +2,8 @@
    MODERN SAAS THEME - APPLE GLASS (LIGHT) & TRON NEON (DARK)
    ═══════════════════════════════════════════════════════════════════════════ */
 
-@supports (backdrop-filter: blur(1px)) {
-  /* Root theme variables */
-  :root {
+/* Root theme variables */
+:root {
     /* Light mode (default) - Apple polished glass */
     --bg-primary: #ffffff;
     --bg-secondary: rgba(255, 255, 255, 0.7);
@@ -53,7 +52,6 @@
     --glass-blur: 12px;
     --glass-opacity: 0.85;
   }
-}
 
 /* ���══════════════════════════════════════════════════════════════════════════
    GENERAL PANEL & CONTAINER STYLING
@@ -114,7 +112,7 @@ input[type="submit"]:active,
   box-shadow: var(--shadow-sm);
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════��═══════════════════════════════════════
    INPUT STYLING
    ═══════════════════════════════════════════════════════════════════════════ */
 
