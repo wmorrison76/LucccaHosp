@@ -1,0 +1,109 @@
+/* ═════════════════════════════════════════════════════════════════════════════
+   RESPONSIVE LAYOUT STYLES
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+/* Desktop: sidebar visible and content pushed right */
+@media (min-width: 768px) {
+  main {
+    margin-left: 256px;
+    width: calc(100% - 256px);
+  }
+}
+
+/* Mobile/Tablet: full width */
+@media (max-width: 767px) {
+  main {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* Ensure proper content area sizing */
+main {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+  transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+/* Navigation sidebar responsive styles */
+@media (max-width: 767px) {
+  /* Mobile: hide sidebar by default, show as overlay */
+  nav {
+    position: fixed !important;
+    left: 0;
+    top: 0;
+    width: 256px;
+    height: 100vh;
+    z-index: 9998 !important;
+  }
+}
+
+@media (min-width: 768px) {
+  /* Desktop: sidebar fixed position */
+  nav {
+    position: fixed !important;
+    left: 0;
+    top: 0;
+    width: 256px;
+    height: 100vh;
+    z-index: 9998 !important;
+    transform: translateX(0) !important;
+  }
+}
+
+/* Ensure content doesn't get hidden behind toolbar */
+.fluid-root {
+  position: relative;
+  z-index: 1;
+}
+
+/* Toolbar positioning */
+.tb2 {
+  position: fixed !important;
+  z-index: 1200;
+  pointer-events: auto;
+}
+
+/* Ensure buttons in toolbar are clickable */
+.tb2-shell {
+  pointer-events: auto;
+}
+
+.tb2-btn {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* Panel windows */
+.react-rnd {
+  pointer-events: auto !important;
+}
+
+.react-rnd:focus-within {
+  z-index: 1100;
+}
+
+/* Floating panel styling */
+.floating-panel {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5),
+              0 10px 10px -5px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+}
+
+.floating-panel.dark {
+  background: rgba(15, 23, 42, 0.95);
+}
+
+.floating-panel.light {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Ensure modals and overlays stay on top */
+[role="dialog"],
+[role="alertdialog"] {
+  z-index: 9999 !important;
+}
