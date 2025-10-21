@@ -39,7 +39,7 @@ const lazyPick = (loader, key = "default") =>
     loader().then((m) => ({ default: m?.[key] ?? m?.default ?? m }))
   );
 
-/* ───────────────── Panels (lazy) ─��────��────────── */
+/* ───────────────── Panels (lazy) ─��─────────────── */
 
 // Simplified lazy-loaded panels with error handling
 const safeImport = (importFn, name = 'Unknown') =>
@@ -147,8 +147,10 @@ if (EchoEventStudioPanel) PANEL_REGISTRY.eventstudio = { title: "Echo Event Stud
 if (MaestroBQTPanel) PANEL_REGISTRY.maestrobqt = { title: "Maestro BQT", Component: MaestroBQTPanel, icon: null };
 if (EchoAurumPanel) PANEL_REGISTRY.echoaurum = { title: "EchoAurum", Component: EchoAurumPanel, icon: null };
 if (ECHOLayoutPanel) PANEL_REGISTRY.echolayout = { title: "ECHOLayout", Component: ECHOLayoutPanel, icon: null };
-if (PastryPanel) PANEL_REGISTRY.pastry = { title: "Baking & Pastry", Component: PastryPanel, icon: null };
-if (MixologyPanel) PANEL_REGISTRY.mixology = { title: "Mixology", Component: MixologyPanel, icon: null };
+if (PastryPanel) PANEL_REGISTRY.pastry = { title: "Baking & Pastry", Component: PastryPanel, icon: pastryIcon };
+if (MixologyPanel) PANEL_REGISTRY.mixology = { title: "Mixology", Component: MixologyPanel, icon: mixologyIcon };
+if (WhiteboardPanel) PANEL_REGISTRY.whiteboard = { title: "Whiteboard", Component: WhiteboardPanel, icon: null };
+if (VideoConferencePanel) PANEL_REGISTRY.videoconference = { title: "Video Conferencing", Component: VideoConferencePanel, icon: null };
 
 console.log('[Board] Final PANEL_REGISTRY keys:', Object.keys(PANEL_REGISTRY));
 
@@ -169,7 +171,7 @@ const LS = {
   allowOffscreen: "lu:allowOffscreen",
 };
 
-/* ─────��───────── Component ─────────────── */
+/* ─────��───────── Component ─��───────────── */
 export default function Board() {
   const layerRef = useRef(null);
   const [windows, setWindows] = useState([]);
