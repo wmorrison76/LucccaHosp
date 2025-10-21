@@ -353,11 +353,11 @@ html.light .gd-card-tool-btn:hover {
 
 /* Menu icon - stays visible when collapsed (45px) */
 .sb-menu-icon {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
   flex-shrink: 0;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
   display: block;
 }
 
@@ -368,12 +368,12 @@ html.light .gd-card-tool-btn:hover {
   text-overflow: ellipsis;
   flex: 1;
   min-width: 0;
-  transition: opacity 0.2s ease, max-width 0.2s ease;
-  max-width: calc(100% - 50px);
+  transition: opacity 0.18s ease, max-width 0.18s ease;
+  max-width: calc(100% - 45px);
   opacity: 1;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
 }
 
