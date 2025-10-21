@@ -115,7 +115,7 @@ class PanelErrorBoundary extends React.Component {
   }
 }
 
-/* ─────────────── Registry ─────────────── */
+/* ──────────────�� Registry ─────────────── */
 const PANEL_REGISTRY = {};
 
 // Add only panels with valid components
@@ -162,7 +162,7 @@ export default function Board() {
     return () => cancel(id);
   }, []);
 
-  // Toolbar position (draggable, persistent) — SINGLE declaration ✅
+  // Toolbar position (draggable, persistent) �� SINGLE declaration ✅
   const [tbPos, setTbPos] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem(LS.toolbar) || "") || { x: window.innerWidth/2 - 240, y: 12 };
@@ -227,8 +227,15 @@ export default function Board() {
   }, []);
 
   const openPanelById = useCallback((panelId, opts = {}) => {
+    console.log(`[Board] openPanelById called with panelId: "${panelId}"`);
+    console.log(`[Board] Available panels in registry:`, Object.keys(PANEL_REGISTRY));
     const reg = PANEL_REGISTRY[panelId];
-    if (!reg || !reg.Component) { console.warn("[Board] unknown panel:", panelId); return; }
+    if (!reg || !reg.Component) {
+      console.warn("[Board] unknown panel:", panelId);
+      console.warn("[Board] Registry contents:", PANEL_REGISTRY);
+      return;
+    }
+    console.log(`[Board] Found panel in registry:`, reg);
 
     const allowDuplicate = !!opts.allowDuplicate;
     let createdId = null;
