@@ -38,18 +38,24 @@ export default function App() {
             toggleDarkMode={toggleDark}
           />
           <main className="flex-1 overflow-hidden">
-            <Suspense fallback={fallback}>
-              <Routes>
-                <Route path="/" element={<Navigate to={REAL_DASHBOARD_PATH} replace />} />
-                <Route path={REAL_DASHBOARD_PATH} element={<Board />} />
-                <Route path="/kitchen-library" element={<Culinary />} />
-                <Route path="/baking-pastry" element={<BakingPastry />} />
-                <Route path="/mixology" element={<Mixology />} />
-                <Route path="/schedules" element={<Scheduling />} />
-                <Route path="/builder" element={<EchoBuilder />} />
-                <Route path="*" element={<Navigate to={REAL_DASHBOARD_PATH} replace />} />
-              </Routes>
-            </Suspense>
+            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800">
+              <div className="text-center">
+                <h1 className="text-4xl font-bold text-cyan-400 mb-4">LUCCCA</h1>
+                <p className="text-gray-400 mb-8">Initializing...</p>
+                <Suspense fallback={fallback}>
+                  <Routes>
+                    <Route path="/" element={<Navigate to={REAL_DASHBOARD_PATH} replace />} />
+                    <Route path={REAL_DASHBOARD_PATH} element={<Board />} />
+                    <Route path="/kitchen-library" element={<Culinary />} />
+                    <Route path="/baking-pastry" element={<BakingPastry />} />
+                    <Route path="/mixology" element={<Mixology />} />
+                    <Route path="/schedules" element={<Scheduling />} />
+                    <Route path="/builder" element={<EchoBuilder />} />
+                    <Route path="*" element={<Navigate to={REAL_DASHBOARD_PATH} replace />} />
+                  </Routes>
+                </Suspense>
+              </div>
+            </div>
           </main>
         </div>
         <TelemetryOverlay />
