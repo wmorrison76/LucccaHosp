@@ -14,13 +14,6 @@ import settingsIcon  from "../assets/settings.png";
 import chefNetIcon   from "../assets/ChefNet.png";
 import maestroBQT    from "../assets/MaestroBQT.png";
 
-const EVENT_STUDIO_URL =
-  (import.meta?.env?.VITE_EVENT_STUDIO_URL) || "http://localhost:8080";
-
-function openEventStudioWindow() {
-  try { window.open(EVENT_STUDIO_URL, "_blank", "noopener,noreferrer"); }
-  catch (e) { console.error("[Sidebar] Event Studio window failed:", e); }
-}
 
 export default function Sidebar({
   isOpen: pOpen,
