@@ -1,7 +1,4 @@
 /* frontend/src/index.css */
-/* keep your echo-orb import - MUST come before @tailwind */
-@import './echo-orb/styles/echo-orb.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
