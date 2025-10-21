@@ -62,7 +62,7 @@ export default function Sidebar({
     { label: "DASHBOARD",         icon: dashboardIcon, panelId: "dashboard" },
     { label: "ECHO EVENT STUDIO", icon: LUCCCA_ECHO,   panelId: "eventstudio" }, // external
     { label: "MAESTRO BQT",       icon: maestroBQT,    panelId: "maestrobqt" },
-    { label: "CULINARY",          icon: kitchenIcon,   panelId: "culinary" },
+    { label: "CULINARY",          icon: kitchenIcon,   panelId: "recipepro" },
     { label: "BAKING & PASTRY",   icon: pastryIcon,    panelId: "pastry" },
     { label: "MIXOLOGY",          icon: mixologyIcon,  panelId: "mixology" },
     { label: "SCHEDULES",         icon: scheduleIcon,  panelId: "scheduling" },
