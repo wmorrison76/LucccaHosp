@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, Suspense } from 'react';
-import { ChefHat, Image, Cube, Paintbrush, BookOpen, Plus, Trash2, X } from 'lucide-react';
+import { ChefHat, Image, Box, Paintbrush, BookOpen, Plus, Trash2, X } from 'lucide-react';
 
 // Gallery Tab Component
 const GalleryTab = () => {
@@ -780,7 +780,7 @@ export default function PastryPanel() {
 
   const tabs = [
     { id: 'gallery', label: 'Gallery', icon: Image },
-    { id: 'cake3d', label: '3D Cake', icon: Cube },
+    { id: 'cake3d', label: '3D Cake', icon: Box },
     { id: 'canvas', label: 'Canvas Studio', icon: Paintbrush },
     { id: 'recipes', label: 'Recipes', icon: BookOpen },
   ];
