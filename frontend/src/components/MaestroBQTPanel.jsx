@@ -44,21 +44,57 @@ export default function MaestroBQTPanel() {
   const renderMaestroBQT = () => {
     try {
       console.log('[MaestroBQT] renderMaestroBQT called');
-      if (containerRef.current && window.BuilderContent) {
-        console.log('[MaestroBQT] Rendering with Builder.io');
-        const { BuilderContent } = window;
-        
-        const modelName = 'MaestroBQT';
-        const apiKey = import.meta.env.VITE_BUILDER_API_KEY || 'bwncv6np70e4e8ey0yj';
-        const projectId = 'b527866aab4c4c6fb8911b687982646a';
-        
-        console.log(`[MaestroBQT] Loading ${modelName} from Builder.io project ${projectId}`);
+
+      const apiKey = import.meta.env.VITE_BUILDER_API_KEY || 'bwncv6np70e4e8ey0yj';
+      const projectId = 'b527866aab4c4c6fb8911b687982646a';
+      const modelName = 'MaestroBQT';
+
+      const container = document.getElementById('builder-maestrobqt-container');
+      if (!container) {
+        console.warn('[MaestroBQT] Container element not found');
+        setLoadError('Container element not found');
         setIsLoading(false);
+        return;
+      }
+
+      if (window.BuilderContent) {
+        console.log(`[MaestroBQT] Rendering with Builder.io - Project: ${projectId}`);
+        const { BuilderContent } = window;
+
+        try {
+          const element = React.createElement(BuilderContent, {
+            model: modelName,
+            content: null,
+            apiKey: apiKey,
+            entry: modelName,
+            options: {
+              includeRefs: true,
+              enableTrackingPixel: false,
+            },
+            onError: (err) => {
+              console.error('[MaestroBQT] BuilderContent error:', err);
+              setLoadError('Failed to load Builder.io content');
+            },
+            onLoad: () => {
+              console.log('[MaestroBQT] BuilderContent loaded successfully');
+              setIsLoading(false);
+            }
+          });
+
+          if (window.ReactDOM) {
+            window.ReactDOM.render(element, container);
+          } else {
+            console.warn('[MaestroBQT] ReactDOM not available');
+            setIsLoading(false);
+          }
+        } catch (err) {
+          console.error('[MaestroBQT] Error rendering BuilderContent:', err);
+          setLoadError(err.message);
+          setIsLoading(false);
+        }
       } else {
-        console.log('[MaestroBQT] Container or BuilderContent not ready', {
-          hasContainer: !!containerRef.current,
-          hasBuilderContent: !!window.BuilderContent,
-        });
+        console.log('[MaestroBQT] BuilderContent not yet available, will retry');
+        setTimeout(() => renderMaestroBQT(), 500);
       }
     } catch (err) {
       console.error('[MaestroBQT] Error in renderMaestroBQT:', err);

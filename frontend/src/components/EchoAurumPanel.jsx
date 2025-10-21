@@ -44,21 +44,57 @@ export default function EchoAurumPanel() {
   const renderEchoAurum = () => {
     try {
       console.log('[EchoAurum] renderEchoAurum called');
-      if (containerRef.current && window.BuilderContent) {
-        console.log('[EchoAurum] Rendering with Builder.io');
-        const { BuilderContent } = window;
-        
-        const modelName = 'EchoAurum';
-        const apiKey = import.meta.env.VITE_BUILDER_API_KEY || 'bwncv6np70e4e8ey0yj';
-        const projectId = 'd6d074d541fb46f8982b43968d076dea';
-        
-        console.log(`[EchoAurum] Loading ${modelName} from Builder.io project ${projectId}`);
+
+      const apiKey = import.meta.env.VITE_BUILDER_API_KEY || 'bwncv6np70e4e8ey0yj';
+      const projectId = 'd6d074d541fb46f8982b43968d076dea';
+      const modelName = 'EchoAurum';
+
+      const container = document.getElementById('builder-echoaurum-container');
+      if (!container) {
+        console.warn('[EchoAurum] Container element not found');
+        setLoadError('Container element not found');
         setIsLoading(false);
+        return;
+      }
+
+      if (window.BuilderContent) {
+        console.log(`[EchoAurum] Rendering with Builder.io - Project: ${projectId}`);
+        const { BuilderContent } = window;
+
+        try {
+          const element = React.createElement(BuilderContent, {
+            model: modelName,
+            content: null,
+            apiKey: apiKey,
+            entry: modelName,
+            options: {
+              includeRefs: true,
+              enableTrackingPixel: false,
+            },
+            onError: (err) => {
+              console.error('[EchoAurum] BuilderContent error:', err);
+              setLoadError('Failed to load Builder.io content');
+            },
+            onLoad: () => {
+              console.log('[EchoAurum] BuilderContent loaded successfully');
+              setIsLoading(false);
+            }
+          });
+
+          if (window.ReactDOM) {
+            window.ReactDOM.render(element, container);
+          } else {
+            console.warn('[EchoAurum] ReactDOM not available');
+            setIsLoading(false);
+          }
+        } catch (err) {
+          console.error('[EchoAurum] Error rendering BuilderContent:', err);
+          setLoadError(err.message);
+          setIsLoading(false);
+        }
       } else {
-        console.log('[EchoAurum] Container or BuilderContent not ready', {
-          hasContainer: !!containerRef.current,
-          hasBuilderContent: !!window.BuilderContent,
-        });
+        console.log('[EchoAurum] BuilderContent not yet available, will retry');
+        setTimeout(() => renderEchoAurum(), 500);
       }
     } catch (err) {
       console.error('[EchoAurum] Error in renderEchoAurum:', err);

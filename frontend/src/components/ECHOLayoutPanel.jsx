@@ -44,21 +44,57 @@ export default function ECHOLayoutPanel() {
   const renderECHOLayout = () => {
     try {
       console.log('[ECHOLayout] renderECHOLayout called');
-      if (containerRef.current && window.BuilderContent) {
-        console.log('[ECHOLayout] Rendering with Builder.io');
-        const { BuilderContent } = window;
-        
-        const modelName = 'ECHOLayout';
-        const apiKey = import.meta.env.VITE_BUILDER_API_KEY || 'bwncv6np70e4e8ey0yj';
-        const projectId = '2828c8b180b040c39012b30aca488fe6';
-        
-        console.log(`[ECHOLayout] Loading ${modelName} from Builder.io project ${projectId}`);
+
+      const apiKey = import.meta.env.VITE_BUILDER_API_KEY || 'bwncv6np70e4e8ey0yj';
+      const projectId = '2828c8b180b040c39012b30aca488fe6';
+      const modelName = 'ECHOLayout';
+
+      const container = document.getElementById('builder-echolayout-container');
+      if (!container) {
+        console.warn('[ECHOLayout] Container element not found');
+        setLoadError('Container element not found');
         setIsLoading(false);
+        return;
+      }
+
+      if (window.BuilderContent) {
+        console.log(`[ECHOLayout] Rendering with Builder.io - Project: ${projectId}`);
+        const { BuilderContent } = window;
+
+        try {
+          const element = React.createElement(BuilderContent, {
+            model: modelName,
+            content: null,
+            apiKey: apiKey,
+            entry: modelName,
+            options: {
+              includeRefs: true,
+              enableTrackingPixel: false,
+            },
+            onError: (err) => {
+              console.error('[ECHOLayout] BuilderContent error:', err);
+              setLoadError('Failed to load Builder.io content');
+            },
+            onLoad: () => {
+              console.log('[ECHOLayout] BuilderContent loaded successfully');
+              setIsLoading(false);
+            }
+          });
+
+          if (window.ReactDOM) {
+            window.ReactDOM.render(element, container);
+          } else {
+            console.warn('[ECHOLayout] ReactDOM not available');
+            setIsLoading(false);
+          }
+        } catch (err) {
+          console.error('[ECHOLayout] Error rendering BuilderContent:', err);
+          setLoadError(err.message);
+          setIsLoading(false);
+        }
       } else {
-        console.log('[ECHOLayout] Container or BuilderContent not ready', {
-          hasContainer: !!containerRef.current,
-          hasBuilderContent: !!window.BuilderContent,
-        });
+        console.log('[ECHOLayout] BuilderContent not yet available, will retry');
+        setTimeout(() => renderECHOLayout(), 500);
       }
     } catch (err) {
       console.error('[ECHOLayout] Error in renderECHOLayout:', err);
