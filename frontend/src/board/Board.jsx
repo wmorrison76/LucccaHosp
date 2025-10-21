@@ -81,7 +81,7 @@ import pastryIcon   from "../assets/baking-&-Pastry.png";
 import mixologyIcon from "../assets/mixology.png";
 import scheduleIcon from "../assets/schedule.png";
 
-/* ────────���────── Error boundary ─────────────── */
+/* ─────────────── Error boundary ─────────────── */
 class PanelErrorBoundary extends React.Component {
   constructor(p){ super(p); this.state = { error: null }; }
   static getDerivedStateFromError(error){ return { error }; }
@@ -108,6 +108,7 @@ if (GlowDesk) PANEL_REGISTRY.dashboard = { title: "Dashboard", Component: GlowDe
 if (GlowDesk) PANEL_REGISTRY.home = { title: "Welcome", Component: GlowDesk, icon: null };
 if (KitchenLibraryTabs) PANEL_REGISTRY.culinary = { title: "Kitchen Library", Component: KitchenLibraryTabs, icon: kitchenIcon };
 if (Schedule) PANEL_REGISTRY.scheduling = { title: "Schedules", Component: Schedule, icon: scheduleIcon };
+if (EchoRecipeProPanel) PANEL_REGISTRY.recipepro = { title: "EchoRecipePro", Component: EchoRecipeProPanel, icon: null };
 
 // Always add EchoDesk stubs
 PANEL_REGISTRY.calendar = { title: "Calendar", Component: CalendarOverlay, icon: null };
