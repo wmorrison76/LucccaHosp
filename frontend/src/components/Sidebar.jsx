@@ -149,7 +149,7 @@ export default function Sidebar({
           {/* Route-based modules */}
           {routeModules.map(({ path, label, icon }) => (
             <button key={path} type="button" title={label} aria-label={label} className={itemClasses(false)} onClick={() => {}}>
-              <img src={icon} alt="" className="justify-self-center w-[44px] h-[44px] object-contain aspect-square" />
+              <img src={icon} alt={label} className="sb-menu-icon" />
               <Label>{label}</Label>
             </button>
           ))}
