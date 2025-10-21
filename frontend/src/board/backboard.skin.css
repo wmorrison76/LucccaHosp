@@ -68,8 +68,10 @@ body {
 .panel-title{ font-weight:700; letter-spacing:.3px; font-size:14px; }
 
 /* Mac dots */
-.panel-header .dot{ width:14px; height:14px; border-radius:999px; display:grid; place-items:center;
-  margin-right:6px; color:#fff; border:1px solid rgba(0,0,0,.12); }
+.panel-header .dot{ width:12px; height:12px; border-radius:999px; display:grid; place-items:center;
+  margin-right:5px; color:#fff; border:1px solid rgba(0,0,0,.15);
+  cursor:pointer; transition:all 0.15s ease; font-size:8px; }
+.panel-header .dot:hover{ transform:scale(1.1); }
 .dot-close{background:#ff5f57;} .dot-min{background:#febc2e;} .dot-restore{background:#28c840;}
 
 /* Resize nub (react-rnd / resizable) */
