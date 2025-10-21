@@ -30,24 +30,25 @@ body {
 
 /* ===== Panel chrome ===== */
 .panel-window{
-  border:1px solid rgba(0,0,0,.12);
-  border-radius:14px; background:rgba(255,255,255,.96);
-  box-shadow:0 16px 48px rgba(2,6,23,.12);
+  border:1px solid rgba(0,0,0,.1);
+  border-radius:12px; background:rgba(255,255,255,.96);
+  box-shadow:0 8px 24px rgba(2,6,23,.15);
   background-clip:padding-box;
+  transition:all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .dark .panel-window{
-  background:rgba(10,16,28,.86);
-  border-color:rgba(22,224,255,.35);
+  background:rgba(10,16,28,.87);
+  border-color:rgba(22,224,255,.3);
   box-shadow:
-    0 8px 24px rgba(0,0,0,.55),
-    0 0 18px rgba(22,224,255,.25),
-    inset 0 0 0 1px rgba(255,255,255,.06);
+    0 6px 18px rgba(0,0,0,.5),
+    0 0 14px rgba(22,224,255,.18),
+    inset 0 0 0 1px rgba(255,255,255,.05);
 }
 .panel-window.is-focused{
   box-shadow:
-    0 12px 28px rgba(0,0,0,.22),
-    0 0 0 1px rgba(22,224,255,.45),
-    0 0 22px rgba(22,224,255,.35);
+    0 10px 24px rgba(0,0,0,.3),
+    0 0 0 1px rgba(22,224,255,.4),
+    0 0 18px rgba(22,224,255,.25);
 }
 
 /* Title bar */
