@@ -66,6 +66,7 @@ export default function Sidebar({
     { label: "BAKING & PASTRY",   icon: pastryIcon,    panelId: "pastry" },
     { label: "MIXOLOGY",          icon: mixologyIcon,  panelId: "mixology" },
     { label: "SCHEDULES",         icon: scheduleIcon,  panelId: "scheduling" },
+    { label: "PURCHASING",        icon: inventoryIcon, panelId: "purchasing" },
   ], []);
 
   // examples that DO change the URL
