@@ -41,35 +41,29 @@ const lazyPick = (loader, key = "default") =>
 
 /* ───────────────── Panels (lazy) ───────────────── */
 
-// Whiteboard (use lazyPick in case the module exports named)
-const WhiteboardPanel = lazyPick(
-  () => import("../modules/EchoDesk_Framework/src/panels/WhiteboardPanel.jsx"),
-  "default"
-);
+// Simplified lazy-loaded panels with error handling
+const safeImport = (importFn) =>
+  React.lazy(() =>
+    importFn().catch(err => {
+      console.error('Panel import failed:', err);
+      return { default: () => <div style={{ padding: '20px', color: '#f87171' }}>Panel failed to load</div> };
+    })
+  );
 
-// Settings + main app panels
-const SettingsSuite      = React.lazy(() => import("../components/settings/SettingsSuite.jsx"));
-const KitchenLibraryTabs = React.lazy(() => import("../components/KitchenLibraryTabs.jsx"));
-const PastryLibrary      = React.lazy(() => import("../components/PastryLibrary/PastryLibrary.jsx"));
-const Mixology           = React.lazy(() => import("../components/MixologyTabs.jsx"));
-const SchedulerPanel     = React.lazy(() => import("../modules/scheduling/client/App.tsx"));
-const GlowDesk           = React.lazy(() => import("../components/GlowyDesk.jsx"));
-const WidgetStudio       = React.lazy(() => import("../components/WidgetStudio.jsx"));
-const PageViewer         = React.lazy(() => import("../components/PageViewer.jsx"));
-const CakeBuilder        = React.lazy(() => import("../components/CakeBuilder.jsx"));
+const GlowDesk           = safeImport(() => import("../components/GlowyDesk.jsx"));
+const KitchenLibraryTabs = safeImport(() => import("../components/KitchenLibraryTabs.jsx"));
 
-// NEW: EchoRecipePro (DoubleTabs-powered)
-const EchoRecipeProPanel = React.lazy(() =>
-  import("../components/EchoRecipePro/EchoRecipeProPanel.jsx")
-);
-
-// Optional local widget (if present)
-let StickyNotePanelLazy = null;
-try {
-  const matches = import.meta.glob("../components/**/StickyNotePanel.jsx");
-  const key = Object.keys(matches)[0];
-  if (key) StickyNotePanelLazy = React.lazy(matches[key]);
-} catch {}
+// Optional panels - set to null if not available
+const SettingsSuite      = null;
+const PastryLibrary      = null;
+const Mixology           = null;
+const SchedulerPanel     = null;
+const WidgetStudio       = null;
+const PageViewer         = null;
+const CakeBuilder        = null;
+const EchoRecipeProPanel = null;
+const WhiteboardPanel    = null;
+const StickyNotePanelLazy = null;
 
 /* ───────────── EchoDesk stub tools/panels (installed by script) ───────────── */
 import CalendarOverlay   from "../echodesk/stubs/CalendarOverlay.jsx";
