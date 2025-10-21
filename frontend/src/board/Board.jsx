@@ -74,9 +74,10 @@ const MaestroBQTPanel    = safeImport(() => import("../components/MaestroBQTPane
 const EchoAurumPanel     = safeImport(() => import("../components/EchoAurumPanel.jsx"), "EchoAurumPanel");
 const ECHOLayoutPanel    = safeImport(() => import("../components/ECHOLayoutPanel.jsx"), "ECHOLayoutPanel");
 const PastryLibrary      = safeImport(() => import("../components/PastryLibrary/PastryLibrary.jsx"), "PastryLibrary");
-const WhiteboardPanel    = safeImport(() => import("../components/WhiteboardPanel.jsx"), "WhiteboardPanel");
+const EchoCanvasStudio   = safeImport(() => import("../components/EchoCanvasStudio.jsx"), "EchoCanvasStudio");
+const AdvancedWhiteboard = safeImport(() => import("../components/AdvancedWhiteboard.jsx"), "AdvancedWhiteboard");
+const AdvancedVideoConference = safeImport(() => import("../components/AdvancedVideoConference.tsx"), "AdvancedVideoConference");
 const MixologyPanel      = safeImport(() => import("../components/MixologyFallback.jsx"), "Mixology");
-const VideoConferencePanel = safeImport(() => import("../components/VideoConference.tsx").catch(() => ({ default: () => <div style={{ padding: '20px', color: '#7ff3ff' }}>Video Conference Panel</div> })), "VideoConference");
 
 // Optional panels - set to null if not available
 const SettingsSuite      = null;
@@ -101,7 +102,7 @@ import pastryIcon   from "../assets/baking-&-Pastry.png";
 import mixologyIcon from "../assets/mixology.png";
 import scheduleIcon from "../assets/schedule.png";
 
-/* ─────────────── Error boundary ─────────────── */
+/* ──────���──────── Error boundary ─────────────── */
 class PanelErrorBoundary extends React.Component {
   constructor(p){ super(p); this.state = { error: null }; }
   static getDerivedStateFromError(error){ return { error }; }
@@ -135,9 +136,10 @@ console.log('[Board] MaestroBQTPanel:', !!MaestroBQTPanel);
 console.log('[Board] EchoAurumPanel:', !!EchoAurumPanel);
 console.log('[Board] ECHOLayoutPanel:', !!ECHOLayoutPanel);
 console.log('[Board] PastryLibrary:', !!PastryLibrary);
-console.log('[Board] WhiteboardPanel:', !!WhiteboardPanel);
+console.log('[Board] EchoCanvasStudio:', !!EchoCanvasStudio);
+console.log('[Board] AdvancedWhiteboard:', !!AdvancedWhiteboard);
+console.log('[Board] AdvancedVideoConference:', !!AdvancedVideoConference);
 console.log('[Board] MixologyPanel:', !!MixologyPanel);
-console.log('[Board] VideoConferencePanel:', !!VideoConferencePanel);
 
 if (GlowDesk) PANEL_REGISTRY.dashboard = { title: "Dashboard", Component: GlowDesk, icon: null };
 if (GlowDesk) PANEL_REGISTRY.home = { title: "Welcome", Component: GlowDesk, icon: null };
@@ -150,9 +152,10 @@ if (MaestroBQTPanel) PANEL_REGISTRY.maestrobqt = { title: "Maestro BQT", Compone
 if (EchoAurumPanel) PANEL_REGISTRY.echoaurum = { title: "EchoAurum", Component: EchoAurumPanel, icon: null };
 if (ECHOLayoutPanel) PANEL_REGISTRY.echolayout = { title: "ECHOLayout", Component: ECHOLayoutPanel, icon: null };
 if (PastryLibrary) PANEL_REGISTRY.pastry = { title: "Baking & Pastry", Component: PastryLibrary, icon: pastryIcon };
+if (EchoCanvasStudio) PANEL_REGISTRY.echocanvasstudio = { title: "EchoCanvas Studio", Component: EchoCanvasStudio, icon: null };
+if (AdvancedWhiteboard) PANEL_REGISTRY.whiteboard = { title: "Advanced Whiteboard", Component: AdvancedWhiteboard, icon: null };
+if (AdvancedVideoConference) PANEL_REGISTRY.videoconference = { title: "Video Conferencing", Component: AdvancedVideoConference, icon: null };
 if (MixologyPanel) PANEL_REGISTRY.mixology = { title: "Mixology", Component: MixologyPanel, icon: mixologyIcon };
-if (WhiteboardPanel) PANEL_REGISTRY.whiteboard = { title: "Whiteboard", Component: WhiteboardPanel, icon: null };
-if (VideoConferencePanel) PANEL_REGISTRY.videoconference = { title: "Video Conferencing", Component: VideoConferencePanel, icon: null };
 
 console.log('[Board] Final PANEL_REGISTRY keys:', Object.keys(PANEL_REGISTRY));
 
