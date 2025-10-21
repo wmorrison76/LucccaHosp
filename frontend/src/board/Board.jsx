@@ -130,6 +130,9 @@ console.log('[Board] Schedule:', !!Schedule);
 console.log('[Board] EchoRecipeProPanel:', !!EchoRecipeProPanel);
 console.log('[Board] PurchasingPanel:', !!PurchasingPanel);
 console.log('[Board] EchoEventStudioPanel:', !!EchoEventStudioPanel);
+console.log('[Board] MaestroBQTPanel:', !!MaestroBQTPanel);
+console.log('[Board] EchoAurumPanel:', !!EchoAurumPanel);
+console.log('[Board] ECHOLayoutPanel:', !!ECHOLayoutPanel);
 
 if (GlowDesk) PANEL_REGISTRY.dashboard = { title: "Dashboard", Component: GlowDesk, icon: null };
 if (GlowDesk) PANEL_REGISTRY.home = { title: "Welcome", Component: GlowDesk, icon: null };
@@ -138,6 +141,9 @@ if (Schedule) PANEL_REGISTRY.scheduling = { title: "Schedules", Component: Sched
 if (EchoRecipeProPanel) PANEL_REGISTRY.recipepro = { title: "EchoRecipePro", Component: EchoRecipeProPanel, icon: null };
 if (PurchasingPanel) PANEL_REGISTRY.purchasing = { title: "Purchasing", Component: PurchasingPanel, icon: null };
 if (EchoEventStudioPanel) PANEL_REGISTRY.eventstudio = { title: "Echo Event Studio", Component: EchoEventStudioPanel, icon: null };
+if (MaestroBQTPanel) PANEL_REGISTRY.maestrobqt = { title: "Maestro BQT", Component: MaestroBQTPanel, icon: null };
+if (EchoAurumPanel) PANEL_REGISTRY.echoaurum = { title: "EchoAurum", Component: EchoAurumPanel, icon: null };
+if (ECHOLayoutPanel) PANEL_REGISTRY.echolayout = { title: "ECHOLayout", Component: ECHOLayoutPanel, icon: null };
 
 console.log('[Board] Final PANEL_REGISTRY keys:', Object.keys(PANEL_REGISTRY));
 
