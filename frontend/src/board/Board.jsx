@@ -134,7 +134,10 @@ console.log('[Board] EchoEventStudioPanel:', !!EchoEventStudioPanel);
 console.log('[Board] MaestroBQTPanel:', !!MaestroBQTPanel);
 console.log('[Board] EchoAurumPanel:', !!EchoAurumPanel);
 console.log('[Board] ECHOLayoutPanel:', !!ECHOLayoutPanel);
-console.log('[Board] PastryPanel:', !!PastryPanel);
+console.log('[Board] PastryLibrary:', !!PastryLibrary);
+console.log('[Board] WhiteboardPanel:', !!WhiteboardPanel);
+console.log('[Board] MixologyPanel:', !!MixologyPanel);
+console.log('[Board] VideoConferencePanel:', !!VideoConferencePanel);
 
 if (GlowDesk) PANEL_REGISTRY.dashboard = { title: "Dashboard", Component: GlowDesk, icon: null };
 if (GlowDesk) PANEL_REGISTRY.home = { title: "Welcome", Component: GlowDesk, icon: null };
