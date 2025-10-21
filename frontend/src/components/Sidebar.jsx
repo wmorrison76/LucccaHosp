@@ -193,9 +193,22 @@ export default function Sidebar({
           <hr className={`border-t ${isDarkMode ? "border-cyan-500/25" : "border-black/10"} mb-2`} />
           <div className="space-y-1">
             {bottomRoutes.map(({ path, label, icon }) => (
-              <button key={path} type="button" title={label} aria-label={label} className={itemClasses(false)} onClick={() => {}}>
-                <img src={icon} alt={label} className="sb-menu-icon" />
-                <Label>{label}</Label>
+              <button
+                key={path}
+                type="button"
+                title={label}
+                aria-label={label}
+                className={itemClasses(false)}
+                onClick={() => {}}
+                style={{
+                  justifyContent: isOpen ? 'flex-start' : 'center',
+                  width: isOpen ? '100%' : '45px',
+                  height: '45px',
+                  padding: isOpen ? '10px 12px' : '0',
+                }}
+              >
+                <img src={icon} alt={label} className="sb-menu-icon" style={{ width: '45px', height: '45px' }} />
+                {isOpen && <Label>{label}</Label>}
               </button>
             ))}
 
@@ -206,9 +219,15 @@ export default function Sidebar({
               className={itemClasses(false)}
               title="Settings"
               aria-label="Settings"
+              style={{
+                justifyContent: isOpen ? 'flex-start' : 'center',
+                width: isOpen ? '100%' : '45px',
+                height: '45px',
+                padding: isOpen ? '10px 12px' : '0',
+              }}
             >
-              <img src={settingsIcon} alt="Settings" className="sb-menu-icon" />
-              <Label>SETTINGS</Label>
+              <img src={settingsIcon} alt="Settings" className="sb-menu-icon" style={{ width: '45px', height: '45px' }} />
+              {isOpen && <Label>SETTINGS</Label>}
             </button>
           </div>
 
