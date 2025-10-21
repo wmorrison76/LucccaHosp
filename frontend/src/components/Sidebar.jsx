@@ -173,7 +173,7 @@ export default function Sidebar({
               <img src={icon} alt={label} className="sb-menu-icon" style={{ width: '45px', height: '45px', flexShrink: 0 }} />
               {isOpen && <Label>{label}</Label>}
             </button>
-          ))}}
+          ))}
 
           {/* Recent (opens a small panel via Board) */}
           <button
