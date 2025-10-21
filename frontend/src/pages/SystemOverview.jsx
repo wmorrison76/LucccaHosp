@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from '../components/Dashboard';
-import ModuleOverview from './pages/ModuleOverview';
-import Logs from './pages/Logs';
-import Settings from './pages/Settings';
-import Login from './pages/Login';
-import UserSettings from './pages/UserSettings';
-import EchoControl from './pages/EchoControl';
-import ArgusMonitor from './pages/ArgusMonitor';
-import SystemOverview from './pages/SystemOverview';
+import ModuleOverview from './ModuleOverview';
+import Logs from './Logs';
+import Settings from './Settings';
+import Login from './Login';
+import UserSettings from './UserSettings';
+import EchoControl from './EchoControl';
+import ArgusMonitor from './ArgusMonitor';
+// Avoid circular import - SystemOverview is the current component
 import { PrivateRoute } from './components/PrivateRoute';
 import MainLayout from './layout/MainLayout';
 
