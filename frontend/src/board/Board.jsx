@@ -146,6 +146,7 @@ if (EchoEventStudioPanel) PANEL_REGISTRY.eventstudio = { title: "Echo Event Stud
 if (MaestroBQTPanel) PANEL_REGISTRY.maestrobqt = { title: "Maestro BQT", Component: MaestroBQTPanel, icon: null };
 if (EchoAurumPanel) PANEL_REGISTRY.echoaurum = { title: "EchoAurum", Component: EchoAurumPanel, icon: null };
 if (ECHOLayoutPanel) PANEL_REGISTRY.echolayout = { title: "ECHOLayout", Component: ECHOLayoutPanel, icon: null };
+if (PastryPanel) PANEL_REGISTRY.pastry = { title: "Baking & Pastry", Component: PastryPanel, icon: null };
 
 console.log('[Board] Final PANEL_REGISTRY keys:', Object.keys(PANEL_REGISTRY));
 
