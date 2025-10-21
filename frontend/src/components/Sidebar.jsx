@@ -80,21 +80,14 @@ export default function Sidebar({
     { path: "/support",  label: "SUPPORT",  icon: supportIcon },
   ], []);
 
-  const itemClasses = (active = false) => [
-    isOpen ? "grid grid-cols-[44px_1fr]" : "grid grid-cols-[44px_0fr]",
-    "items-center rounded-xl px-0 py-2",
-    "bg-transparent border-0 ring-0 shadow-none",
-    "hover:bg-white/5 dark:hover:bg-cyan-400/10",
-    active ? "bg-white/6 dark:bg-cyan-500/10" : "",
-    "[box-shadow:none] [filter:none] transition-colors duration-150 w-full text-left"
-  ].join(" ");
+  const itemClasses = (active = false) => {
+    const baseClasses = "sb-menu-item";
+    const activeClass = active ? "active" : "";
+    return `${baseClasses} ${activeClass}`;
+  };
 
   const Label = ({ children }) => (
-    <span className={[
-      "text-[13px] uppercase whitespace-nowrap overflow-hidden text-ellipsis min-w-0",
-      isOpen ? "opacity-100 pr-1" : "opacity-0 pointer-events-none",
-      "transition-opacity duration-150",
-    ].join(" ")}>{children}</span>
+    <span className={`sb-menu-label ${!isOpen ? "hidden" : ""}`}>{children}</span>
   );
 
   return (
