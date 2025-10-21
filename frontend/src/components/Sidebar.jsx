@@ -83,7 +83,7 @@ export default function Sidebar({
   };
 
   const Label = ({ children }) => (
-    <span className={`sb-menu-label ${!isOpen ? "hidden" : ""}`}>{children}</span>
+    <span className={`sb-menu-label ${!isOpen ? "hidden" : ""}`} style={{ minWidth: 0, flex: 1 }}>{children}</span>
   );
 
   return (
