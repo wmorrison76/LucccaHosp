@@ -1,0 +1,22 @@
+Unused dependencies
+* react-draggable
+* react-grid-layout
+* react-resizable
+Unused devDependencies
+* @tailwindcss/postcss
+* autoprefixer
+* postcss
+* tailwindcss
+Missing dependencies
+* @vitejs/plugin-react: ./vite.config.js
+* src: ./src/pages/PastryLibrary.tsx
+* react-signature-canvas: ./src/modules/pastry/ConsultationCanvasPad.jsx
+* fuse.js: ./src/modules/pastry/cake/componets/CakeStandManager.jsx
+* jspdf-autotable: ./src/modules/invoice/utils/generateCakeInvoice.js
+* date-fns: ./src/modules/calendar/components/TVCalendarView.jsx
+* nanoid: ./src/modules/CustomCakeStudio/engine/store/useHistoryMarks.ts
+* zod: ./src/contracts/events/Order.v1.ts
+* html2pdf.js: ./src/components/DownloadOverridePDF.jsx
+* react-easy-crop: ./src/components/ImageModifierModal.jsx
+* @testing-library/react: ./src/components/EchoCore/EchoAssistantPanel.test.jsx
+* react-beautiful-dnd: ./src/components/EchoCore/components/interaction/DraggableModuleContainer.jsx

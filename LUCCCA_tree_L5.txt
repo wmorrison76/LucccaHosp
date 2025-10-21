@@ -1,0 +1,3352 @@
+.
+├── __tests__
+│   └── RBAC.test.ts
+├── 12575e91-0715-4716-ba25-58071a290370.rtf
+├── A_2D_digital_illustration_motion_graphic_onboardin.png
+├── A_digital_illustration_features_a_profile_image_of.png
+├── A_digital_illustration_of_a_female_avatar_named_"E.png
+├── A_screenshot_displays_a_terminal_window_of_a_macOS.png
+├── A_screenshot_displays_an_error_message_and_the_dev.png
+├── AccountEngine
+│   ├── accountCreator.js
+│   ├── defaultOutletBuilder.js
+│   ├── demoUserProvisioner.js
+│   ├── echoFirstBootPrompter.js
+│   ├── echoMemoryLinker.js
+│   ├── licenseKeyValidator.js
+│   ├── passwordSetupHandler.js
+│   └── tierWelcomeBinder.js
+├── AdaptiveSidebar.tsx
+├── admin
+│   └── AdminMenuUploader.jsx
+├── AdminPanel.stories.tsx
+├── AdminPanel.tsx
+├── artifacts
+│   ├── EchoCore_Batch10.tar
+│   ├── EchoCore_Batch11.tar
+│   ├── EchoCore_Batch12.tar
+│   ├── EchoCore_Batch13.tar
+│   ├── EchoCore_Batch14.tar
+│   ├── EchoCore_Batch7.tar
+│   ├── EchoCore_Batch8.tar
+│   └── EchoCore_Batch9.tar
+├── assets
+│   └── grid-overlay.svg.png
+├── AutoLayoutEngine.test.ts
+├── AutoLayoutEngine.ts
+├── backend
+│   ├── config
+│   │   └── envConfig.js
+│   ├── controllers
+│   │   ├── adminPastryController.js
+│   │   ├── cakeDesignerController.js
+│   │   ├── cakeDesignerPrintController.js
+│   │   ├── cakeSupportLogic.js
+│   │   ├── echoController.js
+│   │   ├── pastryController.js
+│   │   ├── pastryKnowledgeController.js
+│   │   ├── systemController.js
+│   │   └── versionController.js
+│   ├── data
+│   │   ├── cake_packageing_size.json
+│   │   ├── cake_pan_sizes.json
+│   │   ├── oven_types
+│   │   ├── pastry_core_recipes.json
+│   │   ├── pastry_recipes.json
+│   │   ├── pastry_techniques.json
+│   │   ├── pastry_variations.json
+│   │   └── wine_database.csv
+│   ├── db
+│   │   └── ingredients.js
+│   ├── glAssignment
+│   │   └── glRules.js
+│   ├── invoiceParser
+│   │   ├── ocr.js
+│   │   └── textMapper.js
+│   ├── luccca_backend_file_checklist.txt
+│   ├── luccca_file_checklist.txt
+│   ├── luccca_full_checklist.txt
+│   ├── middleware
+│   │   ├── authMiddleware.js
+│   │   ├── limitTracker.js
+│   │   └── LoggerMiddleware.js
+│   ├── modules
+│   │   ├── luccca_oastry_core_library.json
+│   │   └── pastry
+│   │       └── knowledgebase
+│   │           ├── luccca_pastry_core_library.json
+│   │           └── luccca_pastry_support_files.json
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── punchout
+│   │   └── orderRules.js
+│   ├── routes
+│   │   ├── adminPastryRoutes.js
+│   │   ├── cakeDesignerPrintRoutes.js
+│   │   ├── cakeDesignerroutes.js
+│   │   ├── echocrawler.js
+│   │   ├── echodine.js
+│   │   ├── echoHumorSettings.js
+│   │   ├── echoqr.js
+│   │   ├── echoRoutes.js
+│   │   ├── echosurvey.js
+│   │   ├── eventExport.js
+│   │   ├── generateServerNotes.js
+│   │   ├── healthRoutes.js
+│   │   ├── invoiceUpload.js
+│   │   ├── pastryKnowledgeRoutes.js
+│   │   ├── pastryRoutes.js
+│   │   ├── processOrder.js
+│   │   ├── specialSuggestions.js
+│   │   ├── systemRoutes.js
+│   │   ├── triggerSmartSpecial.js
+│   │   ├── uploadInvoice.js
+│   │   ├── versionController.js
+│   │   ├── versionRoutes.js
+│   │   └── wineEstimation.js
+│   ├── server.js
+│   ├── utils
+│   │   ├── healthCheck.js
+│   │   └── versionCheck.js
+│   └── yieldEngine
+│       ├── bookOfYields.json
+│       └── costFetcher.js
+├── backup_daily.sh
+├── batches
+│   ├── EchoCore_Batch10.tar
+│   ├── EchoCore_Batch11.tar
+│   ├── EchoCore_Batch12.tar
+│   ├── EchoCore_Batch13.tar
+│   ├── EchoCore_Batch14.tar
+│   ├── EchoCore_Batch7_PrecisionHotfix.tar
+│   ├── EchoCore_Batch7.tar
+│   ├── EchoCore_Batch8.tar
+│   └── EchoCore_Batch9.tar
+├── CakeDesigner_Full_CD01_CD10.tar
+├── CakeDesigner_Patch_CD01_CD10
+│   ├── docs
+│   │   ├── ANALYSIS.md
+│   │   └── PATCH_NOTES.md
+│   ├── src
+│   │   ├── AutoRotateController.ts
+│   │   ├── CakeScene.tsx
+│   │   ├── CakeTextureEngine.ts
+│   │   ├── CameraRig.ts
+│   │   ├── index.ts
+│   │   ├── MiniPreviewViewport.tsx
+│   │   ├── OverviewMode.tsx
+│   │   ├── precisionUtils.ts
+│   │   ├── TextureControlsPanel.tsx
+│   │   ├── TextureLibrary.ts
+│   │   ├── types.ts
+│   │   └── useOrbitControls.tsx
+│   ├── stories
+│   │   ├── CakeScene.stories.tsx
+│   │   ├── OverviewMode.stories.tsx
+│   │   └── TextureControlsPanel.stories.tsx
+│   └── tests
+│       ├── AutoRotateController.test.ts
+│       ├── CameraRig.test.ts
+│       ├── precisionUtils.test.ts
+│       └── TextureControlsPanel.test.tsx
+├── CakeDesigner_Patch_Full.tar
+├── CakeDesigner_Rotation_Overview
+│   ├── AutoRotateController.ts
+│   ├── CameraRig.ts
+│   ├── MiniPreviewViewport.tsx
+│   ├── OverviewMode.tsx
+│   └── useOrbitControls.ts
+├── CakeDesigner_Rotation_Overview_CD06_CD10.tar
+├── CakeDesigner_Studio
+│   ├── BackdropSelector.tsx
+│   ├── CakeTextureEngine.ts
+│   ├── CameraController.tsx
+│   ├── LightingManager.ts
+│   ├── STUDIO_README.md
+│   ├── StudioExportPanel.tsx
+│   └── tests
+│       ├── BackdropSelector.test.tsx
+│       └── LightingManager.test.ts
+├── CakeDesigner_Textures
+│   ├── CakeBuilderIntegration.tsx
+│   ├── CakeTextureEngine.ts
+│   ├── PreviewToggle.tsx
+│   ├── TextureControlsPanel.tsx
+│   └── TextureLibrary.ts
+├── CakeDesigner_Textures_Analysis.txt
+├── CakeDesigner_Textures_CD01_CD05.tar
+├── CakeDesigner_Textures_FullPackage.tar
+├── CakeLayerComposer.tsx
+├── canvas
+│   ├── EchoCanvasDesigner.jsx
+│   └── index.js
+├── Canvas3DSetup.tsx
+├── cleanup_luccca.sh
+├── core_file_tree_check.txt
+├── crm
+│   ├── index.js
+│   ├── PipelineDashboard.jsx
+│   └── ProposalForm.jsx
+├── current_files.txt
+├── DecorationToolkit.tsx
+├── Development Screenshots
+│   └── 821efbd5-4447-45f3-a442-238b57a073fd.png
+├── docs
+│   ├── api
+│   │   └── LUCCCA_API.md
+│   ├── architecture
+│   │   ├── EchoCore_Map.md
+│   │   └── EchoStratus_Map.md
+│   ├── design
+│   │   └── DashboardUI.md
+│   ├── global_precision_concerns_patch.patch
+│   └── QUALITY_REPORT.md
+├── echo_faces_full_bundle
+│   ├── echo_faces_identity
+│   │   └── packages
+│   │       └── echoscope
+│   │           ├── src
+│   │           ├── stories
+│   │           └── tests
+│   ├── echo_faces_identity_batch2
+│   │   └── packages
+│   │       └── echoscope
+│   │           ├── src
+│   │           ├── stories
+│   │           └── tests
+│   └── echo_faces_integration_batch3
+│       ├── docs
+│       │   └── adr
+│       │       └── ADR-echo-avatars.md
+│       └── packages
+│           └── echoscope
+│               ├── src
+│               └── tests
+├── echo_faces_identity
+│   └── packages
+│       └── echoscope
+│           ├── src
+│           │   ├── components
+│           │   └── hooks
+│           ├── stories
+│           │   └── avatar
+│           └── tests
+│               └── avatar
+├── echo_faces_identity_batch2
+│   └── packages
+│       └── echoscope
+│           ├── src
+│           │   ├── components
+│           │   ├── hooks
+│           │   └── panes
+│           ├── stories
+│           │   └── avatar
+│           └── tests
+│               └── avatar
+├── echo_faces_integration_batch3
+│   ├── docs
+│   │   └── adr
+│   │       └── ADR-echo-avatars.md
+│   └── packages
+│       └── echoscope
+│           ├── src
+│           │   ├── components
+│           │   └── panes
+│           └── tests
+│               └── e2e
+├── echo_faces_patch_1.0.1.diff
+├── echo_recipe_pro_logo.png
+├── EchoCompanion_FinalFramework
+│   ├── docs
+│   │   ├── ChefSupport_Plan.txt
+│   │   └── EchoCompanion_Architecture.md
+│   ├── scripts
+│   │   └── install_echo_companion_stack.sh
+│   └── src
+│       ├── assets
+│       │   └── dialogue
+│       │       ├── crisis_intervention_phrases.json
+│       │       ├── echo_greeting_templates.json
+│       │       └── farewell_sequences.json
+│       ├── companion
+│       │   ├── ChefAvatarMemory.ts
+│       │   ├── EchoCompanionInterface.jsx
+│       │   ├── EchoShutdownFarewell.jsx
+│       │   ├── EchoStartupMemory.jsx
+│       │   ├── EncryptedCompanionState.js
+│       │   ├── RecipeMemoryBuilder.tsx
+│       │   └── SuicidePreventionTrigger.ts
+│       └── utils
+│           └── hooks
+│               ├── useChefName.ts
+│               ├── useCompanionHeartbeat.ts
+│               └── useEncryptedMemory.ts
+├── EchoCompanion_FinalFramework.tar
+├── EchoCore_All_WB_DB_CD
+│   ├── AutoLayoutEngine.js
+│   ├── AutoLayoutEngine.test.js
+│   ├── BackgroundSelector.jsx
+│   ├── BackgroundSelector.stories.jsx
+│   ├── BackgroundSelector.test.jsx
+│   ├── CakeCanvas.jsx
+│   ├── CakeCanvas.stories.jsx
+│   ├── CakeLayerComposer.jsx
+│   ├── CakeLayerComposer.stories.jsx
+│   ├── CakeLayerComposer.test.jsx
+│   ├── CHANGELOG.md
+│   ├── DashboardCard.jsx
+│   ├── DashboardCard.stories.jsx
+│   ├── DashboardCard.test.jsx
+│   ├── DecorationToolkit.jsx
+│   ├── DecorationToolkit.stories.jsx
+│   ├── DecorationToolkit.test.jsx
+│   ├── EchoAssistantPanel.jsx
+│   ├── EchoAssistantPanel.stories.jsx
+│   ├── EchoAssistantPanel.test.jsx
+│   ├── ExportPrintModel.js
+│   ├── ExportPrintModel.test.js
+│   ├── FluidRoot.jsx
+│   ├── FluidRoot.stories.jsx
+│   ├── FluidRoot.test.jsx
+│   ├── GreetingModule.jsx
+│   ├── GreetingModule.stories.jsx
+│   ├── GreetingModule.test.jsx
+│   ├── index.js
+│   ├── MaterialManager.js
+│   ├── MaterialManager.test.js
+│   ├── PaneManager.jsx
+│   ├── PaneManager.stories.jsx
+│   ├── PaneManager.test.jsx
+│   ├── PerfModeDetector.js
+│   ├── PerfModeDetector.test.js
+│   ├── README.md
+│   ├── Sidebar.jsx
+│   ├── Sidebar.stories.jsx
+│   ├── Sidebar.test.jsx
+│   ├── WindowTransitionLayer.jsx
+│   ├── WindowTransitionLayer.stories.jsx
+│   └── WindowTransitionLayer.test.jsx
+├── EchoCore_Batch10
+│   ├── apps
+│   │   └── web-shell
+│   │       └── src
+│   │           └── app
+│   └── packages
+│       ├── echocore
+│       │   └── src
+│       │       ├── domain
+│       │       ├── ports
+│       │       ├── services
+│       │       └── telemetry
+│       └── echoscope
+│           └── src
+│               ├── components
+│               └── panes
+├── EchoCore_Batch11
+│   ├── apps
+│   │   └── web-shell
+│   │       └── tests
+│   │           ├── CommandPalette.test.ts
+│   │           ├── EchoCanvas.test.ts
+│   │           └── EngagePage.test.ts
+│   ├── docs
+│   │   ├── playbooks
+│   │   │   └── incident-hybrid-node-down.md
+│   │   └── rfc
+│   │       ├── RFC-onprem-sync-conflict-resolution.md
+│   │       └── RFC-whiteboard-input-abstraction.md
+│   └── packages
+│       ├── echocore
+│       │   └── tests
+│       │       ├── BEOGenerator.test.ts
+│       │       ├── BrandApply.test.ts
+│       │       ├── BrandExtract.test.ts
+│       │       ├── CakeCostEngine.test.ts
+│       │       ├── CommandRegistry.test.ts
+│       │       ├── CRMModels.test.ts
+│       │       ├── MenuParser.test.ts
+│       │       └── ProposalPDF.test.ts
+│       └── echoscope
+│           ├── src
+│           │   ├── components
+│           │   └── panes
+│           └── tests
+│               └── QuickActionBar.test.ts
+├── EchoCore_Batch11.tar
+├── EchoCore_Batch12
+│   ├── docs
+│   │   └── adr
+│   │       ├── ADR-0005-telemetry-and-presence.md
+│   │       ├── ADR-0006-branding-engine.md
+│   │       ├── ADR-0007-quick-actions-palette.md
+│   │       ├── ADR-0008-event-builder-cake-designer-integration.md
+│   │       └── ADR-0009-rbac-predictive-analytics.md
+│   └── packages
+│       ├── echoboard
+│       │   └── tests
+│       │       ├── FlagManager.integration.test.ts
+│       │       └── GlobalStateBus.integration.test.ts
+│       ├── echocore
+│       │   └── src
+│       │       └── hooks
+│       └── echoscope
+│           ├── src
+│           │   └── hooks
+│           └── tests
+│               ├── AutoLayoutEngine.integration.test.ts
+│               ├── CakeDesignerPane.integration.test.ts
+│               ├── CRMPipelinePane.integration.test.ts
+│               ├── EchoCanvasPane.integration.test.ts
+│               ├── EventBuilderPane.integration.test.ts
+│               ├── FluidRoot.integration.test.ts
+│               ├── PaneManager.integration.test.ts
+│               └── TelemetryConsole.integration.test.ts
+├── EchoCore_Batch12.tar
+├── EchoCore_Batch13
+│   ├── docs
+│   │   ├── adr
+│   │   │   ├── ADR-0010-rbac-and-security.md
+│   │   │   └── ADR-0011-predictive-analytics-strategy.md
+│   │   ├── playbooks
+│   │   │   ├── predictive-model-maintenance.md
+│   │   │   └── security-incident-response.md
+│   │   └── rfc
+│   │       └── RFC-rbac-predictive-analytics.md
+│   └── packages
+│       ├── echo-testing
+│       │   └── fixtures
+│       │       ├── cakeDesign.fixture.ts
+│       │       ├── crmPipeline.fixture.ts
+│       │       ├── echoCanvas.fixture.ts
+│       │       ├── eventBuilder.fixture.ts
+│       │       └── telemetry.fixture.ts
+│       ├── echocore
+│       │   └── src
+│       │       ├── analytics
+│       │       └── rbac
+│       └── echoscope
+│           └── src
+│               └── stories
+├── EchoCore_Batch13.tar
+├── EchoCore_Batch14
+│   ├── docs
+│   │   └── playbooks
+│   │       └── ci-cd-maintenance.md
+│   └── packages
+│       ├── echo-config
+│       │   ├── eslint.config.js
+│       │   ├── jest.config.js
+│       │   ├── prettier.config.js
+│       │   ├── tsconfig.base.json
+│       │   └── vitest.config.js
+│       ├── echo-testing
+│       │   └── scripts
+│       │       ├── runCoverageReport.sh
+│       │       ├── runE2ETests.sh
+│       │       ├── runUnitTests.sh
+│       │       └── setupTestEnv.sh
+│       └── echocore
+│           └── src
+│               ├── helpers
+│               └── utils
+├── EchoCore_Batch14.tar
+├── EchoCore_Batch15
+│   ├── docs
+│   │   ├── adr
+│   │   │   └── ADR-0012-cake-texture-system.md
+│   │   └── rfc
+│   │       └── RFC-cake-textures.md
+│   └── packages
+│       └── echoscope
+│           └── src
+│               └── panes
+├── EchoCore_Batch16
+│   ├── docs
+│   │   ├── adr
+│   │   │   └── ADR-0013-cake-export-pipeline.md
+│   │   ├── playbooks
+│   │   │   └── cake-export-playbook.md
+│   │   └── rfc
+│   │       └── RFC-cake-export-pipeline.md
+│   └── packages
+│       └── echoscope
+│           └── src
+│               └── panes
+├── EchoCore_Batch7
+│   └── packages
+│       ├── echoboard
+│       │   └── src
+│       │       ├── components
+│       │       ├── flags
+│       │       ├── hooks
+│       │       ├── services
+│       │       └── state
+│       └── echoscope
+│           └── src
+│               ├── components
+│               ├── hooks
+│               ├── panes
+│               └── state
+├── EchoCore_Batch7_PrecisionHotfix
+│   └── packages
+│       ├── echoboard
+│       │   └── src
+│       │       ├── flags
+│       │       └── geometry
+│       └── echoscope
+│           └── src
+│               ├── components
+│               └── hooks
+├── EchoCore_Batch8
+│   ├── apps
+│   │   └── edge-gateway
+│   │       └── src
+│   │           ├── index.ts
+│   │           └── pipelines
+│   ├── docs
+│   │   └── adr
+│   │       ├── ADR-0001-fluid-whiteboard-shell.md
+│   │       └── ADR-0002-pane-life-cycle-and-registry.md
+│   └── packages
+│       ├── echoboard
+│       │   └── src
+│       │       ├── geometry
+│       │       └── input
+│       ├── echoscope
+│       │   └── src
+│       │       ├── accessibility
+│       │       ├── components
+│       │       ├── hooks
+│       │       ├── panes
+│       │       └── shortcuts
+│       └── echostratus
+│           └── src
+│               ├── components
+│               ├── hooks
+│               └── tiers
+├── EchoCore_Batch9
+│   ├── apps
+│   │   └── edge-gateway
+│   │       └── src
+│   │           └── sync
+│   ├── docs
+│   │   ├── adr
+│   │   │   ├── ADR-0003-feature-flag-strategy-in-luccca.md
+│   │   │   └── ADR-0004-hybrid-analytics-data-flow.md
+│   │   └── rfc
+│   │       └── RFC-cake-designer-costing-and-rendering.md
+│   └── packages
+│       ├── echocore
+│       │   └── src
+│       │       ├── adapters
+│       │       ├── domain
+│       │       ├── ports
+│       │       ├── presence
+│       │       ├── services
+│       │       └── telemetry
+│       ├── echoscope
+│       │   └── src
+│       │       ├── components
+│       │       └── panes
+│       └── echostratus
+│           └── src
+│               └── services
+├── EchoCore_CakeDesigner_CD01-05
+│   ├── CakeCanvas.jsx
+│   ├── CakeLayerComposer.jsx
+│   ├── DecorationToolkit.jsx
+│   ├── ExportPrintModel.js
+│   ├── index.js
+│   └── MaterialManager.js
+├── EchoCore_CakeDesigner_CD01-05_Complete
+│   ├── CakeCanvas.jsx
+│   ├── CakeCanvas.stories.jsx
+│   ├── CakeLayerComposer.jsx
+│   ├── CakeLayerComposer.stories.jsx
+│   ├── CakeLayerComposer.test.jsx
+│   ├── DecorationToolkit.jsx
+│   ├── DecorationToolkit.stories.jsx
+│   ├── DecorationToolkit.test.jsx
+│   ├── ExportPrintModel.js
+│   ├── ExportPrintModel.test.js
+│   ├── index.js
+│   ├── MaterialManager.js
+│   └── MaterialManager.test.js
+├── EchoCore_CakeDesigner_CD01-05_Tests
+│   ├── CakeCanvas.stories.jsx
+│   ├── CakeLayerComposer.stories.jsx
+│   ├── CakeLayerComposer.test.jsx
+│   ├── DecorationToolkit.stories.jsx
+│   ├── DecorationToolkit.test.jsx
+│   ├── ExportPrintModel.test.js
+│   └── MaterialManager.test.js
+├── EchoCore_ComponentIndex.log
+├── EchoCore_DashboardIntegration_DB01-05
+│   ├── BackgroundSelector.jsx
+│   ├── DashboardCard.jsx
+│   ├── EchoAssistantPanel.jsx
+│   ├── GreetingModule.jsx
+│   ├── index.js
+│   └── Sidebar.jsx
+├── EchoCore_DashboardIntegration_DB01-05_Complete
+│   ├── BackgroundSelector.jsx
+│   ├── BackgroundSelector.stories.jsx
+│   ├── BackgroundSelector.test.jsx
+│   ├── DashboardCard.jsx
+│   ├── DashboardCard.stories.jsx
+│   ├── DashboardCard.test.jsx
+│   ├── EchoAssistantPanel.jsx
+│   ├── EchoAssistantPanel.stories.jsx
+│   ├── EchoAssistantPanel.test.jsx
+│   ├── GreetingModule.jsx
+│   ├── GreetingModule.stories.jsx
+│   ├── GreetingModule.test.jsx
+│   ├── index.js
+│   ├── Sidebar.jsx
+│   ├── Sidebar.stories.jsx
+│   └── Sidebar.test.jsx
+├── EchoCore_DashboardIntegration_DB01-05_Tests
+│   ├── BackgroundSelector.stories.jsx
+│   ├── BackgroundSelector.test.jsx
+│   ├── DashboardCard.stories.jsx
+│   ├── DashboardCard.test.jsx
+│   ├── EchoAssistantPanel.stories.jsx
+│   ├── EchoAssistantPanel.test.jsx
+│   ├── GreetingModule.stories.jsx
+│   ├── GreetingModule.test.jsx
+│   ├── Sidebar.stories.jsx
+│   └── Sidebar.test.jsx
+├── EchoCore_FileTree.log
+├── EchoCore_Framework
+│   ├── analytics
+│   │   └── index.js
+│   ├── components
+│   │   ├── emotionalAI
+│   │   │   └── index.js
+│   │   ├── financial
+│   │   │   └── index.js
+│   │   ├── Hospitality
+│   │   │   └── index.js
+│   │   ├── Identity
+│   │   │   └── EchoThumbPrint.png
+│   │   ├── index.js
+│   │   ├── interaction
+│   │   │   └── index.js
+│   │   └── theme
+│   │       └── index.js
+│   ├── context
+│   │   └── index.js
+│   ├── hooks
+│   │   └── index.js
+│   └── utils
+│       └── index.js
+├── EchoCore_Framework_Ready
+│   ├── frontend
+│   │   └── src
+│   │       └── components
+│   │           ├── EchoCore
+│   │           └── Identity
+│   ├── package-lock.json
+│   ├── package.json
+│   └── README.md
+├── EchoCore_Missing_15_Files
+│   ├── WB_AnimationEngine.js
+│   ├── WB_DataLink.js
+│   ├── WB_FreespaceConfig.js
+│   ├── WB_FreespaceContext.js
+│   ├── WB_FreespaceDocs.md
+│   ├── WB_FreespaceManager.js
+│   ├── WB_FreespaceRenderer.js
+│   ├── WB_FreespaceTests.spec.js
+│   ├── WB_GestureControl.js
+│   ├── WB_HistoryTimeline.js
+│   ├── WB_HologramProjection.js
+│   ├── WB_PanelDock.js
+│   ├── WB_PanelLayoutEngine.js
+│   ├── WB_ToolbarUI.js
+│   └── WB_VoiceInterface.js
+├── EchoCore_PATCH_0002.tar
+├── EchoCore_Patch_v1
+│   ├── DecorationToolkit.jsx
+│   ├── EchoAssistantPanel.jsx
+│   ├── ExportPrintModel.js
+│   ├── PaneManager.jsx
+│   ├── PATCH_NOTES.md
+│   ├── PerfModeDetector.js
+│   └── Sidebar.jsx
+├── EchoCore_Patch_v1_With_Notes.tar
+├── EchoCore_Patch_v1.tar
+├── EchoCore_Patch_v2
+│   └── README_V2.md
+├── EchoCore_Patch_v2.tar
+├── EchoCore_README_and_PATCH_0001.tar
+├── EchoCore_Whiteboard_WB01-05
+│   ├── AutoLayoutEngine.js
+│   ├── FluidRoot.jsx
+│   ├── index.js
+│   ├── PaneManager.jsx
+│   ├── PerfModeDetector.js
+│   └── WindowTransitionLayer.jsx
+├── EchoCore_Whiteboard_WB01-05_Complete
+│   ├── AutoLayoutEngine.js
+│   ├── AutoLayoutEngine.test.js
+│   ├── FluidRoot.jsx
+│   ├── FluidRoot.stories.jsx
+│   ├── FluidRoot.test.jsx
+│   ├── index.js
+│   ├── PaneManager.jsx
+│   ├── PaneManager.stories.jsx
+│   ├── PaneManager.test.jsx
+│   ├── PerfModeDetector.js
+│   ├── PerfModeDetector.test.js
+│   ├── WindowTransitionLayer.jsx
+│   ├── WindowTransitionLayer.stories.jsx
+│   └── WindowTransitionLayer.test.jsx
+├── EchoCore_Whiteboard_WB01-05_Tests
+│   ├── AutoLayoutEngine.test.js
+│   ├── FluidRoot.stories.jsx
+│   ├── FluidRoot.test.jsx
+│   ├── PaneManager.stories.jsx
+│   ├── PaneManager.test.jsx
+│   ├── PerfModeDetector.test.js
+│   ├── WindowTransitionLayer.stories.jsx
+│   └── WindowTransitionLayer.test.jsx
+├── EchoFaces_All.tar
+├── EchoFaces_Full_Package.zip
+├── EchoFaces_FullBundle.tar
+├── EchoFaces_Patch_1.0.1_with_CICD.zip
+├── EchoHugPatch_1
+│   ├── ChefMoodTracker.jsx
+│   ├── echo_manifest.json
+│   ├── EchoShell.jsx
+│   ├── EchoTranscriptLog.jsx
+│   ├── EchoVoiceInput.jsx
+│   └── EmotionLog.jsx
+├── EchoHugPatch_1.tar
+├── EchoMaestro
+│   ├── 09475f6b-371e-47dd-9bea-ec42217e766e.png
+│   ├── LUCCCA_EchoMaestro_Phase_I.zip
+│   └── LUCCCA_EchoMaestro_README.txt
+├── EchoScope
+│   ├── EchoEventCreator.jsx
+│   ├── EchoscopeAdminPanel.jsx
+│   ├── EchoscopeWheel.jsx
+│   └── index.js
+├── Echoscope_Final_Launch
+│   ├── 1_Core_Framework_Package
+│   │   ├── admin_panel_config.json
+│   │   ├── api_structure_readme.md
+│   │   ├── core_api_structure.json
+│   │   ├── README_Core.txt
+│   │   ├── red_phoenix_security_init.sh
+│   │   └── zelda_master_config.yaml
+│   ├── 2_Operator_Dashboard_Package
+│   │   ├── forecast_display_graph.js
+│   │   ├── historical_insights_timeline.js
+│   │   ├── operator_ui_components.jsx
+│   │   ├── operator_ui_layout.jsx
+│   │   ├── README_Operator copy.txt
+│   │   ├── README_Operator.txt
+│   │   └── scenario_controls_component.jsx
+│   ├── 3_Executive_Dashboard_Package
+│   │   ├── executive_ui_components.jsx
+│   │   ├── executive_ui_layout.jsx
+│   │   ├── portfolio_summary_component.jsx
+│   │   ├── README_Executive copy.txt
+│   │   ├── README_Executive.txt
+│   │   ├── risk_analysis_overlay.js
+│   │   ├── strategic_suggestions_module.js
+│   │   └── timeline_analytics_view.js
+│   ├── 4_Market_Intelligence_Package
+│   │   ├── atlas_module_structure.yaml
+│   │   ├── market_api_connectors.js
+│   │   ├── market_api_endpoints.json
+│   │   ├── nexus_module_structure.yaml
+│   │   ├── README_Market copy.txt
+│   │   └── README_Market.txt
+│   ├── 5_Documentation_and_Compliance_Package
+│   │   ├── api_blueprint.md
+│   │   ├── calculation_breakdown.docx
+│   │   ├── final_documentation.docx
+│   │   ├── historical_trend_algorithms.json
+│   │   ├── README_Docs.txt
+│   │   ├── self_healing_specs.yaml
+│   │   ├── tech_stack_guide.pdf
+│   │   └── validation_reports.pdf
+│   ├── components
+│   │   └── Identity
+│   │       └── EchoThumbPrint.png
+│   └── data
+├── EchoScope_Framework
+│   ├── docs
+│   │   ├── EchoScope_Module_Tree.txt
+│   │   └── EchoScope_Readme.md
+│   ├── public
+│   │   └── assets
+│   │       └── Echo_Logo.png
+│   └── src
+│       ├── canvas
+│       │   └── EchoCanvasDesigner.jsx
+│       ├── components
+│       │   └── EchoScope
+│       │       ├── EchoEventCreator.jsx
+│       │       ├── EchoscopeAdminPanel.jsx
+│       │       └── EchoscopeWheel.jsx
+│       ├── crm
+│       │   ├── PipelineDashboard.jsx
+│       │   └── ProposalForm.jsx
+│       ├── data
+│       │   └── echoscope_modifiers.json
+│       └── parsers
+│           └── PDFMenuParser.js
+├── EchoScopeClientPlanner.jsx
+├── EmailCalendarIntegration.ts
+├── enforce_file_structure.js
+├── ExportPrintModel.ts
+├── file_diff.txt
+├── FlagManager.ts
+├── FluidRoot_AntColony_RecoveryBundle.tar
+├── FluidRoot_Recovery_and_AntColonyPlan.txt
+├── FluidRoot.stories.tsx
+├── FORTE_Loader
+│   ├── EasterEggTrigger.ts
+│   ├── FORTE_Crawl.css
+│   ├── FORTE_Credits.json
+│   ├── FORTE_GridBackground.tsx
+│   ├── FORTE_Init.ts
+│   ├── FORTE_Loader_Doc.md
+│   └── FORTE_Loader.tsx
+├── FORTE_Scheduler
+│   ├── guardian
+│   │   ├── Argus.ts
+│   │   ├── OdinSpear.ts
+│   │   ├── RedPhoenix.ts
+│   │   ├── SystemMapGenerator.ts
+│   │   └── ZeldaMaster.ts
+│   ├── package.json
+│   ├── README.md
+│   ├── scheduler
+│   │   ├── core
+│   │   │   ├── Alerting.ts
+│   │   │   ├── AuditLog.ts
+│   │   │   ├── BanquetForecastEngine.ts
+│   │   │   ├── BEOPlanner.ts
+│   │   │   ├── BrigadeSkillAllocator.ts
+│   │   │   ├── ComplianceKernel.ts
+│   │   │   ├── CRMCore.ts
+│   │   │   ├── ForecastEngine.ts
+│   │   │   ├── GlobalForecastOrchestrator.ts
+│   │   │   ├── index.ts
+│   │   │   ├── LeadLagAccounting.ts
+│   │   │   ├── OptimizationSolver.ts
+│   │   │   ├── PastryForecastEngine.ts
+│   │   │   ├── PhoenixGate.ts
+│   │   │   ├── PositionMatrixEngine.ts
+│   │   │   ├── ProductionPlanner.ts
+│   │   │   ├── REOPlanner.ts
+│   │   │   ├── RuleEngine.ts
+│   │   │   ├── SchedulerKernel.ts
+│   │   │   ├── ShiftMarketplace.ts
+│   │   │   ├── TheoryCost.ts
+│   │   │   └── util
+│   │   │       └── dateMath.ts
+│   │   ├── data
+│   │   │   ├── beoModels.ts
+│   │   │   ├── globalForecast.ts
+│   │   │   ├── models.ts
+│   │   │   ├── pastryModels.ts
+│   │   │   ├── productionModels.ts
+│   │   │   ├── reoModels.ts
+│   │   │   └── skillModels.ts
+│   │   ├── docs
+│   │   │   ├── CRM_BEO_REO_Spec.md
+│   │   │   ├── FORTE_Scheduler_Spec.md
+│   │   │   ├── FORTE_Scheduler_Update1.md
+│   │   │   ├── FORTE_Scheduler_Update2.md
+│   │   │   ├── Guardian_Tools_Spec.md
+│   │   │   ├── LeadLag_Model.md
+│   │   │   └── Pastry_Forecast_Spec.md
+│   │   └── ui
+│   │       └── web
+│   │           ├── components
+│   │           └── pages
+│   ├── setup_update2.sh
+│   ├── setup_update3.sh
+│   └── tsconfig.json
+├── frontend
+│   ├── assets
+│   │   └── LUCCCA_Vertical_Inline.png
+│   ├── components
+│   │   ├── GLSelector.jsx
+│   │   ├── Identity
+│   │   │   └── EchoThumbPrint.png
+│   │   ├── OrderForm.jsx
+│   │   ├── PrivateRoute.jsx
+│   │   ├── Recipe
+│   │   │   └── RecipeListView.jsx
+│   │   └── StatusIndicator.jsx
+│   ├── CulinaryLab_FullInstall
+│   │   └── src
+│   │       └── components
+│   │           ├── Kitchen
+│   │           └── LiquidWhiteBoard
+│   ├── file_tree.txt
+│   ├── FluidRoot_FusedStack
+│   │   └── src
+│   │       └── components
+│   │           └── EchoCore
+│   ├── FluidRoot_FusedStack_VisualBoost
+│   │   ├── setup_fluidroot_visualboost.sh
+│   │   └── src
+│   │       └── components
+│   │           └── EchoCore
+│   ├── future_sales_forecasting
+│   │   ├── FutureSalesPanel.jsx
+│   │   └── useFutureForecast.js
+│   ├── FutureSalesForecast_Expanded
+│   │   └── src
+│   │       └── components
+│   │           └── EchoCore
+│   ├── FutureSalesForecast_Expanded.tar
+│   ├── index.html
+│   ├── install_culinary_lab.sh
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── package.json.working
+│   ├── postcss.config.js
+│   ├── public
+│   │   ├── ant_colony_map.json
+│   │   └── assets
+│   │       └── grid-overlay.png
+│   ├── src
+│   │   ├── App.jsx
+│   │   ├── assets
+│   │   │   ├── analytics.png
+│   │   │   ├── baking-&-Pastry.png
+│   │   │   ├── bar_recipes.png
+│   │   │   ├── bartender.png
+│   │   │   ├── Cake_Builder.png
+│   │   │   ├── Cake-Artist.png
+│   │   │   ├── ChatGPT Image Jul 23, 2025 at 07_18_38 PM.png
+│   │   │   ├── ChefNet.png
+│   │   │   ├── contact-us.png
+│   │   │   ├── CRM.png
+│   │   │   ├── culinary_library.png
+│   │   │   ├── currency_icon.png
+│   │   │   ├── dashboard.png
+│   │   │   ├── Echo_Canvas.png
+│   │   │   ├── Echo_Recipe_Pro.png
+│   │   │   ├── Echo-Ai.png
+│   │   │   ├── Echo.png
+│   │   │   ├── food_inventory.png
+│   │   │   ├── help_desk.png
+│   │   │   ├── help-desk.png
+│   │   │   ├── Inventory.png
+│   │   │   ├── kitchen-library.png
+│   │   │   ├── kitchen-Recipes.png
+│   │   │   ├── Large
+│   │   │   │   ├── analytics.png
+│   │   │   │   ├── baking-&-Pastry.png
+│   │   │   │   ├── bar_recipes.png
+│   │   │   │   ├── bartender.png
+│   │   │   │   ├── Cake_Builder.png
+│   │   │   │   ├── Cake-Artist.png
+│   │   │   │   ├── ChatGPT Image Jul 23, 2025 at 07_18_38 PM.png
+│   │   │   │   ├── ChefNet.png
+│   │   │   │   ├── contact-us.png
+│   │   │   │   ├── CRM.png
+│   │   │   │   ├── culinary_library.png
+│   │   │   │   ├── currency_icon.png
+│   │   │   │   ├── dashboard.png
+│   │   │   │   ├── Echo_Canvas.png
+│   │   │   │   ├── Echo_Recipe_Pro.png
+│   │   │   │   ├── Echo-Ai.png
+│   │   │   │   ├── Echo.png
+│   │   │   │   ├── food_inventory.png
+│   │   │   │   ├── help_desk.png
+│   │   │   │   ├── help-desk.png
+│   │   │   │   ├── Inventory.png
+│   │   │   │   ├── kitchen-library.png
+│   │   │   │   ├── kitchen-Recipes.png
+│   │   │   │   ├── LUCCCA_ECHO.png
+│   │   │   │   ├── LUCCCA_Vertical_Inline.png
+│   │   │   │   ├── Maestro-Suite.png
+│   │   │   │   ├── MaestroBQT.png
+│   │   │   │   ├── mixology.png
+│   │   │   │   ├── nutrition_icon.png
+│   │   │   │   ├── nutritional-analysis.png
+│   │   │   │   ├── R&D.png
+│   │   │   │   ├── rd_icon.png
+│   │   │   │   ├── recipe-calculator.png
+│   │   │   │   ├── recipe-pro.png
+│   │   │   │   ├── recipes.png
+│   │   │   │   ├── schedule.png
+│   │   │   │   ├── settings.png
+│   │   │   │   └── zelda-redphonix.png
+│   │   │   ├── LUCCCA_ECHO.png
+│   │   │   ├── LUCCCA_Vertical_Inline.png
+│   │   │   ├── Maestro-Suite.png
+│   │   │   ├── MaestroBQT.png
+│   │   │   ├── mixology.png
+│   │   │   ├── nutrition_icon.png
+│   │   │   ├── nutritional-analysis.png
+│   │   │   ├── rd_icon.png
+│   │   │   ├── recipe-calculator.png
+│   │   │   ├── recipe-pro.png
+│   │   │   ├── recipes.png
+│   │   │   ├── schedule.png
+│   │   │   ├── settings.png
+│   │   │   ├── styles
+│   │   │   │   └── global.css
+│   │   │   ├── thumbprint.png
+│   │   │   └── zelda-redphonix.png
+│   │   ├── components
+│   │   │   ├── AdminModuleToggle.jsx
+│   │   │   ├── AdminPanel.jsx
+│   │   │   ├── AdminPanelGrid.jsx
+│   │   │   ├── AdminPanelNav.jsx
+│   │   │   ├── AlertMessage.jsx
+│   │   │   ├── BreadCrumbs.jsx
+│   │   │   ├── ButtonPrimary.jsx
+│   │   │   ├── CakeBuilder.jsx
+│   │   │   ├── CakeCanvas.jsx
+│   │   │   ├── CakeDesignSummary.jsx
+│   │   │   ├── CakeFormSection.jsx
+│   │   │   ├── CakeSupportDisplay.jsx
+│   │   │   ├── calendar
+│   │   │   │   ├── BEOViewer.jsx
+│   │   │   │   ├── EventCalendar.jsx
+│   │   │   │   └── REOViewer.jsx
+│   │   │   ├── Card.jsx
+│   │   │   ├── checkbook
+│   │   │   │   ├── CheckbookDashboard.jsx
+│   │   │   │   └── InvoiceViewer.jsx
+│   │   │   ├── CrashTest.jsx
+│   │   │   ├── CulinaryLab
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── panels
+│   │   │   │   └── RecipeInputRND.jsx
+│   │   │   ├── Dashboard
+│   │   │   │   ├── DashboardCard.jsx
+│   │   │   │   ├── EchoSmartSpecialFlow.jsx
+│   │   │   │   ├── FutureSalesForecast.jsx
+│   │   │   │   └── ProcurementDashboard.jsx
+│   │   │   ├── DashboardWelcome.jsx
+│   │   │   ├── DownloadOverridePDF.jsx
+│   │   │   ├── echo
+│   │   │   │   └── EchoSettingsPanel.jsx
+│   │   │   ├── EchoCore
+│   │   │   │   ├── analytics
+│   │   │   │   ├── assets
+│   │   │   │   ├── components
+│   │   │   │   ├── context
+│   │   │   │   ├── CulinaryLab_FullInstall
+│   │   │   │   ├── Dashboard.jsx
+│   │   │   │   ├── EchoAssistantPanel.jsx
+│   │   │   │   ├── EchoAssistantPanel.stories.jsx
+│   │   │   │   ├── EchoAssistantPanel.test.jsx
+│   │   │   │   ├── EchoAssistantToolbar.jsx
+│   │   │   │   ├── EchoAvatar.jsx
+│   │   │   │   ├── EchoCompanionThumb.jsx
+│   │   │   │   ├── EchoCoreGlobalStyles.css
+│   │   │   │   ├── EchoOverlay.jsx
+│   │   │   │   ├── EchoSummonButton.jsx
+│   │   │   │   ├── EchoThemeSwitch.jsx
+│   │   │   │   ├── EchoToolbar.jsx
+│   │   │   │   ├── EchoWelcomeScreen.jsx
+│   │   │   │   ├── file_tree.txt
+│   │   │   │   ├── FluidRoot copy.jsx
+│   │   │   │   ├── FluidRoot_FusedStack
+│   │   │   │   ├── FluidRoot.jsx
+│   │   │   │   ├── future_sales_forecasting
+│   │   │   │   ├── FutureSalesForecast_Expanded
+│   │   │   │   ├── FutureSalesForecast_Expanded.tar
+│   │   │   │   ├── hooks
+│   │   │   │   ├── Hotkeys.jsx
+│   │   │   │   ├── index.js
+│   │   │   │   ├── install_culinary_lab.sh
+│   │   │   │   ├── MissionControl
+│   │   │   │   ├── PanelDockBar.jsx
+│   │   │   │   ├── PanelHeader.jsx
+│   │   │   │   ├── panels
+│   │   │   │   ├── PanelWindow.jsx
+│   │   │   │   ├── public
+│   │   │   │   ├── state
+│   │   │   │   ├── styles
+│   │   │   │   ├── useEchoFinance.js
+│   │   │   │   ├── useEchoLabor.js
+│   │   │   │   ├── utils
+│   │   │   │   ├── utlis
+│   │   │   │   └── voice
+│   │   │   ├── EchoGridSidebar.jsx
+│   │   │   ├── EchoResponsePanel.jsx
+│   │   │   ├── EchoStatusMonitor.jsx
+│   │   │   ├── emotionalAI
+│   │   │   │   ├── AIStatusIndicator.jsx
+│   │   │   │   ├── ChefMoodTracker.jsx
+│   │   │   │   ├── ClippyExplainer.jsx
+│   │   │   │   ├── EchoPulseIcon.jsx
+│   │   │   │   ├── EmotionLog.jsx
+│   │   │   │   └── index.js
+│   │   │   ├── Footer.jsx
+│   │   │   ├── FormButton.jsx
+│   │   │   ├── FormFieldGroup.jsx
+│   │   │   ├── FormInput.jsx
+│   │   │   ├── GridLayout.jsx
+│   │   │   ├── Identity
+│   │   │   │   └── EchoThumbPrint.jsx
+│   │   │   ├── ImageModifierModal.jsx
+│   │   │   ├── Ingredients
+│   │   │   │   ├── IngredientBuilder.jsx
+│   │   │   │   └── IngredientMasterList.jsx
+│   │   │   ├── interaction
+│   │   │   │   ├── DashboardTransitionWrapper.jsx
+│   │   │   │   ├── EchoAccordion.jsx
+│   │   │   │   ├── EchoActionBar.jsx
+│   │   │   │   ├── EchoActionGrid.jsx
+│   │   │   │   ├── EchoAnimator.jsx
+│   │   │   │   ├── EchoAssistant.jsx
+│   │   │   │   ├── EchoCard.jsx
+│   │   │   │   ├── EchoCardContainer.jsx
+│   │   │   │   ├── EchoCarousel.jsx
+│   │   │   │   ├── EchoContextMenu.jsx
+│   │   │   │   ├── EchoControlPanel.jsx
+│   │   │   │   ├── EchoDropdown.jsx
+│   │   │   │   ├── EchoDynamicPanel.jsx
+│   │   │   │   ├── EchoFloatingMenu.jsx
+│   │   │   │   ├── EchoFloatingPanel.jsx
+│   │   │   │   ├── EchoInfoBadge.jsx
+│   │   │   │   ├── EchoInlineAlert.jsx
+│   │   │   │   ├── EchoInteractivePanel.jsx
+│   │   │   │   ├── EchoMainView.jsx
+│   │   │   │   ├── EchoMessageList.jsx
+│   │   │   │   ├── EchoModal.jsx
+│   │   │   │   ├── EchoNotepad.jsx
+│   │   │   │   ├── EchoPagination.jsx
+│   │   │   │   ├── EchoPanelWrapper.jsx
+│   │   │   │   ├── EchoProgressBar.jsx
+│   │   │   │   ├── EchoQuickStatus.jsx
+│   │   │   │   ├── EchoResponseBlock.jsx
+│   │   │   │   ├── EchoResponsePanel.jsx
+│   │   │   │   ├── EchoSectionHeader.jsx
+│   │   │   │   ├── EchoShell.jsx
+│   │   │   │   ├── EchoSidebar.jsx
+│   │   │   │   ├── EchoSmartSpecialFlow.jsx
+│   │   │   │   ├── EchoStatusBar.jsx
+│   │   │   │   ├── EchoStepper.jsx
+│   │   │   │   ├── EchoSummaryCard.jsx
+│   │   │   │   ├── EchoTabs.jsx
+│   │   │   │   ├── EchoToast.jsx
+│   │   │   │   ├── EchoToggle.jsx
+│   │   │   │   ├── EchoToolbar.jsx
+│   │   │   │   ├── EchoTooltip.jsx
+│   │   │   │   ├── EchoWhisper.jsx
+│   │   │   │   ├── index.js
+│   │   │   │   ├── ModuleContainer.jsx
+│   │   │   │   ├── QuickActionPanel.jsx
+│   │   │   │   ├── UIActionButton.jsx
+│   │   │   │   └── useKeyPress.js
+│   │   │   ├── invoice
+│   │   │   │   ├── checkDuplicate.js
+│   │   │   │   ├── ComplianceAuditBanner.jsx
+│   │   │   │   ├── InvoicePreviewModal.jsx
+│   │   │   │   ├── InvoiceUpload.jsx
+│   │   │   │   ├── OrderingConflictAlert.js
+│   │   │   │   └── VendorResponsePanel.jsx
+│   │   │   ├── items
+│   │   │   │   └── ItemHoverInsights.jsx
+│   │   │   ├── Kitchen
+│   │   │   │   ├── KitchenTabView.jsx
+│   │   │   │   ├── RecipeInput.jsx
+│   │   │   │   └── RecipeList.jsx
+│   │   │   ├── KitchenLibraryTabs.jsx
+│   │   │   ├── LiquidWhiteBoard
+│   │   │   │   └── LiquidWhiteBoardEngine.jsx
+│   │   │   ├── LoadingProgress.jsx
+│   │   │   ├── LoadingScreen.jsx
+│   │   │   ├── LogEntry.jsx
+│   │   │   ├── Logo.jsx
+│   │   │   ├── LogoAnimated.jsx
+│   │   │   ├── LogoutButton.jsx
+│   │   │   ├── Luccca AdminPanel.jsx
+│   │   │   ├── MobileGridWrapper.jsx
+│   │   │   ├── ModalBasic.jsx
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── NotificationBannerljsx
+│   │   │   ├── ordering
+│   │   │   │   ├── KeyItemTracker.jsx
+│   │   │   │   ├── OrderEntryPanel.jsx
+│   │   │   │   └── VendorRebateTracker.jsx
+│   │   │   ├── OverrideVault.jsx
+│   │   │   ├── PageSection.jsx
+│   │   │   ├── PanelDcokBar.tsx
+│   │   │   ├── PastryRightSidebar.jsx
+│   │   │   ├── PastryRightSidebarToggle.jsx
+│   │   │   ├── PastrySidebar.jsx
+│   │   │   ├── ProgressBar.jsx
+│   │   │   ├── Recipe
+│   │   │   │   └── RecipeListWrapper.jsx
+│   │   │   ├── recipes
+│   │   │   │   └── EchoRecipeScaler.jsx
+│   │   │   ├── RecipeScallingForm.jsx
+│   │   │   ├── RecipeVariationLinker.jsx
+│   │   │   ├── RescueShell.jsx
+│   │   │   ├── scheduling
+│   │   │   │   ├── MessageBoard.jsx
+│   │   │   │   ├── ScheduleGrid.jsx
+│   │   │   │   └── ShiftAnalyzer.jsx
+│   │   │   ├── servernotes
+│   │   │   │   ├── AllergenTagger.jsx
+│   │   │   │   ├── ServerNoteBuilder.jsx
+│   │   │   │   ├── ServerNoteTemplate.jsx
+│   │   │   │   └── WinePairingEngine.jsx
+│   │   │   ├── Settings
+│   │   │   │   ├── CustomBackground.jsx
+│   │   │   │   ├── gradients.js
+│   │   │   │   └── GradientSelector.jsx
+│   │   │   ├── Sidebar.jsx
+│   │   │   ├── sommelier
+│   │   │   │   └── SommelierPairingPanel.jsx
+│   │   │   ├── specials
+│   │   │   │   ├── RecipeSubstitutionHelper.jsx
+│   │   │   │   └── SmartSpecialsPanel.jsx
+│   │   │   ├── StatBlock.jsx
+│   │   │   ├── StatGroup.jsx
+│   │   │   ├── SystemContro.Panel.jsx
+│   │   │   ├── SystemLoader.jsx
+│   │   │   ├── SystemStatusDisplay.jsx
+│   │   │   ├── SystemTile.jsx
+│   │   │   ├── SystemTileStatus.jsx
+│   │   │   ├── ui
+│   │   │   │   ├── TurtleoverrideLoader.jsx
+│   │   │   │   └── WhiskLoader.jsx
+│   │   │   ├── UserRoleManager.jsx
+│   │   │   └── UserWelcomeBanner.jsx
+│   │   ├── contracts
+│   │   │   └── events
+│   │   │       ├── Order.v1.ts
+│   │   │       └── Reservation.v1.ts
+│   │   ├── data
+│   │   │   ├── auditSchedule.json
+│   │   │   ├── compliance
+│   │   │   │   └── compliance.json
+│   │   │   ├── invoiceMocks
+│   │   │   │   ├── sampleInvoice1.json
+│   │   │   │   └── storeroomInventory.js
+│   │   │   └── recipes
+│   │   │       └── sampleRecipes.js
+│   │   ├── hooks
+│   │   │   ├── index.js
+│   │   │   ├── README.md
+│   │   │   ├── useAlert.js
+│   │   │   ├── useAuth.js
+│   │   │   ├── useEchoStatus.js
+│   │   │   ├── useLiveFinanceData.js
+│   │   │   ├── useLiveHospitalityData.js
+│   │   │   ├── useLoadingStats.js
+│   │   │   ├── useModal.js
+│   │   │   ├── useModuleToggleSync.js
+│   │   │   ├── useSystemNotifictions.js
+│   │   │   └── useSystemVersion.js
+│   │   ├── index.css
+│   │   ├── layout
+│   │   │   ├── AuthLayout.jsx
+│   │   │   ├── MainLayout.jsx
+│   │   │   └── PanelLayout.jsx
+│   │   ├── layouts
+│   │   │   └── PastryLayout.jsx
+│   │   ├── LUCCCA_file_tree.txt
+│   │   ├── main.jsx
+│   │   ├── modules
+│   │   │   ├── admin
+│   │   │   │   └── CakeAdminDashboard.jsx
+│   │   │   ├── calendar
+│   │   │   │   ├── components
+│   │   │   │   └── utils
+│   │   │   ├── crm
+│   │   │   │   └── hooks
+│   │   │   ├── crm-lite
+│   │   │   │   └── context
+│   │   │   ├── data
+│   │   │   │   └── AddOnPricingControl.jsx
+│   │   │   ├── delivery
+│   │   │   │   └── utils
+│   │   │   ├── invoice
+│   │   │   │   └── utils
+│   │   │   ├── kitchen
+│   │   │   │   ├── AddRecipeTab.jsx
+│   │   │   │   ├── KitchenLibrary.jsx
+│   │   │   │   ├── KitchenTabs.jsx
+│   │   │   │   ├── RecipeCard.jsx
+│   │   │   │   ├── RecipeFilter.jsx
+│   │   │   │   ├── RecipeIndexPage.jsx
+│   │   │   │   ├── RecipeInputPage.css
+│   │   │   │   ├── RecipeInputPage.jsx
+│   │   │   │   ├── RecipeTable.jsx
+│   │   │   │   └── RightSidebar.jsx
+│   │   │   ├── LucccaAdminWireframe.jsx
+│   │   │   ├── NotFound.jsx
+│   │   │   ├── pastry
+│   │   │   │   ├── cake
+│   │   │   │   ├── CakeDeliveryOptionsPanel.jsx
+│   │   │   │   ├── ConsultationBookingModule.js
+│   │   │   │   ├── ConsultationCanvasPad.jsx
+│   │   │   │   ├── recipes
+│   │   │   │   └── session
+│   │   │   └── RecipeIndexPage.jsx
+│   │   ├── pages
+│   │   │   ├── AdminModuleSettings.jsx
+│   │   │   ├── AdminPastryExportPage.jsx
+│   │   │   ├── AdminSummary.jsx
+│   │   │   ├── ArgusMonitor.jsx
+│   │   │   ├── BanquetMenuUploader.jsx
+│   │   │   ├── CakeDesigner.jsx
+│   │   │   ├── CakeDesignerExport.jsx
+│   │   │   ├── CakeDesignerForm.jsx
+│   │   │   ├── CRMPipelineBoard.jsx
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── EchoControl.jsx
+│   │   │   ├── InventoryCostCheck.jsx
+│   │   │   ├── Login.jsx
+│   │   │   ├── Logs.jsx
+│   │   │   ├── mixology
+│   │   │   │   └── RecipeModule.jsx
+│   │   │   ├── PastryAdminDashboard.jsx
+│   │   │   ├── PastryLibrary.jsx
+│   │   │   ├── PastryModule.jsx
+│   │   │   ├── PastryPhotoGallery.jsx
+│   │   │   ├── PastryRecipeForm.jsx
+│   │   │   ├── PastryRecipeInputPage.jsx
+│   │   │   ├── ProposalActions.jsx
+│   │   │   ├── ProposalSummary.jsx
+│   │   │   ├── RecipeModule.jsx
+│   │   │   ├── Settings.jsx
+│   │   │   └── SystemOverview.jsx
+│   │   ├── providers
+│   │   │   └── StreamSyncProvider.jsx
+│   │   ├── Screenshot 2025-07-20 at 3.16.37 PM.png
+│   │   ├── setup-ingredient-intelligence.sh
+│   │   ├── stores
+│   │   │   └── PanelStore.js
+│   │   ├── styles
+│   │   │   ├── EchoGridSidebar.css
+│   │   │   └── PastryTheme.css
+│   │   ├── tron.css
+│   │   └── utils
+│   │       ├── auth.js
+│   │       ├── calendarHelpers.js
+│   │       ├── constants.js
+│   │       ├── cropImage.js
+│   │       ├── echoHumor.js
+│   │       ├── echoInventoryAnalyzer.js
+│   │       ├── echoRecipeMath.js
+│   │       ├── echoSmartSpecialUtils.js
+│   │       ├── echoWellness.js
+│   │       ├── echoWinePairing.js
+│   │       ├── encryption.js
+│   │       ├── fakeLogData.js
+│   │       ├── FetchEchoStatus.js
+│   │       ├── index.js
+│   │       ├── invoice
+│   │       │   ├── auditAi.js
+│   │       │   ├── auditTrailLogger.js
+│   │       │   ├── checkDuplicate.js
+│   │       │   ├── CheckInventory.js
+│   │       │   ├── ComplianceAuditBanner.jsx
+│   │       │   ├── echoLogicRouter.js
+│   │       │   ├── InvoiceParser.js
+│   │       │   ├── InvoiceUpload.jsx
+│   │       │   ├── orderConfliCtchecker.js
+│   │       │   ├── OrderingConflictAlert.jsx
+│   │       │   ├── ReceivingVerificationPanel.jsx
+│   │       │   └── roles.js
+│   │       ├── noteFormatter.js
+│   │       ├── orderHelpers.js
+│   │       ├── parseInvoiceData.js
+│   │       ├── README.md
+│   │       └── salesVolumeForecast.js
+│   ├── tailwind.config.cjs
+│   ├── tailwind.config.js
+│   ├── utils
+│   │   ├── apiClient.js
+│   │   ├── convertUnits.js
+│   │   ├── dateFormatter.js
+│   │   ├── systemConstants.js
+│   │   └── yieldCalculator.js
+│   └── vite.config.js
+├── GlobalStateBus.ts
+├── index.html
+├── index.ts
+├── install_all_batches.sh
+├── install_all_batches.sh.save
+├── install_echocompanion_framework.sh
+├── install_echocore_files.sh
+├── install_echocore_files.sh.rtf
+├── install_report.txt
+├── install_zaro_and_echohug.sh
+├── jsconfig.json
+├── Lost_and_Found
+├── LUCCCA_Branding_Deployment
+│   ├── branding
+│   │   └── colors.json
+│   ├── EchoStage
+│   │   ├── index.html
+│   │   └── main.jsx
+│   └── EventComposer
+├── LUCCCA_Cleanup.log
+├── LUCCCA_Complete_Scaffold_2025-06-25
+│   └── src
+│       └── modules
+├── LUCCCA_Deployment_Bundle-2
+│   ├── AdminSettings
+│   │   └── AdminSettings_README.txt
+│   ├── CRMIntegration
+│   │   └── CRMIntegration_README.txt
+│   ├── Documentation
+│   │   ├── Documentation_README.txt
+│   │   └── UnionAwareCalloutLogic.txt
+│   ├── EchoCanvas
+│   │   └── EchoCanvas_README.txt
+│   ├── RecipeInput
+│   │   └── RecipeInput_README.txt
+│   └── SmartCalloutSystem
+│       └── SmartCalloutSystem_README.txt
+├── luccca_directory_structure.txt
+├── LUCCCA_Echo_EventCreator_Bundle
+│   ├── Documentation
+│   │   └── EventCreator
+│   │       ├── Feature_Spec.md
+│   │       ├── Figma_Wireframes.pdf
+│   │       └── HelpGuide.pdf
+│   ├── EchoMaestroHook
+│   │   └── echo_logic_stub.js
+│   ├── EventCreator
+│   │   ├── echoHint.js
+│   │   ├── eventCreator.js
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   └── style.css
+│   └── vite.config.js
+├── LUCCCA_Echoscope_Integration
+│   ├── components
+│   └── pages
+├── LUCCCA_GlobalIndex.log
+├── LUCCCA_StarterBundle
+├── LUCCCA_tree_L5.txt
+├── MaterialManager.ts
+├── merge_echocore_light.sh
+├── merge_echocore.sh
+├── merge_luccca_light.sh
+├── OTFlagConnector.ts
+├── OvertimeCalculator.ts
+├── package-lock.json
+├── package.json
+├── packages
+│   ├── echoboard
+│   │   └── src
+│   │       ├── geometry
+│   │       │   ├── __tests__
+│   │       │   ├── collision.ts
+│   │       │   └── snapGrid.ts
+│   │       └── input
+│   │           └── InputAbstraction.ts
+│   └── echoscope
+│       └── src
+│           ├── accessibility
+│           │   ├── __tests__
+│           │   └── FocusManager.ts
+│           ├── components
+│           │   └── FluidShell
+│           ├── hooks
+│           │   ├── __tests__
+│           │   └── useDocking.ts
+│           ├── panes
+│           │   ├── CRMQuickPane
+│           │   ├── OrderingPane
+│           │   ├── SchedulePane
+│           │   └── SystemStatusPane
+│           ├── shortcuts
+│           │   └── shortcutMap.ts
+│           └── state
+│               ├── __tests__
+│               └── windowManager.ts
+├── parsers
+│   ├── index.js
+│   └── PDFMenuParser.js
+├── PATCH_0001_precision_fix.diff
+├── PATCH_0002_telemetry_tests_storybook.diff
+├── PATCH_NOTES.md
+├── patches
+│   ├── batch7_precision_patch.patch
+│   └── global_precision_concerns_patch.patch
+├── PerfModeDetector.ts
+├── post_install_summary.txt
+├── postcss.config.js
+├── PricingEngine
+│   ├── autoPriceTableBuilder.js
+│   ├── echoROIPlanPrompter.js
+│   ├── echoUpgradeTriggers.js
+│   ├── enterpriseQuoteGenerator.js
+│   ├── moduleBundleCalculator.js
+│   ├── planPriceAdjuster.js
+│   └── tierFeatureComparator.js
+├── public
+│   ├── assets
+│   │   ├── avatars
+│   │   ├── Baker_Percent_Croissant.png
+│   │   ├── icons
+│   │   └── shisk-spin.svg
+│   ├── data
+│   │   └── StarterRecipePack
+│   │       ├── French_Onion_Soup.json
+│   │       └── Lemon_Tart.json
+│   └── pulse_status.json
+├── QA_REPORT.md
+├── RBAC.ts
+├── README_ARCHITECTURE_AND_PATCH.md
+├── README_PATCH_0002.md
+├── README-RED.md
+├── README.md
+├── ReportPreviewPane.tsx
+├── ScheduleAdminControls.tsx
+├── ScheduleParser.ts
+├── SegmentA_AllBatches.tar
+├── SegmentA_Batch1_WB01_05
+│   ├── autoLayoutEngine.ts
+│   ├── eventBus.ts
+│   ├── FluidRoot.tsx
+│   ├── paneManager.ts
+│   └── usePerfMode.ts
+├── SegmentA_Batch2_WB06_10
+│   ├── collision.ts
+│   ├── PaneRegistry.ts
+│   ├── shortcutMap.ts
+│   ├── snapGrid.ts
+│   └── TranslucentSidebar.tsx
+├── SegmentA_Batch3_WB11_15
+│   ├── CRMQuickPane.tsx
+│   ├── LayerManager.tsx
+│   ├── OrderingPane.tsx
+│   ├── SchedulePane.tsx
+│   └── useDocking.ts
+├── SegmentA_Batch4_WB16_18
+│   ├── FocusManager.ts
+│   ├── InputAbstraction.ts
+│   └── SystemStatusPane.tsx
+├── SegmentA_WB06_18_Patch.tar
+├── SegmentB_Batch1_DB01_05
+│   ├── AdaptiveSidebar.tsx
+│   ├── FlagManager.ts
+│   ├── GlobalStateBus.ts
+│   ├── ReportPreviewPane.tsx
+│   └── VoiceEchoTrigger.tsx
+├── SegmentC_Batch1_CD01_05
+│   ├── CakeLayerComposer.tsx
+│   ├── Canvas3DSetup.tsx
+│   ├── DecorationToolkit.tsx
+│   ├── ExportPrintModel.ts
+│   └── MaterialManager.ts
+├── SegmentC_CakeDesigner_PatchFull
+│   ├── __tests__
+│   │   └── cake-designer
+│   │       ├── exportPrintModel.test.ts
+│   │       ├── geometry.test.ts
+│   │       └── materialManager.test.ts
+│   ├── packages
+│   │   └── echoscope
+│   │       └── src
+│   │           └── panes
+│   └── PATCH_NOTES.md
+├── Segments_ABC_Master
+│   ├── SegmentB_Batch1_DB01_05_AdaptiveSidebar.tsx
+│   ├── SegmentB_Batch1_DB01_05_FlagManager.ts
+│   ├── SegmentB_Batch1_DB01_05_GlobalStateBus.ts
+│   ├── SegmentB_Batch1_DB01_05_ReportPreviewPane.tsx
+│   ├── SegmentB_Batch1_DB01_05_VoiceEchoTrigger.tsx
+│   ├── SegmentC_Batch1_CD01_05_CakeLayerComposer.tsx
+│   ├── SegmentC_Batch1_CD01_05_Canvas3DSetup.tsx
+│   ├── SegmentC_Batch1_CD01_05_DecorationToolkit.tsx
+│   ├── SegmentC_Batch1_CD01_05_ExportPrintModel.ts
+│   ├── SegmentC_Batch1_CD01_05_MaterialManager.ts
+│   ├── WindowA_WhiteboardCore_autoLayoutEngine.ts
+│   ├── WindowA_WhiteboardCore_collision.ts
+│   ├── WindowA_WhiteboardCore_CRMQuickPane.tsx
+│   ├── WindowA_WhiteboardCore_eventBus.ts
+│   ├── WindowA_WhiteboardCore_FluidRoot.tsx
+│   ├── WindowA_WhiteboardCore_FocusManager.ts
+│   ├── WindowA_WhiteboardCore_InputAbstraction.ts
+│   ├── WindowA_WhiteboardCore_LayerManager.tsx
+│   ├── WindowA_WhiteboardCore_OrderingPane.tsx
+│   ├── WindowA_WhiteboardCore_paneManager.ts
+│   ├── WindowA_WhiteboardCore_PaneRegistry.ts
+│   ├── WindowA_WhiteboardCore_SchedulePane.tsx
+│   ├── WindowA_WhiteboardCore_shortcutMap.ts
+│   ├── WindowA_WhiteboardCore_snapGrid.ts
+│   ├── WindowA_WhiteboardCore_SystemStatusPane.tsx
+│   ├── WindowA_WhiteboardCore_TranslucentSidebar.tsx
+│   ├── WindowA_WhiteboardCore_useDocking.ts
+│   └── WindowA_WhiteboardCore_usePerfMode.ts
+├── setup_postinstall.sh
+├── ShiftSwapRecommender.ts
+├── src
+│   ├── 1kb
+│   ├── admin
+│   ├── Argus2Fragment.js
+│   ├── assets
+│   │   ├── analytics.png
+│   │   ├── baking-&-Pastry.png
+│   │   ├── bar_recipes.png
+│   │   ├── Cake_Builder.png
+│   │   ├── Canvas.png
+│   │   ├── ChefNet.png
+│   │   ├── contact-us.png
+│   │   ├── CRM.png
+│   │   ├── culinary_library.png
+│   │   ├── dashboard.png
+│   │   ├── Digital_Wave.png
+│   │   ├── Echo_A.png
+│   │   ├── Echo_B.png
+│   │   ├── Echo_Canvas.png
+│   │   ├── Echo_F.png
+│   │   ├── Echo_M.png
+│   │   ├── Echo_R.png
+│   │   ├── Echo_Recipe_Pro.png
+│   │   ├── Echo-Ai.png
+│   │   ├── Echo.png
+│   │   ├── EchoThumbPrint.png
+│   │   ├── food_inventory.png
+│   │   ├── help_desk.png
+│   │   ├── Inventory.png
+│   │   ├── kitchen-Recipes.png
+│   │   ├── LUCCCA_ECHO.png
+│   │   ├── MaestroBQT.png
+│   │   ├── mixology.png
+│   │   ├── NOT USED
+│   │   │   ├── 3d-render-blue-flowing-abstract-lines-background.png
+│   │   │   ├── attendance-log.png
+│   │   │   ├── Cake_Builder copy.png
+│   │   │   ├── Cake_Builder.png
+│   │   │   ├── chalk-drawing.svg
+│   │   │   ├── Chalkboard_Background.jpg
+│   │   │   ├── ChatGPT Image Jul 10, 2025 at 01_55_15 PM.png
+│   │   │   ├── ChatGPT Image Jul 10, 2025 at 02_01_32 PM.png
+│   │   │   ├── ChatGPT Image Jul 10, 2025 at 02_13_15 PM.png
+│   │   │   ├── ChatGPT Image Jul 10, 2025 at 02_17_04 PM.png
+│   │   │   ├── ChatGPT Image Jul 10, 2025 at 02_19_27 PM.png
+│   │   │   ├── ChatGPT Image Jul 10, 2025 at 02_20_52 PM.png
+│   │   │   ├── ChatGPT Image Jul 10, 2025 at 02_26_29 PM.png
+│   │   │   ├── ChatGPT Image Jul 10, 2025 at 02_33_18 PM.png
+│   │   │   ├── ChatGPT Image Jul 10, 2025 at 02_58_41 PM.png
+│   │   │   ├── ChatGPT Image Jul 10, 2025 at 04_13_22 PM.png
+│   │   │   ├── ChatGPT Image Jul 10, 2025 at 04_17_08 PM.png
+│   │   │   ├── ChatGPT Image Jul 10, 2025 at 04_18_25 PM.png
+│   │   │   ├── ChatGPT Image Jul 10, 2025 at 04_24_29 PM.png
+│   │   │   ├── ChatGPT Image Jul 10, 2025 at 10_57_06 AM.png
+│   │   │   ├── ChatGPT Image Jul 10, 2025 at 11_02_23 AM.png
+│   │   │   ├── ChatGPT Image Jul 11, 2025 at 09_00_39 PM.png
+│   │   │   ├── ChefNetold.png
+│   │   │   ├── CRM.png
+│   │   │   ├── culinary_libraryold.png
+│   │   │   ├── echo_icons_bundle.zip
+│   │   │   ├── Echo-Ai.png
+│   │   │   ├── echo-canvas.png
+│   │   │   ├── EchoBrain.png
+│   │   │   ├── EchoStratus_Segmented_Packages.zip
+│   │   │   ├── event-creator.png
+│   │   │   ├── icons
+│   │   │   ├── inventory.png
+│   │   │   ├── Logo_LUCCCA.png
+│   │   │   ├── logo-animated.png
+│   │   │   ├── LUCCCA recording 2025-07-10 at 1.35.41 AM.mov
+│   │   │   ├── LUCCCA_Embroidery_Preview.bmp
+│   │   │   ├── luccca_logo_250x150_white_bg.png
+│   │   │   ├── LUCCCA_Logo_CleanTransparent.png
+│   │   │   ├── LUCCCA_Logo_For_Apparel.png
+│   │   │   ├── LUCCCA_Logo_For_Print.tiff
+│   │   │   ├── LUCCCA_Logo_NoBackground.png
+│   │   │   ├── LUCCCA-ECHO.png
+│   │   │   ├── luccca-logo-updated-dark.png
+│   │   │   ├── luccca-logo-updated.png
+│   │   │   ├── Maestro-Suite.png
+│   │   │   ├── mixologyold.png
+│   │   │   ├── neural-web2.png
+│   │   │   ├── nutrition_icon1.png
+│   │   │   ├── nutritional_app.png
+│   │   │   ├── r&d.png
+│   │   │   ├── RD ICON.png
+│   │   │   ├── react.svg
+│   │   │   ├── recipe-pro.png
+│   │   │   ├── red_phoenix.png
+│   │   │   ├── scheduleold.png
+│   │   │   ├── Screen Recording 2025-07-09 at 9.53.54 PM.mov
+│   │   │   ├── Screenshot 2025-07-02 at 5.19.37 PM.png
+│   │   │   ├── Screenshot 2025-07-02 at 5.22.43 PM.png
+│   │   │   ├── Screenshot 2025-07-02 at 5.33.01 PM.png
+│   │   │   ├── Signature_Block_Logo_Vector.svg
+│   │   │   ├── social-media.png
+│   │   │   ├── social-media2.png
+│   │   │   ├── WilliamMorrison_Signature_Cleaned.png
+│   │   │   ├── WilliamMorrison_Signature_GlacierBlue.svg
+│   │   │   ├── WilliamMorrison_Signature_LUCCCA_Echo_Style.svg
+│   │   │   ├── WilliamMorrison_Signature_ObsidianBlack.svg
+│   │   │   ├── WilliamMorrison_Signature_Original.svg
+│   │   │   └── Zelda-Master.png
+│   │   ├── nutritional-analysis.png
+│   │   ├── R&D.png
+│   │   ├── recipe-calculator.png
+│   │   ├── recipes.png
+│   │   ├── schedule.png
+│   │   ├── TRON_Neon_Grid.png
+│   │   └── zelda-redphonix.png
+│   ├── ChefMoodTracker.jsx
+│   ├── components
+│   │   ├── ActionLink.jsx
+│   │   ├── admin
+│   │   │   └── EchoscopeAdminPanel.jsx
+│   │   ├── BadegeStatus.jsx
+│   │   ├── components
+│   │   │   ├── EcoScopeWheel.jsx
+│   │   │   ├── ErrorBoundary.jsx
+│   │   │   ├── Identity
+│   │   │   │   └── EchoThumbPrint.png
+│   │   │   ├── LandingPage
+│   │   │   │   ├── blueprint-transition.png
+│   │   │   │   ├── chalk-sketch.mp3
+│   │   │   │   ├── chalkboard-bg.png
+│   │   │   │   └── luccca-logo-tagged.png
+│   │   │   ├── RightSidebar.css
+│   │   │   └── starterRecipes.json
+│   │   ├── ConfirmationDialog.jsx
+│   │   ├── Divider.jsx
+│   │   ├── EchoCanvas
+│   │   │   └── DecorTools
+│   │   │       ├── CakeRender360.jsx
+│   │   │       ├── ChocolateTransfers.jsx
+│   │   │       ├── InspirationGallery.jsx
+│   │   │       ├── SvgDecorationPicker.jsx
+│   │   │       └── TopperUpload.jsx
+│   │   ├── EchoCore
+│   │   │   ├── analytics
+│   │   │   │   ├── coreAnalytics.js
+│   │   │   │   └── index.js
+│   │   │   ├── Automation
+│   │   │   │   └── index.js
+│   │   │   ├── Avatars
+│   │   │   │   └── index.js
+│   │   │   ├── FluidRoot.jsx
+│   │   │   ├── FluidRoot.tsx
+│   │   │   ├── index.js
+│   │   │   ├── index.ts
+│   │   │   ├── panels
+│   │   │   ├── PaneManager.tsx
+│   │   │   ├── ui
+│   │   │   │   └── DockMagnifier.jsx
+│   │   │   ├── UIEnhancements
+│   │   │   │   └── index.js
+│   │   │   └── Whiteboard
+│   │   │       └── index.js
+│   │   ├── EchoIcon.jsx
+│   │   ├── EchoScopeClientPlanner.jsx
+│   │   ├── EchoStratus
+│   │   │   └── ForecastingEngine.jsx
+│   │   ├── EKGView.jsx
+│   │   ├── ErrorBoundary.jsx
+│   │   ├── FlexContainer.jsx
+│   │   ├── FormButton.jsx
+│   │   ├── FormFielsGroup.jsx
+│   │   ├── HelpOverlay.jsx
+│   │   ├── Identity
+│   │   │   └── EchoThumbPrint.png
+│   │   ├── index.js
+│   │   ├── KitchenLibrary
+│   │   │   ├── InventoryLookup.jsx
+│   │   │   ├── KitchenLibrary.jsx
+│   │   │   ├── MenuBuilder.jsx
+│   │   │   ├── NewRecipe.jsx
+│   │   │   ├── RecipePacket.jsx
+│   │   │   ├── Reporter.jsx
+│   │   │   ├── ServerNotes.jsx
+│   │   │   ├── SetupChecklist.md
+│   │   │   ├── TabsHeader.jsx
+│   │   │   └── waste.jsx
+│   │   ├── LandingPage
+│   │   │   └── LandingPage.jsx
+│   │   ├── LoadingOverlay.jsx
+│   │   ├── LoadingSpinner.jsx
+│   │   ├── LUCCCA
+│   │   │   ├── Banquets
+│   │   │   │   └── BEOManager.jsx
+│   │   │   ├── Checkbook
+│   │   │   │   └── FinancialDashboard.jsx
+│   │   │   ├── CRM
+│   │   │   │   └── GuestInsights.jsx
+│   │   │   ├── EventPlanner
+│   │   │   │   └── EventDashboard.jsx
+│   │   │   ├── index.js
+│   │   │   ├── Mixology
+│   │   │   │   └── CocktailBuilder.jsx
+│   │   │   ├── Pastry
+│   │   │   │   └── CakeDesigner.jsx
+│   │   │   ├── Recipes
+│   │   │   │   └── RecipeBuilder.jsx
+│   │   │   └── Scheduling
+│   │   │       └── LaborScheduler.jsx
+│   │   ├── ModuleStatusRow.jsx
+│   │   ├── Navbar.jsx
+│   │   ├── NewRecipeButton.jsx
+│   │   ├── OverlayScreen.jsx
+│   │   ├── PageHeader.jsx
+│   │   ├── PanelContainer.jsx
+│   │   ├── PastryLibrary
+│   │   │   ├── AdminControls.jsx
+│   │   │   ├── CakeConfigSidebar.jsx
+│   │   │   ├── CakeLayerBuilder.jsx
+│   │   │   ├── CakePreview.jsx
+│   │   │   ├── CakeSubmitPanel.jsx
+│   │   │   ├── ChocolateWork.jsx
+│   │   │   ├── CustomCakeOrders.jsx
+│   │   │   ├── IngredientWatch.jsx
+│   │   │   ├── OvernightProduction.jsx
+│   │   │   ├── PastryLibrary.jsx
+│   │   │   └── StyleSelector.jsx
+│   │   ├── PrepMethodHelper.jsx
+│   │   ├── Recipe
+│   │   │   ├── RecipeIconBar.js
+│   │   │   ├── RecipeInputPage.jsx
+│   │   │   ├── RecipeLayout.jsx
+│   │   │   └── RecipeTabView.jsx
+│   │   ├── SectionTitleljsx
+│   │   ├── Spinner.jsx
+│   │   ├── SplashScreen.jsx
+│   │   ├── StickyHeader.jsx
+│   │   ├── TableBasic.jsx
+│   │   ├── Tabs.jsx
+│   │   ├── TestEKG.jsx
+│   │   ├── ThemeToggle.jsx
+│   │   ├── ToasterProvider.jsx
+│   │   └── ToastNotification.jsx
+│   ├── constants
+│   │   └── echo.js
+│   ├── contexts
+│   │   ├── RecipeFormContext.js
+│   │   ├── SettingsContext.jsx
+│   │   └── UserPreferenceContext.tsx
+│   ├── data
+│   │   └── echoscope_modifiers.json
+│   ├── debug.css
+│   ├── echo_manifest.json
+│   ├── EchoCore
+│   │   ├── AdvancedIntegration_146.js
+│   │   ├── AdvancedIntegration_147.js
+│   │   ├── AdvancedIntegration_148.js
+│   │   ├── AdvancedIntegration_149.js
+│   │   ├── AdvancedIntegration_150.js
+│   │   ├── AdvancedIntegration_151.js
+│   │   ├── AdvancedIntegration_152.js
+│   │   ├── AdvancedIntegration_153.js
+│   │   ├── AdvancedIntegration_154.js
+│   │   ├── AdvancedIntegration_155.js
+│   │   ├── AdvancedIntegration_156.js
+│   │   ├── AdvancedIntegration_157.js
+│   │   ├── AdvancedIntegration_158.js
+│   │   ├── AdvancedIntegration_159.js
+│   │   ├── AdvancedIntegration_160.js
+│   │   ├── AuditTrailContext.jsx
+│   │   ├── AuditTrailEngine.js
+│   │   ├── AuditTrailEngine.test.js
+│   │   ├── AuditTrailFilters.jsx
+│   │   ├── AuditTrailItem.jsx
+│   │   ├── AuditTrailPanel.jsx
+│   │   ├── Barrel_analytics.js
+│   │   ├── Barrel_audit.js
+│   │   ├── Barrel_auditHooks.js
+│   │   ├── Barrel_feedback.js
+│   │   ├── Barrel_feedbackHooks.js
+│   │   ├── Barrel_health.js
+│   │   ├── Barrel_healthHooks.js
+│   │   ├── Barrel_hooks.js
+│   │   ├── Barrel_migration.js
+│   │   ├── Barrel_migrationHooks.js
+│   │   ├── Barrel_notificationHooks.js
+│   │   ├── Barrel_notifications.js
+│   │   ├── Barrel_reportHooks.js
+│   │   ├── Barrel_reports.js
+│   │   ├── BehavioralAnalytics_131.js
+│   │   ├── BehavioralAnalytics_132.js
+│   │   ├── BehavioralAnalytics_133.js
+│   │   ├── BehavioralAnalytics_134.js
+│   │   ├── BehavioralAnalytics_135.js
+│   │   ├── BehavioralAnalytics_136.js
+│   │   ├── BehavioralAnalytics_137.js
+│   │   ├── BehavioralAnalytics_138.js
+│   │   ├── BehavioralAnalytics_139.js
+│   │   ├── BehavioralAnalytics_140.js
+│   │   ├── BehavioralAnalytics_141.js
+│   │   ├── BehavioralAnalytics_142.js
+│   │   ├── BehavioralAnalytics_143.js
+│   │   ├── BehavioralAnalytics_144.js
+│   │   ├── BehavioralAnalytics_145.js
+│   │   ├── BuildScripts.sh
+│   │   ├── BundleAnalyzerConfig.js
+│   │   ├── CacheManager.js
+│   │   ├── Changelog.md
+│   │   ├── CodeSplittingManager.js
+│   │   ├── coreAudit.js
+│   │   ├── coreFeedback.js
+│   │   ├── coreHealth.js
+│   │   ├── coreMigration.js
+│   │   ├── coreNotifications.js
+│   │   ├── coreOptimizations.js
+│   │   ├── coreReports.js
+│   │   ├── DataMigrationContext.jsx
+│   │   ├── DataMigrationEngine.js
+│   │   ├── DataMigrationEngine.test.js
+│   │   ├── DisasterRecovery_176.js
+│   │   ├── DisasterRecovery_177.js
+│   │   ├── DisasterRecovery_178.js
+│   │   ├── DisasterRecovery_179.js
+│   │   ├── DisasterRecovery_180.js
+│   │   ├── DisasterRecovery_181.js
+│   │   ├── DisasterRecovery_182.js
+│   │   ├── DisasterRecovery_183.js
+│   │   ├── DisasterRecovery_184.js
+│   │   ├── DisasterRecovery_185.js
+│   │   ├── DisasterRecovery_186.js
+│   │   ├── DisasterRecovery_187.js
+│   │   ├── DisasterRecovery_188.js
+│   │   ├── DisasterRecovery_189.js
+│   │   ├── DisasterRecovery_190.js
+│   │   ├── EchoAvatar_AI
+│   │   │   ├── EchoAvatar_AI_Task_1.js
+│   │   │   ├── EchoAvatar_AI_Task_10.js
+│   │   │   ├── EchoAvatar_AI_Task_2.js
+│   │   │   ├── EchoAvatar_AI_Task_3.js
+│   │   │   ├── EchoAvatar_AI_Task_4.js
+│   │   │   ├── EchoAvatar_AI_Task_5.js
+│   │   │   ├── EchoAvatar_AI_Task_6.js
+│   │   │   ├── EchoAvatar_AI_Task_7.js
+│   │   │   ├── EchoAvatar_AI_Task_8.js
+│   │   │   └── EchoAvatar_AI_Task_9.js
+│   │   ├── EchoCore_Batch_101-120
+│   │   │   ├── AdvancedForecastChart.jsx
+│   │   │   ├── AdvancedForecastPanel.jsx
+│   │   │   ├── AuditExport.js
+│   │   │   ├── enterprise.test.js
+│   │   │   ├── EnterpriseConfig.js
+│   │   │   ├── EnterpriseDashboard.jsx
+│   │   │   ├── extra1.js
+│   │   │   ├── extra2.js
+│   │   │   ├── ForecastChartV2.jsx
+│   │   │   ├── ForecastingEngineV2.js
+│   │   │   ├── ForecastSettingsPanel.jsx
+│   │   │   ├── index.js
+│   │   │   ├── PermissionMatrix.js
+│   │   │   ├── PermissionsTable.jsx
+│   │   │   ├── RBACProviderV2.jsx
+│   │   │   ├── RoleEditor.jsx
+│   │   │   ├── useAdvancedForecast.js
+│   │   │   ├── usePermissionsHook.js
+│   │   │   ├── UserManagementPanel.jsx
+│   │   │   └── UserRolesList.jsx
+│   │   ├── EchoCore_Batch_121-140
+│   │   │   ├── AdvancedAuditLog.js
+│   │   │   ├── AnalyticsPanel.jsx
+│   │   │   ├── AuditViewer.jsx
+│   │   │   ├── DataRetentionPanel.jsx
+│   │   │   ├── DataRetentionPolicy.js
+│   │   │   ├── EnterpriseDashboardV2.jsx
+│   │   │   ├── EnterpriseLogger.js
+│   │   │   ├── EnterpriseNotifications.js
+│   │   │   ├── EnterpriseSettings.jsx
+│   │   │   ├── index.js
+│   │   │   ├── IntegrationManager.js
+│   │   │   ├── IntegrationManagerPanel.jsx
+│   │   │   ├── NotificationSettingsPanel.jsx
+│   │   │   ├── ReportScheduler.js
+│   │   │   ├── ReportSchedulerPanel.jsx
+│   │   │   ├── StatusPanel.jsx
+│   │   │   ├── useEnterpriseLogger.js
+│   │   │   ├── useIntegrationStatus.js
+│   │   │   ├── UserAnalytics.js
+│   │   │   └── useUserAnalytics.js
+│   │   ├── EchoCore_Batch_141-160
+│   │   │   ├── BackupScheduler.js
+│   │   │   ├── BackupSettingsPanel.jsx
+│   │   │   ├── BackupStatusPanel.jsx
+│   │   │   ├── ComplianceManager.js
+│   │   │   ├── CompliancePanel.jsx
+│   │   │   ├── DisasterRecoveryPanel.jsx
+│   │   │   ├── DisasterRecoveryPlan.js
+│   │   │   ├── EncryptionSettingsPanel.jsx
+│   │   │   ├── EnterpriseBackupManager.js
+│   │   │   ├── EnterpriseEncryption.js
+│   │   │   ├── extra3.js
+│   │   │   ├── index.js
+│   │   │   ├── KeyManagement.js
+│   │   │   ├── KeyManagementPanel.jsx
+│   │   │   ├── SecurityAudit.js
+│   │   │   ├── SecurityAuditPanel.jsx
+│   │   │   ├── useBackupStatus.js
+│   │   │   ├── useEncryptionStatus.js
+│   │   │   ├── useKeyStatus.js
+│   │   │   └── useRecoveryStatus.js
+│   │   ├── EchoCore_Batch_4
+│   │   │   ├── ChatA
+│   │   │   │   ├── DataContextProvider.jsx
+│   │   │   │   ├── dataFlowDocs.md
+│   │   │   │   ├── DataHookErrors.jsx
+│   │   │   │   ├── EchoCoreHooks.js
+│   │   │   │   ├── echoService.js
+│   │   │   │   ├── HookUI.stories.js
+│   │   │   │   ├── useDataStream.js
+│   │   │   │   ├── useDataStream.test.js
+│   │   │   │   └── WhiteboardBackendAdapter.js
+│   │   │   ├── ChatB
+│   │   │   │   ├── CameraSwitchPanel.jsx
+│   │   │   │   ├── DraggableModuleContainer.test.js
+│   │   │   │   ├── EchoWhiteboard.jsx
+│   │   │   │   ├── MissionControl.stories.js
+│   │   │   │   ├── MissionControlSettings.jsx
+│   │   │   │   ├── MissionControlWrapper.jsx
+│   │   │   │   ├── ModuleAddButton.jsx
+│   │   │   │   ├── ModuleLibraryPanel.jsx
+│   │   │   │   └── TemplatePacks.js
+│   │   │   ├── ChatC
+│   │   │   │   ├── Avatar.stories.js
+│   │   │   │   ├── avatar.test.js
+│   │   │   │   ├── AvatarCache.js
+│   │   │   │   ├── AvatarContextProvider.jsx
+│   │   │   │   ├── AvatarIntegration.js
+│   │   │   │   ├── AvatarLoader.js
+│   │   │   │   ├── AvatarSettingsPanel.jsx
+│   │   │   │   ├── EchoAvatar.jsx
+│   │   │   │   └── useAvatarState.js
+│   │   │   ├── ChatD
+│   │   │   │   ├── CanvasGridOverlay.jsx
+│   │   │   │   ├── gridUtils.js
+│   │   │   │   ├── historyManager.js
+│   │   │   │   ├── ModuleDropZone.jsx
+│   │   │   │   ├── MultiSelectDrag.js
+│   │   │   │   ├── SelectionBox.jsx
+│   │   │   │   ├── whiteboard_v2.test.js
+│   │   │   │   ├── WhiteboardCanvas.jsx
+│   │   │   │   └── WhiteboardV2.stories.js
+│   │   │   ├── ChatE
+│   │   │   │   ├── AllModulesIntegration.story.js
+│   │   │   │   ├── coverageSetup.js
+│   │   │   │   ├── DataReplayTool.js
+│   │   │   │   ├── EchoCoreMockServer.js
+│   │   │   │   ├── IntegrationAvatarMission.test.js
+│   │   │   │   ├── integrationDocs.md
+│   │   │   │   ├── IntegrationTestSuite.test.js
+│   │   │   │   ├── jest.config.js
+│   │   │   │   └── MockWebSocket.js
+│   │   │   └── ChatF
+│   │   │       ├── AnalyticsDataAdapter.js
+│   │   │       ├── PermissionContextProvider.jsx
+│   │   │       ├── PredictiveEngine.js
+│   │   │       ├── RBAC.test.js
+│   │   │       ├── RBACFlow.stories.js
+│   │   │       ├── RBACRoles.js
+│   │   │       ├── RouteGuard.jsx
+│   │   │       └── usePermissions.js
+│   │   ├── EchoCore_Batch_71-80
+│   │   │   ├── AccessControlPanel.jsx
+│   │   │   ├── analytics.test.js
+│   │   │   ├── ForecastChart.jsx
+│   │   │   ├── ForecastPanel.jsx
+│   │   │   ├── index.js
+│   │   │   ├── PredictiveAnalyticsEngine.js
+│   │   │   ├── rbac.test.js
+│   │   │   ├── RBACProvider.jsx
+│   │   │   ├── useForecastHook.js
+│   │   │   └── useRBAC.js
+│   │   ├── EchoCore_Batch_8_9
+│   │   │   ├── AnalyticsCostBreakdown.jsx
+│   │   │   ├── AnalyticsRevenueForecast.js
+│   │   │   ├── AvatarAccessoryManager.jsx
+│   │   │   ├── AvatarFacialExpressionEngine.js
+│   │   │   ├── AvatarGestureController.js
+│   │   │   ├── AvatarLiveReactionPanel.jsx
+│   │   │   ├── CoreAccessibilityManager.js
+│   │   │   ├── CoreErrorBoundary.jsx
+│   │   │   ├── CoreLoggingService.js
+│   │   │   ├── CoreToastNotification.jsx
+│   │   │   ├── IntegrationAPIKeysPanel.jsx
+│   │   │   ├── IntegrationScheduler.js
+│   │   │   ├── ModuleDuplicateTool.js
+│   │   │   ├── ModuleTemplateGallery.jsx
+│   │   │   ├── PredictiveDemandCurve.js
+│   │   │   ├── PredictiveSalesModel.js
+│   │   │   ├── RBACAuditLogViewer.jsx
+│   │   │   ├── RBACPermissionMatrix.jsx
+│   │   │   ├── WhiteboardAIHints.js
+│   │   │   └── WhiteboardAutoLayoutManager.jsx
+│   │   ├── EchoCore_Batch_81-90
+│   │   │   ├── CCTVIntegration.js
+│   │   │   ├── index.js
+│   │   │   ├── integration.test.js
+│   │   │   ├── PMSDashboard.jsx
+│   │   │   ├── PMSIntegration.js
+│   │   │   ├── POSDashboard.jsx
+│   │   │   ├── POSIntegration.js
+│   │   │   ├── usePMSData.js
+│   │   │   ├── usePOSData.js
+│   │   │   └── WeatherService.js
+│   │   ├── EchoCore_Batch_91-100
+│   │   │   ├── AuditLog.js
+│   │   │   ├── AuditLogPanel.jsx
+│   │   │   ├── ErrorBoundary.jsx
+│   │   │   ├── index.js
+│   │   │   ├── ReportPanel.jsx
+│   │   │   ├── system.test.js
+│   │   │   ├── SystemHealthMonitor.js
+│   │   │   ├── SystemReportGenerator.js
+│   │   │   └── useSystemHealth.js
+│   │   ├── EchoCore_Batch4
+│   │   │   └── README.md
+│   │   ├── EchoCore_Batch5
+│   │   │   └── README.md
+│   │   ├── EchoCore_Batch6
+│   │   │   └── README.md
+│   │   ├── EchoCore_Batch7
+│   │   │   └── README.md
+│   │   ├── EchoCore_Batch8
+│   │   │   └── README.md
+│   │   ├── EchoCore_Batch9_Phase4
+│   │   │   ├── CCTVMonitoringHook.js
+│   │   │   ├── IntegrationConfig.js
+│   │   │   ├── IntegrationDashboard.jsx
+│   │   │   ├── IntegrationLogger.js
+│   │   │   ├── IntegrationService.test.js
+│   │   │   ├── IntegrationUtils.js
+│   │   │   ├── PMSIntegrationService.js
+│   │   │   ├── POSIntegrationService.js
+│   │   │   ├── README.md
+│   │   │   └── WeatherAPIIntegration.js
+│   │   ├── EchoCore_ChatA_Batch1
+│   │   │   └── src
+│   │   │       └── components
+│   │   ├── EchoCore_ChatA_Batch4
+│   │   │   └── README.md
+│   │   ├── EchoCore_ChatA_Batch5
+│   │   │   ├── EchoAssistant.jsx
+│   │   │   ├── EchoAssistant.stories.jsx
+│   │   │   ├── NLPCommandEngine.js
+│   │   │   ├── NLPCommandEngine.test.js
+│   │   │   ├── README.md
+│   │   │   ├── SpeechToTextService.js
+│   │   │   ├── voice_barrel.js
+│   │   │   ├── VoiceCommandParser.js
+│   │   │   ├── VoiceConfidenceMeter.jsx
+│   │   │   └── VoiceTrainingModal.jsx
+│   │   ├── EchoCore_ChatA_Batch6
+│   │   │   ├── DialogueManager.js
+│   │   │   ├── DialogueManager.test.js
+│   │   │   ├── nlp_dialogue_barrel.js
+│   │   │   ├── README.md
+│   │   │   ├── VoiceConfidenceMeter.jsx
+│   │   │   ├── VoiceDialogue.stories.jsx
+│   │   │   ├── VoiceGPTMock.js
+│   │   │   ├── VoiceMacroCommands.js
+│   │   │   ├── VoiceMuteToggle.jsx
+│   │   │   └── VoiceTrainingModal.jsx
+│   │   ├── EchoCore_ChatA_Batch7
+│   │   │   ├── DialogueManager.js
+│   │   │   ├── NLPCommandChain.js
+│   │   │   ├── README.md
+│   │   │   ├── SpeechAPIAdapter.js
+│   │   │   ├── SpeechAPIAdapter.test.js
+│   │   │   ├── voice_api_barrel.js
+│   │   │   ├── VoiceHotkeyPanel.jsx
+│   │   │   ├── VoiceHotkeyPanel.stories.jsx
+│   │   │   ├── VoiceSettingsSync.js
+│   │   │   └── VoiceShortcutManager.js
+│   │   ├── EchoCore_ChatA_Batch8
+│   │   │   ├── EchoVoiceAnalytics.jsx
+│   │   │   ├── NLPEnhancer.js
+│   │   │   ├── README.md
+│   │   │   ├── voice_gateway_barrel.js
+│   │   │   ├── VoiceAnalytics.stories.jsx
+│   │   │   ├── VoiceAPIConfig.js
+│   │   │   ├── VoiceAPIConnector.js
+│   │   │   ├── VoiceAPIConnector.test.js
+│   │   │   ├── VoiceCacheManager.js
+│   │   │   └── VoiceCommandHistory.js
+│   │   ├── EchoCore_ChatB_Batch4
+│   │   │   └── README.md
+│   │   ├── EchoCore_ChatB_Batch5
+│   │   │   ├── collab_barrel.js
+│   │   │   ├── README.md
+│   │   │   ├── Whiteboard.stories.jsx
+│   │   │   ├── WhiteboardAnnotation.jsx
+│   │   │   ├── WhiteboardCursor.jsx
+│   │   │   ├── WhiteboardExport.js
+│   │   │   ├── WhiteboardMiniMap.jsx
+│   │   │   ├── WhiteboardSyncUndoRedo.js
+│   │   │   ├── WhiteboardUserPresence.js
+│   │   │   └── WhiteboardUserPresence.test.js
+│   │   ├── EchoCore_ChatB_Batch6
+│   │   │   ├── README.md
+│   │   │   ├── session_barrel.js
+│   │   │   ├── WhiteboardAutoSave.js
+│   │   │   ├── WhiteboardBackgroundTemplates.js
+│   │   │   ├── WhiteboardExportPDF.js
+│   │   │   ├── WhiteboardHistory.stories.jsx
+│   │   │   ├── WhiteboardHistoryPanel.jsx
+│   │   │   ├── WhiteboardSessionManager.js
+│   │   │   ├── WhiteboardSessionManager.test.js
+│   │   │   └── WhiteboardUserColors.js
+│   │   ├── EchoCore_ChatB_Batch7
+│   │   │   ├── README.md
+│   │   │   ├── whiteboard_v3_barrel.js
+│   │   │   ├── WhiteboardAnnotations.stories.jsx
+│   │   │   ├── WhiteboardAnnotationsPanel.jsx
+│   │   │   ├── WhiteboardCommentThread.jsx
+│   │   │   ├── WhiteboardDragDropImport.js
+│   │   │   ├── WhiteboardFileExport.js
+│   │   │   ├── WhiteboardFileImport.js
+│   │   │   ├── WhiteboardFileImport.test.js
+│   │   │   └── WhiteboardHistoryExport.js
+│   │   ├── EchoCore_ChatB_Batch8
+│   │   │   ├── README.md
+│   │   │   ├── whiteboard_gateway_barrel.js
+│   │   │   ├── WhiteboardAPIHandler.js
+│   │   │   ├── WhiteboardAPIHandler.test.js
+│   │   │   ├── WhiteboardCollabGateway.js
+│   │   │   ├── WhiteboardExportConfig.js
+│   │   │   ├── WhiteboardRealtimeReplay.jsx
+│   │   │   ├── WhiteboardReplay.stories.jsx
+│   │   │   ├── WhiteboardSecurityLayer.js
+│   │   │   └── WhiteboardUserTracking.js
+│   │   ├── EchoCore_ChatC_Batch4
+│   │   │   └── README.md
+│   │   ├── EchoCore_ChatC_Batch5
+│   │   │   ├── AlertBadge.jsx
+│   │   │   ├── AlertBadge.stories.jsx
+│   │   │   ├── analytics_barrel.js
+│   │   │   ├── dataNormalization.js
+│   │   │   ├── POSOrderTimeline.jsx
+│   │   │   ├── README.md
+│   │   │   ├── useAlertsFeed.js
+│   │   │   ├── usePOSData.js
+│   │   │   ├── useSystemHealth.js
+│   │   │   └── useSystemHealth.test.js
+│   │   ├── EchoCore_ChatC_Batch6
+│   │   │   ├── AlertConfigPanel.jsx
+│   │   │   ├── AlertConfigPanel.stories.jsx
+│   │   │   ├── LiveStatusWidget.jsx
+│   │   │   ├── performance_barrel.js
+│   │   │   ├── POSApiMock.js
+│   │   │   ├── README.md
+│   │   │   ├── useCustomAlertRules.js
+│   │   │   ├── usePerformanceMetrics.js
+│   │   │   ├── usePerformanceMetrics.test.js
+│   │   │   └── WeatherPOSOverlay.js
+│   │   ├── EchoCore_ChatC_Batch7
+│   │   │   ├── EventBus.js
+│   │   │   ├── EventBus.test.js
+│   │   │   ├── EventDebugPanel.jsx
+│   │   │   ├── hooks_event_barrel.js
+│   │   │   ├── LiveEventStream.jsx
+│   │   │   ├── LiveEventStream.stories.jsx
+│   │   │   ├── LiveMetricsRetry.js
+│   │   │   ├── README.md
+│   │   │   ├── usePMSAPI.js
+│   │   │   └── usePOSAPI.js
+│   │   ├── EchoCore_ChatC_Batch8
+│   │   │   ├── analytics_gateway_barrel.js
+│   │   │   ├── AnalyticsGateway.js
+│   │   │   ├── AnalyticsGateway.test.js
+│   │   │   ├── AnalyticsPipelineStub.js
+│   │   │   ├── ExternalAPIConfig.js
+│   │   │   ├── LiveAlertNotifier.js
+│   │   │   ├── LiveEventMonitor.jsx
+│   │   │   ├── LiveEventMonitor.stories.jsx
+│   │   │   ├── POSPMSApiGateway.js
+│   │   │   └── README.md
+│   │   ├── EchoCore_ChatD_Batch4
+│   │   │   └── README.md
+│   │   ├── EchoCore_ChatD_Batch5
+│   │   │   ├── avatar_states_barrel.js
+│   │   │   ├── Avatar3DPlaceholder.js
+│   │   │   ├── AvatarLoadingIdleAnimations.js
+│   │   │   ├── AvatarReaction.jsx
+│   │   │   ├── AvatarReaction.stories.jsx
+│   │   │   ├── EchoAssistant.jsx
+│   │   │   ├── EmotionScriptManager.js
+│   │   │   ├── EmotionScriptManager.test.js
+│   │   │   ├── README.md
+│   │   │   └── VoiceExpressionModule.js
+│   │   ├── EchoCore_ChatD_Batch6
+│   │   │   ├── AvatarDialogueIntegration.js
+│   │   │   ├── AvatarEmotionBlend.js
+│   │   │   ├── AvatarMultiSelect.js
+│   │   │   ├── AvatarPosePresets.json
+│   │   │   ├── AvatarPoseSelector.jsx
+│   │   │   ├── AvatarPoseSelector.stories.jsx
+│   │   │   ├── behaviors_barrel.js
+│   │   │   ├── BehaviorScriptEngine.js
+│   │   │   ├── BehaviorScriptEngine.test.js
+│   │   │   └── README.md
+│   │   ├── EchoCore_ChatD_Batch7
+│   │   │   ├── avatar_profiles_barrel.js
+│   │   │   ├── AvatarCloudSyncMock.js
+│   │   │   ├── AvatarEmotionIntegration.js
+│   │   │   ├── AvatarPresets.json
+│   │   │   ├── AvatarPreviewCard.jsx
+│   │   │   ├── AvatarProfileManager.js
+│   │   │   ├── AvatarProfileManager.test.js
+│   │   │   ├── AvatarProfilePanel.jsx
+│   │   │   ├── AvatarProfilePanel.stories.jsx
+│   │   │   └── README.md
+│   │   ├── EchoCore_ChatD_Batch8
+│   │   │   ├── avatar_gateway_barrel.js
+│   │   │   ├── Avatar3DSync.js
+│   │   │   ├── AvatarAnimationLoader.js
+│   │   │   ├── AvatarBehaviorRecorder.js
+│   │   │   ├── AvatarCloudSyncAPI.js
+│   │   │   ├── AvatarCloudSyncAPI.test.js
+│   │   │   ├── AvatarCrossDeviceManager.js
+│   │   │   ├── AvatarCustomization.stories.jsx
+│   │   │   ├── AvatarCustomizationPanel.jsx
+│   │   │   └── README.md
+│   │   ├── EchoCore_ChatE_Batch4
+│   │   │   └── README.md
+│   │   ├── EchoCore_ChatE_Batch5
+│   │   │   ├── AccessLevelBadge.jsx
+│   │   │   ├── AdminPanel.stories.jsx
+│   │   │   ├── DashboardRoleFilter.jsx
+│   │   │   ├── rbac_admin_barrel.js
+│   │   │   ├── README.md
+│   │   │   ├── RoleAssignmentForm.jsx
+│   │   │   ├── RoleAssignmentForm.test.js
+│   │   │   ├── SessionManagerMock.js
+│   │   │   ├── useAdminUsers.js
+│   │   │   └── UserListPanel.jsx
+│   │   ├── EchoCore_ChatE_Batch6
+│   │   │   ├── MockLoginLogout.js
+│   │   │   ├── rbac_session_barrel.js
+│   │   │   ├── rbacLogs.js
+│   │   │   ├── RBACSessionGate.jsx
+│   │   │   ├── README.md
+│   │   │   ├── RoleEditorPanel.jsx
+│   │   │   ├── RoleEditorPanel.stories.jsx
+│   │   │   ├── sessionTokens.js
+│   │   │   ├── useSessionAuth.js
+│   │   │   └── useSessionAuth.test.js
+│   │   ├── EchoCore_ChatE_Batch7
+│   │   │   ├── jwtHandler.js
+│   │   │   ├── jwtHandler.test.js
+│   │   │   ├── JWTTokenPanel.jsx
+│   │   │   ├── JWTTokenPanel.stories.jsx
+│   │   │   ├── JWTValidationGate.js
+│   │   │   ├── MockJWTLogin.js
+│   │   │   ├── rbac_jwt_barrel.js
+│   │   │   ├── RBACPolicyEditor.jsx
+│   │   │   ├── README.md
+│   │   │   └── useJWTAuth.js
+│   │   ├── EchoCore_ChatE_Batch8
+│   │   │   ├── JWTRefreshHandler.js
+│   │   │   ├── OAuthGateway.js
+│   │   │   ├── OAuthGateway.test.js
+│   │   │   ├── rbac_gateway_barrel.js
+│   │   │   ├── RBACAPIHandler.js
+│   │   │   ├── RBACPanel.stories.jsx
+│   │   │   ├── RBACSecurityConfig.js
+│   │   │   ├── README.md
+│   │   │   ├── RolePolicyManager.js
+│   │   │   └── SessionAuditPanel.jsx
+│   │   ├── EchoCore_ChatF_Batch4
+│   │   │   └── README.md
+│   │   ├── EchoCore_ChatF_Batch5
+│   │   │   ├── AnomalyDetectionStub.js
+│   │   │   ├── forecast_ml_barrel.js
+│   │   │   ├── ForecastInsightCard.jsx
+│   │   │   ├── ForecastModelStub.js
+│   │   │   ├── ForecastModelStub.test.js
+│   │   │   ├── README.md
+│   │   │   ├── ScenarioSelector.jsx
+│   │   │   ├── ScenarioSelector.stories.jsx
+│   │   │   ├── trainModel.js
+│   │   │   └── TrendAnalyzer.js
+│   │   ├── EchoCore_ChatF_Batch6
+│   │   │   ├── CostRiskAnalysis.js
+│   │   │   ├── forecast_scenario_barrel.js
+│   │   │   ├── ForecastComparisonPanel.jsx
+│   │   │   ├── ForecastComparisonPanel.stories.jsx
+│   │   │   ├── POSPMSIntegrationMock.js
+│   │   │   ├── README.md
+│   │   │   ├── ScenarioModelEngine.js
+│   │   │   ├── ScenarioModelEngine.test.js
+│   │   │   ├── ScenarioView.jsx
+│   │   │   └── SeasonalAdjustmentMock.js
+│   │   ├── EchoCore_ChatF_Batch7
+│   │   │   ├── DataFeedSelector.jsx
+│   │   │   ├── ExternalDatasetLoader.js
+│   │   │   ├── forecast_pipeline_barrel.js
+│   │   │   ├── ForecastInsightsPanel.jsx
+│   │   │   ├── ForecastInsightsPanel.stories.jsx
+│   │   │   ├── ForecastTrainingManager.js
+│   │   │   ├── MLDataPipeline.js
+│   │   │   ├── MLDataPipeline.test.js
+│   │   │   ├── README.md
+│   │   │   └── TimeSeriesNormalization.js
+│   │   ├── EchoCore_ChatF_Batch8
+│   │   │   ├── forecast_gateway_barrel.js
+│   │   │   ├── ForecastAPIConfig.js
+│   │   │   ├── ForecastScenarioDashboard.jsx
+│   │   │   ├── ForecastScenarioDashboard.stories.jsx
+│   │   │   ├── ForecastTrainingPipeline.js
+│   │   │   ├── MLForecastGateway.js
+│   │   │   ├── MLForecastGateway.test.js
+│   │   │   ├── MLInsightsCard.jsx
+│   │   │   ├── PredictiveModelManager.js
+│   │   │   └── README.md
+│   │   ├── EchoCore_Complete
+│   │   │   ├── Phase2_Starter
+│   │   │   │   ├── CompanionAvatar.jsx
+│   │   │   │   └── DashboardVoiceController.jsx
+│   │   │   ├── README.md
+│   │   │   ├── roadmap
+│   │   │   │   └── Phase2_Roadmap.md
+│   │   │   └── src
+│   │   │       └── components
+│   │   ├── EchoCore_CoreHooks_Batch_61-70
+│   │   │   ├── hooks.test.js
+│   │   │   ├── index.js
+│   │   │   ├── LiveDataProvider.jsx
+│   │   │   ├── NotificationCenter.jsx
+│   │   │   ├── PresenceIndicator.jsx
+│   │   │   ├── useLiveDataHook.js
+│   │   │   ├── useNotificationHook.js
+│   │   │   ├── useUserPresenceHook.js
+│   │   │   ├── useWhiteboardState.js
+│   │   │   └── WhiteboardDataSync.js
+│   │   ├── EchoCore_FullBuild
+│   │   │   ├── Batch_4
+│   │   │   │   ├── ChatA
+│   │   │   │   ├── ChatB
+│   │   │   │   ├── ChatC
+│   │   │   │   ├── ChatD
+│   │   │   │   ├── ChatE
+│   │   │   │   └── ChatF
+│   │   │   ├── Batch_5
+│   │   │   │   ├── AnalyticsDashboard.jsx
+│   │   │   │   ├── AvatarAnimationManager.js
+│   │   │   │   ├── AvatarPoseController.jsx
+│   │   │   │   ├── EchoCoreGlobalStyles.css
+│   │   │   │   ├── IntegrationConfigPanel.jsx
+│   │   │   │   ├── ModuleInspectorPanel.jsx
+│   │   │   │   ├── PredictiveChartWidget.jsx
+│   │   │   │   ├── RBACAdminPanel.jsx
+│   │   │   │   ├── Task_5_1.js
+│   │   │   │   ├── Task_5_10.js
+│   │   │   │   ├── Task_5_2.js
+│   │   │   │   ├── Task_5_3.js
+│   │   │   │   ├── Task_5_4.js
+│   │   │   │   ├── Task_5_5.js
+│   │   │   │   ├── Task_5_6.js
+│   │   │   │   ├── Task_5_7.js
+│   │   │   │   ├── Task_5_8.js
+│   │   │   │   ├── Task_5_9.js
+│   │   │   │   ├── WhiteboardToolbar.jsx
+│   │   │   │   └── WhiteboardZoomControls.jsx
+│   │   │   ├── Batch_6
+│   │   │   │   ├── Task_6_1.js
+│   │   │   │   ├── Task_6_10.js
+│   │   │   │   ├── Task_6_2.js
+│   │   │   │   ├── Task_6_3.js
+│   │   │   │   ├── Task_6_4.js
+│   │   │   │   ├── Task_6_5.js
+│   │   │   │   ├── Task_6_6.js
+│   │   │   │   ├── Task_6_7.js
+│   │   │   │   ├── Task_6_8.js
+│   │   │   │   └── Task_6_9.js
+│   │   │   ├── Batch_7
+│   │   │   │   ├── Task_7_1.js
+│   │   │   │   ├── Task_7_10.js
+│   │   │   │   ├── Task_7_2.js
+│   │   │   │   ├── Task_7_3.js
+│   │   │   │   ├── Task_7_4.js
+│   │   │   │   ├── Task_7_5.js
+│   │   │   │   ├── Task_7_6.js
+│   │   │   │   ├── Task_7_7.js
+│   │   │   │   ├── Task_7_8.js
+│   │   │   │   └── Task_7_9.js
+│   │   │   ├── Batch_8
+│   │   │   │   ├── Task_8_1.js
+│   │   │   │   ├── Task_8_10.js
+│   │   │   │   ├── Task_8_2.js
+│   │   │   │   ├── Task_8_3.js
+│   │   │   │   ├── Task_8_4.js
+│   │   │   │   ├── Task_8_5.js
+│   │   │   │   ├── Task_8_6.js
+│   │   │   │   ├── Task_8_7.js
+│   │   │   │   ├── Task_8_8.js
+│   │   │   │   └── Task_8_9.js
+│   │   │   └── Batch_9
+│   │   │       ├── Task_9_1.js
+│   │   │       ├── Task_9_10.js
+│   │   │       ├── Task_9_2.js
+│   │   │       ├── Task_9_3.js
+│   │   │       ├── Task_9_4.js
+│   │   │       ├── Task_9_5.js
+│   │   │       ├── Task_9_6.js
+│   │   │       ├── Task_9_7.js
+│   │   │       ├── Task_9_8.js
+│   │   │       └── Task_9_9.js
+│   │   ├── EchoCore_FullBuild_20
+│   │   │   ├── AnalyticsHeatmap.jsx
+│   │   │   ├── AnalyticsTrendsChart.jsx
+│   │   │   ├── AvatarCostumeManager.jsx
+│   │   │   ├── AvatarEmotionEngine.js
+│   │   │   ├── AvatarInteractionPanel.jsx
+│   │   │   ├── AvatarVoiceSync.js
+│   │   │   ├── CoreNotificationCenter.jsx
+│   │   │   ├── CoreThemeManager.js
+│   │   │   ├── IntegrationLogsViewer.jsx
+│   │   │   ├── IntegrationSyncManager.js
+│   │   │   ├── ModuleGroupManager.jsx
+│   │   │   ├── ModuleSearchBar.jsx
+│   │   │   ├── PredictiveMenuPlanner.js
+│   │   │   ├── PredictiveStaffingModel.js
+│   │   │   ├── RBACRoleManager.jsx
+│   │   │   ├── RBACUserEditor.jsx
+│   │   │   ├── WhiteboardExportTool.js
+│   │   │   ├── WhiteboardHistoryControls.jsx
+│   │   │   ├── WhiteboardLayerManager.jsx
+│   │   │   └── WhiteboardSnapManager.js
+│   │   ├── EchoCore_Handoff
+│   │   │   ├── EchoCore_Handoff_Summary.md
+│   │   │   ├── Phase2_Starter.js
+│   │   │   └── src
+│   │   │       └── components
+│   │   ├── EchoCore_Master_AllPhases
+│   │   │   ├── EchoCore_Batch4.marker
+│   │   │   ├── EchoCore_Batch5.marker
+│   │   │   ├── EchoCore_Batch6.marker
+│   │   │   ├── EchoCore_Batch7.marker
+│   │   │   ├── EchoCore_Batch8.marker
+│   │   │   ├── EchoCore_Phase4_Full.marker
+│   │   │   ├── EchoCore_Phase5_Final.marker
+│   │   │   ├── Phase1_Core
+│   │   │   │   └── README.md
+│   │   │   ├── Phase2_Modules
+│   │   │   │   └── README.md
+│   │   │   ├── Phase3_Enterprise
+│   │   │   │   └── README.md
+│   │   │   ├── Phase4_Integration
+│   │   │   │   └── README.md
+│   │   │   └── Phase5_Final
+│   │   │       └── README.md
+│   │   ├── EchoCore_Master_Full
+│   │   │   ├── EchoCore_Batch4.marker
+│   │   │   ├── EchoCore_Batch5.marker
+│   │   │   ├── EchoCore_Batch6.marker
+│   │   │   ├── EchoCore_Batch7.marker
+│   │   │   ├── EchoCore_Batch8.marker
+│   │   │   ├── EchoCore_Phase4_Full.marker
+│   │   │   ├── Phase1_Core
+│   │   │   │   └── README.md
+│   │   │   ├── Phase2_Modules
+│   │   │   │   └── README.md
+│   │   │   ├── Phase3_Enterprise
+│   │   │   │   └── README.md
+│   │   │   └── Phase4_Integration
+│   │   │       └── README.md
+│   │   ├── EchoCore_Phase2_Batch4
+│   │   │   ├── __tests__
+│   │   │   │   └── useStream.test.js
+│   │   │   ├── components
+│   │   │   │   └── DataStreamDebugPanel.jsx
+│   │   │   ├── contracts
+│   │   │   │   └── events
+│   │   │   ├── hooks
+│   │   │   │   ├── useLiveInventoryData.js
+│   │   │   │   └── useLiveLaborData.js
+│   │   │   ├── mockStreamServer.js
+│   │   │   └── storybook
+│   │   │       └── DataStreamDebugPanel.stories.jsx
+│   │   ├── EchoCore_Phase2_Batch5
+│   │   │   ├── __tests__
+│   │   │   │   └── WhiteboardCanvas.test.js
+│   │   │   ├── components
+│   │   │   │   └── whiteboard
+│   │   │   └── hooks
+│   │   │       └── useWhiteboardTools.js
+│   │   ├── EchoCore_Phase2_FullBuild
+│   │   │   ├── Batch_4
+│   │   │   │   ├── DataContextProvider.jsx
+│   │   │   │   ├── dataFlowDocs.md
+│   │   │   │   ├── DataHookErrors.jsx
+│   │   │   │   ├── EchoCoreHooks.js
+│   │   │   │   ├── echoService.js
+│   │   │   │   ├── HookUI.stories.js
+│   │   │   │   ├── useDataStream.js
+│   │   │   │   ├── useDataStream.test.js
+│   │   │   │   └── WhiteboardBackendAdapter.js
+│   │   │   ├── Batch_5
+│   │   │   │   ├── AnalyticsDashboard.jsx
+│   │   │   │   ├── AvatarAnimationManager.js
+│   │   │   │   ├── AvatarPoseController.jsx
+│   │   │   │   ├── EchoCoreGlobalStyles.css
+│   │   │   │   ├── IntegrationConfigPanel.jsx
+│   │   │   │   ├── ModuleInspectorPanel.jsx
+│   │   │   │   ├── PredictiveChartWidget.jsx
+│   │   │   │   ├── RBACAdminPanel.jsx
+│   │   │   │   ├── WhiteboardToolbar.jsx
+│   │   │   │   └── WhiteboardZoomControls.jsx
+│   │   │   ├── Batch_6_7
+│   │   │   │   ├── AnalyticsHeatmap.jsx
+│   │   │   │   ├── AnalyticsTrendsChart.jsx
+│   │   │   │   ├── AvatarCostumeManager.jsx
+│   │   │   │   ├── AvatarEmotionEngine.js
+│   │   │   │   ├── AvatarInteractionPanel.jsx
+│   │   │   │   ├── AvatarVoiceSync.js
+│   │   │   │   ├── CoreNotificationCenter.jsx
+│   │   │   │   ├── CoreThemeManager.js
+│   │   │   │   ├── IntegrationLogsViewer.jsx
+│   │   │   │   ├── IntegrationSyncManager.js
+│   │   │   │   ├── ModuleGroupManager.jsx
+│   │   │   │   ├── ModuleSearchBar.jsx
+│   │   │   │   ├── PredictiveMenuPlanner.js
+│   │   │   │   ├── PredictiveStaffingModel.js
+│   │   │   │   ├── RBACRoleManager.jsx
+│   │   │   │   ├── RBACUserEditor.jsx
+│   │   │   │   ├── WhiteboardExportTool.js
+│   │   │   │   ├── WhiteboardHistoryControls.jsx
+│   │   │   │   ├── WhiteboardLayerManager.jsx
+│   │   │   │   └── WhiteboardSnapManager.js
+│   │   │   └── Batch_8_9
+│   │   │       ├── AnalyticsCostBreakdown.jsx
+│   │   │       ├── AnalyticsRevenueForecast.js
+│   │   │       ├── AvatarAccessoryManager.jsx
+│   │   │       ├── AvatarFacialExpressionEngine.js
+│   │   │       ├── AvatarGestureController.js
+│   │   │       ├── AvatarLiveReactionPanel.jsx
+│   │   │       ├── CoreAccessibilityManager.js
+│   │   │       ├── CoreErrorBoundary.jsx
+│   │   │       ├── CoreLoggingService.js
+│   │   │       ├── CoreToastNotification.jsx
+│   │   │       ├── IntegrationAPIKeysPanel.jsx
+│   │   │       ├── IntegrationScheduler.js
+│   │   │       ├── ModuleDuplicateTool.js
+│   │   │       ├── ModuleTemplateGallery.jsx
+│   │   │       ├── PredictiveDemandCurve.js
+│   │   │       ├── PredictiveSalesModel.js
+│   │   │       ├── RBACAuditLogViewer.jsx
+│   │   │       ├── RBACPermissionMatrix.jsx
+│   │   │       ├── WhiteboardAIHints.js
+│   │   │       └── WhiteboardAutoLayoutManager.jsx
+│   │   ├── EchoCore_Phase4_Full
+│   │   │   ├── CCTVAlertSystem.js
+│   │   │   ├── CCTVMonitoringHook.js
+│   │   │   ├── EventIntegrationBus.js
+│   │   │   ├── IntegrationConfig.js
+│   │   │   ├── IntegrationDashboard.jsx
+│   │   │   ├── IntegrationHooksBarrel.js
+│   │   │   ├── IntegrationLogger.js
+│   │   │   ├── IntegrationREADME.md
+│   │   │   ├── IntegrationService.test.js
+│   │   │   ├── IntegrationUtils.js
+│   │   │   ├── MonitoringUI.jsx
+│   │   │   ├── PMSAdapter.js
+│   │   │   ├── PMSIntegrationService.js
+│   │   │   ├── POSAdapter.js
+│   │   │   ├── POSIntegrationService.js
+│   │   │   ├── POSPMSMockData.js
+│   │   │   ├── SystemHealthMonitor.js
+│   │   │   ├── WeatherAPIIntegration.js
+│   │   │   ├── WeatherCCTVConnector.js
+│   │   │   └── WeatherDataMapper.js
+│   │   ├── EchoCore_Phase5_Final
+│   │   │   ├── CI_CD_Config.yaml
+│   │   │   ├── DeploymentGuide.md
+│   │   │   ├── DeploymentScripts.sh
+│   │   │   ├── FinalTestingSuite.js
+│   │   │   ├── IntegrationTests.test.js
+│   │   │   ├── LoadTestingPlan.md
+│   │   │   ├── README.md
+│   │   │   ├── ReleaseNotes.md
+│   │   │   ├── SecurityAuditChecklist.md
+│   │   │   └── UXPolishTasks.md
+│   │   ├── EchoCore_UIEnhancements_Batch_51-60
+│   │   │   ├── AvatarSettingsPanel.jsx
+│   │   │   ├── EchoAvatar.jsx
+│   │   │   ├── EchoAvatar.test.js
+│   │   │   ├── EchoThemeSwitch.jsx
+│   │   │   ├── EchoWelcomeScreen.jsx
+│   │   │   ├── index.js
+│   │   │   ├── LoadingScreen.jsx
+│   │   │   ├── QuickActionPanel.jsx
+│   │   │   ├── Toolbar.jsx
+│   │   │   └── UIEnhancements.stories.js
+│   │   ├── FeedbackCharts.jsx
+│   │   ├── FeedbackEngine.test.js
+│   │   ├── FeedbackPanel.jsx
+│   │   ├── FeedbackSummaryCard.jsx
+│   │   ├── FinalBarrel.js
+│   │   ├── ForecastDebugPanel.jsx
+│   │   ├── ForecastEngine.js
+│   │   ├── ForecastEngine.test.js
+│   │   ├── ForecastEngineContext.jsx
+│   │   ├── ForecastSettingsPanel.jsx
+│   │   ├── HealthLogs.jsx
+│   │   ├── HealthStatusCard.jsx
+│   │   ├── Integration_Hooks
+│   │   │   ├── Integration_Hooks_Task_1.js
+│   │   │   ├── Integration_Hooks_Task_10.js
+│   │   │   ├── Integration_Hooks_Task_2.js
+│   │   │   ├── Integration_Hooks_Task_3.js
+│   │   │   ├── Integration_Hooks_Task_4.js
+│   │   │   ├── Integration_Hooks_Task_5.js
+│   │   │   ├── Integration_Hooks_Task_6.js
+│   │   │   ├── Integration_Hooks_Task_7.js
+│   │   │   ├── Integration_Hooks_Task_8.js
+│   │   │   └── Integration_Hooks_Task_9.js
+│   │   ├── LazyLoadWrapper.jsx
+│   │   ├── Live_Hooks
+│   │   │   ├── Live_Hooks_Task_1.js
+│   │   │   ├── Live_Hooks_Task_10.js
+│   │   │   ├── Live_Hooks_Task_2.js
+│   │   │   ├── Live_Hooks_Task_3.js
+│   │   │   ├── Live_Hooks_Task_4.js
+│   │   │   ├── Live_Hooks_Task_5.js
+│   │   │   ├── Live_Hooks_Task_6.js
+│   │   │   ├── Live_Hooks_Task_7.js
+│   │   │   ├── Live_Hooks_Task_8.js
+│   │   │   └── Live_Hooks_Task_9.js
+│   │   ├── MigrationHistory.jsx
+│   │   ├── MigrationPanel.jsx
+│   │   ├── MigrationStatusCard.jsx
+│   │   ├── NotificationContext.jsx
+│   │   ├── NotificationEngine.js
+│   │   ├── NotificationEngine.test.js
+│   │   ├── NotificationItem.jsx
+│   │   ├── NotificationPanel.jsx
+│   │   ├── NotificationSettings.jsx
+│   │   ├── OptimizationEngine.js
+│   │   ├── OptimizationEngine.test.js
+│   │   ├── PerfMetricsDashboard.jsx
+│   │   ├── Predictive_KPIs
+│   │   │   ├── Predictive_KPIs_Task_1.js
+│   │   │   ├── Predictive_KPIs_Task_10.js
+│   │   │   ├── Predictive_KPIs_Task_2.js
+│   │   │   ├── Predictive_KPIs_Task_3.js
+│   │   │   ├── Predictive_KPIs_Task_4.js
+│   │   │   ├── Predictive_KPIs_Task_5.js
+│   │   │   ├── Predictive_KPIs_Task_6.js
+│   │   │   ├── Predictive_KPIs_Task_7.js
+│   │   │   ├── Predictive_KPIs_Task_8.js
+│   │   │   └── Predictive_KPIs_Task_9.js
+│   │   ├── PrefetchLinks.jsx
+│   │   ├── RBAC
+│   │   │   ├── RBAC_Task_1.js
+│   │   │   ├── RBAC_Task_10.js
+│   │   │   ├── RBAC_Task_2.js
+│   │   │   ├── RBAC_Task_3.js
+│   │   │   ├── RBAC_Task_4.js
+│   │   │   ├── RBAC_Task_5.js
+│   │   │   ├── RBAC_Task_6.js
+│   │   │   ├── RBAC_Task_7.js
+│   │   │   ├── RBAC_Task_8.js
+│   │   │   └── RBAC_Task_9.js
+│   │   ├── ReportBuilderPanel.jsx
+│   │   ├── ReportContext.jsx
+│   │   ├── ReportDownloadButton.jsx
+│   │   ├── ReportGenerator.js
+│   │   ├── ReportGenerator.test.js
+│   │   ├── ReportTemplates.jsx
+│   │   ├── SalesForecastCard.jsx
+│   │   ├── SecurityModule_161.js
+│   │   ├── SecurityModule_162.js
+│   │   ├── SecurityModule_163.js
+│   │   ├── SecurityModule_164.js
+│   │   ├── SecurityModule_165.js
+│   │   ├── SecurityModule_166.js
+│   │   ├── SecurityModule_167.js
+│   │   ├── SecurityModule_168.js
+│   │   ├── SecurityModule_169.js
+│   │   ├── SecurityModule_170.js
+│   │   ├── SecurityModule_171.js
+│   │   ├── SecurityModule_172.js
+│   │   ├── SecurityModule_173.js
+│   │   ├── SecurityModule_174.js
+│   │   ├── SecurityModule_175.js
+│   │   ├── StorybookConfigFinal.js
+│   │   ├── SystemHealthContext.jsx
+│   │   ├── SystemHealthMonitor.js
+│   │   ├── SystemHealthMonitor.test.js
+│   │   ├── SystemHealthPanel.jsx
+│   │   ├── Task_1.js
+│   │   ├── Task_10.js
+│   │   ├── Task_100.js
+│   │   ├── Task_101.js
+│   │   ├── Task_102.js
+│   │   ├── Task_103.js
+│   │   ├── Task_104.js
+│   │   ├── Task_105.js
+│   │   ├── Task_106.js
+│   │   ├── Task_107.js
+│   │   ├── Task_108.js
+│   │   ├── Task_109.js
+│   │   ├── Task_11.js
+│   │   ├── Task_110.js
+│   │   ├── Task_111.js
+│   │   ├── Task_112.js
+│   │   ├── Task_113.js
+│   │   ├── Task_114.js
+│   │   ├── Task_115.js
+│   │   ├── Task_116.js
+│   │   ├── Task_117.js
+│   │   ├── Task_118.js
+│   │   ├── Task_119.js
+│   │   ├── Task_12.js
+│   │   ├── Task_120.js
+│   │   ├── Task_121.js
+│   │   ├── Task_122.js
+│   │   ├── Task_123.js
+│   │   ├── Task_124.js
+│   │   ├── Task_125.js
+│   │   ├── Task_126.js
+│   │   ├── Task_127.js
+│   │   ├── Task_128.js
+│   │   ├── Task_129.js
+│   │   ├── Task_13.js
+│   │   ├── Task_130.js
+│   │   ├── Task_131.js
+│   │   ├── Task_132.js
+│   │   ├── Task_133.js
+│   │   ├── Task_134.js
+│   │   ├── Task_135.js
+│   │   ├── Task_136.js
+│   │   ├── Task_137.js
+│   │   ├── Task_138.js
+│   │   ├── Task_139.js
+│   │   ├── Task_14.js
+│   │   ├── Task_140.js
+│   │   ├── Task_141.js
+│   │   ├── Task_142.js
+│   │   ├── Task_143.js
+│   │   ├── Task_144.js
+│   │   ├── Task_145.js
+│   │   ├── Task_146.js
+│   │   ├── Task_147.js
+│   │   ├── Task_148.js
+│   │   ├── Task_149.js
+│   │   ├── Task_15.js
+│   │   ├── Task_150.js
+│   │   ├── Task_151.js
+│   │   ├── Task_152.js
+│   │   ├── Task_153.js
+│   │   ├── Task_154.js
+│   │   ├── Task_155.js
+│   │   ├── Task_156.js
+│   │   ├── Task_157.js
+│   │   ├── Task_158.js
+│   │   ├── Task_159.js
+│   │   ├── Task_16.js
+│   │   ├── Task_160.js
+│   │   ├── Task_161.js
+│   │   ├── Task_162.js
+│   │   ├── Task_163.js
+│   │   ├── Task_164.js
+│   │   ├── Task_165.js
+│   │   ├── Task_166.js
+│   │   ├── Task_167.js
+│   │   ├── Task_168.js
+│   │   ├── Task_169.js
+│   │   ├── Task_17.js
+│   │   ├── Task_170.js
+│   │   ├── Task_171.js
+│   │   ├── Task_172.js
+│   │   ├── Task_173.js
+│   │   ├── Task_174.js
+│   │   ├── Task_175.js
+│   │   ├── Task_176.js
+│   │   ├── Task_177.js
+│   │   ├── Task_178.js
+│   │   ├── Task_179.js
+│   │   ├── Task_18.js
+│   │   ├── Task_180.js
+│   │   ├── Task_181.js
+│   │   ├── Task_182.js
+│   │   ├── Task_183.js
+│   │   ├── Task_184.js
+│   │   ├── Task_185.js
+│   │   ├── Task_186.js
+│   │   ├── Task_187.js
+│   │   ├── Task_188.js
+│   │   ├── Task_189.js
+│   │   ├── Task_19.js
+│   │   ├── Task_190.js
+│   │   ├── Task_191.js
+│   │   ├── Task_192.js
+│   │   ├── Task_193.js
+│   │   ├── Task_194.js
+│   │   ├── Task_195.js
+│   │   ├── Task_196.js
+│   │   ├── Task_197.js
+│   │   ├── Task_198.js
+│   │   ├── Task_199.js
+│   │   ├── Task_2.js
+│   │   ├── Task_20.js
+│   │   ├── Task_200.js
+│   │   ├── Task_201.js
+│   │   ├── Task_202.js
+│   │   ├── Task_203.js
+│   │   ├── Task_204.js
+│   │   ├── Task_205.js
+│   │   ├── Task_21.js
+│   │   ├── Task_22.js
+│   │   ├── Task_23.js
+│   │   ├── Task_24.js
+│   │   ├── Task_25.js
+│   │   ├── Task_26.js
+│   │   ├── Task_27.js
+│   │   ├── Task_28.js
+│   │   ├── Task_29.js
+│   │   ├── Task_3.js
+│   │   ├── Task_30.js
+│   │   ├── Task_31.js
+│   │   ├── Task_32.js
+│   │   ├── Task_33.js
+│   │   ├── Task_34.js
+│   │   ├── Task_35.js
+│   │   ├── Task_36.js
+│   │   ├── Task_37.js
+│   │   ├── Task_38.js
+│   │   ├── Task_39.js
+│   │   ├── Task_4.js
+│   │   ├── Task_40.js
+│   │   ├── Task_41.js
+│   │   ├── Task_42.js
+│   │   ├── Task_43.js
+│   │   ├── Task_44.js
+│   │   ├── Task_45.js
+│   │   ├── Task_46.js
+│   │   ├── Task_47.js
+│   │   ├── Task_48.js
+│   │   ├── Task_49.js
+│   │   ├── Task_5.js
+│   │   ├── Task_50.js
+│   │   ├── Task_51.js
+│   │   ├── Task_52.js
+│   │   ├── Task_53.js
+│   │   ├── Task_54.js
+│   │   ├── Task_55.js
+│   │   ├── Task_56.js
+│   │   ├── Task_57.js
+│   │   ├── Task_58.js
+│   │   ├── Task_59.js
+│   │   ├── Task_6.js
+│   │   ├── Task_60.js
+│   │   ├── Task_61.js
+│   │   ├── Task_62.js
+│   │   ├── Task_63.js
+│   │   ├── Task_64.js
+│   │   ├── Task_65.js
+│   │   ├── Task_66.js
+│   │   ├── Task_67.js
+│   │   ├── Task_68.js
+│   │   ├── Task_69.js
+│   │   ├── Task_7.js
+│   │   ├── Task_70.js
+│   │   ├── Task_71.js
+│   │   ├── Task_72.js
+│   │   ├── Task_73.js
+│   │   ├── Task_74.js
+│   │   ├── Task_75.js
+│   │   ├── Task_76.js
+│   │   ├── Task_77.js
+│   │   ├── Task_78.js
+│   │   ├── Task_79.js
+│   │   ├── Task_8.js
+│   │   ├── Task_80.js
+│   │   ├── Task_81.js
+│   │   ├── Task_82.js
+│   │   ├── Task_83.js
+│   │   ├── Task_84.js
+│   │   ├── Task_85.js
+│   │   ├── Task_86.js
+│   │   ├── Task_87.js
+│   │   ├── Task_88.js
+│   │   ├── Task_89.js
+│   │   ├── Task_9.js
+│   │   ├── Task_90.js
+│   │   ├── Task_91.js
+│   │   ├── Task_92.js
+│   │   ├── Task_93.js
+│   │   ├── Task_94.js
+│   │   ├── Task_95.js
+│   │   ├── Task_96.js
+│   │   ├── Task_97.js
+│   │   ├── Task_98.js
+│   │   ├── Task_99.js
+│   │   ├── UI_Core
+│   │   │   ├── UI_Core_Task_1.js
+│   │   │   ├── UI_Core_Task_10.js
+│   │   │   ├── UI_Core_Task_2.js
+│   │   │   ├── UI_Core_Task_3.js
+│   │   │   ├── UI_Core_Task_4.js
+│   │   │   ├── UI_Core_Task_5.js
+│   │   │   ├── UI_Core_Task_6.js
+│   │   │   ├── UI_Core_Task_7.js
+│   │   │   ├── UI_Core_Task_8.js
+│   │   │   └── UI_Core_Task_9.js
+│   │   ├── UnitTestCoverageReport.md
+│   │   ├── useAuditTrailEngine.js
+│   │   ├── useDataMigration.js
+│   │   ├── useEchoFinance.js
+│   │   ├── useEchoLabor.js
+│   │   ├── useFeedbackEngine.js
+│   │   ├── useForecastEngine.js
+│   │   ├── useNotificationEngine.js
+│   │   ├── usePerformanceMonitor.js
+│   │   ├── useReportGenerator.js
+│   │   ├── UserFeedbackContext.jsx
+│   │   ├── UserFeedbackEngine.js
+│   │   └── useSystemHealth.js
+│   ├── EchoShell.jsx
+│   ├── EchoTranscriptLog.jsx
+│   ├── EchoVoiceInput.jsx
+│   ├── EmotionLog.jsx
+│   ├── hooks
+│   │   ├── EchoCore
+│   │   │   ├── useDataStream.js
+│   │   │   └── useEmotionAnalysis.js
+│   │   ├── EchoStratus
+│   │   │   └── useForecasting.js
+│   │   ├── index.js
+│   │   ├── LUCCCA
+│   │   │   └── useRecipeImport.js
+│   │   ├── useConfirmationDialong.js
+│   │   ├── useEchoStatus.js
+│   │   ├── usePerfMode.ts
+│   │   ├── useSystemLogger.js
+│   │   └── useToast.js
+│   ├── index.css
+│   ├── index.js
+│   ├── layout
+│   │   └── MainLayout.jsx
+│   ├── main.jsx
+│   ├── modules
+│   │   ├── 31_R&D_Mode_Module
+│   │   │   └── README.txt
+│   │   ├── 32_WebImportTools
+│   │   │   └── README.txt
+│   │   ├── Accounting.jsx
+│   │   ├── admin
+│   │   │   └── AdminDataEditorPanel.jsx
+│   │   ├── AdminSettings_Module_39
+│   │   │   ├── AdminPanelRoutes.js
+│   │   │   ├── LanguageToggle.jsx
+│   │   │   └── VoiceOption.jsx
+│   │   ├── AdvancedRecipeSearch_UI_43.zip
+│   │   ├── CakeGallery.jsx
+│   │   ├── ChefNet
+│   │   ├── components-6
+│   │   │   └── PastryLibrary
+│   │   │       ├── CakeDesigner.jsx
+│   │   │       └── PastryCanvas.jsx
+│   │   ├── components-7
+│   │   │   └── MenuBuilder
+│   │   │       ├── MenuDropCanvas.jsx
+│   │   │       └── MenuItemCard.jsx
+│   │   ├── CompositeMenuItem_Module_18
+│   │   │   ├── PlateBuilder.txt
+│   │   │   ├── PortionLogic.txt
+│   │   │   └── SubRecipes.txt
+│   │   ├── CRM
+│   │   ├── CRMMain.jsx
+│   │   ├── DecorTools
+│   │   │   ├── CakeRender360.jsx
+│   │   │   ├── ChocolateTransfers.jsx
+│   │   │   ├── InspirationGallery.jsx
+│   │   │   ├── SvgDecorationPicker.jsx
+│   │   │   └── TopperUpload.jsx
+│   │   ├── DesignUpload.jsx
+│   │   ├── EchoCanvas
+│   │   │   ├── CakeBuilder.jsx
+│   │   │   ├── CakeCuttingGuide.jsx
+│   │   │   ├── FlavorBuilder.jsx
+│   │   │   ├── Gallery.jsx
+│   │   │   ├── LayerPreview.jsx
+│   │   │   ├── NotesAndPricing.jsx
+│   │   │   └── StructureGuide.jsx
+│   │   ├── EchoCheckbook_Module_14
+│   │   │   ├── DailyLog.txt
+│   │   │   ├── Labor.txt
+│   │   │   ├── Purchases.txt
+│   │   │   └── SalesTracking.txt
+│   │   ├── EchoCheckbook_ReportDashboard_Module_15
+│   │   │   ├── Alerts.txt
+│   │   │   ├── COGS.txt
+│   │   │   ├── P&L.txt
+│   │   │   └── TrendAnalysis.txt
+│   │   ├── EchoEventCreator_Module_10
+│   │   │   ├── DraftStorage.js
+│   │   │   ├── EchoEventCreator.jsx
+│   │   │   └── ProposalRouter.js
+│   │   ├── EchoEventCreator_Module_12
+│   │   │   ├── EchoScopeDraftMenu.jsx
+│   │   │   ├── EventSubmissionLogic.js
+│   │   │   └── GuestSaveResume.jsx
+│   │   ├── EchoMaestro_Module_13
+│   │   │   ├── AutoScheduling.txt
+│   │   │   ├── EquipmentPullSheets.txt
+│   │   │   ├── PDFExport.txt
+│   │   │   └── PrepSheets.txt
+│   │   ├── EchoRecipePro_LogoRender_46.zip
+│   │   ├── EchoRecipePro_Nutrition_Module_17
+│   │   │   ├── NutrientCalculator.txt
+│   │   │   ├── NutritionPanelUI.txt
+│   │   │   └── USDAIntegration.txt
+│   │   ├── EchoScope_Module_11
+│   │   │   ├── EchoScopeWheel.jsx
+│   │   │   ├── PromptEngine.js
+│   │   │   └── WheelDataStore.js
+│   │   ├── EmailEngine.jsx
+│   │   ├── EndOfShiftReport.jsx
+│   │   ├── getCroppedImg_MIME_Fix_42
+│   │   │   ├── getCroppedImg.js
+│   │   │   └── mimeTypesFix.md
+│   │   ├── ImportTools
+│   │   │   ├── index.jsx
+│   │   │   └── README.md
+│   │   ├── index-2.jsx
+│   │   ├── Inventory_Module_5
+│   │   │   ├── InventoryList.jsx
+│   │   │   └── styles.css
+│   │   ├── Inventory_Module_8
+│   │   │   └── InventoryTable.jsx
+│   │   ├── InventoryManager
+│   │   │   ├── index.jsx
+│   │   │   └── ItemList.js
+│   │   ├── InvoiceManager
+│   │   │   └── UploadUI.js
+│   │   ├── InvoiceOCR_Module_16
+│   │   │   ├── GLAssignment.txt
+│   │   │   ├── LineItemParser.txt
+│   │   │   └── ScannerUI.txt
+│   │   ├── Invoices.jsx
+│   │   ├── KitchenLibrary_Module_1
+│   │   │   └── pages
+│   │   │       ├── Inventory.jsx
+│   │   │       ├── RecipeInput.jsx
+│   │   │       └── Recipes.jsx
+│   │   ├── LarousseGastronomique_Module_38
+│   │   │   ├── CuisineReferences.md
+│   │   │   ├── GlossaryParser.js
+│   │   │   └── Larousse_Index.json
+│   │   ├── LayerSelector.jsx
+│   │   ├── Menu_Packet_Builder_Module_12
+│   │   │   ├── menu-packet-utils.js
+│   │   │   ├── MenuPacketBuilder.jsx
+│   │   │   └── README.md
+│   │   ├── MenuBuilder
+│   │   │   └── MenuComboLogic.js
+│   │   ├── MenuMaker
+│   │   │   └── Templates.js
+│   │   ├── MenuMaker_Module_4
+│   │   │   ├── MenuMaker.jsx
+│   │   │   └── presets
+│   │   │       ├── buffet.json
+│   │   │       └── fixe.json
+│   │   ├── MenuMaker_Module_7
+│   │   │   ├── ExportTools.jsx
+│   │   │   ├── LayoutEditor.jsx
+│   │   │   └── TemplateGallery.jsx
+│   │   ├── pages
+│   │   │   └── WasteReport.jsx
+│   │   ├── pages-2
+│   │   │   └── Invoice.jsx
+│   │   ├── pastry
+│   │   │   └── cake
+│   │   │       └── CakeStandUploader.jsx
+│   │   ├── PrepSheets
+│   │   ├── Proposal_Generator_Module_11
+│   │   │   ├── ClientShareModal.jsx
+│   │   │   └── SmartBEOFormatter.js
+│   │   ├── ProposalEditor.jsx
+│   │   ├── Rational_CombiOven_Module_37
+│   │   │   ├── CombiSettings.jsx
+│   │   │   ├── RationalGuide.md
+│   │   │   └── SteamCycles.json
+│   │   ├── README_49.txt
+│   │   ├── README_50.txt
+│   │   ├── README_51.txt
+│   │   ├── RecipeArchive
+│   │   ├── RecipeInput_AdvancedFeatures_47.zip
+│   │   ├── RecipeInput_Finalization_40
+│   │   │   ├── IngredientTable.js
+│   │   │   └── RightSidebar.jsx
+│   │   ├── ReporterDashboard_Module_8
+│   │   │   └── index.js
+│   │   ├── ReporterDashboard.jsx
+│   │   ├── RolePermission
+│   │   ├── SearchTools
+│   │   │   ├── index.jsx
+│   │   │   └── README.md
+│   │   ├── ServerNotes
+│   │   │   └── SMSExport.js
+│   │   ├── Smart_Calendar_Module_10
+│   │   │   └── SmartCalendar.jsx
+│   │   ├── Stable_RecipeInput_Loading_45.zip
+│   │   ├── StarterPack_Walkthrough_44.zip
+│   │   ├── StaticLayoutRestore_41
+│   │   │   ├── LayoutBackup_20250702.jsx
+│   │   │   └── SafeComponents.json
+│   │   ├── StructuralGuide-2.jsx
+│   │   ├── StructuralGuide.jsx
+│   │   ├── VisualLayoutConfirmation_48.zip
+│   │   └── WasteLog
+│   │       └── AnalysisTool.js
+│   ├── OdinSpearSeal.js
+│   ├── pages
+│   │   ├── admin
+│   │   ├── Admin.jsx
+│   │   ├── Banquet.jsx
+│   │   ├── ChefNet.jsx
+│   │   ├── Contact.jsx
+│   │   ├── Dashboard.jsx
+│   │   ├── Login.jsx
+│   │   ├── Menus.jsx
+│   │   ├── ModuleOverview.jsx
+│   │   ├── Purchasing.jsx
+│   │   ├── RecipePreview.jsx
+│   │   ├── Settings.jsx
+│   │   ├── SettingsPage.jsx
+│   │   ├── SidebarTestPage.jsx
+│   │   ├── TempRecipeInputStandalone.jsx
+│   │   └── UserSettings.jsx
+│   ├── RedPhoenixReignite.js
+│   ├── styles
+│   │   └── manual.css
+│   ├── system
+│   │   └── echo_essence_embed.js
+│   ├── TestRecipeInput.jsx
+│   ├── tests
+│   │   ├── EchoCore
+│   │   │   └── EchoAvatar.test.js
+│   │   ├── EchoStratus
+│   │   │   └── ForecastingEngine.test.js
+│   │   └── LUCCCA
+│   │       └── RecipeBuilder.test.js
+│   ├── utils
+│   │   ├── analytics
+│   │   │   └── kpiEngine.js
+│   │   ├── getCroppedImg.jsx
+│   │   ├── helpers
+│   │   │   └── dateUtils.js
+│   │   ├── loadStarterRecipes.js
+│   │   ├── logger.js
+│   │   └── prepYieldLookup.js
+│   └── ZeldaMasterRecovery.js
+├── StorefrontEngine
+│   ├── autoAccountProvisioner.js
+│   ├── enterpriseSetupRouter.js
+│   ├── grayOutUIController.js
+│   ├── liveTierUnlocker.js
+│   ├── moduleAccessMatrix.js
+│   ├── planActivationRouter.js
+│   ├── purchaseFlowHandler.js
+│   └── tierUpgradePrompter.js
+├── SystemResourceDetector.ts
+├── Tools
+│   ├── argus_batch_move_log.txt
+│   ├── argus_checked_manifest.json
+│   ├── argus_file_check_log.txt
+│   ├── argus_file_check.js
+│   ├── argus_manifest.json
+│   ├── argus_restore.js
+│   ├── deploy_file_map.json
+│   ├── generate_deploy_file_map.js
+│   ├── Lost_and_Found.txt
+│   ├── recipe-input-app
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── public
+│   │   │   ├── favicon.ico
+│   │   │   ├── index.html
+│   │   │   ├── logo192.png
+│   │   │   ├── logo512.png
+│   │   │   ├── manifest.json
+│   │   │   └── robots.txt
+│   │   ├── README.md
+│   │   └── src
+│   │       ├── App.css
+│   │       ├── App.js
+│   │       ├── App.test.js
+│   │       ├── index.css
+│   │       ├── index.js
+│   │       ├── logo.svg
+│   │       ├── reportWebVitals.js
+│   │       └── setupTests.js
+│   ├── zelda_argus_basic_report.js
+│   ├── zelda_argus_batch_move.js
+│   └── zelda_argus_move_and_check.js
+├── transfer_frontend.sh
+├── transfer_safe.sh
+├── usePerfMode.ts
+├── UserPreferencesStore.ts
+├── vite.config.js
+├── VoiceEchoFaceTrigger.ts
+├── WebStorefront
+│   ├── assets
+│   │   └── echoAvatar.png
+│   ├── demoPreviewLauncher.js
+│   ├── echoFeatureTooltip.js
+│   ├── echoSignupWelcome.js
+│   ├── onboardingTimeline.js
+│   ├── tierSelectionGrid.js
+│   └── upgradeModal.js
+├── WindowA_WhiteboardCore
+│   ├── autoLayoutEngine.ts
+│   ├── collision.ts
+│   ├── CRMQuickPane.tsx
+│   ├── eventBus.ts
+│   ├── FluidRoot.tsx
+│   ├── FocusManager.ts
+│   ├── InputAbstraction.ts
+│   ├── LayerManager.tsx
+│   ├── OrderingPane.tsx
+│   ├── paneManager.ts
+│   ├── PaneRegistry.ts
+│   ├── SchedulePane.tsx
+│   ├── shortcutMap.ts
+│   ├── snapGrid.ts
+│   ├── SystemStatusPane.tsx
+│   ├── TranslucentSidebar.tsx
+│   ├── useDocking.ts
+│   └── usePerfMode.ts
+├── WindowG_AdminControls_Batch1.tar
+├── WindowTransitionLayer.tsx
+├── ZARO_Core
+│   ├── Argus2Fragment.js
+│   ├── OdinSpearSeal.js
+│   ├── RedPhoenixReignite.js
+│   └── ZeldaMasterRecovery.js
+├── ZARO_EchoRecovery-2.tar
+├── ZARO_EchoRecovery.tar
+└── Zelda_Phase9_SmartScope
+    ├── zelda-admin-auth.json
+    ├── zelda-backup.js
+    ├── zelda-broadcast-alert.sh
+    ├── zelda-cloud-restore.js
+    ├── zelda-cron-runner.sh
+    ├── zelda-data-vault.js
+    ├── zelda-evolve.json
+    ├── zelda-guardian-config.json
+    ├── zelda-launch.js
+    ├── zelda-red-phoenix.js
+    ├── zelda-remote-gateway.js
+    ├── zelda-restore.js
+    ├── zelda-status.json
+    ├── zelda-unlock.js
+    ├── ZeldaDashboard.jsx
+    ├── ZeldaPortal.jsx
+    └── ZeldaWidget.css
+
+730 directories, 2620 files

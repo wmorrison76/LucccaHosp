@@ -1,0 +1,702 @@
+/* Typewriter Animation */
+.typewriter {
+  overflow: hidden;
+  border-right: .15em solid #34d399;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: .05em;
+  animation: 
+    typing 1.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #34d399; }
+}
+
+/* Custom Scrollbar for Ingredient Grid */
+.ingredient-grid::-webkit-scrollbar {
+  width: 4px;
+}
+
+.ingredient-grid::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.ingredient-grid::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 2px;
+}
+
+.ingredient-grid::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Smooth focus transitions */
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Hover effects for buttons */
+button:hover {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Recipe input specific styles */
+.recipe-input-container {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+/* Grid styling improvements */
+.ingredient-row {
+  transition: background-color 0.2s ease-in-out;
+}
+
+.ingredient-row:hover {
+  background-color: #f8fafc;
+}
+
+/* Stainless steel sidebar styling */
+.stainless-steel-sidebar {
+  background: linear-gradient(135deg,
+    rgba(226, 232, 240, 0.6) 0%,
+    rgba(203, 213, 225, 0.5) 25%,
+    rgba(241, 245, 249, 0.4) 50%,
+    rgba(203, 213, 225, 0.5) 75%,
+    rgba(226, 232, 240, 0.6) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+    0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom scrollbar for stainless steel theme */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: rgba(156, 163, 175, 0.2);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(107, 114, 128, 0.6);
+  border-radius: 3px;
+  border: 1px solid rgba(156, 163, 175, 0.3);
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(75, 85, 99, 0.8);
+}
+
+/* =============================
+   SIDEBAR – minimal CSS-only fix
+   ============================= */
+
+:root { --sb-icon-cell: 60px; } /* a bit bigger in collapsed mode */
+
+.sb-list a img.sb-icon {
+  transform: scale(1.05);
+  transition: transform .14s ease;
+}
+
+/* magnify icons when sidebar is collapsed */
+.sb-collapsed .sb-list a:hover img.sb-icon {
+  transform: scale(1.28);
+}
+
+/* kill legacy left gutters if still around */
+body.has-fixed-sidebar #root,
+body.has-fixed-sidebar.sidebar-collapsed #root,
+body.lu-has-sidebar #root,
+body.lu-has-sidebar.lu-open #root { padding-left: 0 !important; }
+
+/* --- RGL placeholder (kill the pink, show outline) --- */
+.react-grid-item.react-grid-placeholder {
+  background: transparent !important;
+  border: 2px dashed rgba(22,224,255,.45);
+  border-radius: 12px;
+}
+
+/* --- Make the resize handle obvious (BR corner) --- */
+.react-resizable-handle {
+  width: 14px !important;
+  height: 14px !important;
+  right: 6px !important;
+  bottom: 6px !important;
+  border-radius: 4px;
+  background: rgba(22,224,255,.9);
+  box-shadow: 0 0 0 2px rgba(0,0,0,.12);
+}
+.react-resizable-handle::after { display: none; }
+
+/* widths (for reference only; you already set inline) */
+:root{
+  --sb-collapsed: 76px;
+  --sb-expanded: 250px;
+  --sb-icon-cell: 56px;   /* fixed icon column so icons never move */
+}
+
+/* the sidebar shell can host container queries for collapsed vs expanded */
+.sb-shell-light,
+.sb-shell-dark { container-type: inline-size; position: relative; }
+
+/* LIGHT (Apple glass) */
+.sb-shell-light{
+  background: rgba(255,255,255,.78);
+  backdrop-filter: blur(16px) saturate(1.45);
+  border-right: 1px solid rgba(0,0,0,.06);
+  box-shadow:
+    0 8px 26px rgba(0,0,0,.14),
+    inset 0 0 0 1px rgba(255,255,255,.35);
+}
+
+/* DARK (TRON) – cyan glow BOTH sides + outer aura */
+.sb-shell-dark{
+  background: rgba(8,14,26,.72);
+  backdrop-filter: blur(16px) saturate(1.08);
+  border-right: 1px solid rgba(22,224,255,.22);
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.45),            /* drop */
+    0 0 18px rgba(22,224,255,.28),          /* outer cyan glow */
+    inset 10px 0 26px rgba(22,224,255,.16), /* inner left feather */
+    inset -10px 0 26px rgba(22,224,255,.18);/* inner right feather */
+}
+
+/* bright cyan edges (left & right) */
+.sb-shell-dark::before,
+.sb-shell-dark::after{
+  content:""; position:absolute; top:0; bottom:0; width:2px; pointer-events:none;
+  background: linear-gradient(180deg,transparent,rgba(22,224,255,.95),transparent);
+  filter: drop-shadow(0 0 8px rgba(22,224,255,.55));
+}
+.sb-shell-dark::before{ left:-1px; }
+.sb-shell-dark::after { right:-1px; }
+
+/* header centering and tighter rhythm */
+.sb-header{ padding:10px 10px 6px; }
+.sidebar-header{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; }
+.sidebar-title{ font-weight:800; letter-spacing:.4px; text-transform:uppercase; }
+.sidebar-sub{ font-weight:600; opacity:.75; }
+
+/* list region: hide scrollbar but keep scroll */
+.sb-list{ padding:6px 8px; }
+.sb-nav{ scrollbar-width:none; -ms-overflow-style:none; }
+.sb-nav::-webkit-scrollbar{ width:0 !important; height:0 !important; display:none; }
+
+/* ---- LOCK ICON POSITION (no shift on collapse) ----
+   Turn each link into a 2-col grid: fixed icon cell + flexible label cell.
+   Works with your existing <img> + text (no markup change). */
+.sb-list a{
+  display:grid;
+  grid-template-columns: var(--sb-icon-cell) 1fr;
+  align-items:center;
+  border-radius:14px;
+  padding:10px 10px;
+  transition: background .15s ease, box-shadow .15s ease, color .15s ease, transform .1s ease;
+}
+
+/* icon is centered in the fixed cell */
+.sb-list a img{
+  width:44px; height:44px; object-fit:contain; aspect-ratio:1/1;
+  margin-inline:auto; transition: transform .14s ease;
+}
+
+/* label cell collapses in collapsed mode; icon column never changes */
+@container (max-width: 110px){ /* ≈ collapsed rail */
+  .sb-list a{ grid-template-columns: var(--sb-icon-cell) 0; }
+}
+/* (expanded) keep 1fr for label */
+@container (min-width: 111px){
+  .sb-list a{ grid-template-columns: var(--sb-icon-cell) 1fr; }
+}
+
+/* Active/hover states with better readability in both themes */
+body:not(.dark) .sb-list a[aria-current="page"],
+body:not(.dark) .sb-list a.active{
+  background: rgba(0,175,210,.10);
+  box-shadow: 0 0 0 1.5px rgba(0,175,210,.50) inset;
+  color:#0f172a; /* strong contrast */
+}
+
+body.dark .sb-list a[aria-current="page"],
+body.dark .sb-list a.active{
+  background: rgba(22,224,255,.10);
+  box-shadow: 0 0 0 1.5px rgba(22,224,255,.55) inset, 0 0 18px rgba(22,224,255,.10);
+  color:#d7f6ff; /* readable on dark */
+}
+
+.sb-list a:hover{ transform: translateY(-1px); }
+
+/* Magnify ONLY when collapsed — courtesy of container queries */
+@container (max-width: 110px){
+  .sb-list a:hover img{ transform: scale(1.22); }
+}
+@container (min-width: 111px){
+  .sb-list a:hover img{ transform: none; }
+}
+
+/* footer spacing */
+.sb-footer{ padding:8px 10px 12px; }
+.sb-divider{
+  height:1px; margin:8px 2px;
+  background:linear-gradient(90deg,transparent,rgba(22,224,255,.28),transparent);
+}
+
+/* ===== Panels: stacking & visual polish ===== */
+.pane-layer{
+  position: relative;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;   /* panels stay inside the canvas */
+}
+
+/* Every Rnd panel wrapper */
+.panel-window{
+  position: absolute;            /* allow z-index stacking */
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,.10);
+  box-shadow: 0 8px 22px rgba(0,0,0,.16);
+  overflow: hidden;
+  will-change: transform, width, height;
+}
+
+body.dark .panel-window{
+  background: rgba(10,16,28,.86);
+  border: 1px solid rgba(22,224,255,.35);
+  box-shadow:
+    0 0 0 1px rgba(22,224,255,.20) inset,
+    0 10px 28px rgba(0,0,0,.42),
+    0 0 16px rgba(22,224,255,.18);
+}
+
+/* Header (drag handle) */
+.panel-header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 8px 10px;
+  background: rgba(255,255,255,.88);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  cursor: move;                 /* indicates draggable area */
+  user-select: none;
+}
+
+body.dark .panel-header{
+  background: rgba(12,18,30,.74);
+  border-bottom-color: rgba(22,224,255,.18);
+}
+
+.dot-row{ display:flex; gap:6px; align-items:center; padding-left: 2px; }
+.dot{ width:12px; height:12px; border-radius:999px; border:1px solid rgba(0,0,0,.08); }
+.dot-close{ background:#ff5f57; border-color:#e5534e; }
+.dot-min{ background:#febc2e; border-color:#e0a928; }
+.dot-restore{ background:#28c840; border-color:#22a835; }
+
+.panel-title{ font-weight:700; letter-spacing:.25px; color:#23262c; }
+body.dark .panel-title{ color:#cfefff; }
+
+.panel-body{ padding: 12px; }
+
+/* Focus boost while dragging/active is naturally handled by higher z-index */
+
+/* =============================
+   PANELS — reliable stacking fix
+   ============================= */
+
+/* Create a clean stacking context for all panels */
+.pane-layer{
+  position: relative;
+  isolation: isolate;          /* <-- prevents outside z-index weirdness */
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Baseline z for every panel */
+:root{
+  --z-panel-base: 10;
+  --z-panel-active: 999;       /* top while focused/dragging */
+}
+
+.panel-window{
+  position: absolute;
+  z-index: var(--z-panel-base);
+  pointer-events: auto;        /* make sure panel catches clicks */
+}
+
+/* --- LIFT TO FRONT when interacting --- */
+
+/* While dragging, react-rnd/react-draggable adds this class */
+.panel-window.react-draggable-dragging{
+  z-index: var(--z-panel-active);
+}
+
+/* While resizing, react-rnd adds this class */
+.panel-window.rnd-resizing{
+  z-index: var(--z-panel-active);
+}
+
+/* Clicking inside (inputs/buttons) keeps it on top while focused */
+.panel-window:focus-within,
+.panel-window:active{
+  z-index: var(--z-panel-active);
+}
+
+/* (Optional) If your JS sets .is-focused on last-clicked panel, respect it */
+.panel-window.is-focused{
+  z-index: var(--z-panel-active);
+}
+
+/* Nice: show a subtle focus glow when elevated (matches your theme) */
+body:not(.dark) .panel-window:focus-within,
+body:not(.dark) .panel-window.react-draggable-dragging,
+body:not(.dark) .panel-window.rnd-resizing,
+body:not(.dark) .panel-window.is-focused{
+  box-shadow: 0 12px 28px rgba(0,0,0,.22);
+}
+
+body.dark .panel-window:focus-within,
+body.dark .panel-window.react-draggable-dragging,
+body.dark .panel-window.rnd-resizing,
+body.dark .panel-window.is-focused{
+  box-shadow:
+    0 0 0 1px rgba(22,224,255,.55),
+    0 0 22px rgba(22,224,255,.5),
+    0 12px 34px rgba(0,0,0,.45);
+}
+
+/* Header remains the drag handle */
+.panel-header{
+  cursor: move;
+  user-select: none;
+}
+
+/* ============================================================
+   LIGHT MODE UPGRADE — Apple glass vibe (additive overrides)
+   (Dark mode untouched. No layout/position properties added.)
+   ============================================================ */
+
+/* design tokens (light only) */
+body:not(.dark){
+  --lu-glass-bg:     rgba(255,255,255,.78);
+  --lu-glass-tint:   linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.72));
+  --lu-glass-stroke: rgba(0,0,0,.06);
+  --lu-glass-inner:  rgba(255,255,255,.55);
+  --lu-shadow-soft:  0 12px 28px rgba(0,0,0,.14);
+  --lu-shadow-press: 0 6px 14px rgba(0,0,0,.10);
+
+  --lu-ink-strong:   #0f172a;
+  --lu-ink-medium:   rgba(15,23,42,.72);
+
+  --lu-accent:       #00afd2;                 /* brand cyan */
+  --lu-accent-10:    rgba(0,175,210,.10);
+  --lu-accent-20:    rgba(0,175,210,.20);
+  --lu-accent-40:    rgba(0,175,210,.40);
+}
+
+/* Sidebar (light) — frosted with gentle inner stroke */
+body:not(.dark) .sb-shell-light{
+  background: var(--lu-glass-tint);
+  backdrop-filter: blur(18px) saturate(1.45);
+  border-right: 1px solid var(--lu-glass-stroke);
+  box-shadow: var(--lu-shadow-soft), inset 0 0 0 1px var(--lu-glass-inner);
+}
+
+/* Header typography refinement */
+body:not(.dark) .sidebar-title{ color: var(--lu-ink-strong); letter-spacing:.3px; }
+body:not(.dark) .sidebar-sub{ color: var(--lu-ink-medium); }
+
+/* Nav links (pill glass) */
+body:not(.dark) .sb-list a{
+  color: var(--lu-ink-strong);
+  background: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+}
+
+body:not(.dark) .sb-list a:hover{
+  background: rgba(255,255,255,.6);
+  border-color: rgba(0,0,0,.04);
+  box-shadow: var(--lu-shadow-press);
+  transform: translateY(-1px);
+}
+
+/* Active/current */
+body:not(.dark) .sb-list a[aria-current="page"],
+body:not(.dark) .sb-list a.active{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.72)),
+    radial-gradient(120% 120% at 0% 0%, rgba(0,175,210,.12), transparent 60%);
+  border: 1px solid var(--lu-accent-20);
+  box-shadow:
+    inset 0 0 0 1px var(--lu-glass-inner),
+    0 8px 18px rgba(0,0,0,.12);
+  color: var(--lu-ink-strong);
+}
+
+/* Icon polish */
+body:not(.dark) .sb-list a img{
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.12));
+}
+
+/* Divider (light) */
+body:not(.dark) .sb-divider{
+  background: linear-gradient(90deg, transparent, rgba(0,0,0,.08), transparent);
+}
+
+/* Panels (light) — refined card glass */
+body:not(.dark) .resize-panel{
+  background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.92));
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 12px 26px rgba(0,0,0,.14), inset 0 0 0 1px var(--lu-glass-inner);
+  border-radius: 14px;
+  color: var(--lu-ink-strong);
+}
+
+body:not(.dark) .resize-panel .panel-header{
+  background: rgba(255,255,255,.82);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+body:not(.dark) .panel-title{ color: var(--lu-ink-strong); }
+
+/* Focus elevation (light) */
+body:not(.dark) .resize-panel:focus-within,
+body:not(.dark) .resize-panel.react-draggable-dragging,
+body:not(.dark) .resize-panel.rnd-resizing{
+  box-shadow:
+    0 0 0 1px var(--lu-accent-40),
+    0 0 0 4px var(--lu-accent-10),
+    0 14px 34px rgba(0,0,0,.18);
+}
+
+/* macOS dots (light) */
+body:not(.dark) .dot{ border-color: rgba(0,0,0,.10); }
+body:not(.dark) .dot-close{   background:#ff5f57; border-color:#e5534e; }
+body:not(.dark) .dot-min{     background:#febc2e; border-color:#e0a928; }
+body:not(.dark) .dot-restore{ background:#28c840; border-color:#22a835; }
+
+/* Reset Layout button — tasteful gradient, same size */
+body:not(.dark) .px-3.py-1.bg-amber-600{
+  background: linear-gradient(180deg, #ffb656, #ff9e2e);
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 10px 18px rgba(255,165,66,.28), inset 0 0 0 1px rgba(255,255,255,.45);
+  color: #3a2a00;
+}
+
+body:not(.dark) .px-3.py-1.bg-amber-600:hover{
+  filter: saturate(1.05) brightness(1.03);
+}
+
+/* Echo overlay (light) */
+body:not(.dark) .echo-overlay{
+  background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.92));
+  color: var(--lu-ink-strong);
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 10px 24px rgba(0,0,0,.16), inset 0 0 0 1px var(--lu-glass-inner);
+  border-radius: 14px;
+}
+
+/* System monitor tint (light) */
+body:not(.dark) .text-gray-400.font-mono{ color: rgba(15,23,42,.45); }
+
+/* ================================
+   TRON upgrade (dark) + safe grid
+   ================================ */
+
+:root{
+  --tron-cyan: #16e0ff;
+  --tron-cyan-30: rgba(22,224,255,.30);
+  --tron-cyan-18: rgba(22,224,255,.18);
+  --tron-cyan-12: rgba(22,224,255,.12);
+  --tron-deep: #0a1020;
+}
+
+/* Subtle animated grid underlay that never captures clicks */
+.fluid-root{
+  position: relative;
+  isolation: isolate; /* protects panel z-indexing */
+}
+
+body.dark .fluid-root::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(22,224,255,.12), transparent 60%) ,
+    linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.12)) ,
+    repeating-linear-gradient(90deg, rgba(22,224,255,.045) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient( 0deg, rgba(22,224,255,.045) 0 1px, transparent 1px 96px);
+  filter: saturate(1.1);
+  pointer-events:none;
+  z-index:0;
+}
+
+body:not(.dark) .fluid-root::before{ content:none; }
+
+/* Panels — darker base + dual glow rings */
+body.dark .resize-panel{
+  background: rgba(10,16,28,.86);
+  border: 1px solid rgba(22,224,255,.28);
+  box-shadow:
+    0 8px 24px rgba(0,0,0,.45),              /* drop */
+    0 0 22px var(--tron-cyan-12),            /* outer aura */
+    inset 0 0 0 1px rgba(255,255,255,.05),   /* inner glass line */
+    inset 0 0 28px var(--tron-cyan-18);      /* inner neon feather */
+  border-radius: 14px;
+}
+
+body.dark .resize-panel .panel-header{
+  background: rgba(12,18,30,.78);
+  border-bottom: 1px solid rgba(22,224,255,.20);
+}
+
+body.dark .panel-title{ color:#d7f6ff; }
+
+/* Focus/drag elevation */
+body.dark .resize-panel:focus-within,
+body.dark .resize-panel.react-draggable-dragging,
+body.dark .resize-panel.rnd-resizing{
+  box-shadow:
+    0 0 0 1px rgba(22,224,255,.55),
+    0 0 26px rgba(22,224,255,.55),
+    0 12px 38px rgba(0,0,0,.50);
+}
+
+/* Sidebar — stronger TRON edge and inner beam */
+body.dark .sb-shell-dark{
+  background: rgba(8,14,26,.78);
+  border-right: 1px solid rgba(22,224,255,.28);
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.45),
+    0 0 20px rgba(22,224,255,.28),
+    inset 10px 0 34px rgba(22,224,255,.16),
+    inset -10px 0 34px rgba(22,224,255,.18);
+}
+
+body.dark .sb-shell-dark::before,
+body.dark .sb-shell-dark::after{
+  content:""; position:absolute; top:0; bottom:0; width:2px; pointer-events:none;
+  background: linear-gradient(180deg,transparent, var(--tron-cyan), transparent);
+  filter: drop-shadow(0 0 10px rgba(22,224,255,.65));
+}
+
+body.dark .sb-shell-dark::before{ left:-1px; }
+body.dark .sb-shell-dark::after { right:-1px; }
+
+/* ========= Toolbar (glass in light, neon in dark) ========= */
+.echo-toolbar{
+  position: relative;
+  z-index: 2; /* above the grid underlay */
+}
+
+/* Light: reuse your Apple glass tokens */
+body:not(.dark) .echo-toolbar{
+  background: var(--lu-glass-tint);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  backdrop-filter: blur(14px) saturate(1.3);
+  border: 1px solid var(--lu-glass-stroke);
+  box-shadow: 0 8px 18px rgba(0,0,0,.10), inset 0 0 0 1px var(--lu-glass-inner);
+  border-radius: 14px;
+  padding: 6px 8px;
+}
+
+body:not(.dark) .echo-toolbar .etb-btn{
+  background: rgba(255,255,255,.7);
+  border: 1px solid rgba(0,0,0,.06);
+  color: var(--lu-ink-strong);
+}
+
+/* Dark TRON: deep base + neon rim; buttons glow on hover */
+body.dark .echo-toolbar{
+  background: rgba(10,16,28,.76);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  backdrop-filter: blur(10px) saturate(1.1);
+  border: 1px solid rgba(22,224,255,.28);
+  border-radius: 16px;
+  box-shadow:
+    0 8px 26px rgba(0,0,0,.55),
+    0 0 18px rgba(22,224,255,.22),
+    inset 0 0 0 1px rgba(255,255,255,.045);
+  padding: 6px 8px;
+}
+
+.echo-toolbar .etb-btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  height:34px; min-width:34px; padding: 0 10px; gap:8px;
+  border-radius: 10px; border:1px solid transparent;
+  transition: transform .06s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+  will-change: transform;
+}
+
+body.dark .echo-toolbar .etb-btn{
+  background: rgba(255,255,255,.04);
+  color:#d7f6ff;
+  border-color: rgba(22,224,255,.16);
+}
+
+.echo-toolbar .etb-btn:hover{
+  transform: translateY(-1px);
+}
+
+body.dark .echo-toolbar .etb-btn:hover{
+  box-shadow:
+    0 0 0 1px rgba(22,224,255,.45),
+    0 0 16px rgba(22,224,255,.30);
+  background: rgba(22,224,255,.10);
+}
+
+/* Status dot with pulse */
+.etb-status {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  position: relative;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.etb-status::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 999px;
+  border: 2px solid currentColor;
+  opacity: .4;
+  animation: etbPulse 1.8s ease-out infinite;
+}
+
+@keyframes etbPulse {
+  0%   { transform: scale(0.8); opacity: .6; }
+  70%  { transform: scale(1.6); opacity: 0;  }
+  100% { transform: scale(1.6); opacity: 0;  }
+}
+
+/* Bigger, visible resize handle */
+.react-resizable-handle {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  right: 6px;
+  bottom: 6px;
+  border-radius: 4px;
+  background: rgba(0,0,0,.14);
+  border: 1px solid rgba(0,0,0,.18);
+  box-shadow: 0 2px 6px rgba(0,0,0,.18);
+  cursor: nwse-resize;
+}
+
+body.dark .react-resizable-handle{
+  background: rgba(22,224,255,.22);
+  border-color: rgba(22,224,255,.35);
+}

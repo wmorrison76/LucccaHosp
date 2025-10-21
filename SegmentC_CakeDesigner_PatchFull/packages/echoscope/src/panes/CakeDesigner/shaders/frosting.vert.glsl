@@ -1,0 +1,1 @@
+// Simple passthrough vertex shader\nprecision highp float;\nattribute vec3 position;\nattribute vec2 uv;\nuniform mat4 modelViewMatrix;\nuniform mat4 projectionMatrix;\nvarying vec2 vUv;\nvoid main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }\n

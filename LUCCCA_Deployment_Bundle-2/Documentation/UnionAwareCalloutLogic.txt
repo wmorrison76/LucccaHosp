@@ -1,0 +1,28 @@
+Understood — we’ll build the Smart Callout module to account for unionized environments as follows:
+
+⚖️ Union-Aware Callout Logic (Configurable per Location)
+
+Settings (adjustable in LUCCCA Admin Panel):
+- Enable “Union Scheduling Rules” toggle
+- Priority ranking order:
+  1. Seniority (hire date)
+  2. Classification (job tier/role)
+  3. Scheduled days off
+  4. Weekly hour cap
+  5. Skill compatibility
+
+Shift Fill Logic:
+- If union mode is on:
+  - Top candidates are sorted by seniority first
+  - Automatically exclude non-union staff (if required)
+  - Log callout response + acceptance per union policy
+
+Audit Trail:
+- Every callout is logged with:
+  - Timestamp
+  - Order of outreach
+  - Response time
+  - Final selection
+  - Union override reason (if applicable)
+
+This ensures LUCCCA remains compliant while still empowering smart staffing decisions.

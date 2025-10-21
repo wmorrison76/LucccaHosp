@@ -1,0 +1,114 @@
+
+/* src/modules/scheduling/schedulerStyles.css */
+:root{
+  --am: #dbeafe;        /* light blue */
+  --pm: #ede9fe;        /* light purple */
+  --overnight: #fee2e2; /* light red */
+  --note: #fff7ed;      /* light orange */
+  --ok: #dcfce7;
+  --warn: #fef9c3;
+  --bad: #fee2e2;
+}
+
+.forte-scheduler{
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  color: #0f172a;
+  background: #ffffff;
+}
+
+.forte-toolbar{
+  display: grid;
+  grid-template-columns: 1fr auto auto auto auto;
+  gap: 8px;
+  align-items: center;
+  background: linear-gradient(90deg, rgba(240,249,255,.9), rgba(240,253,244,.9));
+  padding: 10px;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.forte-grid{
+  width: 100%;
+  overflow: auto;
+  border-top: 1px solid #e5e7eb;
+}
+
+.forte-table{
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.forte-table th, .forte-table td{
+  border: 1px solid #e5e7eb;
+  padding: 6px;
+  vertical-align: top;
+}
+
+.forte-table th{
+  position: sticky;
+  top: 48px;
+  background: #f8fafc;
+  z-index: 10;
+}
+
+.forte-legend{
+  display:flex; gap:10px; align-items:center; font-size:12px; padding:8px 10px;
+}
+.badge{ padding:2px 8px; border-radius:999px; border:1px solid #cbd5e1; }
+
+.cell-AM{ background: var(--am); }
+.cell-PM{ background: var(--pm); }
+.cell-Overnight{ background: var(--overnight); }
+
+.forte-warnings{
+  background: #fff7ed; border:1px dashed #fdba74; padding:8px; border-radius:8px; margin:10px;
+  max-height: 160px; overflow:auto;
+}
+
+.forte-summary{
+  display:flex; align-items:center; gap:12px; font-weight:600; padding:8px 10px; background:#f1f5f9;
+  border-top:1px solid #e5e7eb; border-bottom:1px solid #e5e7eb;
+}
+
+.forte-staff-msg{
+  background: var(--note);
+  padding: 8px 10px; border-left: 4px solid #fb923c; margin: 10px; border-radius:4px;
+}
+
+input[type="text"], input[type="number"], select, textarea, input[type="date"]{
+  font-size: 13px; border: 1px solid #cbd5e1; border-radius: 6px; padding: 6px 8px; outline: none;
+}
+input[type="file"]{ font-size: 12px; }
+textarea{ width:100%; min-height:70px; resize: vertical; }
+
+.forte-table input[type="text"]{ width: 80px; }
+.forte-table .pos-select{ width: 140px; }
+.forte-table .leave-select{ width: 120px; }
+.forte-table .notes{
+  width: 180px;
+}
+
+.sticky-col{
+  position: sticky; left: 0; background: #f8fafc; z-index: 5;
+}
+
+.right{ text-align:right; }
+.small{ font-size:12px; opacity:.8; }
+.btn{
+  border: 1px solid #94a3b8; background: white; border-radius: 8px; padding: 6px 10px; cursor: pointer;
+}
+.btn:active{ transform: translateY(1px); }
+.btn.primary{
+  border-color: #06b6d4; background: #ecfeff;
+}
+.btn.warn{ background: #fff7ed; border-color: #fdba74; }
+
+hr{ border: none; border-top:1px solid #e5e7eb; margin: 10px 0; }
+
+.forte-archive{
+  margin-top: 8px;
+  max-height: 220px; overflow:auto; border:1px solid #e5e7eb; border-radius:8px; padding:6px;
+}

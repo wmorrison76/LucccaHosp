@@ -1,0 +1,9 @@
+.wb-msg-dock{ position:absolute; right:8px; top:8px; width:300px; height:360px; z-index:60; background:#fff; border:1px solid #e5e7eb; border-radius:12px; display:flex; flex-direction:column; box-shadow:0 8px 24px rgba(0,0,0,.12); }
+.wb-msg-dock header{ padding:8px 10px; display:flex; gap:8px; align-items:center; border-bottom:1px solid #f0f0f0; }
+.wb-msg-dock select{ flex:1; }
+.wb-msg-list{ padding:8px; overflow:auto; flex:1; }
+.wb-msg{ display:grid; grid-template-columns:auto 1fr auto; gap:6px 8px; align-items:center; margin-bottom:6px; }
+.wb-from{ font-weight:600; color:#374151; } .wb-text{ color:#111827; } .wb-time{ font-size:11px; color:#6b7280; }
+.wb-msg-dock footer{ padding:8px; display:flex; gap:8px; border-top:1px solid #f0f0f0; }
+.wb-msg-dock input{ flex:1; padding:8px 10px; border:1px solid #e5e7eb; border-radius:8px; }
+.wb-msg-dock button{ padding:8px 12px; border:1px solid #111827; background:#111827; color:#fff; border-radius:8px; }

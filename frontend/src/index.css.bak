@@ -1,0 +1,302 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* If you keep a separate backboard skin, you can keep this import.
+   It’s safe to remove if you’d rather consolidate here. */
+@import "./backboard.skin.css";
+
+/* ========= Root / tokens ========= */
+:root{
+  --cyan: #16e0ff;          /* TRON cyan */
+  --cyan-2: #3de4ff;
+  --ink: #0f172a;           /* slate-900 */
+  --glass-white: rgba(255,255,255,.86);
+  --shadow-strong: 0 22px 80px rgba(0,0,0,.36);
+}
+
+/* Full-viewport app */
+html, body, #root { height: 100%; margin: 0; }
+
+/* ========= Light (Apple glass) ========= */
+body:not(.dark){
+  color: #0b1220;
+  background:
+    radial-gradient(900px 480px at 85% 5%, rgba(15,49,76,.10), transparent 60%),
+    linear-gradient(180deg, #f8fbff 0%, #ecf2f9 55%, #e7eef7 100%);
+}
+
+body:not(.dark) .panel-window{
+  background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.93));
+  border: 1px solid rgba(10, 12, 28, .10);
+  border-radius: 14px;
+  box-shadow:
+    0 22px 80px rgba(15,23,42,.16),
+    inset 0 0 0 1px rgba(255,255,255,.65);
+  backdrop-filter: blur(6px);
+}
+body:not(.dark) .panel-header{
+  background: linear-gradient(180deg, rgba(250,252,255,.96), rgba(236,241,249,.92));
+  border-bottom: 1px solid rgba(5,10,20,.10);
+}
+body:not(.dark) .panel-title{ color:#0a1528; letter-spacing:.2px; font-weight:600; }
+
+/* Buttons / chips: high contrast in light */
+body:not(.dark) .dw-chip,
+body:not(.dark) .dw-btn{
+  color:#0a1528!important;
+  background: #f5f7fb;
+  border: 1px solid rgba(10, 12, 28, .18);
+}
+body:not(.dark) .dw-btn--primary{
+  background: linear-gradient(180deg, #dff6ff 0%, #cdefff 100%);
+  color:#06202a!important;
+  border: 1px solid rgba(0,0,0,.10);
+}
+
+/* Light backboard halo so HUD cards still pop */
+body:not(.dark) .fluid-root::before{
+  content:"";
+  position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(1100px 540px at 78% -8%, rgba(0,175,210,.12), transparent 60%),
+    linear-gradient(180deg, rgba(130,130,140,.02), rgba(0,0,0,.05));
+  z-index:0;
+}
+
+/* ========= Dark (TRON) ========= */
+.dark body{
+  color:#e7f7ff;
+  background:
+    radial-gradient(900px 520px at 95% 105%, rgba(0,255,240,.10), transparent 65%),
+    linear-gradient(45deg, #081324 0%, #0b1729 45%, #0a1424 100%);
+}
+
+.dark .panel-window{
+  background: rgba(8,14,26,.86);
+  border: 1px solid rgba(34,211,238,.35);
+  border-radius:14px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.05),
+    0 20px 80px rgba(0,0,0,.50),
+    0 0 24px rgba(22,224,255,.20);
+  background-clip: padding-box;
+}
+.dark .panel-window.is-focused{
+  box-shadow:
+    0 0 0 1px rgba(22,224,255,.55),
+    0 0 26px rgba(22,224,255,.45),
+    0 28px 90px rgba(0,0,0,.55);
+}
+.dark .panel-header{
+  border-bottom: 1px solid rgba(34,211,238,.22);
+  background:
+    radial-gradient(1000px 700px at 85% 140%, rgba(0,255,240,.08) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(9,18,31,.96), rgba(9,18,31,.88));
+}
+.dark .panel-title{ color:#d7f6ff; }
+
+/* ========= Sidebar rail ========= */
+.sb-shell-light, .sb-shell-dark{
+  box-shadow: 0 20px 80px rgba(0,0,0,.24), inset 0 0 0 1px rgba(255,255,255,.04);
+}
+.dark .sb-shell-dark{
+  background: rgba(8,14,26,.80);
+  border-right:1px solid rgba(22,224,255,.28);
+  box-shadow:
+    0 28px 90px rgba(0,0,0,.55),
+    0 0 20px rgba(22,224,255,.22),
+    inset 10px 0 34px rgba(22,224,255,.16),
+    inset -10px 0 34px rgba(22,224,255,.18);
+}
+.dark .sb-shell-dark::before,
+.dark .sb-shell-dark::after{
+  content:""; position:absolute; top:0; bottom:0; width:2px; pointer-events:none;
+  background: linear-gradient(180deg,transparent,var(--cyan),transparent);
+  filter: drop-shadow(0 0 10px rgba(22,224,255,.65));
+}
+.dark .sb-shell-dark::before{ left:-1px; }
+.dark .sb-shell-dark::after { right:-1px; }
+
+/* ========= Panel header controls (accessible) ========= */
+.panel-title{ font-weight:600; letter-spacing:.2px; font-size:15px; }
+.panel-window{ background-clip: padding-box; }
+
+.panel-header .dot {
+  width: 28px; height: 24px;
+  display:inline-flex; align-items:center; justify-content:center;
+  border-radius: 6px; font-size: 12px; line-height: 1;
+  border: 1px solid rgba(255,255,255,.25); color: #fff;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,.35));
+}
+.dark .panel-header .dot { border-color: rgba(34,211,238,.35); }
+.panel-header .dot-close   { background: #b91c1c; }  /* red-700 */
+.panel-header .dot-min     { background: #ca8a04; }  /* yellow-600 */
+.panel-header .dot-restore { background: #15803d; }  /* green-700 */
+.panel-header .dot:hover { filter: brightness(1.08) drop-shadow(0 3px 6px rgba(0,0,0,.45)); }
+
+/* Tiny actions on the RIGHT (Pastry etc.) */
+.panel-actions-right .hdr-btn{
+  width:26px; height:26px; border-radius:8px;
+  display:inline-flex; align-items:center; justify-content:center;
+  color:#ffffffde; background: rgba(255,255,255,.06);
+  border:1px solid rgba(34,211,238,.28);
+  transition: background .12s ease, filter .12s ease;
+}
+.panel-actions-right .hdr-btn:hover{ background: rgba(255,255,255,.12); }
+
+/* ========= Dock bar ========= */
+.panel-dock{
+  background: rgba(8,14,26,.70);
+  border:1px solid rgba(34,211,238,.28);
+  box-shadow: 0 18px 60px rgba(0,0,0,.45), 0 0 18px rgba(22,224,255,.22);
+}
+.panel-dock__item{
+  width:36px; height:36px; border-radius:10px; overflow:hidden;
+  display:grid; place-items:center; background: rgba(255,255,255,.06);
+  border:1px solid rgba(34,211,238,.28);
+}
+.panel-dock__item:hover{ background: rgba(255,255,255,.12); }
+
+/* ========= Board toolbar ========= */
+.board-toolbar{
+  background: rgba(8,14,26,.72);
+  border:1px solid rgba(34,211,238,.28);
+  border-radius: 14px;
+  box-shadow: var(--shadow-strong), 0 0 18px rgba(22,224,255,.22);
+}
+.board-toolbar .etb-btn{
+  width:30px;height:30px;border-radius:8px;display:inline-grid;place-items:center;
+  color:#d7f6ff;border:1px solid rgba(34,211,238,.26);background:rgba(255,255,255,.06);
+}
+.board-toolbar .etb-btn:hover{ background: rgba(255,255,255,.12); }
+.board-toolbar .etb-btn.etb-active{ box-shadow: 0 0 0 1px var(--cyan) inset; }
+.board-toolbar .etb-seg button{
+  width:26px;height:26px;border-radius:7px;margin:0 1px;border:1px solid rgba(34,211,238,.26);
+  background:rgba(255,255,255,.06); color:#d7f6ff;
+}
+.board-toolbar .etb-seg .seg-on{ box-shadow: 0 0 0 1px var(--cyan) inset; }
+
+.etb-badge{
+  width:26px;height:26px;border-radius:7px;display:grid;place-items:center;
+  border:1px solid rgba(34,211,238,.26); background:rgba(255,255,255,.06); color:#d7f6ff;
+}
+.tb-grip{
+  width:26px;height:26px;border-radius:7px;border:1px solid rgba(34,211,238,.18);
+  background:rgba(255,255,255,.04); color:#d7f6ff;
+}
+
+/* ========= Echo (single presence + palette) ========= */
+.echo-hud{
+  pointer-events:none; position:fixed; left:50%; top:60px; transform:translateX(-50%);
+  z-index:1400;
+}
+.echo-hud .card{
+  pointer-events:auto; display:flex; gap:10px; align-items:center;
+  padding:10px 12px; border-radius:12px;
+  background: rgba(8,14,26,.78); color:#d7f6ff;
+  border:1px solid rgba(34,211,238,.30);
+  box-shadow: 0 14px 50px rgba(0,0,0,.45), 0 0 18px rgba(22,224,255,.20);
+}
+.echo-hud .dot{ width:8px;height:8px;border-radius:9999px; }
+.echo-hud .hint{ font-size:12px; opacity:.85; }
+
+/* Command palette / talk pad */
+.echo-pad{
+  position:fixed; left:50%; top:110px; transform:translateX(-50%);
+  width:min(820px, calc(100vw - 28px)); z-index:1401;
+  border:1px solid rgba(34,211,238,.30); border-radius:14px;
+  background:rgba(8,14,26,.90); color:#d7f6ff; backdrop-filter: blur(6px);
+  box-shadow: 0 24px 90px rgba(0,0,0,.55), 0 0 28px rgba(22,224,255,.24);
+}
+.echo-pad .log{ max-height:280px; overflow:auto; padding:12px 12px 6px 12px; }
+.echo-pad .msg{ font-size:13px; padding:6px 8px; border-radius:8px; margin-bottom:6px; }
+.echo-pad .msg.me{ background:rgba(255,255,255,.06); }
+.echo-pad .msg.echo{ background:rgba(22,224,255,.08); border:1px solid rgba(22,224,255,.18); }
+.echo-pad .input{
+  display:flex; gap:8px; padding:8px; border-top:1px solid rgba(34,211,238,.20);
+}
+.echo-pad input{
+  flex:1; border:1px solid rgba(34,211,238,.30); background:rgba(255,255,255,.06);
+  color:#d7f6ff; border-radius:10px; padding:10px 12px; outline:none;
+}
+.echo-pad button{
+  border:1px solid rgba(34,211,238,.30); background:rgba(22,224,255,.12);
+  color:#d7f6ff; border-radius:10px; padding:10px 14px;
+}
+
+/* Kill any legacy FAB/overlays so there’s only one Echo */
+.echo-fab, .echo-fab-button, .echo-overlay, .EchoOverlay, .echo-chat-bubble { display:none !important; }
+
+/* ===== Visual tighten: definition & contrast ===== */
+
+/* Stronger panel definition (both modes) */
+.panel-window{
+  border-radius:14px;
+  background-clip: padding-box;
+  border:1px solid rgba(0,0,0,.20);
+  box-shadow:
+    0 26px 60px rgba(0,0,0,.20),
+    0 2px 0 rgba(255,255,255,.08) inset;
+}
+.dark .panel-window{
+  border-color: rgba(34,211,238,.35);
+  box-shadow:
+    0 28px 70px rgba(0,0,0,.55),
+    0 0 24px rgba(22,224,255,.18);
+}
+.panel-window.is-focused{
+  box-shadow:
+    0 0 0 1px rgba(22,224,255,.55),
+    0 0 26px rgba(22,224,255,.30),
+    0 34px 90px rgba(0,0,0,.55);
+}
+
+/* Header strip + right-side controls */
+.panel-header{
+  backdrop-filter: blur(6px);
+  background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(245,247,250,.90));
+  border-bottom:1px solid rgba(0,0,0,.12);
+}
+.dark .panel-header{
+  background:
+    radial-gradient(1200px 800px at 85% 140%, rgba(0,255,240,.08) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(9,18,31,.96), rgba(9,18,31,.90));
+  border-bottom:1px solid rgba(34,211,238,.22);
+}
+
+/* Larger, high-contrast traffic-light buttons */
+.panel-header .dot{
+  width: 28px; height: 24px; border-radius: 6px;
+  display:inline-flex; align-items:center; justify-content:center;
+  border:1px solid rgba(255,255,255,.30); color:#fff;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,.35));
+}
+.panel-header .dot-close{   background:#e11d48; }   /* rose-600 */
+.panel-header .dot-min{     background:#f59e0b; }   /* amber-500 */
+.panel-header .dot-restore{ background:#10b981; }   /* emerald-500 */
+.dark .panel-header .dot{ border-color: rgba(34,211,238,.35); }
+
+/* Tabs / chips used across modules – force legibility */
+.dw-chip, .dw-btn, .tab, .pill, .chip{
+  --bg: #0ea5e9;
+  color:#fff !important;
+  background: var(--bg);
+  border:1px solid rgba(255,255,255,.25);
+  text-shadow: 0 1px 0 rgba(0,0,0,.45);
+  box-shadow: 0 8px 18px rgba(0,0,0,.18), inset 0 0 0 1px rgba(255,255,255,.10);
+}
+.dark .dw-chip, .dark .dw-btn, .dark .tab, .dark .pill, .dark .chip{
+  border-color: rgba(34,211,238,.35);
+  box-shadow: 0 10px 22px rgba(0,0,0,.35), 0 0 10px rgba(22,224,255,.15) inset;
+}
+
+/* Sidebar stronger edge */
+.sb-shell-dark{
+  background: rgba(8,14,26,.82);
+  border-right:1px solid rgba(22,224,255,.28);
+  box-shadow:
+    0 28px 90px rgba(0,0,0,.55),
+    inset 8px 0 34px rgba(22,224,255,.16),
+    inset -8px 0 34px rgba(22,224,255,.18);
+}

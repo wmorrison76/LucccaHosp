@@ -1,0 +1,53 @@
+/* src/styles/themeTokens.css
+   Global tokens driven by JS variables from theme.js.
+   Panels and common containers will inherit chrome/borders/typography.
+*/
+
+:root {
+  /* defaults used before JS applies theme */
+  --bg: #0b1119;
+  --text: #e6f2ff;
+  --muted: rgba(215,246,255,.70);
+  --accent: #46e6ff;
+  --ring: rgba(22,224,255,.45);
+
+  --panel: rgba(9,13,20,.88);
+  --panel-border: rgba(255,255,255,.10);
+  --panel-border-width: 1px;
+  --panel-radius: 16px;
+  --panel-glow: 0 0 40px rgba(22,224,255,.10);
+  --panel-blur: 10px;
+
+  --base-size: 14px;
+  --title-size: 18px;
+
+  --shadow: 0 40px 120px rgba(0,0,0,.55);
+}
+
+html, body, #root {
+  background: var(--bg);
+  color: var(--text);
+  font-size: var(--base-size);
+}
+
+/* Titles inherit the theme title scale */
+h1, .title-xl, .hud-title { font-size: var(--title-size); }
+
+/* Generic panel chrome (covers most of our cards/widgets/panels) */
+.dw-panel, .hud-panel, .widget-card, .widget, [data-panel], .card {
+  background: var(--panel);
+  border: var(--panel-border-width) solid var(--panel-border);
+  border-radius: var(--panel-radius);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.04),
+    var(--panel-glow),
+    var(--shadow);
+  backdrop-filter: blur(var(--panel-blur));
+}
+
+/* Inputs feel consistent across sections */
+input[type="text"], input[type="number"], .settings-input {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  color: var(--text);
+}

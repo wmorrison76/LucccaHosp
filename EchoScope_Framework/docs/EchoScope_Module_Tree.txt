@@ -1,0 +1,22 @@
+.
+├── src
+│   ├── components
+│   │   └── EchoScope
+│   │       ├── EchoscopeWheel.jsx
+│   │       ├── EchoEventCreator.jsx
+│   │       └── EchoscopeAdminPanel.jsx
+│   ├── data
+│   │   └── echoscope_modifiers.json
+│   ├── parsers
+│   │   └── PDFMenuParser.js
+│   ├── crm
+│   │   ├── ProposalForm.jsx
+│   │   └── PipelineDashboard.jsx
+│   └── canvas
+│       └── EchoCanvasDesigner.jsx
+├── public
+│   └── assets
+│       └── Echo_Logo.png
+├── docs
+│   ├── EchoScope_Readme.md
+│   └── EchoScope_Module_Tree.txt

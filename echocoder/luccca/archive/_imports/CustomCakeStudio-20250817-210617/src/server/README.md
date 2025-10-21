@@ -1,0 +1,1 @@
+Server endpoints TBD: /api/generate-image (PNG with alpha).

@@ -1,0 +1,160 @@
+/* ===========================================
+   DoubleTabs.css — Apple day / TRON night
+   Works with current DoubleTabs.jsx (back/mid/front + DnD)
+   =========================================== */
+
+/* ---------- sizing & vars ---------- */
+.dt {
+  --dt-h: 32px;
+  --dt-pad-x: 14px;
+  --dt-slant: 20px;      /* right chamfer width */
+  --dt-radius: 12px;
+  --dt-font: 14px;
+  --dt-weight: 700;
+
+  /* overlap + subtle vertical stagger (front sits lowest) */
+  --dt-overlap: calc(var(--dt-slant) - 8px);
+  --dt-back-offset:  -1px;
+  --dt-mid-offset:   -2px;
+  --dt-front-offset: -3px;
+
+  /* outline + shadows */
+  --dt-stroke: 3px;
+  --dt-stroke-color: rgb(0, 0, 0);
+  --dt-shadow:        0 12px 22px rgba(0, 0, 0, 0.402);
+  --dt-shadow-strong: 0 16px 30px rgba(0, 0, 0, 0.402);
+
+  /* neutral when colored={false} */
+  --dt-neutral: #466693;
+}
+.dark .dt { --dt-stroke-color: rgba(0, 0, 0, 0.923); }
+
+/* ---------- rows ---------- */
+.dt__row { display:flex; gap:0; align-items:center; }
+.dt__row--back  { transform: translateY(var(--dt-back-offset)); }
+.dt__row--mid   { transform: translateY(var(--dt-mid-offset)); }
+.dt__row--front { transform: translateY(var(--dt-front-offset)); }
+
+/* overlap neighbors (left tab above right tab) */
+.dt__row .dt-tab + .dt-tab { margin-left: calc(-1 * var(--dt-overlap)); }
+.dt__row .dt-tab { z-index: calc(100 - var(--i)); }
+
+/* ---------- tab chip ---------- */
+.dt-tab {
+  --bg: var(--tab-bg, var(--dt-neutral));
+  position: relative;
+  height: var(--dt-h);
+  padding: 0 calc(var(--dt-pad-x) + var(--dt-slant)) 0 var(--dt-pad-x);
+  background: var(--bg);
+  color: #fff;
+  display: inline-flex; align-items: center;
+  user-select: none; cursor: pointer;
+  line-height: 1; font-size: var(--dt-font); font-weight: var(--dt-weight);
+
+  /* rounded left, slanted right via clip-path; bottom flat (folder attach) */
+  border: 0;
+  border-top-left-radius: var(--dt-radius);
+  clip-path: polygon(
+    0% 0%,
+    calc(100% - var(--dt-slant)) 0%,
+    100% var(--dt-slant),
+    100% 100%,
+    0% 100%,
+    0% 0%
+  );
+
+  box-shadow: var(--dt-shadow);
+  transition: filter .12s ease, transform .12s ease, box-shadow .12s ease;
+  will-change: transform, filter, box-shadow;
+}
+
+/* Hairline around left/top/right that follows the clip (no bottom) */
+.dt-tab::after {
+  content: "";
+  position: absolute; inset: 0;
+  clip-path: inherit;
+  border: var(--dt-stroke) solid var(--dt-stroke-color);
+  border-bottom: 0;
+  border-top-left-radius: var(--dt-radius);
+  pointer-events: none;
+  /* avoid 1px seam on HiDPI */
+  -webkit-mask: linear-gradient(#000 0 0) top/100% calc(100% - var(--dt-stroke)) no-repeat;
+          mask: linear-gradient(#000 0 0) top/100% calc(100% - var(--dt-stroke)) no-repeat;
+}
+
+/* interactions */
+.dt-tab:hover           { filter: brightness(1.06); }
+.dt-tab.is-active       { z-index: 999; transform: translateY(-1px); box-shadow: var(--dt-shadow-strong); }
+.dt-tab.is-dragging     { z-index: 1000; transform: translateY(-1px) scale(1.01); box-shadow: var(--dt-shadow-strong); }
+.dt-tab:focus-visible   { outline: 2px solid rgba(34,211,238,.85); outline-offset: 2px; }
+
+.dt-tab__label { white-space: nowrap; letter-spacing: .25px; }
+.light .dt-tab__label { -webkit-text-stroke: .35px rgba(0,0,0,.35); } /* light-mode ink */
+
+/* tiny drag ghost created in JS */
+.dt-ghost {
+  position: fixed; top: 0; left: 0;
+  padding: 4px 6px; border-radius: 6px;
+  background: rgba(0,0,0,.65); color: #fff;
+  font: 700 16px/1 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  box-shadow: 0 8px 18px rgba(0,0,0,.35);
+  pointer-events: none; opacity: .9;
+}
+
+/* ===========================================
+   Panel chrome (Mac hairline / TRON glow)
+   =========================================== */
+
+/* window shell */
+.panel-window {
+  border: 1px solid rgba(0,0,0,.95); /* thin black hairline in light */
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(255,255,255,.96);
+  box-shadow: 0 20px 80px rgba(0,0,0,.18);
+}
+.dark .panel-window {
+  border-color: rgba(34,211,238,.35);      /* cyan edge in dark */
+  background: rgba(8,14,26,.86);
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,.35),
+    0 24px 120px rgba(0,255,240,.08);
+}
+
+/* title bar */
+.panel-header {
+  height: 36px; padding: 0 8px;
+  display: flex; align-items: center;
+  background: linear-gradient(180deg,
+              rgba(220, 243, 13, 0.7), rgba(0,0,0,.06));
+  border-bottom: 1px solid rgba(0,0,0,.90);
+}
+.light .panel-header { color: #0b1320; }
+.dark .panel-header {
+  background: linear-gradient(180deg,
+              rgba(16,28,46,.96), rgba(9,18,31,.84));
+  border-bottom: 1px solid rgba(34,211,238,.22);
+  color: #eafcff;
+}
+
+.panel-title { font-weight: 600; letter-spacing: .2px; }
+
+/* tiny right-corner icon buttons */
+.hdr-btn {
+  width: 26px; height: 26px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 9px;
+  border: 1px solid rgba(0,0,0,.20);
+  color: rgba(0,0,0,.65);
+  background: rgba(255,255,255,.74);
+  transition: filter .12s ease, background .12s ease, border-color .12s ease;
+}
+.hdr-btn:hover { background: rgba(255,255,255,.92); }
+.dark .hdr-btn {
+  border-color: rgba(34,211,238,.26);
+  color: rgba(255,255,255,.88);
+  background: rgba(255,255,255,.06);
+}
+.dark .hdr-btn:hover { background: rgba(255,255,255,.12); }
+.dt { --dt-stroke: 1px; --dt-stroke-color: rgba(0,0,0,.65); }
+.dark .dt { --dt-stroke-color: rgba(0,0,0,.85); }

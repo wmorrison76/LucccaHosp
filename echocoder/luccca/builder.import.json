@@ -1,0 +1,98 @@
+{
+  "project": {
+    "name": "LUCCCA Frontend",
+    "description": "Full verified import of LUCCCA frontend into Builder.io via EchoCoder integration.",
+    "version": "1.0.0",
+    "root": "/Users/cami/Desktop/LUCCCA/echocoder/luccca",
+    "entryPoint": "index.html",
+    "buildCommand": "pnpm dev",
+    "installCommand": "pnpm install",
+    "verifyManifest": true
+  },
+
+  "import": {
+    "source": "/Users/cami/Desktop/LUCCCA/echocoder/luccca",
+    "manifest": "/Users/cami/Desktop/LUCCCA/frontend/manifest/manifest.json",
+    "include": [
+      "**/*.js",
+      "**/*.jsx",
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.css",
+      "**/*.scss",
+      "**/*.html",
+      "**/*.json",
+      "**/*.png",
+      "**/*.jpg",
+      "**/*.jpeg",
+      "**/*.gif",
+      "**/*.svg",
+      "**/*.mp4",
+      "**/*.webm",
+      "**/*.ico",
+      "**/*.ttf",
+      "**/*.woff",
+      "**/*.woff2"
+    ],
+    "exclude": [
+      "node_modules/**",
+      "manifest/**",
+      "dist/**",
+      "build/**",
+      ".turbo/**",
+      ".vite/**",
+      ".cache/**",
+      ".git/**"
+    ],
+    "verifyHashes": true,
+    "preservePaths": true,
+    "alias": {
+      "@": "src"
+    },
+    "environment": {
+      "nodeVersion": ">=18",
+      "framework": "vite",
+      "language": "javascript+react",
+      "packageManager": "pnpm"
+    }
+  },
+
+  "dependencies": {
+    "packageFile": "package.json",
+    "lockFile": "pnpm-lock.yaml",
+    "install": true
+  },
+
+  "postImport": {
+    "run": [
+      "pnpm install",
+      "pnpm dev"
+    ],
+    "openURL": "http://localhost:5173"
+  },
+
+  "validation": {
+    "compareHashes": true,
+    "manifestFiles": [
+      "manifest.json",
+      "manifest.csv",
+      "summary.md",
+      "dependencies.json",
+      "import-graph.json"
+    ],
+    "sourceManifest": "/Users/cami/Desktop/LUCCCA/frontend/manifest",
+    "onMismatch": "warn"
+  },
+
+  "builder": {
+    "autoLink": true,
+    "importMode": "deep",
+    "preserveStructure": true,
+    "generatePreview": true,
+    "ui": {
+      "colorMode": "dark",
+      "language": "en-US",
+      "autoSync": true
+    }
+  }
+}

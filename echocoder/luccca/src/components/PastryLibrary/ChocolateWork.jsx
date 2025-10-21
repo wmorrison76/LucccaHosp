@@ -1,0 +1,1 @@
+export default function ChocolateWork() { return <div>🍫 Chocolate & Sugar Art</div>; }

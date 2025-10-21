@@ -1,0 +1,27 @@
+/* LUCCCA theme overrides using CSS variables. Applied when .tenant-luccca is present on <html> */
+.tenant-luccca {
+  /* Brand-forward palette */
+  --primary: 24 90% 54%;          /* vivid orange */
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 24 22% 96%;
+  --secondary-foreground: 24 20% 20%;
+
+  --accent: 24 100% 97%;
+  --accent-foreground: 24 25% 18%;
+
+  --ring: 24 90% 54%;
+
+  /* Sidebar refinements */
+  --sidebar-background: 0 0% 99%;
+  --sidebar-border: 24 18% 90%;
+}
+
+/* Optional dark-tuned accents (respects existing .dark scheme) */
+.dark.tenant-luccca {
+  --primary: 24 90% 58%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 24 20% 12%;
+  --secondary-foreground: 0 0% 98%;
+  --ring: 24 90% 58%;
+}

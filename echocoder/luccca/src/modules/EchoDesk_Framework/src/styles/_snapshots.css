@@ -1,0 +1,7 @@
+.wb-snapshots{ position:absolute; right:8px; bottom:8px; width:360px; max-height:40vh; overflow:auto; z-index:57; background:#fff; border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,.12); }
+.wb-snapshots header{ padding:8px 10px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f0f0f0; }
+.wb-snap-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:8px; padding:8px; }
+.wb-shot{ border:1px solid #e5e7eb; border-radius:8px; overflow:hidden; }
+.wb-shot img{ display:block; width:100%; height:120px; object-fit:cover; background:#f9fafb; }
+.wb-shot figcaption{ display:flex; justify-content:space-between; padding:6px; align-items:center; }
+.wb-shot-actions button{ margin-left:6px; }

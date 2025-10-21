@@ -1,0 +1,68 @@
+import React from "react";
+
+export default function BackgroundPanel(){
+  const doc = document.documentElement;
+  const get = (k, fallback="") => getComputedStyle(doc).getPropertyValue(k).trim() || fallback;
+  const [state,setState] = React.useState(()=>({
+    image: get("--backboard-image",""),
+    opacity: get("--backboard-opacity","0.20"),
+    blur: get("--backboard-blur","2px"),
+    fit: get("--backboard-fit","cover"),
+    pos: get("--backboard-pos","center"),
+  }));
+
+  const set = (k) => (e) => {
+    const v = e.target.value;
+    setState(s => ({...s,[k]:v}));
+    doc.style.setProperty(`--backboard-${k}`, v);
+  };
+
+  const onUpload = (f) => {
+    const r = new FileReader();
+    r.onload = () => {
+      const data = `url('${r.result}')`;
+      setState(s=>({...s,image:data}));
+      doc.style.setProperty("--backboard-image", data);
+    };
+    r.readAsDataURL(f);
+  };
+
+  const reset = () => {
+    const def = { image:"", opacity:"0.20", blur:"2px", fit:"cover", pos:"center" };
+    Object.entries(def).forEach(([k,v])=>doc.style.setProperty(`--backboard-${k}`, v));
+    setState(def);
+  };
+
+  return (
+    <div className="dw-panel p-4 space-y-3">
+      <div className="text-lg font-semibold">Backboard Background</div>
+      <div className="text-sm opacity-80">Upload an image and tune how it shows. Echo can still replace the background at runtime; this is the default.</div>
+
+      <div className="flex items-center gap-3">
+        <label className="dw-btn px-3 py-1 rounded cursor-pointer">
+          Upload…
+          <input type="file" accept="image/*" className="hidden"
+            onChange={e=>e.target.files?.[0] && onUpload(e.target.files[0])}/>
+        </label>
+        <button className="dw-btn px-3 py-1 rounded" onClick={reset}>Reset</button>
+      </div>
+
+      <div className="grid" style={{gridTemplateColumns:"repeat(5,minmax(0,1fr))", gap:12}}>
+        <L label="Opacity (0..1)"><input className="dw-input" value={state.opacity} onChange={set("opacity")}/></L>
+        <L label="Blur (px)"><input className="dw-input" value={state.blur} onChange={set("blur")}/></L>
+        <L label="Fit"><select className="dw-input" value={state.fit} onChange={set("fit")}><option>cover</option><option>contain</option></select></L>
+        <L label="Position"><input className="dw-input" value={state.pos} onChange={set("pos")}/></L>
+        <L label="Image CSS value" ><input className="dw-input" value={state.image} onChange={set("image")}/></L>
+      </div>
+
+      <div className="text-xs opacity-70">CSS vars used: --backboard-image, --backboard-opacity, --backboard-blur, --backboard-fit, --backboard-pos</div>
+    </div>
+  );
+}
+
+function L({label, children}){ return(
+  <label className="flex flex-col gap-1">
+    <span className="text-sm opacity-80">{label}</span>
+    {children}
+  </label>
+); }

@@ -1,0 +1,83 @@
+src/modules/pastry/cake/CakeCanvasBuilder.jsx
+// A visual canvas builder for designing cake layers, fillings, and decorations
+import React, { useState } from "react";
+import { LayerBlock } from "./components/LayerBlock";
+import { DecorationPalette } from "./components/DecorationPalette";
+import { CakeSupportOverlay } from "./components/CakeSupportOverlay";
+import { Button } from "./components/ui/button";
+import { motion } from "framer-motion";
+
+const CakeCanvasBuilder = ({ cakeData, onUpdate }) => {
+  const [canvasLayers, setCanvasLayers] = useState(cakeData?.layers || []);
+  const [selectedLayer, setSelectedLayer] = useState(null);
+
+  const addLayer = (type) => {
+    const newLayer = {
+      id: Date.now(),
+      type,
+      height: 1,
+      flavor: "",
+      filling: "",
+      notes: "",
+    };
+    const updated = [...canvasLayers, newLayer];
+    setCanvasLayers(updated);
+    onUpdate(updated);
+  };
+
+  const updateLayer = (id, updatedProps) => {
+    const updated = canvasLayers.map((layer) =>
+      layer.id === id ? { ...layer, ...updatedProps } : layer
+    );
+    setCanvasLayers(updated);
+    onUpdate(updated);
+  };
+
+  const removeLayer = (id) => {
+    const updated = canvasLayers.filter((layer) => layer.id !== id);
+    setCanvasLayers(updated);
+    onUpdate(updated);
+  };
+
+  return (
+    <div className="flex flex-col gap-4 p-4">
+      <div className="flex gap-2 items-center">
+        <Button onClick={() => addLayer("cake")}>+ Cake Layer</Button>
+        <Button onClick={() => addLayer("filling")}>+ Filling</Button>
+        <Button onClick={() => addLayer("support")}>+ Support</Button>
+      </div>
+
+      <div className="relative bg-slate-100 rounded-xl shadow-inner p-6 min-h-[400px] border border-slate-300">
+        {canvasLayers.map((layer, index) => (
+          <motion.div
+            key={layer.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.05 }}
+          >
+            <LayerBlock
+              layer={layer}
+              onUpdate={(props) => updateLayer(layer.id, props)}
+              onRemove={() => removeLayer(layer.id)}
+              isSelected={selectedLayer === layer.id}
+              onSelect={() => setSelectedLayer(layer.id)}
+            />
+          </motion.div>
+        ))}
+        <CakeSupportOverlay layers={canvasLayers} />
+      </div>
+
+      <DecorationPalette
+        onDecorate={(decoration) => {
+          if (selectedLayer) {
+            updateLayer(selectedLayer, {
+              decoration: decoration,
+            });
+          }
+        }}
+      />
+    </div>
+  );
+};
+
+export default CakeCanvasBuilder;

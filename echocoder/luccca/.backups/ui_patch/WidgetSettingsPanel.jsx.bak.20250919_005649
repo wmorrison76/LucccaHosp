@@ -1,0 +1,12 @@
+
+// src/components/WidgetSettingsPanel.jsx
+import React from "react";
+import SettingsSuite from "@/settings/SettingsSuite.jsx";
+
+export default function WidgetSettingsPanel(){
+  return (
+    <div style={{ position:"relative", zIndex: 2 }}>
+      <SettingsSuite />
+    </div>
+  );
+}

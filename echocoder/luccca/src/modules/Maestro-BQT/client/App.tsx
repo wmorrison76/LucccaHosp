@@ -1,0 +1,83 @@
+import GlobalCalendar from "../../GlobalCalendar/GlobalCalendar";
+import "./global.css";
+import GlobalCalendar from "../../GlobalCalendar/GlobalCalendar";
+
+import React, { useEffect } from "react";
+import { HashRouter, Routes, Route } from "react-router-dom";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+
+import Index from "./pages/Index";
+import NotFound from "./pages/NotFound";
+import PanelView from "./pages/PanelView";
+import Calendar from "./pages/Calendar";
+import BEOManagement from "./pages/BEOManagement";
+import Chat from "./pages/Chat";
+import KitchenOperations from "./pages/KitchenOperations";
+import ProductionManagement from "./pages/ProductionManagement";
+import MenuAnalytics from "./pages/MenuAnalytics";
+import Recipes from "./pages/Recipes";
+import HACCP from "./pages/HACCP";
+import PreInspection from "./pages/PreInspection";
+import Butcher from "./pages/Butcher";
+import Timeline from "./pages/Timeline";
+import TeamDashboard from "./pages/TeamDashboard";
+import Inventory from "./pages/Inventory";
+import Transfers from "./pages/Transfers";
+import Ordering from "./pages/Ordering";
+import Revenue from "./pages/Revenue";
+import Whiteboard from "./pages/Whiteboard";
+import Settings from "./pages/Settings";
+import PersonalCalendar from "./pages/PersonalCalendar";
+
+import { registerMaestroBanquetsWithBuilder } from "./builder/maestro-banquets.builder-seed";
+
+const queryClient = new QueryClient();
+registerMaestroBanquetsWithBuilder();
+
+export default function App() {
+  useEffect(() => {
+    const saved = localStorage.getItem("theme") as "light" | "dark" | null;
+    const sys   = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    const theme = saved || sys;
+    document.documentElement.setAttribute("data-theme", theme);
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, []);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Toaster />
+      <Sonner />
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/kitchen" element={<KitchenOperations />} />
+          <Route path="/production" element={<ProductionManagement />} />
+          <Route path="/butcher" element={<Butcher />} />
+          <Route path="/menu-analytics" element={<MenuAnalytics />} />
+          <Route path="/recipes" element={<Recipes />} />
+          <Route path="/haccp" element={<HACCP />} />
+          <Route path="/pre-inspection" element={<PreInspection />} />
+          <Route path="/timeline" element={<Timeline />} />
+          <Route path="/team-dashboard" element={<TeamDashboard />} />
+          <Route path="/inventory" element={<Inventory />} />
+          <Route path="/ordering" element={<Ordering />} />
+          <Route path="/revenue" element={<Revenue />} />
+          <Route path="/transfers" element={<Transfers />} />
+          <Route path="/whiteboard" element={<Whiteboard />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/personal-calendar" element={<PersonalCalendar />} />
+          <Route path="/beo-management/new" element={<BEOManagement />} />
+          <Route path="/beo-management/:beoId" element={<BEOManagement />} />
+          <Route path="/panel/:panelType" element={<PanelView />} />
+          <Route path="/panel/:panelType/:eventId" element={<PanelView />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </HashRouter>
+    </QueryClientProvider>
+  );
+}

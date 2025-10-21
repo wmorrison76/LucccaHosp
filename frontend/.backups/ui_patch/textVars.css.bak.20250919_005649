@@ -1,0 +1,15 @@
+:root{
+  --panel-radius:16px;
+  --panel-ring:0 0 0 1px rgba(255,255,255,.06);
+  --panel-shadow:0 22px 80px rgba(0,0,0,.45), 0 0 22px rgba(22,224,255,.16);
+  --panel-bg:rgba(15,19,28,0.9);
+  --panel-bg-subtle:rgba(255,255,255,0.05);
+  --accent:#16E0FF;
+  --tab-height:36px; --tab-radius:10px;
+  --tab-active-bg:rgba(255,255,255,0.10); --tab-border:1px solid rgba(255,255,255,0.12);
+  --mode:dark;
+  --text-xs:11px; --text-sm:13px; --text-md:15px; --text-lg:18px; --text-xl:24px;
+}
+.text-var-xs{font-size:var(--text-xs)} .text-var-sm{font-size:var(--text-sm)}
+.text-var-md{font-size:var(--text-md)} .text-var-lg{font-size:var(--text-lg)}
+.text-var-xl{font-size:var(--text-xl)}

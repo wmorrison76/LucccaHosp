@@ -1,0 +1,1 @@
+This is a placeholder for README_Core.txt in 1_Core_Framework_Package.

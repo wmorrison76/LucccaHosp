@@ -1,0 +1,1 @@
+Market intelligence system components and configuration notes

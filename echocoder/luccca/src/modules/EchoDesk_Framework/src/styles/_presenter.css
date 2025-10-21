@@ -1,0 +1,4 @@
+.wb-presenter{ position:absolute; top:8px; left:50%; transform:translateX(-50%); z-index:58; display:flex; gap:8px; background:rgba(255,255,255,.9); padding:6px 10px; border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,.12); }
+.wb-presenter button.on{ background:#111827; color:#fff; border:1px solid #111827; border-radius:8px; padding:6px 10px; }
+.wb-presenter button{ background:#fff; color:#111827; border:1px solid #111827; border-radius:8px; padding:6px 10px; }
+.wb-presenting #whiteboard-stage{ outline:3px solid #111827; }

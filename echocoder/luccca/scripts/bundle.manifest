@@ -1,0 +1,11 @@
+# One file per line, relative to repo root.
+frontend/src/lib/themeTokens.css
+frontend/src/styles/utilities.css
+frontend/src/lib/themeEngine.js
+frontend/src/components/StyleControlPanel.jsx
+frontend/src/components/AvatarPicker.jsx
+frontend/src/lib/hudBus.js
+frontend/src/board/BackboardHUD.jsx
+frontend/src/components/WidgetSettingsPanel.jsx
+frontend/src/main.tsx
+frontend/index.html

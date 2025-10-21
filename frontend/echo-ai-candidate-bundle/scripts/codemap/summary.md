@@ -1,0 +1,765 @@
+# Code Map Summary
+- Project root: `/Users/cami/Desktop/LUCCCA/frontend`
+- Files scanned: 682
+- Entry candidates: `_imports/CustomCakeStudio-20250817-210617/src/main.tsx`, `CulinaryLab_FullInstall/src/components/Kitchen/index.ts`, `_imports/CustomCakeStudio-20250817-210617/src/components/index.ts`, `_imports/CustomCakeStudio-20250817-210617/src/engine/index.ts`, `src/components/EchoCore/CulinaryLab_FullInstall/src/components/CulinaryLab/index.ts`
+- Reachable files: 6
+- Orphan files: 676
+
+## Top 20 Largest Files
+- src/components/PastryLibrary/EchoCanvas.jsx — 41841 bytes, 804 lines
+- src/pages/PastryRecipeInputPage.tsx — 31011 bytes, 549 lines
+- src/components/WhiteboardPanel.jsx — 29041 bytes, 686 lines
+- src/modules/scheduling/SchedulerPanel.jsx — 25964 bytes, 592 lines
+- src/components/PastryLibrary/PastryGallery.jsx — 25770 bytes, 652 lines
+- src/board/Board.jsx — 22788 bytes, 537 lines
+- src/pages/Dashboard.jsx — 21668 bytes, 514 lines
+- src/components/PastryLibrary/PastryLibrary.jsx — 15901 bytes, 394 lines
+- src/board/EchoBackboard.jsx — 15118 bytes, 356 lines
+- src/components/CommandDock.jsx — 12131 bytes, 281 lines
+- src/components/PastryLibrary/PastrySettings.jsx — 11929 bytes, 350 lines
+- src/board/PageViewer.jsx — 11200 bytes, 338 lines
+- src/components/WidgetStudio.jsx — 9584 bytes, 244 lines
+- src/modules/CustomCakeStudio/components/canvas/StageCanvas.tsx — 8697 bytes, 203 lines
+- src/components/Sidebar.jsx — 8214 bytes, 219 lines
+- src/components/ui/RightSidebar.tsx — 7583 bytes, 230 lines
+- src/modules/scheduling/lmsEngine.js — 7430 bytes, 150 lines
+- src/components/shared/makeTabbedModule.jsx — 7140 bytes, 234 lines
+- src/modules/CustomCakeStudio/components/panels/ImageGenPanel.tsx — 7020 bytes, 194 lines
+- src/modules/CustomCakeStudio/components/layout/LeftToolbar.tsx — 6668 bytes, 93 lines
+
+## Top 20 Import Hubs
+- src/modules/CustomCakeStudio/engine/tools/index.ts — 21 imports
+- src/modules/CustomCakeStudio/components/canvas/StageCanvas.tsx — 19 imports
+- src/modules/CustomCakeStudio/components/layout/RightPanels.tsx — 17 imports
+- src/layout/MainLayout.jsx — 14 imports
+- src/components/Sidebar.jsx — 14 imports
+- src/pages/SystemOverview.jsx — 13 imports
+- src/components/AdminPanel.jsx — 10 imports
+- src/modules/scheduling/SchedulerPanel.jsx — 10 imports
+- src/modules/CustomCakeStudio/components/layout/TopBar.tsx — 9 imports
+- src/board/Board.jsx — 8 imports
+- src/modules/CustomCakeStudio/engine/store/useStudioStore.ts — 8 imports
+- CulinaryLab_FullInstall/src/components/Kitchen/RecipeInputRND.jsx — 7 imports
+- src/modules/CustomCakeStudio/pages/Studio.tsx — 7 imports
+- src/modules/pastry/session/CakeSessionFlow.jsx — 7 imports
+- src/components/EchoCore/CulinaryLab_FullInstall/src/components/CulinaryLab/RecipeInputRND.jsx — 7 imports
+- src/pages/Dashboard.jsx — 6 imports
+- CulinaryLab_FullInstall/src/components/Kitchen/panels/RecipeFormPanel.jsx — 6 imports
+- src/modules/pastry/cake/CanvasBuilder.jsx — 6 imports
+- src/modules/CustomCakeStudio/components/panels/ProjectPanel.tsx — 6 imports
+- src/modules/CustomCakeStudio/engine/tools/BrushTool.ts — 6 imports
+
+## Routes Found
+- `../components/CakeBuilder.jsx`  ←  src/components/PageViewer.jsx
+- `../components/DashboardWelcome.jsx`  ←  src/components/PageViewer.jsx
+- `../components/PastryRecipeInputPage.jsx`  ←  src/components/PageViewer.jsx
+- `../components/RecipeInputPage.jsx`  ←  src/components/PageViewer.jsx
+- `*`  ←  src/App.jsx
+- `*`  ←  src/pages/SystemOverview.jsx
+- `/`  ←  src/App.jsx
+- `/`  ←  src/pages/SystemOverview.jsx
+- `/admin`  ←  src/components/AdminPanel.jsx
+- `/admin/instructions`  ←  src/components/AdminPanel.jsx
+- `/admin/override`  ←  src/components/AdminPanel.jsx
+- `/admin/roles`  ←  src/components/AdminPanel.jsx
+- `/admin/unlock`  ←  src/components/AdminPanel.jsx
+- `/argus`  ←  src/pages/SystemOverview.jsx
+- `/baking-pastry`  ←  src/App.jsx
+- `/cake-studio`  ←  src/modules/CustomCakeStudio/routes.tsx
+- `/cake-studio-legacy`  ←  src/modules/CustomCakeStudio/routes.tsx
+- `/chefnet`  ←  src/components/Sidebar.jsx
+- `/crm`  ←  src/components/Sidebar.jsx
+- `/echo`  ←  src/pages/SystemOverview.jsx
+- `/inventory`  ←  src/components/Sidebar.jsx
+- `/kitchen-library`  ←  src/App.jsx
+- `/login`  ←  src/pages/SystemOverview.jsx
+- `/logs`  ←  src/pages/SystemOverview.jsx
+- `/maestro-bqt`  ←  src/components/Sidebar.jsx
+- `/mixology`  ←  src/App.jsx
+- `/modules`  ←  src/pages/SystemOverview.jsx
+- `/overview`  ←  src/pages/SystemOverview.jsx
+- `/purchasing`  ←  src/components/Sidebar.jsx
+- `/schedules`  ←  src/App.jsx
+- `/settings`  ←  src/components/Sidebar.jsx
+- `/settings`  ←  src/pages/SystemOverview.jsx
+- `/support`  ←  src/components/Sidebar.jsx
+- `/user`  ←  src/pages/SystemOverview.jsx
+- `/whiteboard`  ←  src/components/Sidebar.jsx
+
+## Orphans (not reachable from entries)
+- postcss.config.js
+- tailwind.config.js
+- vite.config.js
+- future_sales_forecasting/FutureSalesPanel.jsx
+- future_sales_forecasting/useFutureForecast.js
+- components/GLSelector.jsx
+- components/OrderForm.jsx
+- components/PrivateRoute.jsx
+- components/StatusIndicator.jsx
+- src/App.jsx
+- src/main.jsx
+- utils/apiClient.js
+- utils/convertUnits.js
+- utils/dateFormatter.js
+- utils/systemConstants.js
+- utils/yieldCalculator.js
+- components/Recipe/RecipeListView.jsx
+- _imports/CustomCakeStudio-20250817-210617/postcss.config.js
+- _imports/CustomCakeStudio-20250817-210617/tailwind.config.js
+- _imports/CustomCakeStudio-20250817-210617/vite.config.ts
+- src/layout/AuthLayout.jsx
+- src/layout/MainLayout.jsx
+- src/layout/PanelLayout.jsx
+- src/layouts/PastryLayout.jsx
+- src/board/BackboardFX.jsx
+- src/board/BackboardHUD.jsx
+- src/board/BackboardLayer.jsx
+- src/board/Board.jsx
+- src/board/BoardSettings.jsx
+- src/board/CommandBar.jsx
+- src/board/CommandDock.jsx
+- src/board/EchoBackboard.jsx
+- src/board/EchoBubble.jsx
+- src/board/PageViewer.jsx
+- src/board/PanelDockBar.jsx
+- src/board/PanelRegistry.js
+- src/board/SettingsSheet.jsx
+- src/board/Toolbar.jsx
+- src/components/AdminConnections.jsx
+- src/components/AdminModuleToggle.jsx
+- src/components/AdminPanel.jsx
+- src/components/AdminPanelGrid.jsx
+- src/components/AdminPanelNav.jsx
+- src/components/AlertMessage.jsx
+- src/components/BreadCrumbs.jsx
+- src/components/ButtonPrimary.jsx
+- src/components/CakeBuilder.jsx
+- src/components/CakeCanvas.jsx
+- src/components/CakeDesignSummary.jsx
+- src/components/CakeFormSection.jsx
+- src/components/CakeSupportDisplay.jsx
+- src/components/Card.jsx
+- src/components/CommandDock.jsx
+- src/components/CrashTest.jsx
+- src/components/DashboardHome.jsx
+- src/components/DashboardWelcome.jsx
+- src/components/DownloadOverridePDF.jsx
+- src/components/EchoCanvas.jsx
+- src/components/EchoGridSidebar.jsx
+- src/components/EchoResponsePanel.jsx
+- src/components/EchoStatusMonitor.jsx
+- src/components/FloatingTextOverlay.jsx
+- src/components/Footer.jsx
+- src/components/FormButton.jsx
+- src/components/FormFieldGroup.jsx
+- src/components/FormInput.jsx
+- src/components/GridLayout.jsx
+- src/components/ImageModifierModal.jsx
+- src/components/KitchenLibraryTabs.jsx
+- src/components/LoadingProgress.jsx
+- src/components/LoadingScreen.jsx
+- src/components/LogEntry.jsx
+- src/components/Logo.jsx
+- src/components/LogoAnimated.jsx
+- src/components/LogoutButton.jsx
+- src/components/Luccca AdminPanel.jsx
+- src/components/MixologyTabs.jsx
+- src/components/MobileGridWrapper.jsx
+- src/components/ModalBasic.jsx
+- src/components/Navbar.jsx
+- src/components/OverrideVault.jsx
+- src/components/PageSection.jsx
+- src/components/PageViewer.jsx
+- src/components/PanelDcokBar.tsx
+- src/components/PastryRightSidebar.jsx
+- src/components/PastryRightSidebarToggle.jsx
+- src/components/PastrySidebar.jsx
+- src/components/ProgressBar.jsx
+- src/components/RecipeScallingForm.jsx
+- src/components/RecipeVariationLinker.jsx
+- src/components/RescueShell.jsx
+- src/components/Sidebar.jsx
+- src/components/StatBlock.jsx
+- src/components/StatGroup.jsx
+- src/components/SystemContro.Panel.jsx
+- src/components/SystemLoader.jsx
+- src/components/SystemStatusDisplay.jsx
+- src/components/SystemTile.jsx
+- src/components/SystemTileStatus.jsx
+- src/components/UserRoleManager.jsx
+- src/components/UserWelcomeBanner.jsx
+- src/components/WhiteboardPanel.jsx
+- src/components/WidgetStudio.jsx
+- src/components/button..tsx
+- src/modules/LucccaAdminWireframe.jsx
+- src/modules/NotFound.jsx
+- src/modules/RecipeIndexPage.jsx
+- src/providers/StreamSyncProvider.jsx
+- src/hooks/index.js
+- src/hooks/useAlert.js
+- src/hooks/useAuth.js
+- src/hooks/useEchoStatus.js
+- src/hooks/useLiveFinanceData.js
+- src/hooks/useLiveHospitalityData.js
+- src/hooks/useLoadingStats.js
+- src/hooks/useModal.js
+- src/hooks/useModuleToggleSync.js
+- src/hooks/useSystemNotifictions.js
+- src/hooks/useSystemVersion.js
+- src/pages/AdminModuleSettings.jsx
+- src/pages/AdminPastryExportPage.jsx
+- src/pages/AdminSummary.jsx
+- src/pages/ArgusMonitor.jsx
+- src/pages/BanquetMenuUploader.jsx
+- src/pages/CRMPipelineBoard.jsx
+- src/pages/CakeDesigner.jsx
+- src/pages/CakeDesignerExport.jsx
+- src/pages/CakeDesignerForm.jsx
+- src/pages/Dashboard.jsx
+- src/pages/EchoControl.jsx
+- src/pages/InventoryCostCheck.jsx
+- src/pages/Login.jsx
+- src/pages/Logs.jsx
+- src/pages/PastryAdminDashboard.jsx
+- src/pages/PastryLibrary.jsx
+- src/pages/PastryLibrary.tsx
+- src/pages/PastryModule.jsx
+- src/pages/PastryPhotoGallery.jsx
+- src/pages/PastryRecipeForm.jsx
+- src/pages/PastryRecipeInputPage.tsx
+- src/pages/ProposalActions.jsx
+- src/pages/ProposalSummary.jsx
+- src/pages/RecipeModule.jsx
+- src/pages/Settings.jsx
+- src/pages/SystemOverview.jsx
+- src/stores/PanelStore.js
+- src/stores/WhiteboardStore.js
+- src/utils/FetchEchoStatus.js
+- src/utils/LiveDemoFeed.js
+- src/utils/auth.js
+- src/utils/calendarHelpers.js
+- src/utils/constants.js
+- src/utils/cropImage.js
+- src/utils/echoHumor.js
+- src/utils/echoInventoryAnalyzer.js
+- src/utils/echoRecipeMath.js
+- src/utils/echoSmartSpecialUtils.js
+- src/utils/echoWellness.js
+- src/utils/echoWinePairing.js
+- src/utils/encryption.js
+- src/utils/fakeLogData.js
+- src/utils/index.js
+- src/utils/noteFormatter.js
+- src/utils/orderHelpers.js
+- src/utils/parseInvoiceData.js
+- src/utils/salesVolumeForecast.js
+- src/contracts/events/Order.v1.ts
+- src/contracts/events/Reservation.v1.ts
+- src/data/invoiceMocks/storeroomInventory.js
+- src/data/recipes/sampleRecipes.js
+- src/components/CulinaryLab/RecipeInputRND.jsx
+- src/components/CulinaryLab/index.ts
+- src/components/Dashboard/DashboardCard.jsx
+- src/components/Dashboard/EchoSmartSpecialFlow.jsx
+- src/components/Dashboard/FutureSalesForecast.jsx
+- src/components/Dashboard/ProcurementDashboard.jsx
+- src/components/EchoCore/Dashboard.jsx
+- src/components/EchoCore/EchoAssistantPanel.jsx
+- src/components/EchoCore/EchoAssistantPanel.stories.jsx
+- src/components/EchoCore/EchoAssistantPanel.test.jsx
+- src/components/EchoCore/EchoAvatar.jsx
+- src/components/EchoCore/EchoCompanionThumb.jsx
+- src/components/EchoCore/EchoOverlay.jsx
+- src/components/EchoCore/EchoSummonButton.jsx
+- src/components/EchoCore/EchoThemeSwitch.jsx
+- src/components/EchoCore/EchoWelcomeScreen.jsx
+- src/components/EchoCore/Hotkeys.jsx
+- src/components/EchoCore/PanelDockBar.jsx
+- src/components/EchoCore/PanelHeader.jsx
+- src/components/EchoCore/PanelWindow.jsx
+- src/components/EchoCore/useEchoFinance.js
+- src/components/EchoCore/useEchoLabor.js
+- src/components/Ingredients/IngredientBuilder.jsx
+- src/components/Ingredients/IngredientMasterList.jsx
+- src/components/LiquidWhiteBoard/LiquidWhiteBoardEngine.jsx
+- src/components/Identity/EchoThumbPrint.jsx
+- src/components/Kitchen/KitchenTabView.jsx
+- src/components/Kitchen/RecipeInput.jsx
+- src/components/Kitchen/RecipeList.jsx
+- src/components/Recipe/RecipeListWrapper.jsx
+- src/components/calendar/BEOViewer.jsx
+- src/components/calendar/EventCalendar.jsx
+- src/components/calendar/REOViewer.jsx
+- src/components/Settings/CustomBackground.jsx
+- src/components/Settings/GradientSelector.jsx
+- src/components/Settings/gradients.js
+- src/components/echo/EchoSettingsPanel.jsx
+- src/components/emotionalAI/AIStatusIndicator.jsx
+- src/components/emotionalAI/ChefMoodTracker.jsx
+- src/components/emotionalAI/ClippyExplainer.jsx
+- src/components/emotionalAI/EchoPulseIcon.jsx
+- src/components/emotionalAI/EmotionLog.jsx
+- src/components/emotionalAI/index.js
+- src/components/invoice/ComplianceAuditBanner.jsx
+- src/components/invoice/InvoicePreviewModal.jsx
+- src/components/invoice/InvoiceUpload.jsx
+- src/components/invoice/OrderingConflictAlert.js
+- src/components/invoice/VendorResponsePanel.jsx
+- src/components/invoice/checkDuplicate.js
+- src/components/interaction/DashboardTransitionWrapper.jsx
+- src/components/interaction/EchoAccordion.jsx
+- src/components/interaction/EchoActionBar.jsx
+- src/components/interaction/EchoActionGrid.jsx
+- src/components/interaction/EchoAnimator.jsx
+- src/components/interaction/EchoAssistant.jsx
+- src/components/interaction/EchoCard.jsx
+- src/components/interaction/EchoCardContainer.jsx
+- src/components/interaction/EchoCarousel.jsx
+- src/components/interaction/EchoContextMenu.jsx
+- src/components/interaction/EchoControlPanel.jsx
+- src/components/interaction/EchoDropdown.jsx
+- src/components/interaction/EchoDynamicPanel.jsx
+- src/components/interaction/EchoFloatingMenu.jsx
+- src/components/interaction/EchoFloatingPanel.jsx
+- src/components/interaction/EchoInfoBadge.jsx
+- src/components/interaction/EchoInlineAlert.jsx
+- src/components/interaction/EchoInteractivePanel.jsx
+- src/components/interaction/EchoMainView.jsx
+- src/components/interaction/EchoMessageList.jsx
+- src/components/interaction/EchoModal.jsx
+- src/components/interaction/EchoNotepad.jsx
+- src/components/interaction/EchoPagination.jsx
+- src/components/interaction/EchoPanelWrapper.jsx
+- src/components/interaction/EchoProgressBar.jsx
+- src/components/interaction/EchoQuickStatus.jsx
+- src/components/interaction/EchoResponseBlock.jsx
+- src/components/interaction/EchoResponsePanel.jsx
+- src/components/interaction/EchoSectionHeader.jsx
+- src/components/interaction/EchoShell.jsx
+- src/components/interaction/EchoSidebar.jsx
+- src/components/interaction/EchoSmartSpecialFlow.jsx
+- src/components/interaction/EchoStatusBar.jsx
+- src/components/interaction/EchoStepper.jsx
+- src/components/interaction/EchoSummaryCard.jsx
+- src/components/interaction/EchoTabs.jsx
+- src/components/interaction/EchoToast.jsx
+- src/components/interaction/EchoToggle.jsx
+- src/components/interaction/EchoTooltip.jsx
+- src/components/interaction/EchoWhisper.jsx
+- src/components/interaction/ModuleContainer.jsx
+- src/components/interaction/QuickActionPanel.jsx
+- src/components/interaction/UIActionButton.jsx
+- src/components/interaction/index.js
+- src/components/interaction/useKeyPress.js
+- src/components/ordering/KeyItemTracker.jsx
+- src/components/ordering/OrderEntryPanel.jsx
+- src/components/ordering/VendorRebateTracker.jsx
+- src/components/checkbook/CheckbookDashboard.jsx
+- src/components/checkbook/InvoiceViewer.jsx
+- src/components/items/ItemHoverInsights.jsx
+- src/components/recipes/EchoRecipeScaler.jsx
+- src/components/scheduling/MessageBoard.jsx
+- src/components/scheduling/ScheduleGrid.jsx
+- src/components/scheduling/ShiftAnalyzer.jsx
+- src/components/servernotes/AllergenTagger.jsx
+- src/components/servernotes/ServerNoteBuilder.jsx
+- src/components/servernotes/ServerNoteTemplate.jsx
+- src/components/servernotes/WinePairingEngine.jsx
+- src/components/PastryLibrary/AdminControls.jsx
+- src/components/PastryLibrary/CakeConfigSidebar.jsx
+- src/components/PastryLibrary/CakeLayerBuilder.jsx
+- src/components/PastryLibrary/CakePreview.jsx
+- src/components/PastryLibrary/CakeSubmitPanel.jsx
+- src/components/PastryLibrary/ChocolateWork.jsx
+- src/components/PastryLibrary/CustomCakeOrders.jsx
+- src/components/PastryLibrary/EchoCanvas.jsx
+- src/components/PastryLibrary/IngredientWatch.jsx
+- src/components/PastryLibrary/OvernightProduction.jsx
+- src/components/PastryLibrary/PastryGallery.jsx
+- src/components/PastryLibrary/PastryLibrary.jsx
+- src/components/PastryLibrary/PastrySettings.jsx
+- src/components/PastryLibrary/Recipes.jsx
+- src/components/PastryLibrary/StyleSelector.jsx
+- src/components/PastryLibrary/TabsHeader.jsx
+- src/components/sommelier/SommelierPairingPanel.jsx
+- src/components/specials/RecipeSubstitutionHelper.jsx
+- src/components/specials/SmartSpecialsPanel.jsx
+- src/components/ui/RightSidebar.tsx
+- src/components/ui/TurtleoverrideLoader.jsx
+- src/components/ui/WhiskLoader.jsx
+- src/components/ui/badge.tsx
+- src/components/ui/button.tsx
+- src/components/ui/card.tsx
+- src/modules/admin/CakeAdminDashboard.jsx
+- src/modules/CustomCakeStudio/App.tsx
+- src/modules/CustomCakeStudio/index.ts
+- src/modules/CustomCakeStudio/main.tsx
+- src/modules/CustomCakeStudio/routes.tsx
+- src/modules/CustomCakeStudio/tabs.tsx
+- src/modules/data/AddOnPricingControl.jsx
+- src/modules/kitchen/AddRecipeTab.jsx
+- src/modules/kitchen/KitchenLibrary.jsx
+- src/modules/kitchen/KitchenTabs.jsx
+- src/modules/kitchen/RecipeCard.jsx
+- src/modules/kitchen/RecipeFilter.jsx
+- src/modules/kitchen/RecipeIndexPage.jsx
+- src/modules/kitchen/RecipeInputPage.jsx
+- src/modules/kitchen/RecipeTable.jsx
+- src/modules/kitchen/RightSidebar.jsx
+- src/components/shared/DoubleTabs.jsx
+- src/components/shared/makeTabbedModule.jsx
+- src/pages/mixology/RecipeModule.jsx
+- src/modules/pastry/CakeDeliveryOptionsPanel.jsx
+- src/modules/pastry/ConsultationBookingModule.js
+- src/modules/pastry/ConsultationCanvasPad.jsx
+- src/utils/invoice/CheckInventory.js
+- src/utils/invoice/ComplianceAuditBanner.jsx
+- src/utils/invoice/InvoiceParser.js
+- src/utils/invoice/InvoiceUpload.jsx
+- src/utils/invoice/OrderingConflictAlert.jsx
+- src/utils/invoice/ReceivingVerificationPanel.jsx
+- src/utils/invoice/auditAi.js
+- src/utils/invoice/auditTrailLogger.js
+- src/utils/invoice/checkDuplicate.js
+- src/utils/invoice/echoLogicRouter.js
+- src/utils/invoice/orderConfliCtchecker.js
+- src/utils/invoice/roles.js
+- CulinaryLab_FullInstall/src/components/Kitchen/RecipeInputRND.jsx
+- CulinaryLab_FullInstall/src/components/LiquidWhiteBoard/LiquidWhiteBoardEngine.jsx
+- src/components/widgets/registry.js
+- _imports/CustomCakeStudio-20250817-210617/src/pages/Studio.tsx
+- _imports/CustomCakeStudio-20250817-210617/src/engine/types.ts
+- src/components/CulinaryLab/panels/BrainstormPanel.jsx
+- src/components/CulinaryLab/panels/EchoMusePanel.jsx
+- src/components/CulinaryLab/panels/ProjectedPreviewPanel.jsx
+- src/components/CulinaryLab/panels/RecipeFormPanel.jsx
+- src/components/CulinaryLab/panels/TextureLabModule.jsx
+- _imports/CustomCakeStudio-20250817-210617/src/utils/keyboard.ts
+- src/modules/scheduling/CopyWeekModal.jsx
+- src/modules/scheduling/EchoBridge.js
+- src/modules/scheduling/LmsChecker.jsx
+- src/modules/scheduling/SalesHoursChart.jsx
+- src/modules/scheduling/SchedulerPanel.jsx
+- src/modules/scheduling/SchedulesPage.jsx
+- src/modules/scheduling/backfill.js
+- src/modules/scheduling/index.js
+- src/modules/scheduling/lmsEngine.js
+- src/modules/scheduling/positions.js
+- src/modules/scheduling/store.js
+- src/modules/scheduling/utils.js
+- src/components/EchoCore/MissionControl/AlertStack.jsx
+- src/components/EchoCore/MissionControl/MissionControl.jsx
+- src/components/EchoCore/MissionControl/index.js
+- src/components/EchoCore/analytics/coreAnalytics.js
+- src/components/EchoCore/analytics/index.js
+- src/components/EchoCore/analytics/parseEchoQuery.js
+- src/components/EchoCore/context/EchoCoreContext.jsx
+- src/components/EchoCore/context/index.js
+- src/components/EchoCore/future_sales_forecasting/FutureSalesPanel.jsx
+- src/components/EchoCore/future_sales_forecasting/useFutureForecast.js
+- src/components/EchoCore/hooks/EchoToolbar.jsx
+- src/components/EchoCore/hooks/index.js
+- src/components/EchoCore/hooks/useEchoFinance.js
+- src/components/EchoCore/hooks/useEcholabor.js
+- src/components/EchoCore/hooks/useEmotionAnalysis.js
+- src/components/EchoCore/hooks/useExportReport.js
+- src/components/EchoCore/hooks/useForecastEngine.js
+- src/components/EchoCore/hooks/useGuestFlowAnalytics.js
+- src/components/EchoCore/hooks/useHospitalityData.js
+- src/components/EchoCore/hooks/useKitchenLibraryMetrics.js
+- src/components/EchoCore/hooks/useMoonPhaseMeta.js
+- src/components/EchoCore/hooks/usePOSFeed.js
+- src/components/EchoCore/hooks/useWhiteboardLayout.js
+- src/components/EchoCore/state/PanelRecoveryStore.js
+- src/components/EchoCore/utlis/encryption.js
+- src/components/EchoCore/utlis/index.js
+- src/modules/calendar/components/TVCalendarView.jsx
+- src/components/EchoCore/panels/CostForecastPanel.jsx
+- src/components/EchoCore/panels/EchoAssistantPanel copy.jsx
+- src/components/EchoCore/panels/EchoAssistantPanel.jsx
+- src/components/EchoCore/panels/EchoAssistantPanel.stories.jsx
+- src/components/EchoCore/panels/EchoAssistantPanel.test.jsx
+- src/components/EchoCore/panels/GreetingModule.jsx
+- src/components/EchoCore/panels/GreetingModule.stories.jsx
+- src/components/EchoCore/panels/GreetingModule.test.jsx
+- src/components/EchoCore/panels/GuestFlowAnalyticsPanel.jsx
+- src/components/EchoCore/panels/LaborForecastPanel.jsx
+- src/components/EchoCore/panels/MinimizedPanelIcon.jsx
+- src/components/EchoCore/panels/PaneManager.jsx
+- src/components/EchoCore/panels/PaneManager.stories.jsx
+- src/components/EchoCore/panels/PaneManager.test.jsx
+- src/components/EchoCore/panels/PanelMinimizeHandler.jsx
+- src/components/EchoCore/panels/PerfModeDetector.js
+- src/components/EchoCore/panels/PerfModeDetector.test.js
+- src/components/EchoCore/panels/StickyNotePanel.jsx
+- src/components/EchoCore/panels/index.js
+- src/modules/calendar/utils/tvRemoteListener.js
+- src/modules/crm/hooks/useCRMReminderSync.js
+- src/modules/CustomCakeStudio/components/index.ts
+- src/components/EchoCore/voice/index.js
+- src/components/EchoCore/voice/useEchoSpeech.js
+- src/components/EchoCore/voice/useVoiceRecognition.js
+- src/components/EchoCore/components/GLSelector.jsx
+- src/components/EchoCore/components/OrderForm.jsx
+- src/components/EchoCore/components/PrivateRoute.jsx
+- src/components/EchoCore/components/StatusIndicator.jsx
+- src/modules/CustomCakeStudio/engine/index.ts
+- src/modules/CustomCakeStudio/engine/types.ts
+- src/modules/CustomCakeStudio/hooks/useClipboardImport.ts
+- src/modules/CustomCakeStudio/hooks/useFontLoader.ts
+- src/modules/CustomCakeStudio/hooks/useStudioHotkeys.ts
+- src/modules/CustomCakeStudio/hooks/useTransformHotkeys.ts
+- src/modules/CustomCakeStudio/icons/CakeIcon.tsx
+- src/modules/CustomCakeStudio/bridge/EchoCanvas.tsx
+- src/modules/CustomCakeStudio/pages/LegacyHost.tsx
+- src/modules/CustomCakeStudio/pages/Studio.tsx
+- src/modules/CustomCakeStudio/utils/files.ts
+- src/modules/CustomCakeStudio/utils/keyboard.ts
+- src/modules/delivery/utils/syncToDeliveryBoard.js
+- src/modules/CustomCakeStudio/legacy/ErrorBoundary.tsx
+- src/modules/CustomCakeStudio/legacy/LegacyDesignStudio.tsx
+- src/modules/invoice/utils/generateCakeInvoice.js
+- src/modules/crm-lite/context/CRMContextLite.js
+- src/modules/pastry/session/CakeSessionFlow.jsx
+- CulinaryLab_FullInstall/src/components/Kitchen/panels/BrainstormPanel.jsx
+- CulinaryLab_FullInstall/src/components/Kitchen/panels/EchoMusePanel.jsx
+- CulinaryLab_FullInstall/src/components/Kitchen/panels/ProjectedPreviewPanel.jsx
+- CulinaryLab_FullInstall/src/components/Kitchen/panels/RecipeFormPanel.jsx
+- CulinaryLab_FullInstall/src/components/Kitchen/panels/TextureLabModule.jsx
+- FluidRoot_FusedStack_VisualBoost/src/components/EchoCore/panels/KitchenLibraryTabs.jsx
+- src/modules/pastry/cake/CakeExportFinalizer.jsx
+- src/modules/pastry/cake/CakeQAExporter.jsx
+- src/modules/pastry/cake/CanvasBuilder.jsx
+- _imports/CustomCakeStudio-20250817-210617/src/components/canvas/StageCanvas.tsx
+- _imports/CustomCakeStudio-20250817-210617/src/components/layout/LeftToolbar.tsx
+- _imports/CustomCakeStudio-20250817-210617/src/components/layout/RightPanels.tsx
+- _imports/CustomCakeStudio-20250817-210617/src/components/layout/TopBar.tsx
+- _imports/CustomCakeStudio-20250817-210617/src/components/panels/HistoryPanel.tsx
+- _imports/CustomCakeStudio-20250817-210617/src/components/panels/LayersPanel.tsx
+- _imports/CustomCakeStudio-20250817-210617/src/components/panels/PropertiesPanel.tsx
+- _imports/CustomCakeStudio-20250817-210617/src/engine/commands/Command.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/commands/History.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/imagegen/ImageGenClient.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/pipeline/Renderer.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/print/ExportManager.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/selection/MagicWand.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/selection/SelectionManager.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/store/useStudioStore.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/tools/BrushTool.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/tools/CloneStampTool.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/tools/CropTool.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/tools/EraserTool.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/tools/EyedropperTool.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/tools/HandTool.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/tools/LassoTool.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/tools/MagicWandTool.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/tools/MarqueeTool.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/tools/MoveTool.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/tools/QuickSelectTool.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/tools/ShapeTool.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/tools/SpotHealingTool.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/tools/TextTool.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/tools/Tool.ts
+- _imports/CustomCakeStudio-20250817-210617/src/engine/tools/ZoomTool.ts
+- src/modules/CustomCakeStudio/components/panels/AdjustmentsPanel.tsx
+- src/modules/CustomCakeStudio/components/panels/CheckpointsPanel.tsx
+- src/modules/CustomCakeStudio/components/panels/GridPanel.tsx
+- src/modules/CustomCakeStudio/components/panels/HistoryPanel.tsx
+- src/modules/CustomCakeStudio/components/panels/ImageGenPanel.tsx
+- src/modules/CustomCakeStudio/components/panels/InpaintPanel.tsx
+- src/modules/CustomCakeStudio/components/panels/LayersPanel.tsx
+- src/modules/CustomCakeStudio/components/panels/MaskPanel.tsx
+- src/modules/CustomCakeStudio/components/panels/PrintPanel.tsx
+- src/modules/CustomCakeStudio/components/panels/ProjectPanel.tsx
+- src/modules/CustomCakeStudio/components/panels/PropertiesPanel.tsx
+- src/modules/CustomCakeStudio/components/panels/RetouchPanel.tsx
+- src/modules/CustomCakeStudio/components/panels/SelectionRefinePanel.tsx
+- src/modules/CustomCakeStudio/components/panels/ShapePanel.tsx
+- src/modules/CustomCakeStudio/components/panels/TextPanel.tsx
+- src/modules/CustomCakeStudio/components/panels/TransformPanel.tsx
+- src/modules/CustomCakeStudio/components/canvas/ActiveTransformer.tsx
+- src/modules/CustomCakeStudio/components/canvas/GridOverlay.tsx
+- src/modules/CustomCakeStudio/components/canvas/PrintMarks.tsx
+- src/modules/CustomCakeStudio/components/canvas/RetouchOverlay.tsx
+- src/modules/CustomCakeStudio/components/canvas/SelectionOverlay.tsx
+- src/modules/CustomCakeStudio/components/canvas/ShapeRender.tsx
+- src/modules/CustomCakeStudio/components/canvas/StageCanvas.tsx
+- src/modules/CustomCakeStudio/components/canvas/TextEditOverlay.tsx
+- src/modules/CustomCakeStudio/components/layout/LeftToolbar.tsx
+- src/modules/CustomCakeStudio/components/layout/RightPanels.tsx
+- src/modules/CustomCakeStudio/components/layout/TopBar.tsx
+- src/modules/CustomCakeStudio/components/help/CommandPalette.tsx
+- src/modules/CustomCakeStudio/components/help/HelpCenter.tsx
+- src/components/EchoCore/components/Recipe/RecipeListView.jsx
+- src/components/EchoCore/components/Hospitality/ForecastPanel.jsx
+- src/components/EchoCore/components/Hospitality/GuestInightsCard.jsx
+- src/components/EchoCore/components/Hospitality/ReservationTimeline.jsx
+- src/components/EchoCore/components/Hospitality/index.js
+- src/components/EchoCore/components/EchoCore/ExhoShell.jsx
+- src/components/EchoCore/components/EchoCore/index.js
+- src/components/EchoCore/components/emotionalAI/index.js
+- src/components/EchoCore/components/financial/DashboardKPIs.jsx
+- src/components/EchoCore/components/financial/KPIBarChart.jsx
+- src/components/EchoCore/components/financial/RevenueSummaryCard.jsx
+- src/components/EchoCore/components/financial/index.js
+- src/components/EchoCore/components/theme/DashboardThemeContext.jsx
+- src/components/EchoCore/components/theme/GradientSelector.jsx
+- src/components/EchoCore/components/theme/index.js
+- src/components/EchoCore/components/interaction/DashboardTransitionWrapper.jsx
+- src/components/EchoCore/components/interaction/DraggableModuleContainer.jsx
+- src/components/EchoCore/components/interaction/EchoAnimator.jsx
+- src/components/EchoCore/components/interaction/EchoAnimatorEnhanced.jsx
+- src/components/EchoCore/components/interaction/EchoAssistant.jsx
+- src/components/EchoCore/components/interaction/EchoCommandPanel.jsx
+- src/components/EchoCore/components/interaction/EchoNotepad.jsx
+- src/components/EchoCore/components/interaction/EchoResponseBlock.jsx
+- src/components/EchoCore/components/interaction/EchoSpeechOutput.jsx
+- src/components/EchoCore/components/interaction/EchoTranscriptLog.jsx
+- src/components/EchoCore/components/interaction/EchoVoiceInput.jsx
+- src/components/EchoCore/components/interaction/EchoWhisper.jsx
+- src/components/EchoCore/components/interaction/EchoWhiteboard.jsx
+- src/components/EchoCore/components/interaction/InteractionIndex.js
+- src/components/EchoCore/components/interaction/InteractionVoiceIndex.js
+- src/components/EchoCore/components/interaction/PiPVideoTile.jsx
+- src/components/EchoCore/components/interaction/QuickActionPanel.jsx
+- src/components/EchoCore/components/interaction/UIActionButton.jsx
+- src/components/EchoCore/components/interaction/index.js
+- src/components/EchoCore/components/interaction/useKeyPress.js
+- src/modules/CustomCakeStudio/engine/adjust/adjustAsync.ts
+- src/modules/CustomCakeStudio/engine/adjust/adjustCanvas.ts
+- src/modules/CustomCakeStudio/engine/commands/Command.ts
+- src/modules/CustomCakeStudio/engine/commands/History.ts
+- src/modules/CustomCakeStudio/engine/assets/FontImporter.ts
+- src/modules/CustomCakeStudio/engine/assets/ImageImporter.ts
+- src/modules/CustomCakeStudio/engine/help/articles.ts
+- src/modules/CustomCakeStudio/engine/composite/getRenderSurface.ts
+- src/modules/CustomCakeStudio/engine/checkpoints/Checkpoints.ts
+- src/modules/CustomCakeStudio/engine/imagegen/ImageGenClient.ts
+- src/modules/CustomCakeStudio/engine/imagegen/presetCompat.ts
+- src/modules/CustomCakeStudio/engine/imagegen/presets.ts
+- src/modules/CustomCakeStudio/engine/imagegen/types.ts
+- src/modules/CustomCakeStudio/engine/imagegen/useImageGen.ts
+- src/modules/CustomCakeStudio/engine/mask/LayerMask.ts
+- src/modules/CustomCakeStudio/engine/grid/compute.ts
+- src/modules/CustomCakeStudio/engine/grid/index.ts
+- src/modules/CustomCakeStudio/engine/grid/presets.ts
+- src/modules/CustomCakeStudio/engine/grid/snap.ts
+- src/modules/CustomCakeStudio/engine/grid/types.ts
+- src/modules/CustomCakeStudio/engine/pipeline/Renderer.ts
+- src/modules/CustomCakeStudio/engine/raster/RasterSurface.ts
+- src/modules/CustomCakeStudio/engine/raster/floodFill.ts
+- src/modules/CustomCakeStudio/engine/print/ExportManager.ts
+- src/modules/CustomCakeStudio/engine/print/ExportPDF.ts
+- src/modules/CustomCakeStudio/engine/print/ExportPDFMulti.ts
+- src/modules/CustomCakeStudio/engine/print/presets.ts
+- src/modules/CustomCakeStudio/engine/print/softproof.ts
+- src/modules/CustomCakeStudio/engine/print/units.ts
+- src/modules/CustomCakeStudio/engine/selection/MagicWand.ts
+- src/modules/CustomCakeStudio/engine/selection/MaskUtils.ts
+- src/modules/CustomCakeStudio/engine/selection/SelectionManager.ts
+- src/modules/CustomCakeStudio/engine/selection/clip.ts
+- src/modules/CustomCakeStudio/engine/selection/maskFromSelection.ts
+- src/modules/CustomCakeStudio/engine/selection/refine.ts
+- src/modules/CustomCakeStudio/engine/selection/refineClient.ts
+- src/modules/CustomCakeStudio/engine/store/shapeOps.ts
+- src/modules/CustomCakeStudio/engine/store/textOps.ts
+- src/modules/CustomCakeStudio/engine/store/useGridStore.ts
+- src/modules/CustomCakeStudio/engine/store/useHelpStore.ts
+- src/modules/CustomCakeStudio/engine/store/useHistoryMarks.ts
+- src/modules/CustomCakeStudio/engine/store/useRetouchStore.ts
+- src/modules/CustomCakeStudio/engine/store/useShapeStore.ts
+- src/modules/CustomCakeStudio/engine/store/useStudioStore.ts
+- src/modules/CustomCakeStudio/engine/store/useTextEditStore.ts
+- src/modules/CustomCakeStudio/engine/persist/autosave.ts
+- src/modules/CustomCakeStudio/engine/persist/data.ts
+- src/modules/CustomCakeStudio/engine/persist/deserialize.ts
+- src/modules/CustomCakeStudio/engine/persist/download.ts
+- src/modules/CustomCakeStudio/engine/persist/index.ts
+- src/modules/CustomCakeStudio/engine/persist/serialize.ts
+- src/modules/CustomCakeStudio/engine/persist/types.ts
+- src/modules/CustomCakeStudio/engine/tools/BrushTool.ts
+- src/modules/CustomCakeStudio/engine/tools/CloneStampTool.ts
+- src/modules/CustomCakeStudio/engine/tools/CropTool.ts
+- src/modules/CustomCakeStudio/engine/tools/EraserTool.ts
+- src/modules/CustomCakeStudio/engine/tools/EyedropperTool.ts
+- src/modules/CustomCakeStudio/engine/tools/GradientTool.ts
+- src/modules/CustomCakeStudio/engine/tools/HandTool.ts
+- src/modules/CustomCakeStudio/engine/tools/LassoTool.ts
+- src/modules/CustomCakeStudio/engine/tools/MagicWandTool.ts
+- src/modules/CustomCakeStudio/engine/tools/MarqueeTool.ts
+- src/modules/CustomCakeStudio/engine/tools/MaskBrushTool.ts
+- src/modules/CustomCakeStudio/engine/tools/MoveTool.ts
+- src/modules/CustomCakeStudio/engine/tools/PaintBucketTool.ts
+- src/modules/CustomCakeStudio/engine/tools/PatchTool.ts
+- src/modules/CustomCakeStudio/engine/tools/PenTool.ts
+- src/modules/CustomCakeStudio/engine/tools/QuickSelectTool.ts
+- src/modules/CustomCakeStudio/engine/tools/ShapeTool.ts
+- src/modules/CustomCakeStudio/engine/tools/SpotHealingTool.ts
+- src/modules/CustomCakeStudio/engine/tools/TextTool.ts
+- src/modules/CustomCakeStudio/engine/tools/Tool.ts
+- src/modules/CustomCakeStudio/engine/tools/ZoomTool.ts
+- src/modules/CustomCakeStudio/engine/tools/index.ts
+- src/modules/CustomCakeStudio/engine/shapes/types.ts
+- src/modules/CustomCakeStudio/engine/text/FontManager.ts
+- src/modules/CustomCakeStudio/engine/text/fonts.ts
+- src/modules/CustomCakeStudio/engine/text/index.ts
+- src/modules/CustomCakeStudio/engine/text/types.ts
+- src/modules/pastry/cake/Utils/CanvasExportEngine.js
+- src/modules/pastry/cake/Utils/CrumCoatHandler.js
+- src/modules/pastry/cake/Utils/EdibleExportUtils.js
+- src/modules/pastry/cake/Utils/ProductionCalendarIntegrator.js
+- src/modules/pastry/cake/Utils/SupportMapEngine.js
+- src/modules/pastry/cake/Utils/TimeEstimator.js
+- src/modules/pastry/cake/Utils/estimateLabor.js
+- src/modules/pastry/cake/Utils/scaleBatterEstimator.js
+- src/modules/CustomCakeStudio/engine/retouch/gaussian.ts
+- src/modules/CustomCakeStudio/engine/retouch/spotHeal.ts
+- src/modules/CustomCakeStudio/engine/transform/index.ts
+- src/modules/pastry/cake/componets/AllergenOverlay.jsx
+- src/modules/pastry/cake/componets/Cake360Viewer.jsx
+- src/modules/pastry/cake/componets/CakeCreatorChargePanel.jsx
+- src/modules/pastry/cake/componets/CakeCuttingDiagramGenerator.jsx
+- src/modules/pastry/cake/componets/CakeKnifeAddOnPanel.jsx
+- src/modules/pastry/cake/componets/CakeStandManager.jsx
+- src/modules/pastry/cake/componets/CakeSupportOverlay.jsx
+- src/modules/pastry/cake/componets/CakeViewerToggle.jsx
+- src/modules/pastry/cake/componets/CupcakeLayoutEstimator.jsx
+- src/modules/pastry/cake/componets/CupcakeLinerSelector.jsx
+- src/modules/pastry/cake/componets/CupcakeTowerBuilder.jsx
+- src/modules/pastry/cake/componets/DecorationPalette.jsx
+- src/modules/pastry/cake/componets/FlowerSelectorPanel.jsx
+- src/modules/pastry/cake/componets/FreestyleCakeBuilder.jsx
+- src/modules/pastry/cake/componets/LayerBlock.jsx
+- src/modules/pastry/cake/componets/SavedCakeArchivePanel.jsx
+- src/modules/pastry/cake/componets/WhatHappenedDiagnosticPanel.jsx
+- src/modules/pastry/cake/componets/WireframeLoader.jsx
+- src/modules/pastry/cake/componets/WorkOrderBuilder.jsx
+- src/modules/pastry/cake/componets/WraparoundDecorationTool.jsx
+- src/modules/pastry/recipes/components/RecipeImportPanel.jsx
+- src/modules/pastry/cake/data/cakeTypes.js
+- src/modules/pastry/cake/data/cupcakeLinerLibrary.js
+- src/modules/pastry/cake/data/decorationTypes.js
+- src/modules/pastry/cake/data/fillingOptions.js
+- src/modules/pastry/cake/data/flowerLibrary.js
+- src/modules/pastry/cake/data/standLibrary.js
+- src/modules/CustomCakeStudio/engine/workers/floodFillWorker.ts
+- src/modules/CustomCakeStudio/engine/workers/refineWorker.ts
+- src/modules/CustomCakeStudio/engine/workers/spotHealClient.ts
+- src/modules/CustomCakeStudio/engine/workers/spotHealWorker.ts
+- src/components/EchoCore/CulinaryLab_FullInstall/src/components/CulinaryLab/RecipeIndexPage.jsx
+- src/components/EchoCore/CulinaryLab_FullInstall/src/components/CulinaryLab/RecipeInputRND.jsx
+- src/components/EchoCore/CulinaryLab_FullInstall/src/components/LiquidWhiteBoard/LiquidWhiteBoardEngine.jsx
+- src/components/EchoCore/CulinaryLab_FullInstall/src/components/CulinaryLab/panels/BrainstormPanel.jsx
+- src/components/EchoCore/CulinaryLab_FullInstall/src/components/CulinaryLab/panels/EchoMusePanel.jsx
+- src/components/EchoCore/CulinaryLab_FullInstall/src/components/CulinaryLab/panels/ProjectedPreviewPanel.jsx
+- src/components/EchoCore/CulinaryLab_FullInstall/src/components/CulinaryLab/panels/RecipeFormPanel.jsx
+- src/components/EchoCore/CulinaryLab_FullInstall/src/components/CulinaryLab/panels/TextureLabModule.jsx
+- src/components/EchoCore/FluidRoot_FusedStack/src/components/EchoCore/panels/EchoControlPanel.jsx
+- src/modules/CustomCakeStudio/engine/imagegen/inpaint/InpaintClient.ts
+- src/modules/CustomCakeStudio/engine/imagegen/inpaint/api.ts
+- src/modules/CustomCakeStudio/engine/imagegen/inpaint/encode.ts
+- src/modules/CustomCakeStudio/engine/imagegen/inpaint/fallback.ts
+- src/modules/CustomCakeStudio/engine/imagegen/inpaint/index.ts
+- src/modules/CustomCakeStudio/engine/imagegen/inpaint/types.ts
+- src/modules/CustomCakeStudio/engine/imagegen/util/canvas.ts
+- src/modules/CustomCakeStudio/engine/imagegen/util/data.ts

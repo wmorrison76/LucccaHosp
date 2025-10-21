@@ -1,0 +1,20 @@
+import { useEffect } from "react";
+
+export function useResizeObserverErrorHandler() {
+  useEffect(() => {
+    const onError = (e: ErrorEvent) => {
+      // Swallow noisy dev-only error from ResizeObserver loops
+      if (typeof e.message === "string" && e.message.includes("ResizeObserver loop")) {
+        e.preventDefault?.();
+      }
+    };
+    window.addEventListener("error", onError);
+    return () => window.removeEventListener("error", onError);
+  }, []);
+}
+
+// Optional default wrapper if you ever import the component itself
+export default function ResizeObserverErrorBoundary({ children }: { children: React.ReactNode }) {
+  useResizeObserverErrorHandler();
+  return <>{children}</>;
+}

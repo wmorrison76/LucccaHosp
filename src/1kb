@@ -1,0 +1,24 @@
+const fs = require("fs");
+const path = require("path");
+
+const ROOT_DIR = "/Users/yourname/Desktop/LUCCCA"; // Adjust path
+const SIZE_THRESHOLD_BYTES = 1024; // 1 KB
+
+function scanDir(dir) {
+  fs.readdirSync(dir).forEach(file => {
+    const fullPath = path.join(dir, file);
+    const stat = fs.statSync(fullPath);
+
+    if (stat.isDirectory()) {
+      scanDir(fullPath);
+    } else {
+      if (stat.size === 0) {
+        console.log(`EMPTY FILE: ${fullPath}`);
+      } else if (stat.size < SIZE_THRESHOLD_BYTES) {
+        console.log(`SMALL FILE (${stat.size} bytes): ${fullPath}`);
+      }
+    }
+  });
+}
+
+scanDir(ROOT_DIR);

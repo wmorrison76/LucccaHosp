@@ -1,0 +1,6 @@
+.pro-toolbar .row{ display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.pro-toolbar .row + .row{ margin-top:6px; }
+.pro-toolbar .ptool.small{ width:28px; height:28px; font-size:12px; border-radius:8px; }
+.stampbar{ display:flex; gap:6px; align-items:center; }
+.stampbar .stamp{ width:34px; height:34px; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:20px; }
+.stampbar .stamp:hover{ background: rgba(255,255,255,0.12); }

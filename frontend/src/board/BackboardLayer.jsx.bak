@@ -1,0 +1,108 @@
+import React, { useEffect, useState } from "react";
+import * as RND_NS from "react-rnd";
+const Rnd = RND_NS.Rnd ?? RND_NS.default ?? RND_NS;
+
+const genToken = () => Math.random().toString(36).slice(2) + "-" + Date.now().toString(36);
+
+/**
+ * EchoBackboard
+ * - Lives BEHIND your panel windows
+ * - Movable stickies with alarm
+ * - On alarm: opens Welcome ("home") and opens Echo with the note
+ *
+ * Global events:
+ *   window.dispatchEvent(new CustomEvent("echo-backboard-add", { detail: { x, y } }))
+ */
+export default function EchoBackboard() {
+  const LSK = "lu:backboard:notes";
+  const [notes, setNotes] = useState(() => {
+    try { return JSON.parse(localStorage.getItem(LSK) || "[]"); } catch { return []; }
+  });
+  useEffect(() => { localStorage.setItem(LSK, JSON.stringify(notes)); }, [notes]);
+
+  // add-note event
+  useEffect(() => {
+    const handler = (e) => {
+      const x = e.detail?.x ?? 140;
+      const y = e.detail?.y ?? 140;
+      setNotes(arr => arr.concat([{
+        id: genToken(), x, y, w: 220, h: 160,
+        text: "", alarmAt: null, createdAt: Date.now(),
+      }]));
+    };
+    window.addEventListener("echo-backboard-add", handler);
+    return () => window.removeEventListener("echo-backboard-add", handler);
+  }, []);
+
+  // alarm loop
+  useEffect(() => {
+    const t = setInterval(() => {
+      const due = notes.find(n => n.alarmAt && Date.now() >= n.alarmAt && !n._fired);
+      if (!due) return;
+
+      // mark fired
+      setNotes(arr => arr.map(n => n.id === due.id ? { ...n, _fired: true } : n));
+
+      // 1) open Welcome/Home panel
+      window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "home" } }));
+
+      // 2) subtle canvas nudge
+      const el = document.querySelector(".fluid-root");
+      if (el) el.animate(
+        [{ backgroundColor: "rgba(11,211,255,.18)" }, { backgroundColor: "transparent" }],
+        { duration: 1400, easing: "ease-out" }
+      );
+
+      // 3) open Echo + prefill with note
+      window.dispatchEvent(new CustomEvent("echo-draft", {
+        detail: { text: `Reminder: ${due.text || "(no text)"}` }
+      }));
+      window.dispatchEvent(new CustomEvent("echo-open"));
+    }, 1500);
+    return () => clearInterval(t);
+  }, [notes]);
+
+  const update = (id, patch) => setNotes(arr => arr.map(n => n.id === id ? { ...n, ...patch } : n));
+  const remove = (id) => setNotes(arr => arr.filter(n => n.id !== id));
+
+  return (
+    <div className="pointer-events-none absolute inset-0 z-[1]">
+      {notes.map((n) => (
+        <Rnd
+          key={n.id}
+          bounds={false}
+          position={{ x: n.x, y: n.y }}
+          size={{ width: n.w, height: n.h }}
+          onDragStop={(_, d) => update(n.id, { x: d.x, y: d.y })}
+          onResizeStop={(_, __, ref, _delta, pos) =>
+            update(n.id, { x: pos.x, y: pos.y, w: ref.offsetWidth, h: ref.offsetHeight })
+          }
+          className="shadow-xl rounded-lg"
+          style={{ display:"block" }}
+        >
+          <div className="pointer-events-auto h-full w-full rounded-lg border"
+               style={{ background:"rgba(10,16,28,.88)", borderColor:"rgba(22,224,255,.35)", boxShadow:"0 0 12px rgba(22,224,255,.25) inset" }}>
+            <div className="flex items-center justify-between px-2 py-1 border-b border-cyan-400/30 text-xs text-cyan-200">
+              <span className="opacity-80">Backboard Note</span>
+              <div className="flex items-center gap-1">
+                <input
+                  type="datetime-local"
+                  className="bg-transparent border border-cyan-400/30 rounded px-1 py-[1px] outline-none"
+                  value={n.alarmAt ? new Date(n.alarmAt).toISOString().slice(0,16) : ""}
+                  onChange={e=>update(n.id,{ alarmAt: e.target.value ? new Date(e.target.value).getTime() : null, _fired:false })}
+                />
+                <button className="px-1 rounded border border-cyan-400/40 hover:bg-cyan-400/10" onClick={()=>remove(n.id)}>✕</button>
+              </div>
+            </div>
+            <textarea
+              className="w-full h-[calc(100%-28px)] p-2 bg-transparent text-cyan-100 outline-none resize-none"
+              placeholder="Type a quick reminder…"
+              value={n.text}
+              onChange={e=>update(n.id,{ text:e.target.value })}
+            />
+          </div>
+        </Rnd>
+      ))}
+    </div>
+  );
+}

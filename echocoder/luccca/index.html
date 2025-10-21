@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="nightfall">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LUCCCA</title>
+
+    <!-- CSP toggle for dev vs production -->
+    <script>
+      const isLocal =
+        location.hostname === "localhost" || location.hostname === "127.0.0.1";
+      const meta = document.createElement("meta");
+      meta.httpEquiv = "Content-Security-Policy";
+
+      if (isLocal) {
+        // Relaxed CSP for dev
+        meta.content =
+          "default-src * 'unsafe-inline' 'unsafe-eval' blob: data:; " +
+          "script-src * 'unsafe-inline' 'unsafe-eval' blob: data:; " +
+          "style-src * 'unsafe-inline' blob: data:; " +
+          "img-src * data: blob:; " +
+          "font-src * data:; " +
+          "connect-src *;";
+        console.log("🔓 Localhost CSP relaxed for development");
+      } else {
+        // Strict CSP for production
+        meta.content =
+          "default-src 'self'; " +
+          "script-src 'self'; " +
+          "style-src 'self'; " +
+          "img-src 'self' data:; " +
+          "font-src 'self' data:; " +
+          "connect-src 'self'; " +
+          "object-src 'none'; " +
+          "base-uri 'self'; " +
+          "frame-ancestors 'none';";
+        console.log("🔐 Production CSP active");
+      }
+
+      document.head.appendChild(meta);
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

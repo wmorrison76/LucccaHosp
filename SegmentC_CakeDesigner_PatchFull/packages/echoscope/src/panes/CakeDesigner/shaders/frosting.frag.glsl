@@ -1,0 +1,1 @@
+// Frosting fragment shader\nprecision highp float;\nvarying vec2 vUv;\nuniform vec3 uColor;\nuniform float uSheen;\nvoid main() {\n  float grain = fract(sin(dot(vUv.xy ,vec2(12.9898,78.233))) * 43758.5453);\n  float sheen = pow(1.0 - abs(vUv.y - 0.5), 2.0) * uSheen;\n  gl_FragColor = vec4(uColor + sheen * 0.1 + grain * 0.02, 1.0);\n}\n

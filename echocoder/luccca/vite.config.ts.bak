@@ -1,0 +1,27 @@
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "node:path";
+
+const r = (p: string) => path.resolve(__dirname, p);
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: [
+      // your normal app aliases
+      { find: "@", replacement: r("src") },
+      { find: "@shared", replacement: r("src/shared") },
+
+      // 🔒 Dev-only shims to keep Cake Builder out of the graph
+      { find: /(^|\/)src\/components\/CakeBuilder(\.jsx|\.tsx)?$/,         replacement: r("src/shims/noop.jsx") },
+      { find: /(^|\/)src\/components\/CakeCanvas(\.jsx|\.tsx)?$/,          replacement: r("src/shims/noop.jsx") },
+      { find: /(^|\/)src\/components\/CakeDesignSummary(\.jsx|\.tsx)?$/,   replacement: r("src/shims/noop.jsx") },
+      { find: /(^|\/)src\/components\/CakeFormSection(\.jsx|\.tsx)?$/,     replacement: r("src/shims/noop.jsx") },
+      { find: /(^|\/)src\/components\/CakeSupportDisplay(\.jsx|\.tsx)?$/,  replacement: r("src/shims/noop.jsx") },
+    ],
+  },
+  // keep the heavy canvas stack out of pre-bundling while stabilizing
+  optimizeDeps: { exclude: ["react-konva", "konva"] },
+  // Optional while iterating:
+  // server: { hmr: { overlay: false } },
+});

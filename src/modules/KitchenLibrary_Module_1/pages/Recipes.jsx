@@ -1,0 +1,1 @@
+export default function Recipes() { return <div>🍰 Pastry Recipes Tab</div>; }

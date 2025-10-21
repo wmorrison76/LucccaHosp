@@ -1,0 +1,1 @@
+This is a placeholder for README_Market.txt in 4_Market_Intelligence_Package.

@@ -1,0 +1,48 @@
+:root {
+  --orb-glow: 0 0 64px rgba(80,180,255,0.25), 0 0 128px rgba(90,120,255,0.18);
+}
+.echo-orb-wrap {
+  position: relative;
+  display: inline-block;
+  border-radius: 9999px;
+  isolation: isolate;
+}
+.echo-orb-glow {
+  position: absolute;
+  inset: -6%;
+  border-radius: 9999px;
+  filter: blur(22px);
+  pointer-events: none;
+  box-shadow: var(--orb-glow);
+}
+/* Keep existing styles; ensure these overrides are present */
+.echo-orb-wrap { border-radius: 9999px; isolation: isolate; }
+.echo-orb-canvas { display: block; width: 100%; height: 100%; border-radius: 9999px; background: transparent !important; }
+
+/* For the compact overlay, hide the outer glow ring so it doesn't look like a white disk */
+.orb-portaled .echo-orb-glow { display: none !important; }
+
+.echo-orb-canvas {
+  display: block;
+  border-radius: 9999px;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(120% 120% at 30% 30%, #0a1020 0%, #091120 45%, #07101b 100%);
+}
+/* Theme-aware canvas background (light vs dark) */
+html.dark .echo-orb-canvas {
+  background: radial-gradient(120% 120% at 30% 30%, #0a1020 0%, #091120 45%, #07101b 100%);
+}
+html:not(.dark) .echo-orb-canvas {
+  background: radial-gradient(120% 120% at 30% 30%, #f5f8ff 0%, #eef3fb 45%, #e9eff9 100%);
+}
+/* Keep whatever you already have; add/ensure these: */
+.echo-orb-wrap { border-radius: 9999px; isolation: isolate; }
+.echo-orb-glow { position: absolute; inset: -6%; border-radius: 9999px; filter: blur(22px); pointer-events: none; }
+.echo-orb-canvas { display: block; width: 100%; height: 100%; border-radius: 9999px; }
+
+/* Make disk transparent so the smaller orb shows through when they overlap */
+.echo-orb-canvas { background: transparent; }
+
+.echo-orb-canvas { background: transparent !important; border-radius: 9999px; width: 100%; height: 100%; display: block; }
+.orb-portaled .echo-orb-glow { display: none !important; } /* hides outer glow ring for compact overlays */

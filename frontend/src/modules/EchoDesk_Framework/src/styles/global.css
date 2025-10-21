@@ -1,0 +1,11 @@
+@import "./_whiteboard_pro.css";
+@import './_overlays.css';
+@import './_messenger.css';
+@import './_export.css';
+@import './_presenter.css';
+@import './_snapshots.css';
+@import './_rbac.css';
+.center-abs { position:absolute; left:50%; top:50%; transform: translate(-50%, -50%); }
+.shadow-soft { box-shadow: 0 12px 36px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,255,255,0.08); }
+.glow { box-shadow: 0 0 40px rgba(0,255,255,0.15); }
+

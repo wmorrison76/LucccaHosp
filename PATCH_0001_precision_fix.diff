@@ -1,0 +1,176 @@
+
+*** Begin Patch
+*** Update File: packages/echocore/src/scheduling/ScheduleParser.ts
+@@
+-export function parseSchedule(input: string | object): any {
+-    // TODO: Implement parsing logic for CSV or JSON formats
+-    return { employees: [], shifts: [] };
+-}
++import { z } from "zod";
++
++/**
++ * Patch 0001: Strict types + zod validation for schedule parsing.
++ */
++export const EmployeeSchema = z.object({
++  id: z.string().min(1),
++  name: z.string().min(1),
++  role: z.string().min(1),
++});
++
++export const ShiftSchema = z.object({
++  id: z.string().min(1),
++  employeeId: z.string().min(1),
++  start: z.string().datetime(),
++  end: z.string().datetime(),
++  location: z.string().optional(),
++});
++
++export const ScheduleSchema = z.object({
++  employees: z.array(EmployeeSchema),
++  shifts: z.array(ShiftSchema),
++});
++
++export type Employee = z.infer<typeof EmployeeSchema>;
++export type Shift = z.infer<typeof ShiftSchema>;
++export type Schedule = z.infer<typeof ScheduleSchema>;
++
++export function parseSchedule(input: unknown): Schedule {
++  if (typeof input === "string") {
++    try {
++      const json = JSON.parse(input);
++      return ScheduleSchema.parse(json);
++    } catch (e) {
++      throw new Error("ScheduleParser: invalid string payload");
++    }
++  }
++  return ScheduleSchema.parse(input);
++}
+*** End Patch
+
+*** Begin Patch
+*** Update File: packages/echocore/src/scheduling/OvertimeCalculator.ts
+@@
+-export function calculateOvertime(shifts: any[]): any[] {
+-    // TODO: Calculate total hours per employee and trigger alerts
+-    return [];
+-}
++import { Shift } from "./ScheduleParser";
++
++export interface OvertimeAlert {
++  employeeId: string;
++  totalHours: number;
++  threshold: number;
++}
++
++export function calculateOvertime(
++  shifts: Shift[],
++  thresholdHours: number = 32
++): OvertimeAlert[] {
++  const hoursByEmployee: Record<string, number> = {};
++
++  for (const s of shifts) {
++    const start = new Date(s.start).getTime();
++    const end = new Date(s.end).getTime();
++    const hours = (end - start) / 36e5;
++    hoursByEmployee[s.employeeId] = (hoursByEmployee[s.employeeId] ?? 0) + hours;
++  }
++
++  const alerts: OvertimeAlert[] = [];
++  for (const [employeeId, totalHours] of Object.entries(hoursByEmployee)) {
++    if (totalHours >= thresholdHours) {
++      alerts.push({ employeeId, totalHours, threshold: thresholdHours });
++    }
++  }
++  return alerts;
++}
+*** End Patch
+
+*** Begin Patch
+*** Update File: packages/echocore/src/scheduling/ShiftSwapRecommender.ts
+@@
+-export function recommendShiftSwap(shifts: any[], skills: any[]): any {
+-    // TODO: Implement AI/logic for recommending swaps
+-    return null;
+-}
++import { Shift } from "./ScheduleParser";
++
++export interface SkillProfile {
++  employeeId: string;
++  skills: string[];
++}
++
++export interface SwapRecommendation {
++  fromShiftId: string;
++  toShiftId: string;
++  candidateEmployeeId: string;
++  score: number; // [0..1]
++}
++
++/**
++ * Extremely naive recommender (placeholder):
++ * - Match on role/skill tags if available
++ * - Avoid employees already at/over threshold
++ */
++export function recommendShiftSwap(
++  shifts: Shift[],
++  skills: SkillProfile[],
++  overtimeEmployeeIds: Set<string> = new Set()
++): SwapRecommendation[] {
++  const recs: SwapRecommendation[] = [];
++  const byEmp: Record<string, SkillProfile> = {};
++  for (const s of skills) byEmp[s.employeeId] = s;
++
++  for (let i = 0; i < shifts.length; i++) {
++    const a = shifts[i];
++    for (let j = i + 1; j < shifts.length; j++) {
++      const b = shifts[j];
++      if (a.employeeId === b.employeeId) continue;
++      if (overtimeEmployeeIds.has(a.employeeId)) {
++        const sp = byEmp[b.employeeId];
++        if (!sp) continue;
++        const score = 0.5; // placeholder
++        recs.push({
++          fromShiftId: a.id,
++          toShiftId: b.id,
++          candidateEmployeeId: b.employeeId,
++          score,
++        });
++      }
++    }
++  }
++  return recs.sort((x, y) => y.score - x.score);
++}
+*** End Patch
+
+*** Begin Patch
+*** Update File: packages/echoscope/src/hooks/usePerfMode.ts
+@@
+-export function detectPerformanceMode(): 'light' | 'heavy' {
+-    // TODO: Implement detection (FPS, device memory)
+-    return 'heavy';
+-}
++/**
++ * Patch 0001: FPS sampling + device memory heuristic.
++ * This is intentionally simple; future work: WebVitals integration.
++ */
++export async function detectPerformanceMode(sampleMs: number = 1000): Promise<'light' | 'heavy'> {
++  const deviceMemory = (navigator as any).deviceMemory ?? 4;
++  const lowMem = deviceMemory <= 2;
++  let frames = 0;
++
++  return await new Promise(resolve => {
++    const start = performance.now();
++    const loop = () => {
++      frames++;
++      if (performance.now() - start < sampleMs) {
++        requestAnimationFrame(loop);
++      } else {
++        const fps = (frames * 1000) / sampleMs;
++        if (fps < 40 || lowMem) resolve('light');
++        else resolve('heavy');
++      }
++    };
++    requestAnimationFrame(loop);
++  });
++}
+*** End Patch

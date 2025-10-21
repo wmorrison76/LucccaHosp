@@ -1,0 +1,52 @@
+:root{
+  --font-xs:11px; --font-sm:13px; --font-md:15px; --font-lg:18px; --font-xl:24px;
+  --radius-panel:16px; --radius-tab:10px;
+  --shadow-panel:0 22px 80px rgba(0,0,0,.45), 0 0 22px rgba(22,224,255,.12);
+  --ring-panel:0 0 0 1px rgba(255,255,255,.06);
+  --accent:#16E0FF;
+  --bg-panel:rgba(18,22,30,.90); --bg-panel-subtle:rgba(255,255,255,.06);
+  --text-strong:#EAF7FB; --text-muted:#A8C1CB;
+  --tab-height:36px; --tab-bg:transparent; --tab-bg-active:rgba(255,255,255,.10);
+  --tab-border:1px solid rgba(255,255,255,.16);
+}
+@media (prefers-color-scheme: light){
+  :root[data-mode="auto"]{
+    --bg-panel:rgba(246,248,250,.88); --bg-panel-subtle:rgba(0,0,0,.06);
+    --text-strong:#0b2230; --text-muted:#3a5564;
+    --ring-panel:0 0 0 1px rgba(0,0,0,.06);
+    --tab-bg-active:rgba(0,0,0,.06); --tab-border:1px solid rgba(0,0,0,.10);
+  }
+}
+:root[data-mode="dark"]{ --bg-panel:rgba(18,22,30,.90); --bg-panel-subtle:rgba(255,255,255,.06); --text-strong:#EAF7FB; --text-muted:#A8C1CB; }
+:root[data-mode="light"]{ --bg-panel:rgba(246,248,250,.88); --bg-panel-subtle:rgba(0,0,0,.06); --text-strong:#0b2230; --text-muted:#3a5564; --ring-panel:0 0 0 1px rgba(0,0,0,.06); --tab-bg-active:rgba(0,0,0,.06); --tab-border:1px solid rgba(0,0,0,.10); }
+.text-xs{font-size:var(--font-xs)} .text-sm{font-size:var(--font-sm)} .text-md{font-size:var(--font-md)} .text-lg{font-size:var(--font-lg)} .text-xl{font-size:var(--font-xl)}
+.dw-tabs{display:flex;gap:8px;align-items:center}
+.dw-tab{height:var(--tab-height);padding:0 12px;border-radius:var(--radius-tab);background:var(--tab-bg);border:var(--tab-border);color:var(--text-strong)}
+.dw-tab[aria-selected="true"]{background:var(--tab-bg-active);outline:1px solid var(--accent);outline-offset:0}
+.dw-panel{border-radius:var(--radius-panel);background:var(--bg-panel);box-shadow:var(--shadow-panel);border:1px solid rgba(255,255,255,.12)}
+
+
+/* Backboard background controls */
+:root{
+  --backboard-image: "";
+  --backboard-opacity: 0.20;   /* 0..1 */
+  --backboard-blur: 2px;
+  --backboard-fit: cover;      /* cover|contain */
+  --backboard-pos: center;     /* center|top|... */
+}
+
+/* A11y toggles */
+:root{
+  --a11y-contrast: normal;     /* normal|high */
+  --a11y-outline: 2px solid #00AEEF; /* focus ring */
+}
+
+/* High contrast surface tweak */
+:root[data-a11y-contrast="high"]{
+  --bg-panel: #0c0f14;
+  --bg-panel-subtle: #1b2330;
+  --text-strong: #ffffff;
+  --text-muted: #c7d3db;
+  --tab-border: 1px solid rgba(255,255,255,.4);
+  --tab-bg-active: rgba(255,255,255,.18);
+}

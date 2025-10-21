@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "msjsdiag.vscode-react-native",
+    "vscode-icons-team.vscode-icons",
+    "mhutchie.git-graph",
+    "ms-azuretools.vscode-docker"
+  ]
+}

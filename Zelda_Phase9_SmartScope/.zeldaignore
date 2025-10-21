@@ -1,0 +1,7 @@
+user_uploads/
+invoices/
+images/
+pdf_exports/
+pdf_menus/
+*.lock
+*.protected

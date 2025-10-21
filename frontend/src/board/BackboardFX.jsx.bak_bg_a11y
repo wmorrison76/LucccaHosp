@@ -1,0 +1,86 @@
+// src/board/BackboardFX.jsx
+import React, { useEffect, useRef } from "react";
+<button
+  className="etb-btn"
+  title="Create your own widget"
+  onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "studio" } }))}
+>
+  {/* any icon */}
+  +
+</button>
+
+/** Animated TRON-ish grid + soft particles. Lives at the very back. */
+export default function BackboardFX() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const c = canvasRef.current;
+    if (!c) return;
+    const ctx = c.getContext("2d", { alpha: true });
+    let raf = 0, t = 0;
+
+    const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    const resize = () => {
+      c.width = Math.floor(window.innerWidth * dpr);
+      c.height = Math.floor(window.innerHeight * dpr);
+      c.style.width = window.innerWidth + "px";
+      c.style.height = window.innerHeight + "px";
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const particles = Array.from({ length: 60 }, () => ({
+      x: Math.random(), y: Math.random(), s: 0.4 + Math.random()*1.4, v: 0.2 + Math.random()*0.6
+    }));
+
+    const loop = () => {
+      raf = requestAnimationFrame(loop);
+      t += 0.006;
+
+      const w = c.width, h = c.height;
+      ctx.clearRect(0,0,w,h);
+
+      // soft vignette + subtle vertical gradient
+      const grad = ctx.createLinearGradient(0,0,0,h);
+      grad.addColorStop(0,   "rgba(0,0,0,0.00)");
+      grad.addColorStop(0.7, "rgba(0,0,0,0.10)");
+      grad.addColorStop(1,   "rgba(0,0,0,0.20)");
+      ctx.fillStyle = grad; ctx.fillRect(0,0,w,h);
+
+      // neon grid lines
+      const cell = 96 * dpr;
+      ctx.strokeStyle = "rgba(22,224,255,0.10)";
+      ctx.lineWidth = 1 * dpr;
+
+      // parallax wiggle
+      const ox = Math.sin(t*2) * 8 * dpr;
+      const oy = Math.cos(t*1.6) * 6 * dpr;
+
+      for (let x=ox%cell; x<w; x+=cell) {
+        ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke();
+      }
+      for (let y=oy%cell; y<h; y+=cell) {
+        ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,h<y?h:y); ctx.stroke();
+      }
+
+      // particles
+      particles.forEach(p => {
+        p.y += p.v * 0.002; if (p.y > 1.1) p.y = -0.1;
+        const px = p.x * w, py = p.y * h;
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(22,224,255,.25)";
+        ctx.arc(px, py, p.s * 2.5 * dpr, 0, Math.PI*2);
+        ctx.fill();
+      });
+    };
+
+    raf = requestAnimationFrame(loop);
+    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
+  }, []);
+
+  return (
+    <div style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none" }}>
+      <canvas ref={canvasRef} />
+    </div>
+  );
+}

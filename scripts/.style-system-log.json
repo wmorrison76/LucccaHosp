@@ -1,0 +1,33 @@
+{
+  "when": "2025-09-18T21:15:12.260Z",
+  "changes": [
+    {
+      "file": "/Users/cami/Desktop/LUCCCA/frontend/src/lib/themeTokens.css",
+      "backup": "/Users/cami/Desktop/LUCCCA/scripts/.style-system-backups/frontend__src__lib__themeTokens.css__2025-09-18T21-15-12-239Z.bak"
+    },
+    {
+      "file": "/Users/cami/Desktop/LUCCCA/frontend/src/styles/utilities.css",
+      "backup": "/Users/cami/Desktop/LUCCCA/scripts/.style-system-backups/frontend__src__styles__utilities.css__2025-09-18T21-15-12-253Z.bak"
+    },
+    {
+      "file": "/Users/cami/Desktop/LUCCCA/frontend/src/lib/themeEngine.js",
+      "backup": "/Users/cami/Desktop/LUCCCA/scripts/.style-system-backups/frontend__src__lib__themeEngine.js__2025-09-18T21-15-12-254Z.bak"
+    },
+    {
+      "file": "/Users/cami/Desktop/LUCCCA/frontend/src/components/StyleControlPanel.jsx",
+      "backup": "/Users/cami/Desktop/LUCCCA/scripts/.style-system-backups/frontend__src__components__StyleControlPanel.jsx__2025-09-18T21-15-12-254Z.bak"
+    },
+    {
+      "file": "/Users/cami/Desktop/LUCCCA/frontend/src/components/AvatarPicker.jsx",
+      "backup": "/Users/cami/Desktop/LUCCCA/scripts/.style-system-backups/frontend__src__components__AvatarPicker.jsx__2025-09-18T21-15-12-255Z.bak"
+    },
+    {
+      "file": "/Users/cami/Desktop/LUCCCA/frontend/src/App.jsx",
+      "backup": "/Users/cami/Desktop/LUCCCA/scripts/.style-system-backups/frontend__src__App.jsx__2025-09-18T21-15-12-256Z.bak"
+    },
+    {
+      "file": "/Users/cami/Desktop/LUCCCA/frontend/src/components/WidgetSettingsPanel.jsx",
+      "backup": "/Users/cami/Desktop/LUCCCA/scripts/.style-system-backups/frontend__src__components__WidgetSettingsPanel.jsx__2025-09-18T21-15-12-259Z.bak"
+    }
+  ]
+}

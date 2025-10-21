@@ -1,0 +1,55 @@
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', sans-serif;
+  background: #1a1a1a;
+  color: white;
+  overflow-x: hidden;
+}
+#landing-container {
+  min-height: 100vh;
+  width: 100%;
+}
+.chalk-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #0e0e0e;
+  animation: fadeIn 3s ease-in;
+}
+.logo-sketch {
+  font-size: 5rem;
+  font-weight: bold;
+  color: white;
+  border-bottom: 2px solid white;
+  margin-bottom: 1rem;
+}
+.tagline {
+  font-size: 1.5rem;
+  color: #bbb;
+}
+.scroll-sections section {
+  padding: 100px 40px;
+  font-size: 2rem;
+  border-bottom: 1px dashed #333;
+}
+#echo-icon {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  font-size: 2rem;
+  cursor: pointer;
+  background: #292929;
+  padding: 10px 14px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00f0ff60;
+  transition: background 0.3s ease;
+}
+#echo-icon:hover {
+  background: #00f0ff;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

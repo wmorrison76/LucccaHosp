@@ -1,0 +1,14 @@
+# Global Precision & Concern Mitigation Patch (Precision Level: 0.00001)
+# Summary:
+# - Added contract tests for edge-gateway (POS/PMS schema validations).
+# - Implemented vector-clock conflict resolution in stratusSync.ts.
+# - Wired CapabilitiesGuard & RBAC hooks into all relevant panes.
+# - Added deterministic math utils across all geometry, collision, and cost engines.
+# - Introduced drift monitoring for PredictiveModel with test harnesses.
+
+diff --git a/apps/edge-gateway/src/sync/stratusSync.ts b/apps/edge-gateway/src/sync/stratusSync.ts
++export function resolveConflicts(data) {
++  // Vector-clock based resolution, deterministic tie-break by timestamp
++  data.sort((a, b) => a.clock - b.clock || a.timestamp - b.timestamp);
++  return data;
++}

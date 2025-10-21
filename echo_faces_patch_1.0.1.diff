@@ -1,0 +1,142 @@
+
+diff --git a/packages/echoscope/src/hooks/useVoiceSync.ts b/packages/echoscope/src/hooks/useVoiceSync.ts
+index 1111111..2222222 100644
+--- a/packages/echoscope/src/hooks/useVoiceSync.ts
++++ b/packages/echoscope/src/hooks/useVoiceSync.ts
+@@ -1,6 +1,13 @@
+-import { useEffect, useRef } from 'react';
++import { useEffect, useRef } from 'react';
+ import { useAvatarStore } from './useAvatarStore';
+
++/**
++ * Patch v1.0.1
++ * - SSR guards
++ * - EMA smoothing for amplitude → mouthOpen mapping
++ * - Precision gate: 1e-5
++ */
++
+ export const useVoiceSync = (enabled: boolean = true) => {
+   const { setMouthOpen, setIsTalking } = useAvatarStore();
+   const rafRef = useRef<number | null>(null);
+@@ -9,7 +16,21 @@ export const useVoiceSync = (enabled: boolean = true) => {
+   const sourceRef = useRef<MediaStreamAudioSourceNode | null>(null);
+   const dataRef = useRef<Uint8Array | null>(null);
++  const emaRef = useRef<number>(0);
++  const SMOOTHING = 0.85; // EMA smoothing factor
+
+   useEffect(() => {
+-    if (!enabled) return;
++    if (!enabled) return;
++    if (typeof window === 'undefined' || typeof navigator === 'undefined') {
++      // SSR or non-browser env
++      return;
++    }
++    const AudioCtx = (window.AudioContext || (window as any).webkitAudioContext);
++    if (!AudioCtx || !navigator.mediaDevices?.getUserMedia) {
++      console.warn('useVoiceSync: Web Audio API not available.');
++      return;
++    }
+@@ -39,9 +60,16 @@ export const useVoiceSync = (enabled: boolean = true) => {
+-          const rms = Math.sqrt(sum / dataRef.current.length);
+-          const mouth = Math.min(1, Math.max(0, rms * 8)); // scale factor
+-          setMouthOpen(mouth);
++          const rms = Math.sqrt(sum / dataRef.current.length);
++          // Normalization + EMA smoothing
++          const raw = Math.min(1, Math.max(0, rms * 8));
++          emaRef.current = SMOOTHING * emaRef.current + (1 - SMOOTHING) * raw;
++          const mouth = Math.min(1, Math.max(0, emaRef.current));
++
++          // Precision clamp to 1e-5
++          const fixed = Math.round(mouth * 100000) / 100000;
++          setMouthOpen(fixed);
+-          setIsTalking(mouth > 0.05);
++          setIsTalking(fixed > 0.05);
+           rafRef.current = requestAnimationFrame(loop);
+         };
+diff --git a/packages/echoscope/src/components/avatar/AvatarLoader3D.tsx b/packages/echoscope/src/components/avatar/AvatarLoader3D.tsx
+index 3333333..4444444 100644
+--- a/packages/echoscope/src/components/avatar/AvatarLoader3D.tsx
++++ b/packages/echoscope/src/components/avatar/AvatarLoader3D.tsx
+@@ -1,12 +1,33 @@
+-import React from 'react';
+-import { Canvas } from '@react-three/fiber';
+-import { OrbitControls, useGLTF } from '@react-three/drei';
++import React, { Suspense } from 'react';
++import { Canvas } from '@react-three/fiber';
++import { OrbitControls, useGLTF } from '@react-three/drei';
+ import { useAvatarStore } from '../../hooks/useAvatarStore';
+
++// Simple Error Boundary for 3D loading failures
++class ModelErrorBoundary extends React.Component<React.PropsWithChildren, {{ hasError: boolean }}> {{
++  state = {{ hasError: false }};
++  static getDerivedStateFromError() {{ return {{ hasError: true }}; }}
++  render() {{
++    if (this.state.hasError) return <div role="alert">Failed to load avatar model.</div>;
++    return this.props.children;
++  }}
++}}
++
+ const AvatarModel: React.FC<{{ modelPath: string }}> = ({{ modelPath }}) => {{
+   const {{ scene }} = useGLTF(modelPath);
+   return <primitive object={{scene}} scale={{1.2}} />;
+ }};
+
+ export const AvatarLoader3D: React.FC = () => {{
+   const {{ selected }} = useAvatarStore();
+   const modelPath = `/avatars/${{selected}}.glb`; // Placeholder
+
+-  return (
+-    <Canvas camera={{ position: [0, 1.5, 3], fov: 50 }}>
+-      <ambientLight intensity={{0.5}} />
+-      <directionalLight position={{[5, 5, 5]}} />
+-      <AvatarModel modelPath={{modelPath}} />
+-      <OrbitControls />
+-    </Canvas>
+-  );
++  return (
++    <ModelErrorBoundary>
++      <Canvas camera={{ position: [0, 1.5, 3], fov: 50 }}>
++        <ambientLight intensity={{0.5}} />
++        <directionalLight position={{[5, 5, 5]}} />
++        <Suspense fallback={{<span>Loading avatar…</span>}}>
++          <AvatarModel modelPath={{modelPath}} />
++        </Suspense>
++        <OrbitControls />
++      </Canvas>
++    </ModelErrorBoundary>
++  );
+ }};
+diff --git a/packages/echoscope/src/components/avatar/AvatarSelector.tsx b/packages/echoscope/src/components/avatar/AvatarSelector.tsx
+index 5555555..6666666 100644
+--- a/packages/echoscope/src/components/avatar/AvatarSelector.tsx
++++ b/packages/echoscope/src/components/avatar/AvatarSelector.tsx
+@@ -1,15 +1,23 @@
+-import React from 'react';
++import React, {{ useMemo }} from 'react';
+ import {{ Button }} from '@/components/ui/button';
+-import {{ useAvatarStore }} from '../../hooks/useAvatarStore';
++import {{ useAvatarStore, AvatarPersona }} from '../../hooks/useAvatarStore';
+@@
+-export const AvatarSelector: React.FC = () => {{
+-  const {{ selected, setSelected }} = useAvatarStore();
+-  const avatars = ['man', 'woman', 'binary'];
++export const AvatarSelector: React.FC = () => {{
++  const {{ selected, setSelected }} = useAvatarStore();
++  const avatars = useMemo<AvatarPersona[]>(() => ['man', 'woman', 'binary'], []);
+@@
+-      <div className="flex space-x-2">
++      <div className="flex space-x-2" role="group" aria-label="Avatar persona">
+         {{avatars.map((a) => (
+           <Button
+             key={{a}}
+             variant={{selected === a ? 'default' : 'outline'}}
+             onClick={{() => setSelected(a)}}
++            aria-pressed={{selected === a}}
++            aria-label={{`Select ${a} avatar`}}
+           >
+             {{a}}
+           </Button>
+         ))}}
+       </div>
+     </div>
+   );

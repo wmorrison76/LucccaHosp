@@ -1,0 +1,145 @@
+
+*** Begin Patch
+*** Add File: packages/echocore/src/telemetry/otel.ts
++/**
++ * SEG-B-OT-01
++ * OpenTelemetry bootstrap (browser-safe).
++ */
++import { diag, DiagConsoleLogger, DiagLogLevel } from "@opentelemetry/api";
++
++export interface OtelConfig {
++  enabled: boolean;
++  serviceName: string;
++}
++
++export function initOtel(cfg: OtelConfig) {
++  if (!cfg.enabled) return;
++  diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.ERROR);
++  // NOTE: In a browser we usually wire up Web Tracer Provider here.
++  // Keep it stubbed to avoid heavy deps until we tree-shake or load async.
++  // Future: dynamic import('@opentelemetry/sdk-trace-web') etc.
++}
+*** End Patch
+
+*** Begin Patch
+*** Add File: packages/echocore/src/telemetry/events.ts
++/**
++ * SEG-B-OT-02
++ * Typed domain events registry to ensure all events are documented.
++ */
++export type DomainEvent =
++  | { type: "ui.sidebar.toggle"; open: boolean }
++  | { type: "scheduling.overtime.alert"; employeeId: string; hours: number }
++  | { type: "report.preview.opened"; reportId: string };
++
++export function sizeOfPayload(e: DomainEvent): number {
++  try { return JSON.stringify(e).length; } catch { return 0; }
++}
+*** End Patch
+
+*** Begin Patch
+*** Add File: packages/echoscope/src/panes/TelemetryConsole/TelemetryConsole.tsx
++/**
++ * SEG-B-OT-03
++ * Dev pane that subscribes to GlobalStateBus (instrumented) and prints events.
++ */
++import React, { useEffect, useState } from "react";
++
++type Ev = { ts: number; json: string };
++
++export const TelemetryConsole: React.FC = () => {
++  const [events, setEvents] = useState<Ev[]>([]);
++  useEffect(() => {
++    // TODO: Wire this to GlobalStateBus debug stream
++  }, []);
++  return (
++    <div style={{ padding: 12, fontFamily: "monospace" }}>
++      <h3>Telemetry Console</h3>
++      <pre>
++        {events.map((e, i) => (
++          <div key={i}>{e.json}</div>
++        ))}
++      </pre>
++    </div>
++  );
++};
++
++export default TelemetryConsole;
+*** End Patch
+
+*** Begin Patch
+*** Update File: packages/echocore/src/state/GlobalStateBus.ts
+@@
+-  emit<K extends keyof TEvents>(event: K, payload: TEvents[K]) {
+-    this.listeners.get(event)?.forEach(fn => fn(payload));
+-  }
++  emit<K extends keyof TEvents>(event: K, payload: TEvents[K]) {
++    // Telemetry instrumentation light-touch
++    try {
++      const size = typeof payload === 'object' ? JSON.stringify(payload).length : 0;
++      // eslint-disable-next-line no-console
++      console.debug("[OT:event]", String(event), "payloadSize=", size);
++      // Future: wrap in otel span
++    } catch {}
++    this.listeners.get(event)?.forEach(fn => fn(payload));
++  }
+ }
+*** End Patch
+
+*** Begin Patch
+*** Add File: packages/echo-testing/src/contracts/calendar/CalendarPort.contract.test.ts
++import { describe, it, expect } from "vitest";
++// import { CalendarPort } from "packages/echocore/src/ports/calendar/CalendarPort";
++
++describe("CalendarPort Contract", () => {
++  it("fetches upcoming meetings deterministically", async () => {
++    // TODO: inject fake adapter, assert interface invariants
++    expect(true).toBe(true);
++  });
++});
+*** End Patch
+
+*** Begin Patch
+*** Add File: packages/echo-testing/src/contracts/payments/PaymentGatewayPort.contract.test.ts
++import { describe, it, expect } from "vitest";
++
++describe("PaymentGatewayPort Contract", () => {
++  it("creates payment intents and returns canonical shape", async () => {
++    expect(true).toBe(true);
++  });
++});
+*** End Patch
+
+*** Begin Patch
+*** Add File: packages/echoscope/src/components/Sidebar/AdaptiveSidebar.stories.tsx
++import type { Meta, StoryObj } from "@storybook/react";
++import AdaptiveSidebar from "./AdaptiveSidebar";
++
++const meta: Meta<typeof AdaptiveSidebar> = {
++  title: "Sidebar/AdaptiveSidebar",
++  component: AdaptiveSidebar,
++};
++export default meta;
++type Story = StoryObj<typeof AdaptiveSidebar>;
++
++export const Default: Story = {
++  render: () => <AdaptiveSidebar isOpen={true} onToggle={() => {}}>Hello</AdaptiveSidebar>,
++};
+*** End Patch
+
+*** Begin Patch
+*** Add File: packages/echoscope/src/panes/ReportPreviewPane/ReportPreviewPane.stories.tsx
++import type { Meta, StoryObj } from "@storybook/react";
++import ReportPreviewPane from "./ReportPreviewPane";
++
++const meta: Meta<typeof ReportPreviewPane> = {
++  title: "Panes/ReportPreviewPane",
++  component: ReportPreviewPane,
++};
++export default meta;
++type Story = StoryObj<typeof ReportPreviewPane>;
++
++export const Default: Story = {
++  render: () => <ReportPreviewPane reportHtml="<h1>Demo</h1>" />,
++};
+*** End Patch

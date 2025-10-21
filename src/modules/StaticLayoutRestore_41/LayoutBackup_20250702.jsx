@@ -1,0 +1,1 @@
+// LayoutBackup_20250702.jsx placeholder content for StaticLayoutRestore_41.zip

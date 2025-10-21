@@ -1,0 +1,117 @@
+:root{
+  --lu-sb-collapsed: 76px;
+  --lu-sb-expanded: 300px;
+  --lu-sb-icon-cell: 56px;
+  --lu-cyan: #16e0ff;
+  --lu-cyan-glow: rgba(22,224,255,.55);
+  --lu-dark: #0b1220;
+  --lu-glass: rgba(255,255,255,.62);
+  --lu-glass-dark: rgba(8,14,26,.78);
+}
+
+/* Fixed sidebar shell */
+.lu-sb{
+  position: fixed; inset: 0 auto 0 0; z-index: 1000;
+  display: grid; grid-template-rows: auto 1fr auto;
+  width: var(--lu-sb-expanded);
+  border-right: 1px solid rgba(22,224,255,.25);
+  backdrop-filter: blur(14px);
+  transition: width .25s ease;
+  overflow: hidden;
+}
+.lu-light{ background: var(--lu-glass); }
+.lu-dark { background: var(--lu-glass-dark); box-shadow: 0 0 18px var(--lu-cyan-glow); }
+
+.lu-collapsed{ width: var(--lu-sb-collapsed); }
+.lu-expanded { width: var(--lu-sb-expanded); }
+
+.lu-sb__header{ padding: 16px 12px 8px; }
+.lu-sb__title{ font: 800 20px/1.1 ui-sans-serif,system-ui,-apple-system,Inter,Manrope,sans-serif; color: var(--lu-cyan); text-shadow:0 0 8px rgba(22,224,255,.35);}
+.lu-sb__sub{ font-weight:600; font-size:13px; opacity:.75; }
+
+/* Nav */
+.lu-sb__list{
+  margin: 6px 0; padding: 0 0 8px; list-style:none;
+  max-height: calc(100vh - 190px);
+  overflow-y:auto; scrollbar-width:none;
+}
+.lu-sb__list::-webkit-scrollbar{ display:none; }
+
+.lu-sb__link{
+  display:grid; grid-template-columns: var(--lu-sb-icon-cell) 1fr;
+  align-items:center; gap:10px;
+  padding:10px 12px; margin:4px 8px; border-radius:12px;
+  text-decoration:none; color:inherit;
+  transition: background .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+.lu-sb__link:hover{ transform: translateY(-1px); }
+.lu-dark .lu-sb__link:hover{ box-shadow: 0 6px 18px rgba(0,0,0,.35), 0 0 0 1px rgba(22,224,255,.25); }
+.lu-light .lu-sb__link:hover{ background: rgba(0,0,0,.04); }
+
+.lu-sb__link.is-active{
+  background: rgba(22,224,255,.08);
+  color: var(--lu-cyan);
+  box-shadow: 0 0 0 1px rgba(22,224,255,.45), inset 0 0 40px rgba(22,224,255,.06);
+}
+
+.lu-sb__cell-icon{ width: var(--lu-sb-icon-cell); display:flex; justify-content:center; }
+.lu-sb__icon{ width:36px; height:36px; object-fit:contain; }
+
+.lu-sb__cell-label{ min-width:0; }
+.lu-sb__label{
+  font-weight:800; font-size:14px; letter-spacing:.35px; text-transform:uppercase;
+  white-space:nowrap; opacity:.92; transition: opacity .18s ease;
+}
+
+/* Collapse: keep the icon column, hide labels only */
+.lu-collapsed .lu-sb__cell-label{ width:0; overflow:hidden; }
+.lu-collapsed .lu-sb__label{ opacity:0; }
+
+.lu-sb__divider{ height:1px; margin:8px 10px;
+  background: linear-gradient(90deg,transparent,rgba(22,224,255,.3),transparent);
+}
+
+/* Bottom controls */
+.lu-sb__bottom{ display:flex; justify-content:center; padding:10px 0 14px; }
+.lu-sb__moon{
+  border:1px solid rgba(22,224,255,.45); background:transparent; color:var(--lu-cyan);
+  border-radius:999px; padding:8px; cursor:pointer;
+  transition: box-shadow .15s ease, transform .15s ease, opacity .2s ease;
+  opacity:0; /* fade in only when expanded */
+}
+.lu-expanded .lu-sb__moon{ opacity:1; }
+.lu-sb__moon:hover{ box-shadow: 0 0 12px var(--lu-cyan-glow), inset 0 0 12px rgba(22,224,255,.2); transform: translateY(-1px); }
+
+/* Brand rail (right edge, ~50% height) */
+.lu-sb__brand-rail{
+  position:absolute; right:6px; top:50%; transform:translateY(-50%);
+  height:50%; width:28px; pointer-events:none; opacity:.9;
+  filter: drop-shadow(0 0 8px rgba(22,224,255,.35));
+}
+.lu-sb__brand-rail img{ height:100%; width:100%; object-fit:contain; }
+.lu-dark .lu-sb__brand-rail{ mix-blend-mode:screen; opacity:.85; }
+
+/* Small floating toggle (higher layer) */
+.lu-sb__toggle{
+  position: fixed; top: 12px; left: var(--lu-sb-collapsed); transform: translateX(-50%);
+  z-index: 2000; height:28px; width:28px; display:grid; place-items:center;
+  border-radius:999px; border:1px solid rgba(22,224,255,.5);
+  background:#ffffff; color:#0e7490; box-shadow:0 4px 16px rgba(0,0,0,.2);
+}
+.lu-sb__toggle.is-open{ left: var(--lu-sb-expanded); background:#0a0f1f; color:var(--lu-cyan); }
+.lu-sb__toggle:hover{ box-shadow: 0 0 12px var(--lu-cyan-glow), 0 6px 18px rgba(0,0,0,.35); }
+
+/* Let main app respect sidebar width */
+body.lu-has-sidebar #root{ padding-left: var(--lu-sb-collapsed); transition: padding-left .25s ease; }
+body.lu-has-sidebar.lu-open #root{ padding-left: var(--lu-sb-expanded); }
+
+/* Simple TRON panel polish (optional) */
+.echo-panel{
+  background: rgba(10,16,28,.72);
+  border-radius: 14px;
+  border: 1px solid rgba(22,224,255,.35);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.05) inset, 0 10px 28px rgba(0,0,0,.35), 0 0 16px rgba(22,224,255,.28);
+  backdrop-filter: blur(12px); color:#e6faff;
+}
+.echo-panel .panel-title{ font-weight:800; color:#c9f7ff; padding:10px 14px; border-bottom:1px solid rgba(22,224,255,.18); }
+.echo-panel .panel-body{ padding:12px 14px; }

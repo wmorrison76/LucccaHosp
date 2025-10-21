@@ -1,0 +1,121 @@
+/* frontend/src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Tailwind design tokens (fine to keep) */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 215 20.2% 65.1%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 215 20.2% 65.1%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+  }
+
+  /* Keep this; it’s harmless */
+  * { @apply border-border; }
+
+  
+}
+
+/* Animations — keep only one copy */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes echo-breathe {
+    0%   { transform: scale(1);     filter: brightness(1); }
+    50%  { transform: scale(1.025); filter: brightness(1.12); }
+    100% { transform: scale(1);     filter: brightness(1); }
+  }
+  @keyframes echo-tilt {
+    0%   { transform: rotate(0deg); }
+    50%  { transform: rotate(1.2deg); }
+    100% { transform: rotate(0deg); }
+  }
+  @keyframes echo-spark {
+    0%   { opacity: 0.85; transform: translateY(0px) scale(1); }
+    50%  { opacity: 0.25; transform: translateY(-1px) scale(0.92); }
+    100% { opacity: 0.85; transform: translateY(0px) scale(1); }
+  }
+}
+
+/* Toolbar v2 (keep) */
+.tb2 .tb2-shell{
+  display:flex; align-items:center; gap:8px;
+  padding:6px 8px; border-radius:14px;
+  background: color-mix(in oklab, rgb(10 16 28 / 78%), rgb(16 22 34 / 78%));
+  border:1px solid rgba(168, 220, 255, .22);
+  box-shadow: 0 18px 60px rgba(0,0,0,.45), 0 0 18px rgba(22,224,255,.16), inset 0 0 1px rgba(255,255,255,.04);
+  backdrop-filter: blur(8px);
+}
+.tb2-handle{ height:28px; min-width:28px; display:grid; place-items:center; border-radius:10px; color:#cfefff; opacity:.8; border:1px solid rgba(22,224,255,.18); background: rgba(255,255,255,.04); }
+.tb2-group{ display:flex; gap:6px; }
+.tb2-btn{ height:28px; min-width:28px; padding:0 6px; display:grid; place-items:center; border-radius:10px; color:#eaf7ff; opacity:.92; border:1px solid rgba(22,224,255,.18); background: rgba(255,255,255,.03); transition: transform .08s ease, background .15s ease, opacity .15s ease, border-color .15s ease; }
+.tb2-btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); }
+.tb2-btn.is-on{ border-color: rgba(22,224,255,.36); box-shadow: 0 0 0 1px rgba(22,224,255,.18) inset; }
+.tb2-seg{ padding:2px; border-radius:12px; border:1px solid rgba(22,224,255,.18); background: rgba(255,255,255,.03); }
+.tb2-seg .tb2-btn{ border-radius:8px; border-color: transparent; }
+.tb2-seg .tb2-btn.seg-on{ background: rgba(22,224,255,.14); border-color: rgba(22,224,255,.36); }
+
+/* Whiteboard tweaks (keep) */
+.excalidraw, .whiteboard-root { --wb-scale: .90; --wb-offset-y: 6px; }
+.excalidraw .layer-ui__wrapper__top-right,
+.whiteboard-root .layer-ui__wrapper__top-right {
+  transform: translateY(var(--wb-offset-y)) scale(var(--wb-scale));
+  transform-origin: top right;
+}
+
+/* keep your echo-orb import */
+@import './echo-orb/styles/echo-orb.css';

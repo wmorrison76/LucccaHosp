@@ -1,0 +1,39 @@
+
+🔥 LUCCCA FluidRoot + Ant Colony Recovery Plan – Phase Sync Launch
+
+🧱 Step 1: Reconnect EchoShell & Broken Dashboard Imports
+- Fix path in Dashboard.jsx: `import EchoShell from "./EchoShell"` ➜ `import EchoShell from "./components/EchoCore/EchoShell"` or alias `@/components/EchoCore/EchoShell`
+- Ensure EchoShell.jsx is properly exported from `EchoCore/index.js`
+
+🌀 Step 2: FluidRoot Sidebar Lazy Loading Strategy
+- Use React.lazy + Suspense to dynamically load sidebar-linked modules:
+  Example:
+    const Dashboard = React.lazy(() => import('./Dashboard'));
+    <Suspense fallback={<Loader />}>
+      <Route path="/dashboard" element={<Dashboard />} />
+    </Suspense>
+
+🧠 Step 3: Ant Colony System Re-Sync
+- Reconfirm `ant_colony_map.json` loads and links to AdminPanel.jsx + EKGView.jsx
+- Trace Dashboard.jsx, EchoShell.jsx, and all patch files
+- Add Guardian role overlays and EKG color states (🟢/🟡/🔴)
+
+🔍 Step 4: Visual Module Trace System
+- On file click → highlight all related files with dependency lines
+- Implement `purpose:` comment scan to generate module relationship map
+- Add search tool to highlight Kitchen Library (or any module)
+- Enable export: single file, module tree, or full trace package
+
+📤 Step 5: Export System
+- Add export tool to AdminPanel for:
+  - Single file
+  - Module bundle (e.g., all files in KitchenLibrary)
+  - Entire ant_colony_map.json snapshot
+
+🛠️ Deliverables in .tar:
+- Fixed EchoShell.jsx
+- Updated Dashboard.jsx
+- Repaired index barrel if needed
+- Updated FluidRoot.jsx with lazy loading
+- AdminPanel.jsx and EKGView.jsx updated to match
+- .txt recovery strategy file (this one)

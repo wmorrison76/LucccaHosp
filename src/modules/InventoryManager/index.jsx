@@ -1,0 +1,1 @@
+// Placeholder for ServerNotes/index.jsx

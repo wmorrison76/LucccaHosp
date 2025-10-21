@@ -1,0 +1,2 @@
+// EnterpriseConfig.js
+export default {};

@@ -1,0 +1,9 @@
+const KEY="lu:design:theme:v2";
+const DEFAULTS={"--font-xs":"11px","--font-sm":"13px","--font-md":"15px","--font-lg":"18px","--font-xl":"24px","--accent":"#16E0FF",mode:"auto"};
+function setVar(k,v){document.documentElement.style.setProperty(k,v);}
+function applyVars(vars){Object.entries(vars).forEach(([k,v])=>k.startsWith("--")&&setVar(k,v));}
+function readVars(){try{return JSON.parse(localStorage.getItem(KEY)||"{}")}catch{return{}}}
+export function initTheme(){const saved=readVars();const merged={...DEFAULTS,...saved};document.documentElement.dataset.mode=merged.mode||"auto";applyVars(merged);return merged;}
+export function previewTheme(next){if(next.mode) document.documentElement.dataset.mode=next.mode;applyVars(next);}
+export function commitTheme(next){const merged={...readVars(),...next};localStorage.setItem(KEY,JSON.stringify(merged));previewTheme(merged);}
+export function resetTheme(){localStorage.removeItem(KEY);previewTheme(DEFAULTS);}

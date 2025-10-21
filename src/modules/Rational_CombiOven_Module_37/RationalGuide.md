@@ -1,0 +1,1 @@
+// RationalGuide.md placeholder content for Rational_CombiOven_Module_37.zip

@@ -1,0 +1,18 @@
+.no-scrollbar{scrollbar-width:none}.no-scrollbar::-webkit-scrollbar{display:none}
+.dw-input{display:block;width:100%;border-radius:10px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);color:var(--text-strong);padding:.5rem .65rem}
+.dw-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);color:var(--text-strong)}
+.dw-btn--primary{background:var(--accent);border-color:transparent;color:#041318}
+
+
+/* Backboard background layer (non-interactive) */
+.dw-backboard-bg{
+  position:absolute; inset:0; pointer-events:none;
+  background-image: var(--backboard-image);
+  background-size: var(--backboard-fit);
+  background-position: var(--backboard-pos);
+  opacity: var(--backboard-opacity);
+  filter: blur(var(--backboard-blur));
+  z-index: 0;
+}
+/* Ensure your HUD grid/content sits above */
+.hud-root, .backboard-content{ position:relative; z-index:1; }

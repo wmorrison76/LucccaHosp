@@ -1,0 +1,25 @@
+import React,{useEffect,useState} from "react";
+import { initTheme, previewTheme, commitTheme, resetTheme } from "@/lib/themeEngine";
+export default function StyleControlPanel(){
+  const [draft,setDraft]=useState(()=>initTheme());
+  const [preview,setPreview]=useState(false);
+  useEffect(()=>{ if(preview) previewTheme(draft); },[draft,preview]);
+  const F=[["mode","Mode","select",["auto","dark","light"]],["--accent","Accent","text"],["--font-xs","XS","text"],["--font-sm","SM","text"],["--font-md","MD","text"],["--font-lg","LG","text"],["--font-xl","XL","text"]];
+  const on=(k)=>(e)=>setDraft(d=>({...d,[k]:e.target.value}));
+  return(<div className="space-y-3">
+    <div className="text-lg font-semibold">Appearance</div>
+    <div className="grid gap-3" style={{gridTemplateColumns:"repeat(4,minmax(0,1fr))"}}>
+      {F.map(([k,l,t,opts])=> <label key={k} className="flex flex-col gap-1"><span className="text-sm opacity-80">{l}</span>
+        {t==="select"?<select className="dw-input" value={draft[k]} onChange={on(k)}>{opts.map(o=><option key={o}>{o}</option>)}</select>:<input className="dw-input" value={draft[k]} onChange={on(k)}/>}
+      </label>)}
+    </div>
+    <div className="flex gap-2">
+      {!preview && <button className="dw-btn dw-btn--primary px-3 py-1 rounded" onClick={()=>{setPreview(true);previewTheme(draft);}}>Preview</button>}
+      {preview && <>
+        <button className="dw-btn dw-btn--primary px-3 py-1 rounded" onClick={()=>{commitTheme(draft);setPreview(false);}}>Apply</button>
+        <button className="dw-btn px-3 py-1 rounded" onClick={()=>{initTheme();setPreview(false);}}>Cancel</button>
+      </>}
+      <button className="dw-btn px-3 py-1 rounded" onClick={()=>{resetTheme();setDraft(initTheme());}}>Reset</button>
+    </div>
+    <div className="text-sm opacity-80">Use <code>className="dw-panel"</code> on containers; tabs use <code>.dw-tabs</code>/<code>.dw-tab</code>; text uses <code>var(--font-*)</code> or <code>.text-*</code>.</div>
+  </div>);}

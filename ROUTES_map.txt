@@ -1,0 +1,4 @@
+src/components/components/ErrorBoundary.jsx:21:            <Route path="/" element={<Dashboard />} />
+src/components/components/ErrorBoundary.jsx:22:            <Route path="/recipes" element={<Recipes />} />
+src/components/components/ErrorBoundary.jsx:37:            {/* <Route path="/inventory" element={<Inventory />} /> */}
+src/components/components/ErrorBoundary.jsx:38:            {/* <Route path="/menu-builder" element={<MenuBuilder />} /> */}

@@ -1,0 +1,29 @@
+import React, { useState } from "react";
+
+// Your full studio components
+import CakeCanvasBuilder from "@/modules/pastry/cake/CakeCanvasBuilder";           // drag/drop layers
+import CakeQAExporter from "@/modules/pastry/cake/CakeQAExporter";                 // QA
+import WorkOrderBuilder from "@/modules/pastry/cake/WorkOrderBuilder";             // production steps
+import CakeExportFinalizer from "@/modules/pastry/cake/CakeExportFinalizer";       // summary/snapshot
+import Cake360Viewer from "@/modules/pastry/cake/Cake360Viewer";                   // rotate + view
+import WraparoundDecorationTool from "@/modules/pastry/cake/WraparoundDecorationTool"; // image wrap tool
+
+export default function CakeBuilder() {
+  // use the shape expected by the pastry modules
+  const [layers, setLayers] = useState([]); // [{ id, cake, filling, support, decoration, notes }, ...]
+
+  return (
+    <div className="space-y-6 p-6">
+      <CakeCanvasBuilder cakeData={{ layers }} onUpdate={setLayers} />
+
+      <div className="grid gap-6" style={{gridTemplateColumns:"1fr 1fr"}}>
+        <WraparoundDecorationTool layers={layers} onChange={setLayers} />
+        <Cake360Viewer layers={layers} />
+      </div>
+
+      <CakeQAExporter layers={layers} />
+      <WorkOrderBuilder cakeData={{ layers }} onExport={(pkg) => console.log("Work Order:", pkg)} />
+      <CakeExportFinalizer layers={layers} onSave={(bundle) => console.log("Saved bundle:", bundle)} />
+    </div>
+  );
+}

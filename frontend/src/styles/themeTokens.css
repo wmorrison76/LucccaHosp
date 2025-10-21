@@ -1,0 +1,138 @@
+
+/* src/styles/themeTokens.css
+   Central design tokens & presets (no brand names). 
+   All UI components read values from these CSS variables.
+   Change variables live via data attributes on <html> to preview in realtime.
+*/
+
+:root {
+  /* Core palette */
+  --bg: #0b1220;
+  --bg-elev: #0f1629;
+  --bg-panel: #121a30;
+  --bg-muted: #0b1220;
+  --text: #e6edf7;
+  --text-muted: #a8b1c4;
+  --accent: #37c4ff;
+  --accent-contrast: #001018;
+
+  /* Borders & radii */
+  --border: rgba(255,255,255,0.08);
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  /* Shadows / glow */
+  --shadow-elev: 0 10px 30px rgba(0,0,0,0.35);
+  --glow: 0 0 0px rgba(55,196,255,0.0);
+
+  /* Panels */
+  --panel-border-width: 1px;
+  --panel-border: var(--border);
+  --panel-header-height: 44px;
+
+  /* Pills / inputs */
+  --pill-bg: #0e1527;
+  --pill-border: var(--border);
+  --pill-shadow: none;
+
+  /* Scrollbars (WebKit only) */
+  --scrollbar-track: rgba(255,255,255,0.03);
+  --scrollbar-thumb: rgba(255,255,255,0.15);
+  --scrollbar-thumb-hover: rgba(255,255,255,0.25);
+
+  /* Typography */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-size: 14px;
+  --title-size: 18px;
+
+  /* Backboard (global background) */
+  --backboard-bg: radial-gradient(80vw 80vh at 15% 10%, #0e1a33 0%, #0a1120 60%, #060912 100%);
+  --backboard-overlay: radial-gradient(40vw 40vh at 80% 80%, rgba(55,196,255,0.08) 0%, rgba(0,0,0,0) 60%);
+}
+
+/* Preset: Nightfall (default) */
+html[data-theme="nightfall"] {
+  --bg: #0b1220;
+  --bg-elev: #0f1629;
+  --bg-panel: #121a30;
+  --text: #e6edf7;
+  --accent: #37c4ff;
+  --glow: 0 0 22px rgba(55,196,255,0.35);
+}
+
+/* Preset: Glasslight */
+html[data-theme="glasslight"] {
+  --bg: #f6f8fb;
+  --bg-elev: #ffffff;
+  --bg-panel: #ffffff;
+  --text: #0c1322;
+  --text-muted: #44506b;
+  --accent: #3a7afe;
+  --accent-contrast: #ffffff;
+  --border: rgba(0,0,0,0.08);
+  --panel-border: rgba(0,0,0,0.08);
+  --backboard-bg: linear-gradient(180deg, #eef2f8 0%, #e8eef9 100%);
+  --glow: 0 0 0 transparent;
+}
+
+/* Preset: Neonwave */
+html[data-theme="neonwave"] {
+  --bg: #06070c;
+  --bg-elev: #0a0f1a;
+  --bg-panel: #0c1222;
+  --text: #dff2ff;
+  --text-muted: #9ec4ff;
+  --accent: #47ffb1;
+  --panel-border: rgba(71,255,177,0.2);
+  --glow: 0 0 26px rgba(71,255,177,0.35);
+  --backboard-overlay: radial-gradient(50vw 40vh at 15% 85%, rgba(71,255,177,0.10) 0%, rgba(0,0,0,0) 60%);
+}
+
+/* Accessibility presets */
+html[data-theme="high-contrast"] {
+  --bg: #000;
+  --bg-panel: #000;
+  --text: #fff;
+  --accent: #ffff00;
+  --panel-border: #fff;
+  --panel-border-width: 2px;
+  --glow: none;
+}
+html[data-theme="colorblind-safe"] {
+  --accent: #0072b2; /* cobalt (colorblind friendly) */
+  --text: #222;
+  --bg: #f9fafb;
+  --bg-panel: #fff;
+  --panel-border: rgba(0,0,0,0.12);
+  --glow: none;
+}
+
+/* Utility surfaces */
+body {
+  margin: 0;
+  color: var(--text);
+  background: var(--bg);
+  font-family: var(--font-sans);
+  font-size: var(--font-size);
+}
+.panel {
+  background: var(--bg-panel);
+  border: var(--panel-border-width) solid var(--panel-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-elev), var(--glow);
+}
+.pill {
+  background: var(--pill-bg);
+  border: 1px solid var(--pill-border);
+  border-radius: 999px;
+  padding: 8px 12px;
+  box-shadow: var(--pill-shadow);
+}
+
+/* Scrollbars */
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+*::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 8px; }
+*::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }

@@ -1,0 +1,81 @@
+import React,{useState} from "react";
+import StyleControlPanel from "@/components/StyleControlPanel";
+import BackgroundPanel from "./BackgroundPanel.jsx";
+import AvatarPicker from "@/components/AvatarPicker";
+export default function SettingsSuite(){
+  const [tab,setTab]=useState("appearance");
+  return (
+    <div style={{position:"fixed",inset:0,zIndex:60,display:"grid",placeItems:"center",background:"rgba(0,0,0,.45)",backdropFilter:"blur(6px)"}}>
+      <div className="dw-panel" style={{width:960,maxWidth:"92vw",maxHeight:"88vh",overflow:"hidden"}}>
+        <div style={{display:"grid",gridTemplateColumns:"220px 1fr"}}>
+          <aside style={{padding:14,borderRight:"1px solid rgba(255,255,255,.12)"}}>
+            <div className="text-lg font-semibold mb-2">Settings</div>
+            <nav className="dw-tabs" style={{flexDirection:"column",gap:6}}>
+              {[
+                ["appearance","Appearance"], ["background","Background"],
+                ["typography","Typography"],
+                ["tabs","Tabs"],
+                ["profile","Profile"],
+                ["about","About & Support"],
+              ].map(([id,label])=>(
+                <button key={id} className="dw-tab" aria-selected={tab===id} onClick={()=>setTab(id)}>{label}</button>
+              ))}
+              <button className="dw-tab" onClick={()=>closeOverlay()}>Close</button>
+            </nav>
+          </aside>
+          <main style={{padding:18,overflow:"auto"}}>
+            {tab==="appearance" && <div className="dw-panel p-4"><StyleControlPanel extraControls /></div>}
+            {tab==="background" && <BackgroundPanel/>}
+            {tab==="typography" && <TypographyPanel/>}
+            {tab==="tabs" && <TabsStylePanel/>}
+            {tab==="profile" && <ProfilePanel/>}
+            {tab==="about" && <AboutPanel/>}
+          </main>
+        </div>
+      </div>
+    </div>
+  );
+}
+export function closeOverlay(){ window.dispatchEvent(new CustomEvent("settings-suite:close")); }
+function Row({label,children}){return(<label className="flex flex-col gap-1"><span className="text-sm opacity-80">{label}</span>{children}</label>);}
+
+function TypographyPanel(){
+  const keys=["--font-xs","--font-sm","--font-md","--font-lg","--font-xl"];
+  const [vals,setVals]=React.useState(()=>Object.fromEntries(keys.map(k=>[k,getComputedStyle(document.documentElement).getPropertyValue(k).trim()||""])));
+  const set=(k)=>(e)=>{const v=e.target.value;document.documentElement.style.setProperty(k,v);setVals(s=>({...s,[k]:v}));};
+  return(<div className="dw-panel p-4">
+    <div className="text-lg font-semibold mb-2">Typography</div>
+    <div className="grid" style={{gridTemplateColumns:"repeat(5,minmax(0,1fr))",gap:12}}>
+      {keys.map(k=><Row key={k} label={k.replace("--","")}><input className="dw-input" value={vals[k]} onChange={set(k)}/></Row>)}
+    </div>
+    <div className="text-xs opacity-70 mt-2">Panels should use font-size: var(--font-md) etc.</div>
+  </div>);
+}
+function TabsStylePanel(){
+  const keys={"--tab-height":"36px","--tab-radius":"10px","--tab-active-bg":"rgba(255,255,255,.10)","--tab-border":"1px solid rgba(255,255,255,.16)"};
+  const [vals,setVals]=React.useState(()=>Object.fromEntries(Object.keys(keys).map(k=>[k,getComputedStyle(document.documentElement).getPropertyValue(k).trim()]));
+  const set=(k)=>(e)=>{const v=e.target.value;document.documentElement.style.setProperty(k,v);setVals(s=>({...s,[k]:v}));};
+  return(<div className="dw-panel p-4">
+    <div className="text-lg font-semibold mb-2">Tabs</div>
+    <div className="grid" style={{gridTemplateColumns:"repeat(4,minmax(0,1fr))",gap:12}}>
+      {Object.keys(keys).map(k=><Row key={k} label={k.replace("--","")}><input className="dw-input" value={vals[k]} onChange={set(k)}/></Row>)}
+    </div>
+  </div>);
+}
+function ProfilePanel(){
+  return(<div className="dw-panel p-4">
+    <div className="text-lg font-semibold mb-2">Profile</div>
+    <div className="text-sm opacity-80 mb-2">Echo avatar (F/M/B/R) or upload your own:</div>
+    <AvatarPicker/>
+  </div>);
+}
+function AboutPanel(){
+  return(<div className="dw-panel p-4">
+    <div className="text-xl font-semibold mb-2">About & Support</div>
+    <div className="opacity-80 text-sm space-y-1">
+      <div>Version: <strong>0.1.0</strong></div>
+      <div>Build: <strong>{import.meta?.env?.MODE ?? "dev"}</strong></div>
+      <div>Support: <a className="underline" href="mailto:support@example.com">support@example.com</a></div>
+    </div>
+  </div>);
+}

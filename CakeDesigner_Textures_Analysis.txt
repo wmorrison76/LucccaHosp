@@ -1,0 +1,33 @@
+
+Cake Designer & Textures (CD-01 → CD-05) – Detailed Analysis
+===========================================================
+
+1. TextureLibrary.ts (CD-01)
+   - Purpose: Holds paths and references to commonly used cake surface textures.
+   - Strengths: Centralized texture references make it easy to add new textures.
+   - Potential Improvements: Could use a dynamic loader or metadata-driven texture registration (e.g., JSON schema) for scalability.
+
+2. CakeTextureEngine.ts (CD-02)
+   - Purpose: Manages Three.js rendering of cake surfaces and applies textures dynamically.
+   - Strengths: Encapsulates texture loading logic for 3D meshes, ensuring modularity.
+   - Potential Improvements: Add shader customization (e.g., bump maps, roughness maps) and error handling for missing textures.
+
+3. TextureControlsPanel.tsx (CD-03)
+   - Purpose: UI for controlling texture intensity using a slider input.
+   - Strengths: Simple and intuitive control; React state management for real-time updates.
+   - Potential Improvements: Add visual previews for intensity levels, incorporate accessibility (ARIA labels), and synchronize with global state.
+
+4. CakeBuilderIntegration.tsx (CD-04)
+   - Purpose: Acts as the bridge between the Cake Builder UI and the texture engine.
+   - Strengths: Provides an isolated place to initialize and manage the texture engine.
+   - Potential Improvements: Could use context-based injection for engine instance, add better lifecycle management (e.g., cleanup of Three.js resources).
+
+5. PreviewToggle.tsx (CD-05)
+   - Purpose: Toggle between 2D and 3D preview modes for cake design.
+   - Strengths: Simple user control for view switching.
+   - Potential Improvements: Could use animation during transitions (e.g., Framer Motion) and display a tooltip indicating current mode.
+
+General Notes:
+- Adding Storybook stories for each component would improve visual testing.
+- TypeScript interfaces for props could ensure stronger type safety.
+- Integration tests for combined workflow (TextureControlsPanel + CakeTextureEngine) would ensure smoother UX.

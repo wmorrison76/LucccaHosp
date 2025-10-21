@@ -1,0 +1,139 @@
+// frontend/src/echo/echoClient.js
+// Single, guarded implementation to avoid redeclaration during HMR or merges.
+
+export function installEchoHook({ baseUrl = "" , getAuthToken } = {}) {
+  // Guard: if already installed in this tab, return the existing function.
+  if (typeof window !== "undefined" && typeof window.__ECHO_ASK__ === "function") {
+    return window.__ECHO_ASK__;
+  }
+
+  const endpoint = (path) => (baseUrl ? baseUrl.replace(/\/$/, "") + path : path);
+
+  async function askEcho(text) {
+    const ctrl = new AbortController();
+    const timeout = setTimeout(() => ctrl.abort(), 15000);
+
+    const headers = { "Content-Type": "application/json" };
+    try {
+      if (typeof getAuthToken === "function") {
+        const token = await getAuthToken();
+        if (token) headers["Authorization"] = `Bearer ${token}`;
+      }
+    } catch {}
+
+    const body = JSON.stringify({ q: String(text ?? "") });
+    let lastErr;
+
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const res = await fetch(endpoint("/api/echo/ask"), {
+          method: "POST",
+          headers,
+          body,
+          signal: ctrl.signal,
+        });
+        clearTimeout(timeout);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json().catch(() => ({}));
+        return typeof data.answer === "string" && data.answer.length
+          ? data.answer
+          : "(No answer)";
+      } catch (err) {
+        lastErr = err;
+        await new Promise((r) => setTimeout(r, 350));
+      }
+    }
+
+    console.warn("[Echo] askEcho failed:", lastErr);
+    return "(Echo is offline)";
+  }
+
+  // Expose globally (so EchoBubble can call it) and remember we installed.
+  if (typeof window !== "undefined") {
+    window.askEcho = askEcho;
+    window.__ECHO_ASK__ = askEcho;
+  }
+
+  return askEcho;
+}
+// frontend/src/echo/echoClient.js
+export function installEchoHook({ baseUrl = "http://localhost:5175" } = {}) {
+  async function sayHello() {
+    const res = await fetch(`${baseUrl}/api/echo/hello`);
+    return await res.json();
+  }
+
+  async function addNote(text) {
+    const res = await fetch(`${baseUrl}/api/echo/note`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text }),
+    });
+    return await res.json();
+  }
+
+  async function getNotes() {
+    const res = await fetch(`${baseUrl}/api/echo/notes`);
+    return await res.json();
+  }
+
+  // Attach Echo globally
+  window.Echo = {
+    sayHello,
+    addNote,
+    getNotes,
+  };
+
+  console.log("✅ Echo client installed → try `Echo.sayHello()` in console");
+}
+// frontend/src/echo/echoClient.js
+/**
+ * Installs a global window.askEcho(text).
+ * Default target: POST /api/echo/ask  with JSON { q: string }
+ * 15s timeout, 1 retry, optional bearer auth.
+ */
+export function installEchoHook({ baseUrl = "", getAuthToken } = {}) {
+  const endpoint = (path) => (baseUrl ? baseUrl.replace(/\/$/, "") + path : path);
+
+  async function askEcho(text) {
+    const ctrl = new AbortController();
+    const to = setTimeout(() => ctrl.abort(), 15000);
+    const headers = { "Content-Type": "application/json" };
+
+    try {
+      if (typeof getAuthToken === "function") {
+        const token = await getAuthToken();
+        if (token) headers["Authorization"] = `Bearer ${token}`;
+      }
+    } catch {}
+
+    const body = JSON.stringify({ q: String(text || "") });
+    let lastErr;
+
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const res = await fetch(endpoint("/api/echo/ask"), {
+          method: "POST",
+          headers,
+          body,
+          signal: ctrl.signal,
+        });
+        clearTimeout(to);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json().catch(() => ({}));
+        return typeof data.answer === "string" && data.answer.length
+          ? data.answer
+          : "(No answer)";
+      } catch (err) {
+        lastErr = err;
+        await new Promise((r) => setTimeout(r, 350));
+      }
+    }
+
+    console.warn("[Echo] askEcho failed:", lastErr);
+    return "(Echo is offline)";
+  }
+
+  window.askEcho = askEcho;
+  return askEcho;
+}

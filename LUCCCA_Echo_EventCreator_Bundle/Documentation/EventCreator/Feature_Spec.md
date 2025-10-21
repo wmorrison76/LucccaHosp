@@ -1,0 +1,3 @@
+# Feature Spec
+
+Details on Echo Event Creator module logic...

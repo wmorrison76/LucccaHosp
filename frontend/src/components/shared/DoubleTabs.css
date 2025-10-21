@@ -1,0 +1,35 @@
+.dtabs-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.dtabs-row {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  backdrop-filter: blur(6px);
+}
+
+.dtab {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+.dtab:hover { transform: translateY(-1px); }
+.dtab.active {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.dtabs-pane {
+  flex: 1;
+  overflow: auto;
+  padding: 12px;
+}
+
+.dtabs-loading { padding: 24px; }

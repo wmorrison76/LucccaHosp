@@ -1,0 +1,10 @@
+# Seed subset: see main message for full version
+seed:
+  id: "EchoCRM.Upgrade.v1"
+  ui:
+    routes:
+      - path: "/crm/leads"
+      - path: "/crm/opportunities"
+      - path: "/events"
+      - path: "/analytics"
+      - path: "/marketing"

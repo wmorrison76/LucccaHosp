@@ -1,0 +1,339 @@
+import React, { useEffect, useRef, useState } from 'react'
+import { getJSON, setJSON } from '../utils/storage'
+import { exportBoardPNG, downloadBlob } from '../utils/exporters'
+import { elementToPNGBlob } from '../utils/capture'
+import CanvasOverlays from './CanvasOverlays'
+import MessengerDock from './MessengerDock'
+import ExportBar from './ExportBar'
+import PresenterControls from './PresenterControls'
+import SnapshotsPanel from './SnapshotsPanel'
+import AccessSummary from './AccessSummary'
+
+let Excalidraw = null
+
+const ID = () => 'id-' + Math.random().toString(36).slice(2) + Date.now()
+
+export default function WhiteboardPanel(){
+  const [loaded, setLoaded] = useState(false)
+  const [api, setApi] = useState(null)
+  const [mirrorOn, setMirrorOn] = useState(false)
+  const mirrorRef = useRef({ timer: null, fileId: null, elId: null })
+  const [laser, setLaser] = useState(false)
+  const laserRef = useRef(null)
+  const key = 'lu:whiteboard:scene:v5'
+
+  useEffect(()=>{
+    let cancelled=false
+    ;(async ()=>{
+      try{
+        const mod = await import('@excalidraw/excalidraw')
+        if (cancelled) return
+        Excalidraw = mod.Excalidraw
+        setLoaded(true
+  <CanvasOverlays />
+  <MessengerDock />
+  <ExportBar />
+  <PresenterControls />
+  <SnapshotsPanel />
+  <AccessSummary />
+)
+      }catch{ setLoaded(false) }
+    })()
+    return (<>\n  <PresenterControls />\n  <SnapshotsPanel />\n  <AccessSummary />\n\n</>)=> { cancelled = true }
+  },[])
+
+  const saved = getJSON(key, null)
+  const onChange = (els, state, files)=>{
+    const cleanState = { ...state }
+    if (typeof cleanState.collaborators !== 'object') delete cleanState.collaborators
+    setJSON(key, { elements: els, appState: cleanState, files })
+  }
+
+  const setTool = (type, extra={}) => {
+    if (!api) return
+    const s = api.getAppState()
+    api.updateScene({ appState: { ...s, activeTool: { type }, ...extra } })
+  }
+  const toggleGrid = () => {
+    if (!api) return
+    const s = api.getAppState()
+    const next = s.gridSize && s.gridSize > 0 ? 0 : 20
+    api.updateScene({ appState: { ...s, gridSize: next } })
+  }
+  const zoom = (delta) => {
+    if (!api) return
+    const s = api.getAppState()
+    const val = Math.min(4, Math.max(0.2, (s.zoom?.value || 1) + delta))
+    api.updateScene({ appState: { ...s, zoom: { value: val } } })
+  }
+  const zoomReset = () => {
+    if (!api) return
+    const s = api.getAppState()
+    api.updateScene({ appState: { ...s, zoom: { value: 1 } } })
+  }
+  const doExport = async () => {
+    if (!api) return alert('Canvas not ready')
+    const blob = await exportBoardPNG(api, true)
+    downloadBlob(blob, 'whiteboard.png')
+  }
+
+  const blobToDataURL = (blob)=> new Promise((res)=>{ const r = new FileReader(); r.onload=()=>res(r.result); r.readAsDataURL(blob) })
+  const addImageElement = async ({ blob, width, height, x=80, y=80 }) => {
+    if (!api) throw new Error('Excalidraw API not ready')
+    const dataURL = await blobToDataURL(blob)
+    const fileId = 'file-' + ID()
+    try{
+      if (api.addFiles) await api.addFiles([{ id: fileId, dataURL, mimeType: 'image/png' }])
+    }catch{}
+    const s = api.getAppState()
+    const el = {
+      id: 'el-' + ID(),
+      type: 'image',
+      x: (s.scrollX || 0) + x,
+      y: (s.scrollY || 0) + y,
+      width, height, angle: 0,
+      strokeColor: '#000000', backgroundColor: 'transparent',
+      fillStyle: 'hachure', strokeWidth: 1, strokeStyle: 'solid', roughness: 0, opacity: 100,
+      groupIds: [], roundness: null, seed: Math.floor(Math.random()*2**31), version: 1, versionNonce: Math.floor(Math.random()*2**31), isDeleted: false,
+      fileId, updated: Date.now()
+    }
+    const els = [...api.getSceneElements(), el]
+    const nextFiles = { ...(api.getFiles ? api.getFiles() : {}), [fileId]: { id:fileId, dataURL, mimeType:'image/png' } }
+    api.updateScene({ elements: els, files: nextFiles })
+    return { fileId, elId: el.id }
+  }
+
+  const onDrop = async (e) => {
+    e.preventDefault()
+    if (!api) return
+    let payload = null
+    try{ payload = JSON.parse(e.dataTransfer.getData('text/board-widget') || 'null') }catch{}
+    let el = null
+    if (payload?.selector) el = document.querySelector(payload.selector)
+    if (!el && payload?.widgetId) el = document.querySelector(`[data-widget-id="${payload.widgetId}"]`)
+    if (!el) el = document.querySelector('[data-widget-dragging="true"]')
+    if (!el){ alert('Could not find a DOM element to capture for this drop.'); return }
+    const { blob, width, height } = await elementToPNGBlob(el, 2)
+    await addImageElement({ blob, width, height, x: 120, y: 120 })
+  }
+  const onDragOver = (e)=> e.preventDefault()
+
+  const toggleMirror = async () => {
+    if (!api) return
+    const m = mirrorRef.current
+    if (m.timer){ clearInterval(m.timer); m.timer=null; setMirrorOn(false); return }
+    const selectors = ['[data-dashboard-root]', '#dashboard-root', '.dashboard-root']
+    let el=null
+    for (const s of selectors){ el = document.querySelector(s); if (el) break }
+    if (!el){ alert('Dashboard root not found. Add data-dashboard-root to the dashboard container.'); return }
+    const first = await elementToPNGBlob(el, 2)
+    const placed = await addImageElement({ blob: first.blob, width: first.width, height: first.height })
+    m.fileId = placed.fileId; m.elId = placed.elId
+    setMirrorOn(true)
+    m.timer = setInterval(async ()=>{
+      try{
+        const snap = await elementToPNGBlob(el, 2)
+        const dataURL = await blobToDataURL(snap.blob)
+        const files = api.getFiles ? api.getFiles() : {}
+        const nextFiles = { ...files, [m.fileId]: { id: m.fileId, dataURL, mimeType: 'image/png', updated: Date.now() } }
+        const els = api.getSceneElements().map(p => p.id===m.elId ? { ...p, width: snap.width, height: snap.height } : p)
+        api.updateScene({ elements: els, files: nextFiles })
+      }catch{}
+    }, 1500)
+  }
+
+  useEffect(()=>{
+    const cvs = laserRef.current
+    if (!cvs) return
+    const ctx = cvs.getContext('2d')
+    let raf = 0, fading = []
+    const render = ()=>{
+      ctx.clearRect(0,0,cvs.width,cvs.height)
+      const now = performance.now()
+      fading = fading.filter(p => now - p.t < 400)
+      for (const p of fading){
+        const age = (now - p.t)/400
+        ctx.globalAlpha = 1 - age
+        ctx.beginPath(); ctx.arc(p.x, p.y, 10, 0, Math.PI*2); ctx.fillStyle = '#ff3366'; ctx.fill()
+      }
+      ctx.globalAlpha = 1
+      raf = requestAnimationFrame(render)
+    }
+    raf = requestAnimationFrame(render)
+    const move = (e)=>{
+      if (!laser) return
+      const rect = cvs.getBoundingClientRect()
+      fading.push({ x: e.clientX-rect.left, y: e.clientY-rect.top, t: performance.now() })
+    }
+    window.addEventListener('pointermove', move)
+    const onResize = ()=> { cvs.width = cvs.clientWidth * devicePixelRatio; cvs.height = cvs.clientHeight * devicePixelRatio; ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0) }
+    onResize()
+    window.addEventListener('resize', onResize)
+    return ()=> { cancelAnimationFrame(raf); window.removeEventListener('pointermove', move); window.removeEventListener('resize', onResize) }
+  }, [laser])
+
+  const getSelection = () => {
+    if (!api) return []
+    const sel = api.getAppState().selectedElementIds || {}
+    return api.getSceneElements().filter(el => sel[el.id])
+  }
+  const commitElements = (patchMap) => {
+    const els = api.getSceneElements().map(el => patchMap[el.id] ? { ...el, ...patchMap[el.id]} : el)
+    api.updateScene({ elements: els })
+  }
+  const align = (kind) => {
+    const els = getSelection()
+    if (els.length < 2) return
+    const minX = Math.min(...els.map(e=>e.x))
+    const maxX = Math.max(...els.map(e=>e.x + e.width))
+    const minY = Math.min(...els.map(e=>e.y))
+    const maxY = Math.max(...els.map(e=>e.y + e.height))
+    const cx = (minX + maxX)/2
+    const cy = (minY + maxY)/2
+    const patch = {}
+    for (const e of els){
+      if (kind==='left') patch[e.id] = { x: minX }
+      if (kind==='center') patch[e.id] = { x: cx - e.width/2 }
+      if (kind==='right') patch[e.id] = { x: maxX - e.width }
+      if (kind==='top') patch[e.id] = { y: minY }
+      if (kind==='middle') patch[e.id] = { y: cy - e.height/2 }
+      if (kind==='bottom') patch[e.id] = { y: maxY - e.height }
+    }
+    commitElements(patch)
+  }
+  const distribute = (axis) => {
+    const els = getSelection()
+    if (els.length < 3) return
+    const sorted = [...els].sort((a,b)=> axis==='x' ? a.x - b.x : a.y - b.y)
+    if (axis==='x'){
+      const left = sorted[0].x, right = sorted.at(-1).x + sorted.at(-1).width
+      const span = right - left - sorted.reduce((s,e,i,arr)=> i===0||i===arr.length-1 ? s : s+e.width ,0)
+      const gap = span / (sorted.length-1)
+      let pos = left
+      const patch = {}
+      for (let i=0;i<sorted.length;i++){
+        const e = sorted[i]
+        if (i===0){ pos = e.x + e.width; continue }
+        if (i===sorted.length-1) break
+        const x = pos + gap
+        patch[e.id] = { x }
+        pos = x + e.width
+      }
+      commitElements(patch)
+    }else{
+      const top = sorted[0].y, bottom = sorted.at(-1).y + sorted.at(-1).height
+      const span = bottom - top - sorted.reduce((s,e,i,arr)=> i===0||i===arr.length-1 ? s : s+e.height ,0)
+      const gap = span / (sorted.length-1)
+      let pos = top
+      const patch = {}
+      for (let i=1;i<sorted.length-1;i++){
+        const e = sorted[i]
+        const y = pos + gap
+        patch[e.id] = { y }
+        pos = y + e.height
+      }
+      commitElements(patch)
+    }
+  }
+
+  const addStamp = (emoji) => {
+    if (!api) return
+    const s = api.getAppState()
+    const fontSize = 72
+    const id = 'el-' + ID()
+    const c = document.createElement('canvas'); const ctx = c.getContext('2d')
+    ctx.font = `${fontSize}px Segoe UI Emoji, Apple Color Emoji, sans-serif`
+    const w = Math.max(fontSize, Math.ceil(ctx.measureText(emoji).width))
+    const h = fontSize
+    const el = {
+      id, type:'text',
+      x: (s.scrollX || 0) + 120, y: (s.scrollY || 0) + 80,
+      width: w, height: h,
+      angle: 0,
+      strokeColor: '#000000', backgroundColor: 'transparent',
+      fillStyle: 'hachure', strokeWidth: 1, strokeStyle: 'solid', roughness: 0, opacity: 100,
+      groupIds: [], roundness: null, seed: Math.floor(Math.random()*2**31),
+      version: 1, versionNonce: Math.floor(Math.random()*2**31), isDeleted: false,
+      text: emoji, fontSize, fontFamily: 1, textAlign: 'center', verticalAlign: 'middle', baseline: 0,
+      updated: Date.now()
+    }
+    api.updateScene({ elements: [...api.getSceneElements(), el] })
+  }
+  return (
+    <div style={{position:'absolute', inset:0, display:'grid', gridTemplateColumns:'1fr 280px'}}>
+      <div style={{position:'relative', overflow:'hidden'}} onDrop={onDrop} onDragOver={onDragOver}>
+        <div className="pro-toolbar" style={{flexDirection:'column', alignItems:'stretch'}}>
+          <div className="row">
+            <Tool icon="↖" label="Select" onClick={()=> setTool('selection')}/>
+            <Tool icon="✋" label="Pan" onClick={()=> setTool('hand')}/>
+            <Tool icon="✏️" label="Pencil" onClick={()=> setTool('freedraw', { currentItemOpacity: 100 })}/>
+            <Tool icon="🖍" label="Highlighter" onClick={()=> setTool('freedraw', { currentItemOpacity: 30 })}/>
+            <Tool icon="▭" label="Rect" onClick={()=> setTool('rectangle')}/>
+            <Tool icon="⬭" label="Ellipse" onClick={()=> setTool('ellipse')}/>
+            <Tool icon="◆" label="Diamond" onClick={()=> setTool('diamond')}/>
+            <Tool icon="↔" label="Arrow" onClick={()=> setTool('arrow')}/>
+            <Tool icon="T" label="Text" onClick={()=> setTool('text')}/>
+            <Tool icon="⌫" label="Eraser" onClick={()=> setTool('eraser')}/>
+            <Tool icon="🔴" label="Laser" onClick={()=> setLaser(v=> !v)}/>
+            <Tool icon="⦿" label="Grid" onClick={toggleGrid}/>
+            <Tool icon="＋" label="Zoom In" onClick={()=> zoom(+0.2)}/>
+            <Tool icon="－" label="Zoom Out" onClick={()=> zoom(-0.2)}/>
+            <Tool icon="⟲" label="Reset" onClick={zoomReset}/>
+            <Tool icon="⬇" label="Export PNG" onClick={doExport}/>
+            <Tool icon={mirrorOn ? "⏹" : "⧉"} label="Mirror Dashboard" onClick={toggleMirror}/>
+          </div>
+          <div className="row">
+            <Tool cls="small" icon="⟸" label="Align Left" onClick={()=> align('left')}/>
+            <Tool cls="small" icon="⇤" label="Align Center" onClick={()=> align('center')}/>
+            <Tool cls="small" icon="⟹" label="Align Right" onClick={()=> align('right')}/>
+            <Tool cls="small" icon="⟰" label="Align Top" onClick={()=> align('top')}/>
+            <Tool cls="small" icon="⇧" label="Align Middle" onClick={()=> align('middle')}/>
+            <Tool cls="small" icon="⟱" label="Align Bottom" onClick={()=> align('bottom')}/>
+            <Tool cls="small" icon="⟷" label="Distribute X" onClick={()=> distribute('x')}/>
+            <Tool cls="small" icon="⟺" label="Distribute Y" onClick={()=> distribute('y')}/>
+            <div className="stampbar">
+              <div className="stamp" title="Stamp: Approved" onClick={()=> addStamp('✅')}>✅</div>
+              <div className="stamp" title="Stamp: Reject" onClick={()=> addStamp('❌')}>❌</div>
+              <div className="stamp" title="Stamp: Star" onClick={()=> addStamp('⭐')}>⭐</div>
+              <div className="stamp" title="Stamp: Fire" onClick={()=> addStamp('🔥')}>🔥</div>
+            </div>
+          </div>
+        </div>
+
+        <div style={{position:'absolute', inset:'98px 0 0 0'}} data-excalidraw>
+          {loaded && Excalidraw ? (
+            <Excalidraw
+              initialData={saved || undefined}
+              onChange={onChange}
+              excalidrawAPI={(api)=> setApi(api)}
+              UIOptions={{ canvasActions: { toggleTheme: true, export: false, saveAsImage: false } }}
+            />
+          ) : (
+            <div className="center-abs" style={{textAlign:'center'}}>
+              <div style={{fontSize:18, marginBottom:10}}>Excalidraw not installed</div>
+              <div className="muted" style={{maxWidth:560, margin:'0 auto'}}>
+                Install in the module folder:<br/>
+                <code>cd ~/Desktop/LUCCCA/frontend/src/modules/EchoDesk_Framework && npm i @excalidraw/excalidraw</code>
+              </div>
+            </div>
+          )}
+        </div>
+        <canvas ref={laserRef} className="laser-layer" style={{position:'absolute', inset:'98px 0 0 0', pointerEvents:'none'}}/>
+      </div>
+      <div style={{borderLeft:'1px solid rgba(255,255,255,0.08)', padding:12}} className="no-scrollbar hidden-scrollbar">
+        <div style={{fontWeight:700, marginBottom:8}}>Stickerifier</div>
+        <div className="muted" style={{marginBottom:8}}>Drag a dashboard card onto the canvas. The element is rasterized and placed as an image.</div>
+        <div style={{fontWeight:700, marginTop:12}}>Live Mirror</div>
+        <div className="muted">Click ⧉ to mirror <code>[data-dashboard-root]</code> (or <code>#dashboard-root</code>/<code>.dashboard-root</code>) onto the board; click ⏹ to stop.</div>
+      </div>
+    </div>
+  )
+}
+
+function Tool({ icon, label, onClick, cls }){
+  return (
+    <button className={"ptool" + (cls ? ' '+cls : '')} title={label} onClick={onClick}>
+      <span>{icon}</span>
+    </button>
+  )
+}

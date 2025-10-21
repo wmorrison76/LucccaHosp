@@ -1,0 +1,1 @@
+export default function IngredientWatch() { return <div>📉 Ingredient Market Watchlist</div>; }

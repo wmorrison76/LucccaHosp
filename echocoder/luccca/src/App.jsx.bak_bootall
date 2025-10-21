@@ -1,0 +1,145 @@
+import "@/styles/utilities.css";
+import { initTheme } from "@/lib/themeEngine";
+import "@/lib/themeTokens.css";
+import "@/lib/textVars.css";
+import React, { lazy, Suspense, useCallback, useEffect, useState } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import Sidebar from "./components/Sidebar.jsx";
+import Board from "./board/Board.jsx";
+import { installEchoHook } from "./echo/echoClient.js"; // Echo backend hook
+
+// Framework additions
+import { CommandPalette } from "./framework/command/CommandPalette";
+import { PresenceProvider, MultiCursorOverlay } from "./framework/presence/PresenceProvider";
+import { TelemetryOverlay } from "./framework/telemetry/TelemetryOverlay";
+import { RescueShell } from "./framework/errors/RescueShell";
+import { setupEchoShortcuts } from "./framework/echo";
+import { registerAdapter } from "./framework/widgets";
+import { localStorageAdapter } from "./framework/widgets/adapters";
+
+const Culinary     = lazy(() => import("./components/KitchenLibraryTabs.jsx"));
+const BakingPastry = lazy(() => import("./components/PastryLibrary/PastryLibrary.jsx"));
+const Mixology     = lazy(() => import("./components/MixologyTabs.jsx"));
+const Scheduling   = lazy(() => import("./modules/scheduling/SchedulerPanel.jsx"));
+
+const REAL_DASHBOARD_PATH = "/whiteboard";
+const BOARD_ALIASES = ["/dashboard"];
+
+function useLocalStorageState(key, initial) {
+  const init = () => {
+    try {
+      const v = localStorage.getItem(key);
+      return v != null ? JSON.parse(v) : (typeof initial === "function" ? initial() : initial);
+    } catch {
+      return typeof initial === "function" ? initial() : initial;
+    }
+  };
+  const [value, setValue] = useState(init);
+  useEffect(() => {
+    try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
+  }, [key, value]);
+  return [value, setValue];
+}
+
+const getSystemPrefersDark = () =>
+  typeof window !== "undefined" && window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+
+export default initTheme();
+function App() {
+  const [isOpen, setIsOpen] = useLocalStorageState("ui.sidebar.open", true);
+  const [isDarkMode, setIsDarkMode] = useLocalStorageState("ui.theme.dark", () => !!getSystemPrefersDark());
+
+  // Install Echo hook once (points to your API by default).
+  // For the local stub, change baseUrl to "http://localhost:5175".
+  useEffect(() => {
+    installEchoHook({ baseUrl: "" });
+  }, []);
+
+  // One-time framework bootstraps
+  useEffect(() => {
+    setupEchoShortcuts();
+    registerAdapter(localStorageAdapter);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", !!isDarkMode);
+  }, [isDarkMode]);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      const isMac = navigator.platform.toUpperCase().includes("MAC");
+      if ((isMac ? e.metaKey : e.ctrlKey) && e.key.toLowerCase() === "j") {
+        e.preventDefault();
+        setIsDarkMode((v) => !v);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [setIsDarkMode]);
+
+  const toggleDarkMode = useCallback(() => setIsDarkMode((v) => !v), [setIsDarkMode]);
+  const toggleSidebar  = useCallback(() => setIsOpen((v) => !v), [setIsOpen]);
+
+  const location = useLocation();
+  useEffect(() => {
+    const titleMap = {
+      [REAL_DASHBOARD_PATH]: "LUCCCA • Whiteboard",
+      "/kitchen-library":    "LUCCCA • Culinary",
+      "/baking-pastry":      "LUCCCA • Baking & Pastry",
+      "/mixology":           "LUCCCA • Mixology",
+      "/schedules":          "LUCCCA • Schedules",
+    };
+    document.title = titleMap[location.pathname] || "LUCCCA";
+  }, [location.pathname]);
+
+  const fallback = <div className="p-6 text-sm text-gray-500">Loading…</div>;
+
+  return (
+    <PresenceProvider name="You" color="#7fffd4">
+      {/* Global command palette (⌘K / Ctrl-K) */}
+      <CommandPalette />
+
+      <RescueShell>
+        <div className={`flex h-screen w-screen ${isDarkMode ? "dark bg-slate-900 text-slate-100" : "bg-white text-slate-900"}`}>
+          <aside className="shrink-0">
+            <Sidebar
+              isOpen={isOpen}
+              toggleSidebar={toggleSidebar}
+              isDarkMode={isDarkMode}
+              toggleDarkMode={toggleDarkMode}
+            />
+          </aside>
+
+          <main className="flex-1 overflow-hidden">
+            <Suspense fallback={fallback}>
+              <Routes>
+                <Route path="/" element={<Navigate to={REAL_DASHBOARD_PATH} replace />} />
+
+                {/* Board (panel system) */}
+                <Route path={REAL_DASHBOARD_PATH} element={<Board />} />
+
+                {/* Standalone routes */}
+                <Route path="/kitchen-library" element={<Culinary />} />
+                <Route path="/baking-pastry"   element={<BakingPastry />} />
+                <Route path="/mixology"        element={<Mixology />} />
+                <Route path="/schedules"       element={<Scheduling />} />
+
+                {BOARD_ALIASES.map((p) => (
+                  <Route key={p} path={p} element={<Navigate to={REAL_DASHBOARD_PATH} replace />} />
+                ))}
+
+                <Route path="*" element={<Navigate to={REAL_DASHBOARD_PATH} replace />} />
+              </Routes>
+            </Suspense>
+          </main>
+        </div>
+
+        {/* Observability */}
+        <TelemetryOverlay />
+      </RescueShell>
+
+      {/* Presence cursors overlay (multi-user) */}
+      <MultiCursorOverlay />
+    </PresenceProvider>
+  );
+}

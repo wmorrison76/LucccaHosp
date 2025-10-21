@@ -1,0 +1,11 @@
+import React from 'react';
+
+export function NotificationBanner({ message }) {
+  if (!message) return null;
+
+  return (
+    <div className="notification-banner bg-yellow-400 text-black p-2 text-center">
+      {message}
+    </div>
+  );
+}

@@ -1,0 +1,4 @@
+cat > src/manual.css <<'CSS'
+/* should be unmistakable */
+* { outline: 2px dashed lime !important; }
+CSS

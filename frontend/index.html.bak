@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>LUCCCA</title>
+
+    <!-- Excalidraw CSS (avoid blocked deep imports) -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@excalidraw/excalidraw@0.18.0/dist/excalidraw.min.css"
+    />
+
+    <!-- App styles -->
+    <link rel="stylesheet" href="/src/index.css" />
+    <link rel="stylesheet" href="/src/components/EchoCore/EchoCoreGlobalStyles.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

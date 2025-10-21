@@ -1,0 +1,1 @@
+// SettingsContext to store unit preferences, permissions, and sidebar toggle state

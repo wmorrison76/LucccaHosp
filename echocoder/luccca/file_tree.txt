@@ -1,0 +1,254 @@
+src/components
+├── AdminModuleToggle.jsx
+├── AdminPanel.jsx
+├── AdminPanelGrid.jsx
+├── AdminPanelNav.jsx
+├── AlertMessage.jsx
+├── BreadCrumbs.jsx
+├── ButtonPrimary.jsx
+├── CakeBuilder.jsx
+├── CakeCanvas.jsx
+├── CakeDesignSummary.jsx
+├── CakeFormSection.jsx
+├── CakeSupportDisplay.jsx
+├── calendar
+│   ├── BEOViewer.jsx
+│   ├── EventCalendar.jsx
+│   └── REOViewer.jsx
+├── Card.jsx
+├── checkbook
+│   ├── CheckbookDashboard.jsx
+│   └── InvoiceViewer.jsx
+├── CulinaryLab
+│   ├── index.ts
+│   ├── panels
+│   │   ├── BrainstormPanel.jsx
+│   │   ├── EchoMusePanel.jsx
+│   │   ├── ProjectedPreviewPanel.jsx
+│   │   ├── RecipeFormPanel.jsx
+│   │   └── TextureLabModule.jsx
+│   └── RecipeInputRND.jsx
+├── Dashboard
+│   ├── DashboardCard.jsx
+│   ├── EchoSmartSpecialFlow.jsx
+│   └── ProcurementDashboard.jsx
+├── DashboardWelcome.jsx
+├── DownloadOverridePDF.jsx
+├── echo
+│   └── EchoSettingsPanel.jsx
+├── EchoCore
+│   ├── analytics
+│   │   └── index.js
+│   ├── components
+│   │   ├── EchoCore
+│   │   │   └── ExhoShell.jsx
+│   │   ├── emotionalAI
+│   │   │   ├── index.js
+│   │   │   └── README.md
+│   │   ├── financial
+│   │   │   ├── DashboardKPIs.jsk
+│   │   │   ├── index.js
+│   │   │   ├── KPIBarChart.jsx
+│   │   │   ├── README.md
+│   │   │   └── RevenueSummaryCard.jsx
+│   │   ├── Hospitality
+│   │   │   ├── ForecastPanel.jsx
+│   │   │   ├── GuestInsightCard.jsx
+│   │   │   ├── index.js
+│   │   │   ├── README.md
+│   │   │   └── ReservationTimeline.jsx
+│   │   ├── Identity
+│   │   │   └── EchoThumbPrint.png
+│   │   ├── interaction
+│   │   │   ├── DashboardTransitionWrapper.jsx
+│   │   │   ├── DraggableModuleContainer.jsx
+│   │   │   ├── EchoAnimator.jsx
+│   │   │   ├── EchoAnimatorEnhanced.jsx
+│   │   │   ├── EchoAssistant.jsx
+│   │   │   ├── EchoCommandPanel.jsx
+│   │   │   ├── EchoNotepad.jsx
+│   │   │   ├── EchoResponseBlock.jsx
+│   │   │   ├── EchoSpeechOutput.jsx
+│   │   │   ├── EchoToolbar.jsx
+│   │   │   ├── EchoTranscriptLog.jsx
+│   │   │   ├── EchoVoiceInput.jsx
+│   │   │   ├── EchoWhisper.jsx
+│   │   │   ├── EchoWhiteboard.jsx
+│   │   │   ├── index.js
+│   │   │   ├── InteractionIndex.js
+│   │   │   ├── InteractionVoiceIndex.js
+│   │   │   ├── PiPVideoTile.jsx
+│   │   │   ├── QuickActionPanel.jsx
+│   │   │   ├── README.md
+│   │   │   ├── UIActionButton.jsx
+│   │   │   └── useKeyPress.js
+│   │   └── theme
+│   │       ├── DashboardThemeContext.jsx
+│   │       ├── GradientSelector.jsx
+│   │       ├── index.js
+│   │       └── README.md
+│   ├── context
+│   │   ├── EchoCoreContext.jsx
+│   │   ├── index.js
+│   │   └── README.md
+│   ├── Dashboard.jsx
+│   ├── EchoAvatar.jsx
+│   ├── hooks
+│   │   ├── index.js
+│   │   ├── README.md
+│   │   └── useWhiteboardLayout.js
+│   ├── index.js
+│   ├── MissionControl
+│   │   ├── AlertStack.jsx
+│   │   └── MissionControl.jsx
+│   ├── utils
+│   ├── utlis
+│   │   └── encryption.js
+│   └── voice
+│       ├── index.js
+│       ├── useEchoSpeech.js
+│       └── useVoiceRecognition.js
+├── EchoGridSidebar.jsx
+├── EchoResponsePanel.jsx
+├── EchoStatusMonitor.jsx
+├── emotionalAI
+│   ├── AIStatusIndicator.jsx
+│   ├── ChefMoodTracker.jsx
+│   ├── ClippyExplainer.jsx
+│   ├── EchoPulseIcon.jsx
+│   ├── EmotionLog.jsx
+│   └── index.js
+├── Footer.jsx
+├── FormButton.jsx
+├── FormFieldGroup.jsx
+├── FormInput.jsx
+├── GridLayout.jsx
+├── Identity
+│   └── EchoThumbPrint.jsx
+├── ImageModifierModal.jsx
+├── Ingredients
+│   ├── IngredientBuilder.jsx
+│   └── IngredientMasterList.jsx
+├── interaction
+│   ├── DashboardTransitionWrapper.jsx
+│   ├── EchoAccordion.jsx
+│   ├── EchoActionBar.jsx
+│   ├── EchoActionGrid.jsx
+│   ├── EchoAnimator.jsx
+│   ├── EchoAssistant.jsx
+│   ├── EchoCard.jsx
+│   ├── EchoCardContainer.jsx
+│   ├── EchoCarousel.jsx
+│   ├── EchoContextMenu.jsx
+│   ├── EchoControlPanel.jsx
+│   ├── EchoDropdown.jsx
+│   ├── EchoDynamicPanel.jsx
+│   ├── EchoFloatingMenu.jsx
+│   ├── EchoFloatingPanel.jsx
+│   ├── EchoInfoBadge.jsx
+│   ├── EchoInlineAlert.jsx
+│   ├── EchoInteractivePanel.jsx
+│   ├── EchoMainView.jsx
+│   ├── EchoMessageList.jsx
+│   ├── EchoModal.jsx
+│   ├── EchoNotepad.jsx
+│   ├── EchoPagination.jsx
+│   ├── EchoPanelWrapper.jsx
+│   ├── EchoProgressBar.jsx
+│   ├── EchoQuickStatus.jsx
+│   ├── EchoResponseBlock.jsx
+│   ├── EchoResponsePanel.jsx
+│   ├── EchoSectionHeader.jsx
+│   ├── EchoShell.jsx
+│   ├── EchoSidebar.jsx
+│   ├── EchoSmartSpecialFlow.jsx
+│   ├── EchoStatusBar.jsx
+│   ├── EchoStepper.jsx
+│   ├── EchoSummaryCard.jsx
+│   ├── EchoTabs.jsx
+│   ├── EchoToast.jsx
+│   ├── EchoToggle.jsx
+│   ├── EchoToolbar.jsx
+│   ├── EchoTooltip.jsx
+│   ├── EchoWhisper.jsx
+│   ├── index.js
+│   ├── ModuleContainer.jsx
+│   ├── QuickActionPanel.jsx
+│   ├── UIActionButton.jsx
+│   └── useKeyPress.js
+├── invoice
+│   ├── checkDuplicate.js
+│   ├── ComplianceAuditBanner.jsx
+│   ├── InvoicePreviewModal.jsx
+│   ├── InvoiceUpload.jsx
+│   ├── OrderingConflictAlert.js
+│   └── VendorResponsePanel.jsx
+├── items
+│   └── ItemHoverInsights.jsx
+├── Kitchen
+│   ├── KitchenTabView.jsx
+│   ├── RecipeInput.jsx
+│   └── RecipeList.jsx
+├── KitchenLibraryTabs.jsx
+├── LiquidWhiteBoard
+│   └── LiquidWhiteBoardEngine.jsx
+├── LoadingProgress.jsx
+├── LoadingScreen.jsx
+├── LogEntry.jsx
+├── Logo.jsx
+├── LogoAnimated.jsx
+├── LogoutButton.jsx
+├── Luccca AdminPanel.jsx
+├── MobileGridWrapper.jsx
+├── ModalBasic.jsx
+├── Navbar.jsx
+├── NotificationBannerljsx
+├── ordering
+│   ├── KeyItemTracker.jsx
+│   ├── OrderEntryPanel.jsx
+│   └── VendorRebateTracker.jsx
+├── OverrideVault.jsx
+├── PageSection.jsx
+├── PastryRightSidebar.jsx
+├── PastryRightSidebarToggle.jsx
+├── PastrySidebar.jsx
+├── ProgressBar.jsx
+├── Recipe
+│   └── RecipeListWrapper.jsx
+├── recipes
+│   └── EchoRecipeScaler.jsx
+├── RecipeScallingForm.jsx
+├── RecipeVariationLinker.jsx
+├── scheduling
+│   ├── MessageBoard.jsx
+│   ├── ScheduleGrid.jsx
+│   └── ShiftAnalyzer.jsx
+├── servernotes
+│   ├── AllergenTagger.jsx
+│   ├── ServerNoteBuilder.jsx
+│   ├── ServerNoteTemplate.jsx
+│   └── WinePairingEngine.jsx
+├── Settings
+│   ├── CustomBackground.jsx
+│   ├── gradients.js
+│   └── GradientSelector.jsx
+├── Sidebar.jsx
+├── sommelier
+│   └── SommelierPairingPanel.jsx
+├── specials
+│   ├── RecipeSubstitutionHelper.jsx
+│   └── SmartSpecialsPanel.jsx
+├── StatBlock.jsx
+├── StatGroup.jsx
+├── SystemContro.Panel.jsx
+├── SystemLoader.jsx
+├── SystemStatusDisplay.jsx
+├── SystemTile.jsx
+├── SystemTileStatus.jsx
+├── ui
+│   ├── TurtleoverrideLoader.jsx
+│   └── WhiskLoader.jsx
+├── UserRoleManager.jsx
+└── UserWelcomeBanner.jsx
+
+39 directories, 213 files

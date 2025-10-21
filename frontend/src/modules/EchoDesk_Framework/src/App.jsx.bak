@@ -1,0 +1,15 @@
+import React from 'react'
+import Board from './board/Board'
+import Toolbar from './board/Toolbar'
+import { PanelHost } from './board/panelHost/PanelHost'
+import './styles/global.css'
+
+export default function App(){
+  return (
+    <div style={{height:'100%', width:'100%', position:'relative', overflow:'hidden'}}>
+      <Board/>
+      <Toolbar/>
+      <PanelHost/>
+    </div>
+  )
+}

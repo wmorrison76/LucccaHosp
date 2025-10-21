@@ -1,0 +1,6 @@
+function downloadBlob(blob, filename){ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=filename; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},0); }
+export async function exportPNG({selector='canvas'}={}){ const c=document.querySelector(selector); if(!c){ alert('PNG export: no canvas found'); return; } const b=await new Promise(res=>c.toBlob(res,'image/png',1)); if(!b){ alert('PNG export failed'); return; } downloadBlob(b,`whiteboard-${Date.now()}.png`); }
+export function exportSVG({width=1600,height=900}={}){ const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><rect width="100%" height="100%" fill="#fff"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui" font-size="18">Exported ${new Date().toISOString()}</text></svg>`; const b=new Blob([svg],{type:'image/svg+xml'}); downloadBlob(b,`whiteboard-${Date.now()}.svg`); }
+export function exportJSON(state){ const safe=state?state:{ note:'no store available' }; const b=new Blob([JSON.stringify(safe,null,2)],{type:'application/json'}); downloadBlob(b,`whiteboard-${Date.now()}.json`); }
+
+export default exportSVG;

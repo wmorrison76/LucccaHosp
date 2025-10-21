@@ -1,0 +1,1 @@
+// getCroppedImg.js placeholder content for getCroppedImg_MIME_Fix_42.zip

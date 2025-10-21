@@ -1,0 +1,35 @@
+/* ===== src/components/CakeBuilder.jsx ===== */
+import React, { useState } from "react";
+import CakeCanvas from "./CakeCanvas";
+import CakeDesignSummary from "./CakeDesignSummary";
+import CakeFormSection from "./CakeFormSection";
+import CakeSupportDisplay from "./CakeSupportDisplay";
+
+export default function CakeBuilder() {
+  // single source of truth with safe defaults
+  const [designData, setDesignData] = useState({
+    base: "vanilla",
+    frosting: "buttercream",
+    tiers: 1,
+    diameter: 8, // inches
+    height: 4,   // inches per tier
+    color: "#f7e1d7",
+    notes: "",
+  });
+
+  return (
+    <div className="space-y-6 p-6">
+      <CakeFormSection
+        designData={designData}
+        onChange={(patch) => setDesignData((d) => ({ ...d, ...patch }))}
+      />
+
+      <CakeCanvas designData={designData} />
+
+      <CakeSupportDisplay designData={designData} />
+
+      <CakeDesignSummary designData={designData} />
+    </div>
+  );
+}
+

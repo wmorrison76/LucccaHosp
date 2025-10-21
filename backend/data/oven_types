@@ -1,0 +1,11 @@
+{
+  "deck_oven": {
+    "bake_multiplier": 1.0
+  },
+  "convection_oven": {
+    "bake_multiplier": 0.85
+  },
+  "rational_oven": {
+    "bake_multiplier": 0.75
+  }
+}

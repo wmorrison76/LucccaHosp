@@ -1,0 +1,4 @@
+.no-scrollbar{scrollbar-width:none}.no-scrollbar::-webkit-scrollbar{display:none}
+.dw-input{display:block;width:100%;border-radius:10px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);color:var(--text-strong);padding:.5rem .65rem}
+.dw-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);color:var(--text-strong)}
+.dw-btn--primary{background:var(--accent);border-color:transparent;color:#041318}

@@ -1,0 +1,1 @@
+This file will manage guest save/resume logic for event planning.

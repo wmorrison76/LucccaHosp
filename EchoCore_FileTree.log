@@ -1,0 +1,1254 @@
+src/EchoCore
+├── AdvancedIntegration_146.js
+├── AdvancedIntegration_147.js
+├── AdvancedIntegration_148.js
+├── AdvancedIntegration_149.js
+├── AdvancedIntegration_150.js
+├── AdvancedIntegration_151.js
+├── AdvancedIntegration_152.js
+├── AdvancedIntegration_153.js
+├── AdvancedIntegration_154.js
+├── AdvancedIntegration_155.js
+├── AdvancedIntegration_156.js
+├── AdvancedIntegration_157.js
+├── AdvancedIntegration_158.js
+├── AdvancedIntegration_159.js
+├── AdvancedIntegration_160.js
+├── AuditTrailContext.jsx
+├── AuditTrailEngine.js
+├── AuditTrailEngine.test.js
+├── AuditTrailFilters.jsx
+├── AuditTrailItem.jsx
+├── AuditTrailPanel.jsx
+├── Barrel_analytics.js
+├── Barrel_audit.js
+├── Barrel_auditHooks.js
+├── Barrel_feedback.js
+├── Barrel_feedbackHooks.js
+├── Barrel_health.js
+├── Barrel_healthHooks.js
+├── Barrel_hooks.js
+├── Barrel_migration.js
+├── Barrel_migrationHooks.js
+├── Barrel_notificationHooks.js
+├── Barrel_notifications.js
+├── Barrel_reportHooks.js
+├── Barrel_reports.js
+├── BehavioralAnalytics_131.js
+├── BehavioralAnalytics_132.js
+├── BehavioralAnalytics_133.js
+├── BehavioralAnalytics_134.js
+├── BehavioralAnalytics_135.js
+├── BehavioralAnalytics_136.js
+├── BehavioralAnalytics_137.js
+├── BehavioralAnalytics_138.js
+├── BehavioralAnalytics_139.js
+├── BehavioralAnalytics_140.js
+├── BehavioralAnalytics_141.js
+├── BehavioralAnalytics_142.js
+├── BehavioralAnalytics_143.js
+├── BehavioralAnalytics_144.js
+├── BehavioralAnalytics_145.js
+├── BuildScripts.sh
+├── BundleAnalyzerConfig.js
+├── CacheManager.js
+├── Changelog.md
+├── CodeSplittingManager.js
+├── coreAnalytics.js
+├── coreAudit.js
+├── coreFeedback.js
+├── coreHealth.js
+├── coreMigration.js
+├── coreNotifications.js
+├── coreOptimizations.js
+├── coreReports.js
+├── DataMigrationContext.jsx
+├── DataMigrationEngine.js
+├── DataMigrationEngine.test.js
+├── DisasterRecovery_176.js
+├── DisasterRecovery_177.js
+├── DisasterRecovery_178.js
+├── DisasterRecovery_179.js
+├── DisasterRecovery_180.js
+├── DisasterRecovery_181.js
+├── DisasterRecovery_182.js
+├── DisasterRecovery_183.js
+├── DisasterRecovery_184.js
+├── DisasterRecovery_185.js
+├── DisasterRecovery_186.js
+├── DisasterRecovery_187.js
+├── DisasterRecovery_188.js
+├── DisasterRecovery_189.js
+├── DisasterRecovery_190.js
+├── EchoAvatar_AI
+│   ├── EchoAvatar_AI_Task_1.js
+│   ├── EchoAvatar_AI_Task_10.js
+│   ├── EchoAvatar_AI_Task_2.js
+│   ├── EchoAvatar_AI_Task_3.js
+│   ├── EchoAvatar_AI_Task_4.js
+│   ├── EchoAvatar_AI_Task_5.js
+│   ├── EchoAvatar_AI_Task_6.js
+│   ├── EchoAvatar_AI_Task_7.js
+│   ├── EchoAvatar_AI_Task_8.js
+│   └── EchoAvatar_AI_Task_9.js
+├── EchoCore_Batch_101-120
+│   ├── AdvancedForecastChart.jsx
+│   ├── AdvancedForecastPanel.jsx
+│   ├── AuditExport.js
+│   ├── enterprise.test.js
+│   ├── EnterpriseConfig.js
+│   ├── EnterpriseDashboard.jsx
+│   ├── extra1.js
+│   ├── extra2.js
+│   ├── ForecastChartV2.jsx
+│   ├── ForecastingEngineV2.js
+│   ├── ForecastSettingsPanel.jsx
+│   ├── index.js
+│   ├── PermissionMatrix.js
+│   ├── PermissionsTable.jsx
+│   ├── RBACProviderV2.jsx
+│   ├── RoleEditor.jsx
+│   ├── useAdvancedForecast.js
+│   ├── usePermissionsHook.js
+│   ├── UserManagementPanel.jsx
+│   └── UserRolesList.jsx
+├── EchoCore_Batch_121-140
+│   ├── AdvancedAuditLog.js
+│   ├── AnalyticsPanel.jsx
+│   ├── AuditViewer.jsx
+│   ├── DataRetentionPanel.jsx
+│   ├── DataRetentionPolicy.js
+│   ├── EnterpriseDashboardV2.jsx
+│   ├── EnterpriseLogger.js
+│   ├── EnterpriseNotifications.js
+│   ├── EnterpriseSettings.jsx
+│   ├── index.js
+│   ├── IntegrationManager.js
+│   ├── IntegrationManagerPanel.jsx
+│   ├── NotificationSettingsPanel.jsx
+│   ├── ReportScheduler.js
+│   ├── ReportSchedulerPanel.jsx
+│   ├── StatusPanel.jsx
+│   ├── useEnterpriseLogger.js
+│   ├── useIntegrationStatus.js
+│   ├── UserAnalytics.js
+│   └── useUserAnalytics.js
+├── EchoCore_Batch_141-160
+│   ├── BackupScheduler.js
+│   ├── BackupSettingsPanel.jsx
+│   ├── BackupStatusPanel.jsx
+│   ├── ComplianceManager.js
+│   ├── CompliancePanel.jsx
+│   ├── DisasterRecoveryPanel.jsx
+│   ├── DisasterRecoveryPlan.js
+│   ├── EncryptionSettingsPanel.jsx
+│   ├── EnterpriseBackupManager.js
+│   ├── EnterpriseEncryption.js
+│   ├── extra3.js
+│   ├── index.js
+│   ├── KeyManagement.js
+│   ├── KeyManagementPanel.jsx
+│   ├── SecurityAudit.js
+│   ├── SecurityAuditPanel.jsx
+│   ├── useBackupStatus.js
+│   ├── useEncryptionStatus.js
+│   ├── useKeyStatus.js
+│   └── useRecoveryStatus.js
+├── EchoCore_Batch_4
+│   ├── ChatA
+│   │   ├── DataContextProvider.jsx
+│   │   ├── dataFlowDocs.md
+│   │   ├── DataHookErrors.jsx
+│   │   ├── EchoCoreHooks.js
+│   │   ├── echoService.js
+│   │   ├── HookUI.stories.js
+│   │   ├── useDataStream.js
+│   │   ├── useDataStream.test.js
+│   │   └── WhiteboardBackendAdapter.js
+│   ├── ChatB
+│   │   ├── CameraSwitchPanel.jsx
+│   │   ├── DraggableModuleContainer.test.js
+│   │   ├── EchoWhiteboard.jsx
+│   │   ├── MissionControl.stories.js
+│   │   ├── MissionControlSettings.jsx
+│   │   ├── MissionControlWrapper.jsx
+│   │   ├── ModuleAddButton.jsx
+│   │   ├── ModuleLibraryPanel.jsx
+│   │   └── TemplatePacks.js
+│   ├── ChatC
+│   │   ├── Avatar.stories.js
+│   │   ├── avatar.test.js
+│   │   ├── AvatarCache.js
+│   │   ├── AvatarContextProvider.jsx
+│   │   ├── AvatarIntegration.js
+│   │   ├── AvatarLoader.js
+│   │   ├── AvatarSettingsPanel.jsx
+│   │   ├── EchoAvatar.jsx
+│   │   └── useAvatarState.js
+│   ├── ChatD
+│   │   ├── CanvasGridOverlay.jsx
+│   │   ├── gridUtils.js
+│   │   ├── historyManager.js
+│   │   ├── ModuleDropZone.jsx
+│   │   ├── MultiSelectDrag.js
+│   │   ├── SelectionBox.jsx
+│   │   ├── whiteboard_v2.test.js
+│   │   ├── WhiteboardCanvas.jsx
+│   │   └── WhiteboardV2.stories.js
+│   ├── ChatE
+│   │   ├── AllModulesIntegration.story.js
+│   │   ├── coverageSetup.js
+│   │   ├── DataReplayTool.js
+│   │   ├── EchoCoreMockServer.js
+│   │   ├── IntegrationAvatarMission.test.js
+│   │   ├── integrationDocs.md
+│   │   ├── IntegrationTestSuite.test.js
+│   │   ├── jest.config.js
+│   │   └── MockWebSocket.js
+│   └── ChatF
+│       ├── AnalyticsDataAdapter.js
+│       ├── PermissionContextProvider.jsx
+│       ├── PredictiveEngine.js
+│       ├── RBAC.test.js
+│       ├── RBACFlow.stories.js
+│       ├── RBACRoles.js
+│       ├── RouteGuard.jsx
+│       └── usePermissions.js
+├── EchoCore_Batch_71-80
+│   ├── AccessControlPanel.jsx
+│   ├── analytics.test.js
+│   ├── ForecastChart.jsx
+│   ├── ForecastPanel.jsx
+│   ├── index.js
+│   ├── PredictiveAnalyticsEngine.js
+│   ├── rbac.test.js
+│   ├── RBACProvider.jsx
+│   ├── useForecastHook.js
+│   └── useRBAC.js
+├── EchoCore_Batch_8_9
+│   ├── AnalyticsCostBreakdown.jsx
+│   ├── AnalyticsRevenueForecast.js
+│   ├── AvatarAccessoryManager.jsx
+│   ├── AvatarFacialExpressionEngine.js
+│   ├── AvatarGestureController.js
+│   ├── AvatarLiveReactionPanel.jsx
+│   ├── CoreAccessibilityManager.js
+│   ├── CoreErrorBoundary.jsx
+│   ├── CoreLoggingService.js
+│   ├── CoreToastNotification.jsx
+│   ├── IntegrationAPIKeysPanel.jsx
+│   ├── IntegrationScheduler.js
+│   ├── ModuleDuplicateTool.js
+│   ├── ModuleTemplateGallery.jsx
+│   ├── PredictiveDemandCurve.js
+│   ├── PredictiveSalesModel.js
+│   ├── RBACAuditLogViewer.jsx
+│   ├── RBACPermissionMatrix.jsx
+│   ├── WhiteboardAIHints.js
+│   └── WhiteboardAutoLayoutManager.jsx
+├── EchoCore_Batch_81-90
+│   ├── CCTVIntegration.js
+│   ├── index.js
+│   ├── integration.test.js
+│   ├── PMSDashboard.jsx
+│   ├── PMSIntegration.js
+│   ├── POSDashboard.jsx
+│   ├── POSIntegration.js
+│   ├── usePMSData.js
+│   ├── usePOSData.js
+│   └── WeatherService.js
+├── EchoCore_Batch_91-100
+│   ├── AuditLog.js
+│   ├── AuditLogPanel.jsx
+│   ├── ErrorBoundary.jsx
+│   ├── index.js
+│   ├── ReportPanel.jsx
+│   ├── system.test.js
+│   ├── SystemHealthMonitor.js
+│   ├── SystemReportGenerator.js
+│   └── useSystemHealth.js
+├── EchoCore_Batch4
+│   └── README.md
+├── EchoCore_Batch5
+│   └── README.md
+├── EchoCore_Batch6
+│   └── README.md
+├── EchoCore_Batch7
+│   └── README.md
+├── EchoCore_Batch8
+│   └── README.md
+├── EchoCore_Batch9_Phase4
+│   ├── CCTVMonitoringHook.js
+│   ├── IntegrationConfig.js
+│   ├── IntegrationDashboard.jsx
+│   ├── IntegrationLogger.js
+│   ├── IntegrationService.test.js
+│   ├── IntegrationUtils.js
+│   ├── PMSIntegrationService.js
+│   ├── POSIntegrationService.js
+│   ├── README.md
+│   └── WeatherAPIIntegration.js
+├── EchoCore_ChatA_Batch1
+│   └── src
+│       └── components
+│           └── EchoCore
+│               └── voice
+├── EchoCore_ChatA_Batch4
+│   └── README.md
+├── EchoCore_ChatA_Batch5
+│   ├── EchoAssistant.jsx
+│   ├── EchoAssistant.stories.jsx
+│   ├── NLPCommandEngine.js
+│   ├── NLPCommandEngine.test.js
+│   ├── README.md
+│   ├── SpeechToTextService.js
+│   ├── voice_barrel.js
+│   ├── VoiceCommandParser.js
+│   ├── VoiceConfidenceMeter.jsx
+│   └── VoiceTrainingModal.jsx
+├── EchoCore_ChatA_Batch6
+│   ├── DialogueManager.js
+│   ├── DialogueManager.test.js
+│   ├── nlp_dialogue_barrel.js
+│   ├── README.md
+│   ├── VoiceConfidenceMeter.jsx
+│   ├── VoiceDialogue.stories.jsx
+│   ├── VoiceGPTMock.js
+│   ├── VoiceMacroCommands.js
+│   ├── VoiceMuteToggle.jsx
+│   └── VoiceTrainingModal.jsx
+├── EchoCore_ChatA_Batch7
+│   ├── DialogueManager.js
+│   ├── NLPCommandChain.js
+│   ├── README.md
+│   ├── SpeechAPIAdapter.js
+│   ├── SpeechAPIAdapter.test.js
+│   ├── voice_api_barrel.js
+│   ├── VoiceHotkeyPanel.jsx
+│   ├── VoiceHotkeyPanel.stories.jsx
+│   ├── VoiceSettingsSync.js
+│   └── VoiceShortcutManager.js
+├── EchoCore_ChatA_Batch8
+│   ├── EchoVoiceAnalytics.jsx
+│   ├── NLPEnhancer.js
+│   ├── README.md
+│   ├── voice_gateway_barrel.js
+│   ├── VoiceAnalytics.stories.jsx
+│   ├── VoiceAPIConfig.js
+│   ├── VoiceAPIConnector.js
+│   ├── VoiceAPIConnector.test.js
+│   ├── VoiceCacheManager.js
+│   └── VoiceCommandHistory.js
+├── EchoCore_ChatB_Batch4
+│   └── README.md
+├── EchoCore_ChatB_Batch5
+│   ├── collab_barrel.js
+│   ├── README.md
+│   ├── Whiteboard.stories.jsx
+│   ├── WhiteboardAnnotation.jsx
+│   ├── WhiteboardCursor.jsx
+│   ├── WhiteboardExport.js
+│   ├── WhiteboardMiniMap.jsx
+│   ├── WhiteboardSyncUndoRedo.js
+│   ├── WhiteboardUserPresence.js
+│   └── WhiteboardUserPresence.test.js
+├── EchoCore_ChatB_Batch6
+│   ├── README.md
+│   ├── session_barrel.js
+│   ├── WhiteboardAutoSave.js
+│   ├── WhiteboardBackgroundTemplates.js
+│   ├── WhiteboardExportPDF.js
+│   ├── WhiteboardHistory.stories.jsx
+│   ├── WhiteboardHistoryPanel.jsx
+│   ├── WhiteboardSessionManager.js
+│   ├── WhiteboardSessionManager.test.js
+│   └── WhiteboardUserColors.js
+├── EchoCore_ChatB_Batch7
+│   ├── README.md
+│   ├── whiteboard_v3_barrel.js
+│   ├── WhiteboardAnnotations.stories.jsx
+│   ├── WhiteboardAnnotationsPanel.jsx
+│   ├── WhiteboardCommentThread.jsx
+│   ├── WhiteboardDragDropImport.js
+│   ├── WhiteboardFileExport.js
+│   ├── WhiteboardFileImport.js
+│   ├── WhiteboardFileImport.test.js
+│   └── WhiteboardHistoryExport.js
+├── EchoCore_ChatB_Batch8
+│   ├── README.md
+│   ├── whiteboard_gateway_barrel.js
+│   ├── WhiteboardAPIHandler.js
+│   ├── WhiteboardAPIHandler.test.js
+│   ├── WhiteboardCollabGateway.js
+│   ├── WhiteboardExportConfig.js
+│   ├── WhiteboardRealtimeReplay.jsx
+│   ├── WhiteboardReplay.stories.jsx
+│   ├── WhiteboardSecurityLayer.js
+│   └── WhiteboardUserTracking.js
+├── EchoCore_ChatC_Batch4
+│   └── README.md
+├── EchoCore_ChatC_Batch5
+│   ├── AlertBadge.jsx
+│   ├── AlertBadge.stories.jsx
+│   ├── analytics_barrel.js
+│   ├── dataNormalization.js
+│   ├── POSOrderTimeline.jsx
+│   ├── README.md
+│   ├── useAlertsFeed.js
+│   ├── usePOSData.js
+│   ├── useSystemHealth.js
+│   └── useSystemHealth.test.js
+├── EchoCore_ChatC_Batch6
+│   ├── AlertConfigPanel.jsx
+│   ├── AlertConfigPanel.stories.jsx
+│   ├── LiveStatusWidget.jsx
+│   ├── performance_barrel.js
+│   ├── POSApiMock.js
+│   ├── README.md
+│   ├── useCustomAlertRules.js
+│   ├── usePerformanceMetrics.js
+│   ├── usePerformanceMetrics.test.js
+│   └── WeatherPOSOverlay.js
+├── EchoCore_ChatC_Batch7
+│   ├── EventBus.js
+│   ├── EventBus.test.js
+│   ├── EventDebugPanel.jsx
+│   ├── hooks_event_barrel.js
+│   ├── LiveEventStream.jsx
+│   ├── LiveEventStream.stories.jsx
+│   ├── LiveMetricsRetry.js
+│   ├── README.md
+│   ├── usePMSAPI.js
+│   └── usePOSAPI.js
+├── EchoCore_ChatC_Batch8
+│   ├── analytics_gateway_barrel.js
+│   ├── AnalyticsGateway.js
+│   ├── AnalyticsGateway.test.js
+│   ├── AnalyticsPipelineStub.js
+│   ├── ExternalAPIConfig.js
+│   ├── LiveAlertNotifier.js
+│   ├── LiveEventMonitor.jsx
+│   ├── LiveEventMonitor.stories.jsx
+│   ├── POSPMSApiGateway.js
+│   └── README.md
+├── EchoCore_ChatD_Batch4
+│   └── README.md
+├── EchoCore_ChatD_Batch5
+│   ├── avatar_states_barrel.js
+│   ├── Avatar3DPlaceholder.js
+│   ├── AvatarLoadingIdleAnimations.js
+│   ├── AvatarReaction.jsx
+│   ├── AvatarReaction.stories.jsx
+│   ├── EchoAssistant.jsx
+│   ├── EmotionScriptManager.js
+│   ├── EmotionScriptManager.test.js
+│   ├── README.md
+│   └── VoiceExpressionModule.js
+├── EchoCore_ChatD_Batch6
+│   ├── AvatarDialogueIntegration.js
+│   ├── AvatarEmotionBlend.js
+│   ├── AvatarMultiSelect.js
+│   ├── AvatarPosePresets.json
+│   ├── AvatarPoseSelector.jsx
+│   ├── AvatarPoseSelector.stories.jsx
+│   ├── behaviors_barrel.js
+│   ├── BehaviorScriptEngine.js
+│   ├── BehaviorScriptEngine.test.js
+│   └── README.md
+├── EchoCore_ChatD_Batch7
+│   ├── avatar_profiles_barrel.js
+│   ├── AvatarCloudSyncMock.js
+│   ├── AvatarEmotionIntegration.js
+│   ├── AvatarPresets.json
+│   ├── AvatarPreviewCard.jsx
+│   ├── AvatarProfileManager.js
+│   ├── AvatarProfileManager.test.js
+│   ├── AvatarProfilePanel.jsx
+│   ├── AvatarProfilePanel.stories.jsx
+│   └── README.md
+├── EchoCore_ChatD_Batch8
+│   ├── avatar_gateway_barrel.js
+│   ├── Avatar3DSync.js
+│   ├── AvatarAnimationLoader.js
+│   ├── AvatarBehaviorRecorder.js
+│   ├── AvatarCloudSyncAPI.js
+│   ├── AvatarCloudSyncAPI.test.js
+│   ├── AvatarCrossDeviceManager.js
+│   ├── AvatarCustomization.stories.jsx
+│   ├── AvatarCustomizationPanel.jsx
+│   └── README.md
+├── EchoCore_ChatE_Batch4
+│   └── README.md
+├── EchoCore_ChatE_Batch5
+│   ├── AccessLevelBadge.jsx
+│   ├── AdminPanel.stories.jsx
+│   ├── DashboardRoleFilter.jsx
+│   ├── rbac_admin_barrel.js
+│   ├── README.md
+│   ├── RoleAssignmentForm.jsx
+│   ├── RoleAssignmentForm.test.js
+│   ├── SessionManagerMock.js
+│   ├── useAdminUsers.js
+│   └── UserListPanel.jsx
+├── EchoCore_ChatE_Batch6
+│   ├── MockLoginLogout.js
+│   ├── rbac_session_barrel.js
+│   ├── rbacLogs.js
+│   ├── RBACSessionGate.jsx
+│   ├── README.md
+│   ├── RoleEditorPanel.jsx
+│   ├── RoleEditorPanel.stories.jsx
+│   ├── sessionTokens.js
+│   ├── useSessionAuth.js
+│   └── useSessionAuth.test.js
+├── EchoCore_ChatE_Batch7
+│   ├── jwtHandler.js
+│   ├── jwtHandler.test.js
+│   ├── JWTTokenPanel.jsx
+│   ├── JWTTokenPanel.stories.jsx
+│   ├── JWTValidationGate.js
+│   ├── MockJWTLogin.js
+│   ├── rbac_jwt_barrel.js
+│   ├── RBACPolicyEditor.jsx
+│   ├── README.md
+│   └── useJWTAuth.js
+├── EchoCore_ChatE_Batch8
+│   ├── JWTRefreshHandler.js
+│   ├── OAuthGateway.js
+│   ├── OAuthGateway.test.js
+│   ├── rbac_gateway_barrel.js
+│   ├── RBACAPIHandler.js
+│   ├── RBACPanel.stories.jsx
+│   ├── RBACSecurityConfig.js
+│   ├── README.md
+│   ├── RolePolicyManager.js
+│   └── SessionAuditPanel.jsx
+├── EchoCore_ChatF_Batch4
+│   └── README.md
+├── EchoCore_ChatF_Batch5
+│   ├── AnomalyDetectionStub.js
+│   ├── forecast_ml_barrel.js
+│   ├── ForecastInsightCard.jsx
+│   ├── ForecastModelStub.js
+│   ├── ForecastModelStub.test.js
+│   ├── README.md
+│   ├── ScenarioSelector.jsx
+│   ├── ScenarioSelector.stories.jsx
+│   ├── trainModel.js
+│   └── TrendAnalyzer.js
+├── EchoCore_ChatF_Batch6
+│   ├── CostRiskAnalysis.js
+│   ├── forecast_scenario_barrel.js
+│   ├── ForecastComparisonPanel.jsx
+│   ├── ForecastComparisonPanel.stories.jsx
+│   ├── POSPMSIntegrationMock.js
+│   ├── README.md
+│   ├── ScenarioModelEngine.js
+│   ├── ScenarioModelEngine.test.js
+│   ├── ScenarioView.jsx
+│   └── SeasonalAdjustmentMock.js
+├── EchoCore_ChatF_Batch7
+│   ├── DataFeedSelector.jsx
+│   ├── ExternalDatasetLoader.js
+│   ├── forecast_pipeline_barrel.js
+│   ├── ForecastInsightsPanel.jsx
+│   ├── ForecastInsightsPanel.stories.jsx
+│   ├── ForecastTrainingManager.js
+│   ├── MLDataPipeline.js
+│   ├── MLDataPipeline.test.js
+│   ├── README.md
+│   └── TimeSeriesNormalization.js
+├── EchoCore_ChatF_Batch8
+│   ├── forecast_gateway_barrel.js
+│   ├── ForecastAPIConfig.js
+│   ├── ForecastScenarioDashboard.jsx
+│   ├── ForecastScenarioDashboard.stories.jsx
+│   ├── ForecastTrainingPipeline.js
+│   ├── MLForecastGateway.js
+│   ├── MLForecastGateway.test.js
+│   ├── MLInsightsCard.jsx
+│   ├── PredictiveModelManager.js
+│   └── README.md
+├── EchoCore_Complete
+│   ├── Phase2_Starter
+│   │   ├── CompanionAvatar.jsx
+│   │   └── DashboardVoiceController.jsx
+│   ├── README.md
+│   ├── roadmap
+│   │   └── Phase2_Roadmap.md
+│   └── src
+│       └── components
+│           └── EchoCore
+│               ├── analytics
+│               ├── components
+│               ├── context
+│               ├── EchoShell.jsx
+│               ├── hooks
+│               └── utils
+├── EchoCore_CoreHooks_Batch_61-70
+│   ├── hooks.test.js
+│   ├── index.js
+│   ├── LiveDataProvider.jsx
+│   ├── NotificationCenter.jsx
+│   ├── PresenceIndicator.jsx
+│   ├── useLiveDataHook.js
+│   ├── useNotificationHook.js
+│   ├── useUserPresenceHook.js
+│   ├── useWhiteboardState.js
+│   └── WhiteboardDataSync.js
+├── EchoCore_FullBuild
+│   ├── Batch_4
+│   │   ├── ChatA
+│   │   │   ├── DataContextProvider.jsx
+│   │   │   ├── dataFlowDocs.md
+│   │   │   ├── DataHookErrors.jsx
+│   │   │   ├── EchoCoreHooks.js
+│   │   │   ├── echoService.js
+│   │   │   ├── HookUI.stories.js
+│   │   │   ├── useDataStream.js
+│   │   │   ├── useDataStream.test.js
+│   │   │   └── WhiteboardBackendAdapter.js
+│   │   ├── ChatB
+│   │   │   ├── CameraSwitchPanel.jsx
+│   │   │   ├── DraggableModuleContainer.test.js
+│   │   │   ├── EchoWhiteboard.jsx
+│   │   │   ├── MissionControl.stories.js
+│   │   │   ├── MissionControlSettings.jsx
+│   │   │   ├── MissionControlWrapper.jsx
+│   │   │   ├── ModuleAddButton.jsx
+│   │   │   ├── ModuleLibraryPanel.jsx
+│   │   │   └── TemplatePacks.js
+│   │   ├── ChatC
+│   │   │   ├── Avatar.stories.js
+│   │   │   ├── avatar.test.js
+│   │   │   ├── AvatarCache.js
+│   │   │   ├── AvatarContextProvider.jsx
+│   │   │   ├── AvatarIntegration.js
+│   │   │   ├── AvatarLoader.js
+│   │   │   ├── AvatarSettingsPanel.jsx
+│   │   │   ├── EchoAvatar.jsx
+│   │   │   └── useAvatarState.js
+│   │   ├── ChatD
+│   │   │   ├── CanvasGridOverlay.jsx
+│   │   │   ├── gridUtils.js
+│   │   │   ├── historyManager.js
+│   │   │   ├── ModuleDropZone.jsx
+│   │   │   ├── MultiSelectDrag.js
+│   │   │   ├── SelectionBox.jsx
+│   │   │   ├── whiteboard_v2.test.js
+│   │   │   ├── WhiteboardCanvas.jsx
+│   │   │   └── WhiteboardV2.stories.js
+│   │   ├── ChatE
+│   │   │   ├── AllModulesIntegration.story.js
+│   │   │   ├── coverageSetup.js
+│   │   │   ├── DataReplayTool.js
+│   │   │   ├── EchoCoreMockServer.js
+│   │   │   ├── IntegrationAvatarMission.test.js
+│   │   │   ├── integrationDocs.md
+│   │   │   ├── IntegrationTestSuite.test.js
+│   │   │   ├── jest.config.js
+│   │   │   └── MockWebSocket.js
+│   │   └── ChatF
+│   │       ├── AnalyticsDataAdapter.js
+│   │       ├── PermissionContextProvider.jsx
+│   │       ├── PredictiveEngine.js
+│   │       ├── RBAC.test.js
+│   │       ├── RBACFlow.stories.js
+│   │       ├── RBACRoles.js
+│   │       ├── RouteGuard.jsx
+│   │       └── usePermissions.js
+│   ├── Batch_5
+│   │   ├── AnalyticsDashboard.jsx
+│   │   ├── AvatarAnimationManager.js
+│   │   ├── AvatarPoseController.jsx
+│   │   ├── EchoCoreGlobalStyles.css
+│   │   ├── IntegrationConfigPanel.jsx
+│   │   ├── ModuleInspectorPanel.jsx
+│   │   ├── PredictiveChartWidget.jsx
+│   │   ├── RBACAdminPanel.jsx
+│   │   ├── Task_5_1.js
+│   │   ├── Task_5_10.js
+│   │   ├── Task_5_2.js
+│   │   ├── Task_5_3.js
+│   │   ├── Task_5_4.js
+│   │   ├── Task_5_5.js
+│   │   ├── Task_5_6.js
+│   │   ├── Task_5_7.js
+│   │   ├── Task_5_8.js
+│   │   ├── Task_5_9.js
+│   │   ├── WhiteboardToolbar.jsx
+│   │   └── WhiteboardZoomControls.jsx
+│   ├── Batch_6
+│   │   ├── Task_6_1.js
+│   │   ├── Task_6_10.js
+│   │   ├── Task_6_2.js
+│   │   ├── Task_6_3.js
+│   │   ├── Task_6_4.js
+│   │   ├── Task_6_5.js
+│   │   ├── Task_6_6.js
+│   │   ├── Task_6_7.js
+│   │   ├── Task_6_8.js
+│   │   └── Task_6_9.js
+│   ├── Batch_7
+│   │   ├── Task_7_1.js
+│   │   ├── Task_7_10.js
+│   │   ├── Task_7_2.js
+│   │   ├── Task_7_3.js
+│   │   ├── Task_7_4.js
+│   │   ├── Task_7_5.js
+│   │   ├── Task_7_6.js
+│   │   ├── Task_7_7.js
+│   │   ├── Task_7_8.js
+│   │   └── Task_7_9.js
+│   ├── Batch_8
+│   │   ├── Task_8_1.js
+│   │   ├── Task_8_10.js
+│   │   ├── Task_8_2.js
+│   │   ├── Task_8_3.js
+│   │   ├── Task_8_4.js
+│   │   ├── Task_8_5.js
+│   │   ├── Task_8_6.js
+│   │   ├── Task_8_7.js
+│   │   ├── Task_8_8.js
+│   │   └── Task_8_9.js
+│   └── Batch_9
+│       ├── Task_9_1.js
+│       ├── Task_9_10.js
+│       ├── Task_9_2.js
+│       ├── Task_9_3.js
+│       ├── Task_9_4.js
+│       ├── Task_9_5.js
+│       ├── Task_9_6.js
+│       ├── Task_9_7.js
+│       ├── Task_9_8.js
+│       └── Task_9_9.js
+├── EchoCore_FullBuild_20
+│   ├── AnalyticsHeatmap.jsx
+│   ├── AnalyticsTrendsChart.jsx
+│   ├── AvatarCostumeManager.jsx
+│   ├── AvatarEmotionEngine.js
+│   ├── AvatarInteractionPanel.jsx
+│   ├── AvatarVoiceSync.js
+│   ├── CoreNotificationCenter.jsx
+│   ├── CoreThemeManager.js
+│   ├── IntegrationLogsViewer.jsx
+│   ├── IntegrationSyncManager.js
+│   ├── ModuleGroupManager.jsx
+│   ├── ModuleSearchBar.jsx
+│   ├── PredictiveMenuPlanner.js
+│   ├── PredictiveStaffingModel.js
+│   ├── RBACRoleManager.jsx
+│   ├── RBACUserEditor.jsx
+│   ├── WhiteboardExportTool.js
+│   ├── WhiteboardHistoryControls.jsx
+│   ├── WhiteboardLayerManager.jsx
+│   └── WhiteboardSnapManager.js
+├── EchoCore_Handoff
+│   ├── EchoCore_Handoff_Summary.md
+│   ├── Phase2_Starter.js
+│   └── src
+│       └── components
+│           └── EchoCore
+│               ├── analytics
+│               ├── components
+│               ├── context
+│               ├── hooks
+│               └── utils
+├── EchoCore_Master_AllPhases
+│   ├── EchoCore_Batch4.marker
+│   ├── EchoCore_Batch5.marker
+│   ├── EchoCore_Batch6.marker
+│   ├── EchoCore_Batch7.marker
+│   ├── EchoCore_Batch8.marker
+│   ├── EchoCore_Phase4_Full.marker
+│   ├── EchoCore_Phase5_Final.marker
+│   ├── Phase1_Core
+│   │   └── README.md
+│   ├── Phase2_Modules
+│   │   └── README.md
+│   ├── Phase3_Enterprise
+│   │   └── README.md
+│   ├── Phase4_Integration
+│   │   └── README.md
+│   └── Phase5_Final
+│       └── README.md
+├── EchoCore_Master_Full
+│   ├── EchoCore_Batch4.marker
+│   ├── EchoCore_Batch5.marker
+│   ├── EchoCore_Batch6.marker
+│   ├── EchoCore_Batch7.marker
+│   ├── EchoCore_Batch8.marker
+│   ├── EchoCore_Phase4_Full.marker
+│   ├── Phase1_Core
+│   │   └── README.md
+│   ├── Phase2_Modules
+│   │   └── README.md
+│   ├── Phase3_Enterprise
+│   │   └── README.md
+│   └── Phase4_Integration
+│       └── README.md
+├── EchoCore_Phase2_Batch4
+│   ├── __tests__
+│   │   └── useStream.test.js
+│   ├── components
+│   │   └── DataStreamDebugPanel.jsx
+│   ├── contracts
+│   │   └── events
+│   │       ├── index.ts
+│   │       ├── InventorySnapshot.v1.ts
+│   │       └── LaborShift.v1.ts
+│   ├── hooks
+│   │   ├── useLiveInventoryData.js
+│   │   └── useLiveLaborData.js
+│   ├── mockStreamServer.js
+│   └── storybook
+│       └── DataStreamDebugPanel.stories.jsx
+├── EchoCore_Phase2_Batch5
+│   ├── __tests__
+│   │   └── WhiteboardCanvas.test.js
+│   ├── components
+│   │   └── whiteboard
+│   │       ├── ShapePalette.jsx
+│   │       ├── shapes
+│   │       │   ├── CircleShape.jsx
+│   │       │   ├── index.js
+│   │       │   ├── RectangleShape.jsx
+│   │       │   └── TextShape.jsx
+│   │       ├── WhiteboardCanvas.jsx
+│   │       ├── WhiteboardLayerManager.jsx
+│   │       └── WhiteboardToolbar.jsx
+│   └── hooks
+│       └── useWhiteboardTools.js
+├── EchoCore_Phase2_FullBuild
+│   ├── Batch_4
+│   │   ├── DataContextProvider.jsx
+│   │   ├── dataFlowDocs.md
+│   │   ├── DataHookErrors.jsx
+│   │   ├── EchoCoreHooks.js
+│   │   ├── echoService.js
+│   │   ├── HookUI.stories.js
+│   │   ├── useDataStream.js
+│   │   ├── useDataStream.test.js
+│   │   └── WhiteboardBackendAdapter.js
+│   ├── Batch_5
+│   │   ├── AnalyticsDashboard.jsx
+│   │   ├── AvatarAnimationManager.js
+│   │   ├── AvatarPoseController.jsx
+│   │   ├── EchoCoreGlobalStyles.css
+│   │   ├── IntegrationConfigPanel.jsx
+│   │   ├── ModuleInspectorPanel.jsx
+│   │   ├── PredictiveChartWidget.jsx
+│   │   ├── RBACAdminPanel.jsx
+│   │   ├── WhiteboardToolbar.jsx
+│   │   └── WhiteboardZoomControls.jsx
+│   ├── Batch_6_7
+│   │   ├── AnalyticsHeatmap.jsx
+│   │   ├── AnalyticsTrendsChart.jsx
+│   │   ├── AvatarCostumeManager.jsx
+│   │   ├── AvatarEmotionEngine.js
+│   │   ├── AvatarInteractionPanel.jsx
+│   │   ├── AvatarVoiceSync.js
+│   │   ├── CoreNotificationCenter.jsx
+│   │   ├── CoreThemeManager.js
+│   │   ├── IntegrationLogsViewer.jsx
+│   │   ├── IntegrationSyncManager.js
+│   │   ├── ModuleGroupManager.jsx
+│   │   ├── ModuleSearchBar.jsx
+│   │   ├── PredictiveMenuPlanner.js
+│   │   ├── PredictiveStaffingModel.js
+│   │   ├── RBACRoleManager.jsx
+│   │   ├── RBACUserEditor.jsx
+│   │   ├── WhiteboardExportTool.js
+│   │   ├── WhiteboardHistoryControls.jsx
+│   │   ├── WhiteboardLayerManager.jsx
+│   │   └── WhiteboardSnapManager.js
+│   └── Batch_8_9
+│       ├── AnalyticsCostBreakdown.jsx
+│       ├── AnalyticsRevenueForecast.js
+│       ├── AvatarAccessoryManager.jsx
+│       ├── AvatarFacialExpressionEngine.js
+│       ├── AvatarGestureController.js
+│       ├── AvatarLiveReactionPanel.jsx
+│       ├── CoreAccessibilityManager.js
+│       ├── CoreErrorBoundary.jsx
+│       ├── CoreLoggingService.js
+│       ├── CoreToastNotification.jsx
+│       ├── IntegrationAPIKeysPanel.jsx
+│       ├── IntegrationScheduler.js
+│       ├── ModuleDuplicateTool.js
+│       ├── ModuleTemplateGallery.jsx
+│       ├── PredictiveDemandCurve.js
+│       ├── PredictiveSalesModel.js
+│       ├── RBACAuditLogViewer.jsx
+│       ├── RBACPermissionMatrix.jsx
+│       ├── WhiteboardAIHints.js
+│       └── WhiteboardAutoLayoutManager.jsx
+├── EchoCore_Phase4_Full
+│   ├── CCTVAlertSystem.js
+│   ├── CCTVMonitoringHook.js
+│   ├── EventIntegrationBus.js
+│   ├── IntegrationConfig.js
+│   ├── IntegrationDashboard.jsx
+│   ├── IntegrationHooksBarrel.js
+│   ├── IntegrationLogger.js
+│   ├── IntegrationREADME.md
+│   ├── IntegrationService.test.js
+│   ├── IntegrationUtils.js
+│   ├── MonitoringUI.jsx
+│   ├── PMSAdapter.js
+│   ├── PMSIntegrationService.js
+│   ├── POSAdapter.js
+│   ├── POSIntegrationService.js
+│   ├── POSPMSMockData.js
+│   ├── SystemHealthMonitor.js
+│   ├── WeatherAPIIntegration.js
+│   ├── WeatherCCTVConnector.js
+│   └── WeatherDataMapper.js
+├── EchoCore_Phase5_Final
+│   ├── CI_CD_Config.yaml
+│   ├── DeploymentGuide.md
+│   ├── DeploymentScripts.sh
+│   ├── FinalTestingSuite.js
+│   ├── IntegrationTests.test.js
+│   ├── LoadTestingPlan.md
+│   ├── README.md
+│   ├── ReleaseNotes.md
+│   ├── SecurityAuditChecklist.md
+│   └── UXPolishTasks.md
+├── EchoCore_UIEnhancements_Batch_51-60
+│   ├── AvatarSettingsPanel.jsx
+│   ├── EchoAvatar.jsx
+│   ├── EchoAvatar.test.js
+│   ├── EchoThemeSwitch.jsx
+│   ├── EchoWelcomeScreen.jsx
+│   ├── index.js
+│   ├── LoadingScreen.jsx
+│   ├── QuickActionPanel.jsx
+│   ├── Toolbar.jsx
+│   └── UIEnhancements.stories.js
+├── FeedbackCharts.jsx
+├── FeedbackEngine.test.js
+├── FeedbackPanel.jsx
+├── FeedbackSummaryCard.jsx
+├── FinalBarrel.js
+├── ForecastDebugPanel.jsx
+├── ForecastEngine.js
+├── ForecastEngine.test.js
+├── ForecastEngineContext.jsx
+├── ForecastSettingsPanel.jsx
+├── HealthLogs.jsx
+├── HealthStatusCard.jsx
+├── Integration_Hooks
+│   ├── Integration_Hooks_Task_1.js
+│   ├── Integration_Hooks_Task_10.js
+│   ├── Integration_Hooks_Task_2.js
+│   ├── Integration_Hooks_Task_3.js
+│   ├── Integration_Hooks_Task_4.js
+│   ├── Integration_Hooks_Task_5.js
+│   ├── Integration_Hooks_Task_6.js
+│   ├── Integration_Hooks_Task_7.js
+│   ├── Integration_Hooks_Task_8.js
+│   └── Integration_Hooks_Task_9.js
+├── LazyLoadWrapper.jsx
+├── Live_Hooks
+│   ├── Live_Hooks_Task_1.js
+│   ├── Live_Hooks_Task_10.js
+│   ├── Live_Hooks_Task_2.js
+│   ├── Live_Hooks_Task_3.js
+│   ├── Live_Hooks_Task_4.js
+│   ├── Live_Hooks_Task_5.js
+│   ├── Live_Hooks_Task_6.js
+│   ├── Live_Hooks_Task_7.js
+│   ├── Live_Hooks_Task_8.js
+│   └── Live_Hooks_Task_9.js
+├── MigrationHistory.jsx
+├── MigrationPanel.jsx
+├── MigrationStatusCard.jsx
+├── NotificationContext.jsx
+├── NotificationEngine.js
+├── NotificationEngine.test.js
+├── NotificationItem.jsx
+├── NotificationPanel.jsx
+├── NotificationSettings.jsx
+├── OptimizationEngine.js
+├── OptimizationEngine.test.js
+├── PerfMetricsDashboard.jsx
+├── Predictive_KPIs
+│   ├── Predictive_KPIs_Task_1.js
+│   ├── Predictive_KPIs_Task_10.js
+│   ├── Predictive_KPIs_Task_2.js
+│   ├── Predictive_KPIs_Task_3.js
+│   ├── Predictive_KPIs_Task_4.js
+│   ├── Predictive_KPIs_Task_5.js
+│   ├── Predictive_KPIs_Task_6.js
+│   ├── Predictive_KPIs_Task_7.js
+│   ├── Predictive_KPIs_Task_8.js
+│   └── Predictive_KPIs_Task_9.js
+├── PrefetchLinks.jsx
+├── RBAC
+│   ├── RBAC_Task_1.js
+│   ├── RBAC_Task_10.js
+│   ├── RBAC_Task_2.js
+│   ├── RBAC_Task_3.js
+│   ├── RBAC_Task_4.js
+│   ├── RBAC_Task_5.js
+│   ├── RBAC_Task_6.js
+│   ├── RBAC_Task_7.js
+│   ├── RBAC_Task_8.js
+│   └── RBAC_Task_9.js
+├── ReportBuilderPanel.jsx
+├── ReportContext.jsx
+├── ReportDownloadButton.jsx
+├── ReportGenerator.js
+├── ReportGenerator.test.js
+├── ReportTemplates.jsx
+├── SalesForecastCard.jsx
+├── SecurityModule_161.js
+├── SecurityModule_162.js
+├── SecurityModule_163.js
+├── SecurityModule_164.js
+├── SecurityModule_165.js
+├── SecurityModule_166.js
+├── SecurityModule_167.js
+├── SecurityModule_168.js
+├── SecurityModule_169.js
+├── SecurityModule_170.js
+├── SecurityModule_171.js
+├── SecurityModule_172.js
+├── SecurityModule_173.js
+├── SecurityModule_174.js
+├── SecurityModule_175.js
+├── StorybookConfigFinal.js
+├── SystemHealthContext.jsx
+├── SystemHealthMonitor.js
+├── SystemHealthMonitor.test.js
+├── SystemHealthPanel.jsx
+├── Task_1.js
+├── Task_10.js
+├── Task_100.js
+├── Task_101.js
+├── Task_102.js
+├── Task_103.js
+├── Task_104.js
+├── Task_105.js
+├── Task_106.js
+├── Task_107.js
+├── Task_108.js
+├── Task_109.js
+├── Task_11.js
+├── Task_110.js
+├── Task_111.js
+├── Task_112.js
+├── Task_113.js
+├── Task_114.js
+├── Task_115.js
+├── Task_116.js
+├── Task_117.js
+├── Task_118.js
+├── Task_119.js
+├── Task_12.js
+├── Task_120.js
+├── Task_121.js
+├── Task_122.js
+├── Task_123.js
+├── Task_124.js
+├── Task_125.js
+├── Task_126.js
+├── Task_127.js
+├── Task_128.js
+├── Task_129.js
+├── Task_13.js
+├── Task_130.js
+├── Task_131.js
+├── Task_132.js
+├── Task_133.js
+├── Task_134.js
+├── Task_135.js
+├── Task_136.js
+├── Task_137.js
+├── Task_138.js
+├── Task_139.js
+├── Task_14.js
+├── Task_140.js
+├── Task_141.js
+├── Task_142.js
+├── Task_143.js
+├── Task_144.js
+├── Task_145.js
+├── Task_146.js
+├── Task_147.js
+├── Task_148.js
+├── Task_149.js
+├── Task_15.js
+├── Task_150.js
+├── Task_151.js
+├── Task_152.js
+├── Task_153.js
+├── Task_154.js
+├── Task_155.js
+├── Task_156.js
+├── Task_157.js
+├── Task_158.js
+├── Task_159.js
+├── Task_16.js
+├── Task_160.js
+├── Task_161.js
+├── Task_162.js
+├── Task_163.js
+├── Task_164.js
+├── Task_165.js
+├── Task_166.js
+├── Task_167.js
+├── Task_168.js
+├── Task_169.js
+├── Task_17.js
+├── Task_170.js
+├── Task_171.js
+├── Task_172.js
+├── Task_173.js
+├── Task_174.js
+├── Task_175.js
+├── Task_176.js
+├── Task_177.js
+├── Task_178.js
+├── Task_179.js
+├── Task_18.js
+├── Task_180.js
+├── Task_181.js
+├── Task_182.js
+├── Task_183.js
+├── Task_184.js
+├── Task_185.js
+├── Task_186.js
+├── Task_187.js
+├── Task_188.js
+├── Task_189.js
+├── Task_19.js
+├── Task_190.js
+├── Task_191.js
+├── Task_192.js
+├── Task_193.js
+├── Task_194.js
+├── Task_195.js
+├── Task_196.js
+├── Task_197.js
+├── Task_198.js
+├── Task_199.js
+├── Task_2.js
+├── Task_20.js
+├── Task_200.js
+├── Task_201.js
+├── Task_202.js
+├── Task_203.js
+├── Task_204.js
+├── Task_205.js
+├── Task_21.js
+├── Task_22.js
+├── Task_23.js
+├── Task_24.js
+├── Task_25.js
+├── Task_26.js
+├── Task_27.js
+├── Task_28.js
+├── Task_29.js
+├── Task_3.js
+├── Task_30.js
+├── Task_31.js
+├── Task_32.js
+├── Task_33.js
+├── Task_34.js
+├── Task_35.js
+├── Task_36.js
+├── Task_37.js
+├── Task_38.js
+├── Task_39.js
+├── Task_4.js
+├── Task_40.js
+├── Task_41.js
+├── Task_42.js
+├── Task_43.js
+├── Task_44.js
+├── Task_45.js
+├── Task_46.js
+├── Task_47.js
+├── Task_48.js
+├── Task_49.js
+├── Task_5.js
+├── Task_50.js
+├── Task_51.js
+├── Task_52.js
+├── Task_53.js
+├── Task_54.js
+├── Task_55.js
+├── Task_56.js
+├── Task_57.js
+├── Task_58.js
+├── Task_59.js
+├── Task_6.js
+├── Task_60.js
+├── Task_61.js
+├── Task_62.js
+├── Task_63.js
+├── Task_64.js
+├── Task_65.js
+├── Task_66.js
+├── Task_67.js
+├── Task_68.js
+├── Task_69.js
+├── Task_7.js
+├── Task_70.js
+├── Task_71.js
+├── Task_72.js
+├── Task_73.js
+├── Task_74.js
+├── Task_75.js
+├── Task_76.js
+├── Task_77.js
+├── Task_78.js
+├── Task_79.js
+├── Task_8.js
+├── Task_80.js
+├── Task_81.js
+├── Task_82.js
+├── Task_83.js
+├── Task_84.js
+├── Task_85.js
+├── Task_86.js
+├── Task_87.js
+├── Task_88.js
+├── Task_89.js
+├── Task_9.js
+├── Task_90.js
+├── Task_91.js
+├── Task_92.js
+├── Task_93.js
+├── Task_94.js
+├── Task_95.js
+├── Task_96.js
+├── Task_97.js
+├── Task_98.js
+├── Task_99.js
+├── UI_Core
+│   ├── UI_Core_Task_1.js
+│   ├── UI_Core_Task_10.js
+│   ├── UI_Core_Task_2.js
+│   ├── UI_Core_Task_3.js
+│   ├── UI_Core_Task_4.js
+│   ├── UI_Core_Task_5.js
+│   ├── UI_Core_Task_6.js
+│   ├── UI_Core_Task_7.js
+│   ├── UI_Core_Task_8.js
+│   └── UI_Core_Task_9.js
+├── UnitTestCoverageReport.md
+├── useAuditTrailEngine.js
+├── useDataMigration.js
+├── useFeedbackEngine.js
+├── useForecastEngine.js
+├── useNotificationEngine.js
+├── usePerformanceMonitor.js
+├── useReportGenerator.js
+├── UserFeedbackContext.jsx
+├── UserFeedbackEngine.js
+└── useSystemHealth.js
+
+129 directories, 1123 files

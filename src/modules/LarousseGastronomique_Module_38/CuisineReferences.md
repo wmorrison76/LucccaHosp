@@ -1,0 +1,1 @@
+// CuisineReferences.md placeholder content for LarousseGastronomique_Module_38.zip

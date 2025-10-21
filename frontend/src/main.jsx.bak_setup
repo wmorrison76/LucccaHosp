@@ -1,0 +1,55 @@
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App.jsx";
+
+import "./index.css";
+import "./components/EchoCore/EchoCoreGlobalStyles.css";
+
+// === Style system ======================
+import "./lib/themeTokens.css";   // tokens: .dw-panel, tabs, text sizes
+import "./styles/utilities.css";  // inputs/buttons helpers
+import { initTheme } from "./lib/themeEngine.js";
+// =======================================
+
+import { installEchoHook } from "./echo/echoClient.js";
+
+function boot() {
+  console.log("[main] booting…");
+
+  // Init theme BEFORE first paint
+  try {
+    initTheme();
+  } catch (e: any) {
+    console.warn("[theme] init skipped:", e?.message ?? e);
+  }
+
+  // Echo websocket
+  try {
+    const host = typeof location !== "undefined" ? location.hostname : "localhost";
+    installEchoHook?.({ baseUrl: `ws://${host}:9091` });
+  } catch (e: any) {
+    console.warn("[Echo] websocket hook skipped:", e?.message ?? e);
+  }
+
+  const el = document.getElementById("root");
+  if (!el) {
+    console.error("[main] #root not found");
+    return;
+  }
+
+  const root = createRoot(el);
+  root.render(
+    <React.StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </React.StrictMode>
+  );
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", boot, { once: true });
+} else {
+  boot();
+}

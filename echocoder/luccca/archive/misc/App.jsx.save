@@ -1,0 +1,303 @@
+#!/bin/bash
+set -e
+
+# Default LUCCCA project path
+PROJECT=~/Desktop/LUCCCA
+TS=$(date +%Y%m%d%H%M%S)
+
+while [[ "$#" -gt 0 ]]; do
+  case $1 in
+    --project) PROJECT="$2"; shift ;;
+  esac
+  shift
+done
+
+echo ">>> Installing Echo Alive (Option B / ESM) into $PROJECT"
+
+FRONT="$PROJECT/frontend/src"
+SERVER="$PROJECT/server"
+
+# ensure dirs
+mkdir -p "$FRONT/board" "$FRONT/echo/core/services/watchers" "$SERVER"
+
+# -----------------------------
+#  EchoBackboard.jsx
+# -----------------------------
+cat > "$FRONT/board/EchoBackboard.jsx" <<'EOF'
+import React, { useEffect, useState } from "react";
+import EchoBubble from "../echo/EchoBubble";
+
+export default function EchoBackboard() {
+  const [toasts, setToasts] = useState([]);
+
+  useEffect(() => {
+    const handler = e => {
+      setToasts(t => [...t, { id: Date.now(), ...e.detail }]);
+      setTimeout(() => setToasts(t => t.slice(1)), 5000);
+    };
+    window.addEventListener("echo-notify", handler);
+    return () => window.removeEventListener("echo-notify", handler);
+  }, []);
+
+  return (
+    <div className="fixed top-4 right-4 space-y-2 z-[9999]">
+      <EchoBubble />
+      {toasts.map(t => (
+        <div key={t.id} className="px-3 py-2 rounded-xl shadow bg-gray-800 text-white">
+          {t.text}
+        </div>
+      ))}
+    </div>
+  );
+}
+EOF
+
+# -----------------------------
+#  EchoBubble.jsx
+# -----------------------------
+cat > "$FRONT/echo/EchoBubble.jsx" <<'EOF'
+import React, { useState, useEffect } from "react";
+
+export default function EchoBubble() {
+  const [msg, setMsg] = useState("");
+  const [reply, setReply] = useState("");
+
+  useEffect(() => {
+    let h;
+    if (msg.trim()) {
+      h = setTimeout(async () => {
+        const r = await window.askEcho(msg);
+        setReply(r.text);
+      }, 900);
+    }
+    return () => clearTimeout(h);
+  }, [msg]);
+
+  return (
+    <div className="bg-white/90 rounded-full px-4 py-2 shadow flex items-center space-x-2">
+      <input
+        className="bg-transparent outline-none flex-1 text-sm"
+        placeholder="Ask Echo…"
+        value={msg}
+        onChange={e => setMsg(e.target.value)}
+      />
+      {reply && <span className="text-xs text-gray-600">{reply}</span>}
+    </div>
+  );
+}
+EOF
+
+# -----------------------------
+#  echoClient.js
+# -----------------------------
+cat > "$FRONT/echo/echoClient.js" <<'EOF'
+export function installEchoHook({ baseUrl = "" } = {}) {
+  window.askEcho = async (q) => {
+    try {
+      const res = await fetch(`${baseUrl}/api/echo/ask`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: q })
+      });
+      return await res.json();
+    } catch (e) {
+      return { text: "Echo is quiet (server down?)" };
+    }
+  };
+}
+EOF
+
+# -----------------------------
+#  eventBus.js
+# -----------------------------
+mkdir -p "$FRONT/echo/core/services"
+cat > "$FRONT/echo/core/services/eventBus.js" <<'EOF'
+class EventBus {
+  constructor() { this.listeners = {}; }
+  on(e, fn) { (this.listeners[e] ??= []).push(fn); }
+  emit(e, d) { (this.listeners[e] || []).forEach(fn => fn(d)); }
+}
+const bus = new EventBus();
+window.EventBus = bus;
+export default bus;
+EOF
+
+# -----------------------------
+#  watchers
+# -----------------------------
+cat > "$FRONT/echo/core/services/watchers/inventoryWatcher.js" <<'EOF'
+import bus from "../eventBus";
+function notify(text) {
+  window.dispatchEvent(new CustomEvent("echo-notify", { detail: { text } }));
+}
+bus.on("inventory:update", d => {
+  if (d.onHand < d.par) notify(`${d.name} low: ${d.onHand}/${d.par}`);
+});
+EOF
+
+cat > "$FRONT/echo/core/services/watchers/salesWatcher.js" <<'EOF'
+import bus from "../eventBus";
+function notify(text) {
+  window.dispatchEvent(new CustomEvent("echo-notify", { detail: { text } }));
+}
+bus.on("sales:burst", d => {
+  notify(`${d.name} spiked: ${d.qty} sold in ${d.window}`);
+});
+EOF
+
+cat > "$FRONT/echo/core/services/watchers/laborWatcher.js" <<'EOF'
+import bus from "../eventBus";
+function notify(text) {
+  window.dispatchEvent(new CustomEvent("echo-notify", { detail: { text } }));
+}
+bus.on("labor:tick", d => {
+  if (d.workedHours > d.overtimeThreshold)
+    notify(`${d.role} overtime risk: ${d.workedHours}h`);
+});
+EOF
+
+# -----------------------------
+#  bootEcho.js
+# -----------------------------
+cat > "$FRONT/echo/bootEcho.js" <<'EOF'
+import "./core/services/watchers/inventoryWatcher.js";
+import "./core/services/watchers/salesWatcher.js";
+import "./core/services/watchers/laborWatcher.js";
+EOF
+
+# -----------------------------
+#  echoApiStub.js
+# -----------------------------
+cat > "$SERVER/echoApiStub.js" <<'EOF'
+import express from "express";
+import cors from "cors";
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+app.post("/api/echo/ask", (req, res) => {
+  const { text } = req.body;
+  res.json({ text: `Echo heard: ${text}` });
+});
+
+app.listen(5175, () => console.log("Echo stub at http://localhost:5175"));
+EOF
+
+echo ">>> Files written. Now patch App.jsx + Board.jsx manually:"
+echo "   In App.jsx:"
+echo "     import { installEchoHook } from './echo/echoClient';"
+echo "     useEffect(() => { installEchoHook({ baseUrl: '' }); }, []);"
+echo "   In Board.jsx:"
+echo "     import '../echo/bootEcho.js';"// App.jsx
+import React, { lazy, Suspense, useCallback, useEffect, useState } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import Sidebar from "./components/Sidebar.jsx";
+import Board from "./board/Board.jsx";
+import { installEchoHook } from "./echo/echoClient.js"; // ← Echo backend hook
+
+const Culinary     = lazy(() => import("./components/KitchenLibraryTabs.jsx"));
+const BakingPastry = lazy(() => import("./components/PastryLibrary/PastryLibrary.jsx"));
+const Mixology     = lazy(() => import("./components/MixologyTabs.jsx"));
+const Scheduling   = lazy(() => import("./modules/scheduling/SchedulerPanel.jsx"));
+
+const REAL_DASHBOARD_PATH = "/whiteboard";
+const BOARD_ALIASES = ["/dashboard"];
+
+function useLocalStorageState(key, initial) {
+  const init = () => {
+    try {
+      const v = localStorage.getItem(key);
+      return v != null ? JSON.parse(v) : (typeof initial === "function" ? initial() : initial);
+    } catch {
+      return typeof initial === "function" ? initial() : initial;
+    }
+  };
+  const [value, setValue] = useState(init);
+  useEffect(() => {
+    try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
+  }, [key, value]);
+  return [value, setValue];
+}
+
+const getSystemPrefersDark = () =>
+  typeof window !== "undefined" && window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+
+export default function App() {
+  const [isOpen, setIsOpen] = useLocalStorageState("ui.sidebar.open", true);
+  const [isDarkMode, setIsDarkMode] = useLocalStorageState("ui.theme.dark", () => !!getSystemPrefersDark());
+
+  // Install Echo hook once (points to your API by default).
+  // For the local stub, change baseUrl to "http://localhost:5175".
+  useEffect(() => {
+    installEchoHook({ baseUrl: "" });
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", !!isDarkMode);
+  }, [isDarkMode]);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      const isMac = navigator.platform.toUpperCase().includes("MAC");
+      if ((isMac ? e.metaKey : e.ctrlKey) && e.key.toLowerCase() === "j") {
+        e.preventDefault();
+        setIsDarkMode((v) => !v);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [setIsDarkMode]);
+
+  const toggleDarkMode = useCallback(() => setIsDarkMode((v) => !v), [setIsDarkMode]);
+  const toggleSidebar  = useCallback(() => setIsOpen((v) => !v), [setIsOpen]);
+
+  const location = useLocation();
+  useEffect(() => {
+    const titleMap = {
+      [REAL_DASHBOARD_PATH]: "LUCCCA • Whiteboard",
+      "/kitchen-library":    "LUCCCA • Culinary",
+      "/baking-pastry":      "LUCCCA • Baking & Pastry",
+      "/mixology":           "LUCCCA • Mixology",
+      "/schedules":          "LUCCCA • Schedules",
+    };
+    document.title = titleMap[location.pathname] || "LUCCCA";
+  }, [location.pathname]);
+
+  const fallback = <div className="p-6 text-sm text-gray-500">Loading…</div>;
+
+  return (
+    <div className={`flex h-screen w-screen ${isDarkMode ? "dark bg-slate-900 text-slate-100" : "bg-white text-slate-900"}`}>
+      <aside className="shrink-0">
+        <Sidebar
+          isOpen={isOpen}
+          toggleSidebar={toggleSidebar}
+          isDarkMode={isDarkMode}
+          toggleDarkMode={toggleDarkMode}
+        />
+      </aside>
+
+      <main className="flex-1 overflow-hidden">
+        <Suspense fallback={fallback}>
+          <Routes>
+            <Route path="/" element={<Navigate to={REAL_DASHBOARD_PATH} replace />} />
+
+            {/* Board (panel system) */}
+            <Route path={REAL_DASHBOARD_PATH} element={<Board />} />
+
+            {/* Standalone routes (optional; Scheduler can still be opened directly here if you navigate) */}
+            <Route path="/kitchen-library" element={<Culinary />} />
+            <Route path="/baking-pastry"   element={<BakingPastry />} />
+            <Route path="/mixology"        element={<Mixology />} />
+            <Route path="/schedules"       element={<Scheduling />} />
+
+            {BOARD_ALIASES.map((p) => (
+              <Route key={p} path={p} element={<Navigate to={REAL_DASHBOARD_PATH} replace />} />
+            ))}
+
+            <Route path="*" element={<Navigate to={REAL_DASHBOARD_PATH} replace />} />
+          </Routes>
+        </Suspense>
+      </main>
+    </div>
+  );
+}

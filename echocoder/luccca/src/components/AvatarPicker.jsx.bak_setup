@@ -1,0 +1,20 @@
+import React,{useMemo,useState,useEffect} from "react";
+const AVATAR_KEY="lu:echo:avatar:v1";
+export default function AvatarPicker(){
+  const avatars=useMemo(()=>{const found=import.meta.glob("../assets/**/Echo_[FMBR].{png,jpg,jpeg,webp,svg}",{eager:true});
+    const items=Object.entries(found).map(([p,m])=>({path:p,url:m.default}));
+    const order=["Echo_F","Echo_M","Echo_B","Echo_R"];
+    items.sort((a,b)=>order.findIndex(t=>a.path.includes(t))-order.findIndex(t=>b.path.includes(t)));
+    const u=localStorage.getItem(AVATAR_KEY+":custom"); if(u) items.unshift({path:"custom",url:u,custom:true}); return items;},[]);
+  const [current,setCurrent]=useState(()=>localStorage.getItem(AVATAR_KEY)||avatars[0]?.url||"");
+  useEffect(()=>{try{localStorage.setItem(AVATAR_KEY,current)}catch{};window.dispatchEvent(new CustomEvent("echo-avatar-changed",{detail:{url:current}}));},[current]);
+  const onUpload=f=>{const r=new FileReader();r.onload=()=>{localStorage.setItem(AVATAR_KEY+":custom",r.result);setCurrent(r.result)};r.readAsDataURL(f);};
+  return(<div className="space-y-2">
+    <div className="flex items-center gap-4">
+      <img src={current} alt="" className="h-20 w-20 rounded-2xl object-cover ring-1 ring-white/20 shadow"/>
+      <label className="dw-btn px-3 py-1 rounded cursor-pointer">Upload…<input type="file" accept="image/*" className="hidden" onChange={e=>e.target.files?.[0]&&onUpload(e.target.files[0])}/></label>
+    </div>
+    <div className="flex gap-3 overflow-x-auto no-scrollbar py-1">
+      {avatars.map(a=>(<button key={a.path} className={"rounded-xl overflow-hidden ring-1 "+(current===a.url?"ring-cyan-400/60":"ring-white/15 hover:ring-white/30")} onClick={()=>setCurrent(a.url)} title={a.custom?"Custom upload":a.path.split("/").pop()}><img src={a.url} alt="" className="h-14 w-14 object-cover"/></button>))}
+    </div>
+  </div>);}

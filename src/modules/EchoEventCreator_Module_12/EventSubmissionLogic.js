@@ -1,0 +1,1 @@
+Handles data routing and email notification logic for EchoEventCreator.

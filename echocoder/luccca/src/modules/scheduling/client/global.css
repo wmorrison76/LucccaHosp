@@ -1,0 +1,148 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /**
+   * Tailwind CSS theme
+   * tailwind.config.ts expects the following color variables to be expressed as HSL values.
+   * A different format will require also updating the theme in tailwind.config.ts.
+  */
+  :root {
+    /* Apple-style light theme */
+    --background: 0 0% 100%;
+    --foreground: 222 10% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 10% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 10% 10%;
+
+    --primary: 212 100% 50%; /* iOS blue */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 16% 96%;
+    --secondary-foreground: 222 10% 10%;
+
+    --muted: 210 16% 94%;
+    --muted-foreground: 220 9% 46%;
+
+    --accent: 210 16% 96%;
+    --accent-foreground: 222 10% 10%;
+
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 16% 90%;
+    --input: 210 16% 90%;
+    --ring: 212 100% 50%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 10% 10%;
+    --sidebar-primary: 212 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 16% 96%;
+    --sidebar-accent-foreground: 222 10% 10%;
+    --sidebar-border: 210 16% 90%;
+    --sidebar-ring: 212 100% 50%;
+  }
+
+  .dark {
+    /* Tron neon dark theme */
+    --background: 222 65% 6%;
+    --foreground: 210 30% 94%;
+
+    --card: 222 55% 8%;
+    --card-foreground: 210 30% 94%;
+
+    --popover: 222 65% 6%;
+    --popover-foreground: 210 30% 94%;
+
+    --primary: 188 100% 50%; /* neon cyan */
+    --primary-foreground: 222 100% 8%;
+
+    --secondary: 222 45% 12%;
+    --secondary-foreground: 210 30% 94%;
+
+    --muted: 222 45% 12%;
+    --muted-foreground: 215 15% 70%;
+
+    --accent: 222 45% 14%;
+    --accent-foreground: 210 30% 94%;
+
+    --destructive: 0 60% 45%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 215 35% 18%;
+    --input: 215 35% 18%;
+    --ring: 188 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family:
+      -apple-system,
+      BlinkMacSystemFont,
+      "SF Pro Text",
+      "Inter",
+      ui-sans-serif,
+      system-ui,
+      Segoe UI,
+      Roboto;
+  }
+  .dark body {
+    background-image:
+      radial-gradient(
+        circle at 20% 50%,
+        rgba(120, 119, 198, 0.06) 0%,
+        rgba(59, 130, 246, 0.04) 40%,
+        transparent 70%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(147, 51, 234, 0.05) 0%,
+        rgba(120, 119, 198, 0.04) 40%,
+        transparent 65%
+      );
+    background-attachment: fixed;
+  }
+}
+
+/* Scheduler grid backdrop */
+.scheduler-wrap {
+  --grid-bg: rgba(255, 255, 255, 0.02);
+}
+.dark .scheduler-wrap {
+  --grid-bg: rgba(255, 255, 255, 0.05);
+}
+.grid-backdrop {
+  background-image:
+    linear-gradient(var(--grid-bg) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-bg) 1px, transparent 1px);
+  background-size:
+    24px 24px,
+    24px 24px;
+}
+
+.zoom-root {
+  transform: scale(var(--app-zoom, 1));
+  transform-origin: top left;
+  width: calc(100% / var(--app-zoom, 1));
+}
+
+@layer components {
+  .glass-panel {
+    @apply rounded-lg border bg-card/70 backdrop-blur supports-[backdrop-filter]:bg-card/50 shadow-sm;
+  }
+}

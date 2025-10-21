@@ -1,0 +1,19 @@
+#!/bin/zsh
+
+BASE_DIR=~/Desktop/LUCCCA
+SRC_DIR="$BASE_DIR/src/EchoCore"
+
+echo "Installing EchoCore batches..."
+mkdir -p $SRC_DIR
+
+# Extract all tar batches into EchoCore
+for tarfile in $BASE_DIR/*.tar; do
+  echo "Extracting $tarfile..."
+  tar -xf "$tarfile" -C "$SRC_DIR"
+done
+
+# Generate tree log
+echo "Generating EchoCore_FileTree.log..."
+cd $BASE_DIR
+tree -L 5 src/EchoCore > EchoCore_FileTree.log
+echo "Done. Check EchoCore_FileTree.log"

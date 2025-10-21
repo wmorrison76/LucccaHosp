@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Base text/background from theme variables */
+html, body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Inputs/buttons inherit readable text color */
+input, button, select, textarea {
+  color: var(--text);
+}
+
+/* Optional: nicer placeholder contrast */
+::placeholder {
+  color: color-mix(in srgb, var(--text) 55%, transparent);
+}
+
+
+

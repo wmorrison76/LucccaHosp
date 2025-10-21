@@ -1,0 +1,3 @@
+const express=require("express"); const cors=require("cors"); const app=express(); app.use(cors()); app.use(express.json());
+app.post("/api/echo/ask", async (req,res)=>{ const q=(req.body?.q||"").toString(); await new Promise(r=>setTimeout(r,220)); res.json({answer:`Chef, I hear: ${q}`}); });
+const PORT=process.env.PORT||5175; app.listen(PORT,()=>console.log(`[EchoStub] http://localhost:${PORT}`));

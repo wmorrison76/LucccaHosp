@@ -1,0 +1,37 @@
+{
+  {
+  "name": "frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "dev:event": "vite --config src/modules/EchoEventStudio/vite.config.ts",
+    "build": "vite build",
+    "preview": "vite preview",
+    "imgserver": "node server/imagegen/server.js",
+    "echoserver": "node server/echo/server.js",
+    "echo": "node server/echo/server.js",
+    "start": "concurrently -c blue,magenta \"pnpm echoserver\" \"pnpm dev\""
+  },
+ 
+}
+
+  "scripts": {
+    "dev": "pnpm --filter frontend dev",
+    "build": "pnpm --filter frontend build",
+    "preview": "pnpm --filter frontend preview",
+    "zaro": "pnpm --filter frontend zaro",
+    "dev:echo": "pnpm --filter frontend dev:echo",
+    "build:echo": "pnpm --filter frontend build:echo"
+  },
+  "dependencies": {
+    "@fullcalendar/core": "^6.1.19",
+    "@fullcalendar/daygrid": "^6.1.19",
+    "@fullcalendar/interaction": "^6.1.19",
+    "@fullcalendar/react": "^6.1.19",
+    "@fullcalendar/timegrid": "^6.1.19"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

@@ -1,0 +1,44 @@
+/* Sleek top toolbar (dark glass) */
+.wb-toolbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  background: rgba(12, 12, 16, 0.65);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 10px;
+  margin: 8px auto 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 0 1px rgba(255,255,255,0.15);
+  z-index: 10;
+  width: max-content;
+}
+
+.wb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  min-width: 36px;
+  padding: 0 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, rgba(40,40,50,0.6) 0%, rgba(20,20,26,0.6) 100%);
+  color: #e6f6ff;
+  font-size: 13px;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition: transform .08s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.wb-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,255,255,0.1); }
+.wb-btn.active { outline: 1px solid rgba(0,255,255,0.35); box-shadow: 0 0 0 2px rgba(0,255,255,0.15), 0 8px 20px rgba(0,255,255,0.08); }
+
+.wb-sep { width: 1px; background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02)); margin: 0 4px; }
+.wb-zoom { min-width: 88px; }
+
+/* Sticky overlay basics */
+.wb-sticky textarea { color:#1a1a1a; }

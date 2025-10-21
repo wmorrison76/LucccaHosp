@@ -1,0 +1,651 @@
+.
+├── assets
+│   └── LUCCCA_Vertical_Inline.png
+├── code_map_kit_2025-08-13_11-28.tar
+├── codemap
+│   ├── graph.dot
+│   ├── graph.json
+│   ├── manifest.json
+│   └── summary.md
+├── codemap_kit
+│   ├── codemap.mjs
+│   ├── package.json
+│   ├── README.md
+│   └── scan.sh
+├── codemap_kit 2
+│   ├── codemap.mjs
+│   ├── package.json
+│   ├── README.md
+│   └── scan.sh
+├── codemap_patched.mjs
+├── codemap_traverse_robust.mjs
+├── codemap.mjs
+├── components
+│   ├── GLSelector.jsx
+│   ├── Identity
+│   │   └── EchoThumbPrint.png
+│   ├── OrderForm.jsx
+│   ├── PrivateRoute.jsx
+│   ├── Recipe
+│   │   └── RecipeListView.jsx
+│   └── StatusIndicator.jsx
+├── CulinaryLab_FullInstall
+│   └── src
+│       └── components
+│           ├── Kitchen
+│           │   ├── index.ts
+│           │   ├── panels
+│           │   └── RecipeInputRND.jsx
+│           └── LiquidWhiteBoard
+│               └── LiquidWhiteBoardEngine.jsx
+├── file_tree.txt
+├── FluidRoot_FusedStack
+│   └── src
+│       └── components
+│           └── EchoCore
+│               └── panels
+├── FluidRoot_FusedStack_VisualBoost
+│   ├── setup_fluidroot_visualboost.sh
+│   └── src
+│       └── components
+│           └── EchoCore
+│               └── panels
+├── future_sales_forecasting
+│   ├── FutureSalesPanel.jsx
+│   └── useFutureForecast.js
+├── FutureSalesForecast_Expanded
+│   └── src
+│       └── components
+│           └── EchoCore
+│               ├── hooks
+│               └── panels
+├── FutureSalesForecast_Expanded.tar
+├── index.html
+├── install_culinary_lab.sh
+├── package-lock.json
+├── package.json
+├── package.json.working
+├── postcss.config.js
+├── public
+│   ├── ant_colony_map.json
+│   └── assets
+│       └── grid-overlay.png
+├── sandbox_tree.txt
+├── scan.sh
+├── scripts
+│   └── find-default-star-issues.mjs
+├── src
+│   ├── App.jsx
+│   ├── assets
+│   │   ├── analytics.png
+│   │   ├── baking-&-Pastry.png
+│   │   ├── bar_recipes.png
+│   │   ├── bartender.png
+│   │   ├── Cake_Builder.png
+│   │   ├── Cake-Artist.png
+│   │   ├── ChatGPT Image Jul 23, 2025 at 07_18_38 PM.png
+│   │   ├── ChefNet.png
+│   │   ├── contact-us.png
+│   │   ├── CRM.png
+│   │   ├── culinary_library.png
+│   │   ├── currency_icon.png
+│   │   ├── dashboard.png
+│   │   ├── Echo_Canvas.png
+│   │   ├── Echo_Recipe_Pro.png
+│   │   ├── Echo-Ai.png
+│   │   ├── Echo.png
+│   │   ├── food_inventory.png
+│   │   ├── help_desk.png
+│   │   ├── help-desk.png
+│   │   ├── Inventory.png
+│   │   ├── kitchen-library.png
+│   │   ├── kitchen-Recipes.png
+│   │   ├── Large
+│   │   │   ├── analytics.png
+│   │   │   ├── baking-&-Pastry.png
+│   │   │   ├── bar_recipes.png
+│   │   │   ├── bartender.png
+│   │   │   ├── Cake_Builder.png
+│   │   │   ├── Cake-Artist.png
+│   │   │   ├── ChatGPT Image Jul 23, 2025 at 07_18_38 PM.png
+│   │   │   ├── ChefNet.png
+│   │   │   ├── contact-us.png
+│   │   │   ├── CRM.png
+│   │   │   ├── culinary_library.png
+│   │   │   ├── currency_icon.png
+│   │   │   ├── dashboard.png
+│   │   │   ├── Echo_Canvas.png
+│   │   │   ├── Echo_Recipe_Pro.png
+│   │   │   ├── Echo-Ai.png
+│   │   │   ├── Echo.png
+│   │   │   ├── food_inventory.png
+│   │   │   ├── help_desk.png
+│   │   │   ├── help-desk.png
+│   │   │   ├── Inventory.png
+│   │   │   ├── kitchen-library.png
+│   │   │   ├── kitchen-Recipes.png
+│   │   │   ├── LUCCCA_ECHO.png
+│   │   │   ├── LUCCCA_Vertical_Inline.png
+│   │   │   ├── Maestro-Suite.png
+│   │   │   ├── MaestroBQT.png
+│   │   │   ├── mixology.png
+│   │   │   ├── nutrition_icon.png
+│   │   │   ├── nutritional-analysis.png
+│   │   │   ├── R&D.png
+│   │   │   ├── rd_icon.png
+│   │   │   ├── recipe-calculator.png
+│   │   │   ├── recipe-pro.png
+│   │   │   ├── recipes.png
+│   │   │   ├── schedule.png
+│   │   │   ├── settings.png
+│   │   │   └── zelda-redphonix.png
+│   │   ├── LUCCCA_ECHO.png
+│   │   ├── LUCCCA_Vertical_Inline.png
+│   │   ├── Maestro-Suite.png
+│   │   ├── MaestroBQT.png
+│   │   ├── mixology.png
+│   │   ├── nutrition_icon.png
+│   │   ├── nutritional-analysis.png
+│   │   ├── rd_icon.png
+│   │   ├── recipe-calculator.png
+│   │   ├── recipe-pro.png
+│   │   ├── recipes.png
+│   │   ├── schedule.png
+│   │   ├── settings.png
+│   │   ├── styles
+│   │   │   └── global.css
+│   │   ├── thumbprint.png
+│   │   └── zelda-redphonix.png
+│   ├── board
+│   │   ├── Board.jsx
+│   │   ├── BoardSettings.jsx
+│   │   ├── CommandBar.jsx
+│   │   ├── CommandDock.jsx
+│   │   ├── EchoBackboard.jsx
+│   │   ├── EchoBubble.jsx
+│   │   └── SettingsSheet.jsx
+│   ├── components
+│   │   ├── AdminModuleToggle.jsx
+│   │   ├── AdminPanel.jsx
+│   │   ├── AdminPanelGrid.jsx
+│   │   ├── AdminPanelNav.jsx
+│   │   ├── AlertMessage.jsx
+│   │   ├── BreadCrumbs.jsx
+│   │   ├── ButtonPrimary.jsx
+│   │   ├── CakeBuilder.jsx
+│   │   ├── CakeCanvas.jsx
+│   │   ├── CakeDesignSummary.jsx
+│   │   ├── CakeFormSection.jsx
+│   │   ├── CakeSupportDisplay.jsx
+│   │   ├── calendar
+│   │   │   ├── BEOViewer.jsx
+│   │   │   ├── EventCalendar.jsx
+│   │   │   └── REOViewer.jsx
+│   │   ├── Card.jsx
+│   │   ├── checkbook
+│   │   │   ├── CheckbookDashboard.jsx
+│   │   │   └── InvoiceViewer.jsx
+│   │   ├── CommandDock.jsx
+│   │   ├── CrashTest.jsx
+│   │   ├── CulinaryLab
+│   │   │   ├── index.ts
+│   │   │   ├── panels
+│   │   │   │   ├── BrainstormPanel.jsx
+│   │   │   │   ├── EchoMusePanel.jsx
+│   │   │   │   ├── ProjectedPreviewPanel.jsx
+│   │   │   │   ├── RecipeFormPanel.jsx
+│   │   │   │   └── TextureLabModule.jsx
+│   │   │   └── RecipeInputRND.jsx
+│   │   ├── Dashboard
+│   │   │   ├── DashboardCard.jsx
+│   │   │   ├── EchoSmartSpecialFlow.jsx
+│   │   │   ├── FutureSalesForecast.jsx
+│   │   │   └── ProcurementDashboard.jsx
+│   │   ├── DashboardHome.jsx
+│   │   ├── DashboardWelcome.jsx
+│   │   ├── DownloadOverridePDF.jsx
+│   │   ├── echo
+│   │   │   └── EchoSettingsPanel.jsx
+│   │   ├── EchoCore
+│   │   │   ├── analytics
+│   │   │   │   ├── coreAnalytics.js
+│   │   │   │   ├── index.js
+│   │   │   │   └── parseEchoQuery.js
+│   │   │   ├── assets
+│   │   │   │   └── LUCCCA_Vertical_Inline.png
+│   │   │   ├── components
+│   │   │   │   ├── EchoCore
+│   │   │   │   ├── emotionalAI
+│   │   │   │   ├── financial
+│   │   │   │   ├── GLSelector.jsx
+│   │   │   │   ├── Hospitality
+│   │   │   │   ├── Identity
+│   │   │   │   ├── interaction
+│   │   │   │   ├── OrderForm.jsx
+│   │   │   │   ├── PrivateRoute.jsx
+│   │   │   │   ├── Recipe
+│   │   │   │   ├── StatusIndicator.jsx
+│   │   │   │   └── theme
+│   │   │   ├── context
+│   │   │   │   ├── EchoCoreContext.jsx
+│   │   │   │   ├── index.js
+│   │   │   │   └── README.md
+│   │   │   ├── CulinaryLab_FullInstall
+│   │   │   │   └── src
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── EchoAssistantPanel.jsx
+│   │   │   ├── EchoAssistantPanel.stories.jsx
+│   │   │   ├── EchoAssistantPanel.test.jsx
+│   │   │   ├── EchoAvatar.jsx
+│   │   │   ├── EchoCompanionThumb.jsx
+│   │   │   ├── EchoCoreGlobalStyles.css
+│   │   │   ├── EchoOverlay.jsx
+│   │   │   ├── EchoSummonButton.jsx
+│   │   │   ├── EchoThemeSwitch.jsx
+│   │   │   ├── EchoWelcomeScreen.jsx
+│   │   │   ├── file_tree.txt
+│   │   │   ├── FluidRoot_FusedStack
+│   │   │   │   └── src
+│   │   │   ├── future_sales_forecasting
+│   │   │   │   ├── FutureSalesPanel.jsx
+│   │   │   │   └── useFutureForecast.js
+│   │   │   ├── FutureSalesForecast_Expanded
+│   │   │   │   └── src
+│   │   │   ├── FutureSalesForecast_Expanded.tar
+│   │   │   ├── hooks
+│   │   │   │   ├── EchoToolbar.jsx
+│   │   │   │   ├── index.js
+│   │   │   │   ├── README.md
+│   │   │   │   ├── useEchoFinance.js
+│   │   │   │   ├── useEcholabor.js
+│   │   │   │   ├── useEmotionAnalysis.js
+│   │   │   │   ├── useExportReport.js
+│   │   │   │   ├── useForecastEngine.js
+│   │   │   │   ├── useGuestFlowAnalytics.js
+│   │   │   │   ├── useHospitalityData.js
+│   │   │   │   ├── useKitchenLibraryMetrics.js
+│   │   │   │   ├── useMoonPhaseMeta.js
+│   │   │   │   ├── usePOSFeed.js
+│   │   │   │   └── useWhiteboardLayout.js
+│   │   │   ├── Hotkeys.jsx
+│   │   │   ├── install_culinary_lab.sh
+│   │   │   ├── MissionControl
+│   │   │   │   ├── AlertStack.jsx
+│   │   │   │   ├── index.js
+│   │   │   │   └── MissionControl.jsx
+│   │   │   ├── PanelDockBar.jsx
+│   │   │   ├── PanelHeader.jsx
+│   │   │   ├── panels
+│   │   │   │   ├── CostForecastPanel.jsx
+│   │   │   │   ├── EchoAssistantPanel copy.jsx
+│   │   │   │   ├── EchoAssistantPanel.jsx
+│   │   │   │   ├── EchoAssistantPanel.stories.jsx
+│   │   │   │   ├── EchoAssistantPanel.test.jsx
+│   │   │   │   ├── GreetingModule.jsx
+│   │   │   │   ├── GreetingModule.stories.jsx
+│   │   │   │   ├── GreetingModule.test.jsx
+│   │   │   │   ├── GuestFlowAnalyticsPanel.jsx
+│   │   │   │   ├── index.js
+│   │   │   │   ├── LaborForecastPanel.jsx
+│   │   │   │   ├── MinimizedPanelIcon.jsx
+│   │   │   │   ├── PanelMinimizeHandler.jsx
+│   │   │   │   ├── PaneManager.jsx
+│   │   │   │   ├── PaneManager.stories.jsx
+│   │   │   │   ├── PaneManager.test.jsx
+│   │   │   │   ├── PerfModeDetector.js
+│   │   │   │   ├── PerfModeDetector.test.js
+│   │   │   │   └── StickyNotePanel.jsx
+│   │   │   ├── PanelWindow.jsx
+│   │   │   ├── public
+│   │   │   │   ├── ant_colony_map.json
+│   │   │   │   └── assets
+│   │   │   ├── state
+│   │   │   │   └── PanelRecoveryStore.js
+│   │   │   ├── styles
+│   │   │   │   ├── EchoCoreGlobalStyles.css
+│   │   │   │   ├── EchoPanelRecovery.css
+│   │   │   │   └── tron.css
+│   │   │   ├── useEchoFinance.js
+│   │   │   ├── useEchoLabor.js
+│   │   │   ├── utils
+│   │   │   ├── utlis
+│   │   │   │   ├── encryption.js
+│   │   │   │   └── index.js
+│   │   │   └── voice
+│   │   │       ├── index.js
+│   │   │       ├── useEchoSpeech.js
+│   │   │       └── useVoiceRecognition.js
+│   │   ├── EchoGridSidebar.jsx
+│   │   ├── EchoResponsePanel.jsx
+│   │   ├── EchoStatusMonitor.jsx
+│   │   ├── emotionalAI
+│   │   │   ├── AIStatusIndicator.jsx
+│   │   │   ├── ChefMoodTracker.jsx
+│   │   │   ├── ClippyExplainer.jsx
+│   │   │   ├── EchoPulseIcon.jsx
+│   │   │   ├── EmotionLog.jsx
+│   │   │   └── index.js
+│   │   ├── Footer.jsx
+│   │   ├── FormButton.jsx
+│   │   ├── FormFieldGroup.jsx
+│   │   ├── FormInput.jsx
+│   │   ├── GridLayout.jsx
+│   │   ├── Identity
+│   │   │   └── EchoThumbPrint.jsx
+│   │   ├── ImageModifierModal.jsx
+│   │   ├── Ingredients
+│   │   │   ├── IngredientBuilder.jsx
+│   │   │   └── IngredientMasterList.jsx
+│   │   ├── interaction
+│   │   │   ├── DashboardTransitionWrapper.jsx
+│   │   │   ├── EchoAccordion.jsx
+│   │   │   ├── EchoActionBar.jsx
+│   │   │   ├── EchoActionGrid.jsx
+│   │   │   ├── EchoAnimator.jsx
+│   │   │   ├── EchoAssistant.jsx
+│   │   │   ├── EchoCard.jsx
+│   │   │   ├── EchoCardContainer.jsx
+│   │   │   ├── EchoCarousel.jsx
+│   │   │   ├── EchoContextMenu.jsx
+│   │   │   ├── EchoControlPanel.jsx
+│   │   │   ├── EchoDropdown.jsx
+│   │   │   ├── EchoDynamicPanel.jsx
+│   │   │   ├── EchoFloatingMenu.jsx
+│   │   │   ├── EchoFloatingPanel.jsx
+│   │   │   ├── EchoInfoBadge.jsx
+│   │   │   ├── EchoInlineAlert.jsx
+│   │   │   ├── EchoInteractivePanel.jsx
+│   │   │   ├── EchoMainView.jsx
+│   │   │   ├── EchoMessageList.jsx
+│   │   │   ├── EchoModal.jsx
+│   │   │   ├── EchoNotepad.jsx
+│   │   │   ├── EchoPagination.jsx
+│   │   │   ├── EchoPanelWrapper.jsx
+│   │   │   ├── EchoProgressBar.jsx
+│   │   │   ├── EchoQuickStatus.jsx
+│   │   │   ├── EchoResponseBlock.jsx
+│   │   │   ├── EchoResponsePanel.jsx
+│   │   │   ├── EchoSectionHeader.jsx
+│   │   │   ├── EchoShell.jsx
+│   │   │   ├── EchoSidebar.jsx
+│   │   │   ├── EchoSmartSpecialFlow.jsx
+│   │   │   ├── EchoStatusBar.jsx
+│   │   │   ├── EchoStepper.jsx
+│   │   │   ├── EchoSummaryCard.jsx
+│   │   │   ├── EchoTabs.jsx
+│   │   │   ├── EchoToast.jsx
+│   │   │   ├── EchoToggle.jsx
+│   │   │   ├── EchoTooltip.jsx
+│   │   │   ├── EchoWhisper.jsx
+│   │   │   ├── index.js
+│   │   │   ├── ModuleContainer.jsx
+│   │   │   ├── QuickActionPanel.jsx
+│   │   │   ├── UIActionButton.jsx
+│   │   │   └── useKeyPress.js
+│   │   ├── invoice
+│   │   │   ├── checkDuplicate.js
+│   │   │   ├── ComplianceAuditBanner.jsx
+│   │   │   ├── InvoicePreviewModal.jsx
+│   │   │   ├── InvoiceUpload.jsx
+│   │   │   ├── OrderingConflictAlert.js
+│   │   │   └── VendorResponsePanel.jsx
+│   │   ├── items
+│   │   │   └── ItemHoverInsights.jsx
+│   │   ├── Kitchen
+│   │   │   ├── KitchenTabView.jsx
+│   │   │   ├── RecipeInput.jsx
+│   │   │   └── RecipeList.jsx
+│   │   ├── KitchenLibraryTabs.jsx
+│   │   ├── LiquidWhiteBoard
+│   │   │   └── LiquidWhiteBoardEngine.jsx
+│   │   ├── LoadingProgress.jsx
+│   │   ├── LoadingScreen.jsx
+│   │   ├── LogEntry.jsx
+│   │   ├── Logo.jsx
+│   │   ├── LogoAnimated.jsx
+│   │   ├── LogoutButton.jsx
+│   │   ├── Luccca AdminPanel.jsx
+│   │   ├── MixologyTabs.jsx
+│   │   ├── MobileGridWrapper.jsx
+│   │   ├── ModalBasic.jsx
+│   │   ├── Navbar.jsx
+│   │   ├── NotificationBannerljsx
+│   │   ├── ordering
+│   │   │   ├── KeyItemTracker.jsx
+│   │   │   ├── OrderEntryPanel.jsx
+│   │   │   └── VendorRebateTracker.jsx
+│   │   ├── OverrideVault.jsx
+│   │   ├── PageSection.jsx
+│   │   ├── PanelDcokBar.tsx
+│   │   ├── PastryLibrary
+│   │   │   ├── AdminControls.jsx
+│   │   │   ├── CakeConfigSidebar.jsx
+│   │   │   ├── CakeLayerBuilder.jsx
+│   │   │   ├── CakePreview.jsx
+│   │   │   ├── CakeSubmitPanel.jsx
+│   │   │   ├── ChocolateWork.jsx
+│   │   │   ├── CustomCakeOrders.jsx
+│   │   │   ├── IngredientWatch.jsx
+│   │   │   ├── OvernightProduction.jsx
+│   │   │   ├── PastryLibrary.jsx
+│   │   │   ├── PastrySettings.jsx
+│   │   │   ├── RecipeApp.css
+│   │   │   ├── Recipes.jsx
+│   │   │   ├── StyleSelector.jsx
+│   │   │   └── TabsHeader.jsx
+│   │   ├── PastryRightSidebar.jsx
+│   │   ├── PastryRightSidebarToggle.jsx
+│   │   ├── PastrySidebar.jsx
+│   │   ├── ProgressBar.jsx
+│   │   ├── Recipe
+│   │   │   └── RecipeListWrapper.jsx
+│   │   ├── recipes
+│   │   │   └── EchoRecipeScaler.jsx
+│   │   ├── RecipeScallingForm.jsx
+│   │   ├── RecipeVariationLinker.jsx
+│   │   ├── RescueShell.jsx
+│   │   ├── scheduling
+│   │   │   ├── MessageBoard.jsx
+│   │   │   ├── ScheduleGrid.jsx
+│   │   │   └── ShiftAnalyzer.jsx
+│   │   ├── servernotes
+│   │   │   ├── AllergenTagger.jsx
+│   │   │   ├── ServerNoteBuilder.jsx
+│   │   │   ├── ServerNoteTemplate.jsx
+│   │   │   └── WinePairingEngine.jsx
+│   │   ├── Settings
+│   │   │   ├── CustomBackground.jsx
+│   │   │   ├── gradients.js
+│   │   │   └── GradientSelector.jsx
+│   │   ├── shared
+│   │   │   ├── DoubleTabs.css
+│   │   │   ├── DoubleTabs.jsx
+│   │   │   └── makeTabbedModule.jsx
+│   │   ├── Sidebar.jsx
+│   │   ├── sommelier
+│   │   │   └── SommelierPairingPanel.jsx
+│   │   ├── specials
+│   │   │   ├── RecipeSubstitutionHelper.jsx
+│   │   │   └── SmartSpecialsPanel.jsx
+│   │   ├── StatBlock.jsx
+│   │   ├── StatGroup.jsx
+│   │   ├── SystemContro.Panel.jsx
+│   │   ├── SystemLoader.jsx
+│   │   ├── SystemStatusDisplay.jsx
+│   │   ├── SystemTile.jsx
+│   │   ├── SystemTileStatus.jsx
+│   │   ├── ui
+│   │   │   ├── TurtleoverrideLoader.jsx
+│   │   │   └── WhiskLoader.jsx
+│   │   ├── UserRoleManager.jsx
+│   │   ├── UserWelcomeBanner.jsx
+│   │   └── WhiteboardPanel.jsx
+│   ├── contracts
+│   │   └── events
+│   │       ├── Order.v1.ts
+│   │       └── Reservation.v1.ts
+│   ├── data
+│   │   ├── auditSchedule.json
+│   │   ├── compliance
+│   │   │   └── compliance.json
+│   │   ├── invoiceMocks
+│   │   │   ├── sampleInvoice1.json
+│   │   │   └── storeroomInventory.js
+│   │   └── recipes
+│   │       └── sampleRecipes.js
+│   ├── hooks
+│   │   ├── index.js
+│   │   ├── README.md
+│   │   ├── useAlert.js
+│   │   ├── useAuth.js
+│   │   ├── useEchoStatus.js
+│   │   ├── useLiveFinanceData.js
+│   │   ├── useLiveHospitalityData.js
+│   │   ├── useLoadingStats.js
+│   │   ├── useModal.js
+│   │   ├── useModuleToggleSync.js
+│   │   ├── useSystemNotifictions.js
+│   │   └── useSystemVersion.js
+│   ├── index.css
+│   ├── layout
+│   │   ├── AuthLayout.jsx
+│   │   ├── MainLayout.jsx
+│   │   └── PanelLayout.jsx
+│   ├── layouts
+│   │   └── PastryLayout.jsx
+│   ├── LUCCCA_file_tree.txt
+│   ├── main.jsx
+│   ├── modules
+│   │   ├── admin
+│   │   │   └── CakeAdminDashboard.jsx
+│   │   ├── calendar
+│   │   │   ├── components
+│   │   │   │   └── TVCalendarView.jsx
+│   │   │   └── utils
+│   │   │       └── tvRemoteListener.js
+│   │   ├── crm
+│   │   │   └── hooks
+│   │   │       └── useCRMReminderSync.js
+│   │   ├── crm-lite
+│   │   │   └── context
+│   │   │       └── CRMContextLite.js
+│   │   ├── data
+│   │   │   └── AddOnPricingControl.jsx
+│   │   ├── delivery
+│   │   │   └── utils
+│   │   │       └── syncToDeliveryBoard.js
+│   │   ├── invoice
+│   │   │   └── utils
+│   │   │       └── generateCakeInvoice.js
+│   │   ├── kitchen
+│   │   │   ├── AddRecipeTab.jsx
+│   │   │   ├── KitchenLibrary.jsx
+│   │   │   ├── KitchenTabs.jsx
+│   │   │   ├── RecipeCard.jsx
+│   │   │   ├── RecipeFilter.jsx
+│   │   │   ├── RecipeIndexPage.jsx
+│   │   │   ├── RecipeInputPage.css
+│   │   │   ├── RecipeInputPage.jsx
+│   │   │   ├── RecipeTable.jsx
+│   │   │   └── RightSidebar.jsx
+│   │   ├── LucccaAdminWireframe.jsx
+│   │   ├── NotFound.jsx
+│   │   ├── pastry
+│   │   │   ├── cake
+│   │   │   │   ├── CakeExportFinalizer.jsx
+│   │   │   │   ├── CakeQAExporter.jsx
+│   │   │   │   ├── CanvasBuilder.jsx
+│   │   │   │   ├── componets
+│   │   │   │   ├── data
+│   │   │   │   └── Utils
+│   │   │   ├── CakeDeliveryOptionsPanel.jsx
+│   │   │   ├── ConsultationBookingModule.js
+│   │   │   ├── ConsultationCanvasPad.jsx
+│   │   │   ├── recipes
+│   │   │   │   └── components
+│   │   │   └── session
+│   │   │       └── CakeSessionFlow.jsx
+│   │   └── RecipeIndexPage.jsx
+│   ├── pages
+│   │   ├── AdminModuleSettings.jsx
+│   │   ├── AdminPastryExportPage.jsx
+│   │   ├── AdminSummary.jsx
+│   │   ├── ArgusMonitor.jsx
+│   │   ├── BanquetMenuUploader.jsx
+│   │   ├── CakeDesigner.jsx
+│   │   ├── CakeDesignerExport.jsx
+│   │   ├── CakeDesignerForm.jsx
+│   │   ├── CRMPipelineBoard.jsx
+│   │   ├── Dashboard.jsx
+│   │   ├── EchoControl.jsx
+│   │   ├── InventoryCostCheck.jsx
+│   │   ├── Login.jsx
+│   │   ├── Logs.jsx
+│   │   ├── mixology
+│   │   │   └── RecipeModule.jsx
+│   │   ├── PastryAdminDashboard.jsx
+│   │   ├── PastryLibrary.jsx
+│   │   ├── PastryModule.jsx
+│   │   ├── PastryPhotoGallery.jsx
+│   │   ├── PastryRecipeForm.jsx
+│   │   ├── PastryRecipeInputPage.jsx
+│   │   ├── ProposalActions.jsx
+│   │   ├── ProposalSummary.jsx
+│   │   ├── RecipeModule.jsx
+│   │   ├── Settings.jsx
+│   │   └── SystemOverview.jsx
+│   ├── providers
+│   │   └── StreamSyncProvider.jsx
+│   ├── Screenshot 2025-07-20 at 3.16.37 PM.png
+│   ├── setup-ingredient-intelligence.sh
+│   ├── stores
+│   │   ├── PanelStore.js
+│   │   └── WhiteboardStore.js
+│   ├── styles
+│   │   ├── EchoGridSidebar.css
+│   │   └── PastryTheme.css
+│   ├── tron.css
+│   └── utils
+│       ├── auth.js
+│       ├── calendarHelpers.js
+│       ├── constants.js
+│       ├── cropImage.js
+│       ├── echoHumor.js
+│       ├── echoInventoryAnalyzer.js
+│       ├── echoRecipeMath.js
+│       ├── echoSmartSpecialUtils.js
+│       ├── echoWellness.js
+│       ├── echoWinePairing.js
+│       ├── encryption.js
+│       ├── fakeLogData.js
+│       ├── FetchEchoStatus.js
+│       ├── index.js
+│       ├── invoice
+│       │   ├── auditAi.js
+│       │   ├── auditTrailLogger.js
+│       │   ├── checkDuplicate.js
+│       │   ├── CheckInventory.js
+│       │   ├── ComplianceAuditBanner.jsx
+│       │   ├── echoLogicRouter.js
+│       │   ├── InvoiceParser.js
+│       │   ├── InvoiceUpload.jsx
+│       │   ├── orderConfliCtchecker.js
+│       │   ├── OrderingConflictAlert.jsx
+│       │   ├── ReceivingVerificationPanel.jsx
+│       │   └── roles.js
+│       ├── noteFormatter.js
+│       ├── orderHelpers.js
+│       ├── parseInvoiceData.js
+│       ├── README.md
+│       └── salesVolumeForecast.js
+├── tailwind.config.cjs
+├── tailwind.config.js
+├── utils
+│   ├── apiClient.js
+│   ├── convertUnits.js
+│   ├── dateFormatter.js
+│   ├── systemConstants.js
+│   └── yieldCalculator.js
+└── vite.config.js
+
+134 directories, 515 files
