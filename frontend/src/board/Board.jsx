@@ -126,6 +126,7 @@ console.log('[Board] KitchenLibraryTabs:', !!KitchenLibraryTabs);
 console.log('[Board] Schedule:', !!Schedule);
 console.log('[Board] EchoRecipeProPanel:', !!EchoRecipeProPanel);
 console.log('[Board] PurchasingPanel:', !!PurchasingPanel);
+console.log('[Board] EchoEventStudioPanel:', !!EchoEventStudioPanel);
 
 if (GlowDesk) PANEL_REGISTRY.dashboard = { title: "Dashboard", Component: GlowDesk, icon: null };
 if (GlowDesk) PANEL_REGISTRY.home = { title: "Welcome", Component: GlowDesk, icon: null };
@@ -133,6 +134,7 @@ if (KitchenLibraryTabs) PANEL_REGISTRY.culinary = { title: "Kitchen Library", Co
 if (Schedule) PANEL_REGISTRY.scheduling = { title: "Schedules", Component: Schedule, icon: scheduleIcon };
 if (EchoRecipeProPanel) PANEL_REGISTRY.recipepro = { title: "EchoRecipePro", Component: EchoRecipeProPanel, icon: null };
 if (PurchasingPanel) PANEL_REGISTRY.purchasing = { title: "Purchasing", Component: PurchasingPanel, icon: null };
+if (EchoEventStudioPanel) PANEL_REGISTRY.eventstudio = { title: "Echo Event Studio", Component: EchoEventStudioPanel, icon: null };
 
 console.log('[Board] Final PANEL_REGISTRY keys:', Object.keys(PANEL_REGISTRY));
 
