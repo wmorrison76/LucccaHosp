@@ -73,7 +73,7 @@ const EchoEventStudioPanel = safeImport(() => import("../components/EchoEventStu
 const MaestroBQTPanel    = safeImport(() => import("../components/MaestroBQTPanel.jsx"), "MaestroBQTPanel");
 const EchoAurumPanel     = safeImport(() => import("../components/EchoAurumPanel.jsx"), "EchoAurumPanel");
 const ECHOLayoutPanel    = safeImport(() => import("../components/ECHOLayoutPanel.jsx"), "ECHOLayoutPanel");
-const PastryPanel        = safeImport(() => import("../components/PastryPanel.jsx"), "PastryPanel");
+const PastryLibrary      = safeImport(() => import("../components/PastryLibrary/PastryLibrary.jsx"), "PastryLibrary");
 const WhiteboardPanel    = safeImport(() => import("../components/WhiteboardPanel.jsx"), "WhiteboardPanel");
 const MixologyPanel      = safeImport(() => import("../components/MixologyFallback.jsx"), "Mixology");
 const VideoConferencePanel = safeImport(() => import("../components/VideoConference.tsx").catch(() => ({ default: () => <div style={{ padding: '20px', color: '#7ff3ff' }}>Video Conference Panel</div> })), "VideoConference");
@@ -147,7 +147,7 @@ if (EchoEventStudioPanel) PANEL_REGISTRY.eventstudio = { title: "Echo Event Stud
 if (MaestroBQTPanel) PANEL_REGISTRY.maestrobqt = { title: "Maestro BQT", Component: MaestroBQTPanel, icon: null };
 if (EchoAurumPanel) PANEL_REGISTRY.echoaurum = { title: "EchoAurum", Component: EchoAurumPanel, icon: null };
 if (ECHOLayoutPanel) PANEL_REGISTRY.echolayout = { title: "ECHOLayout", Component: ECHOLayoutPanel, icon: null };
-if (PastryPanel) PANEL_REGISTRY.pastry = { title: "Baking & Pastry", Component: PastryPanel, icon: pastryIcon };
+if (PastryLibrary) PANEL_REGISTRY.pastry = { title: "Baking & Pastry", Component: PastryLibrary, icon: pastryIcon };
 if (MixologyPanel) PANEL_REGISTRY.mixology = { title: "Mixology", Component: MixologyPanel, icon: mixologyIcon };
 if (WhiteboardPanel) PANEL_REGISTRY.whiteboard = { title: "Whiteboard", Component: WhiteboardPanel, icon: null };
 if (VideoConferencePanel) PANEL_REGISTRY.videoconference = { title: "Video Conferencing", Component: VideoConferencePanel, icon: null };
