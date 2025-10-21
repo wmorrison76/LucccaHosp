@@ -78,7 +78,7 @@ const PastryPanel        = safeImport(() => import("../components/PastryPanel.js
 // Optional panels - set to null if not available
 const SettingsSuite      = null;
 const PastryLibrary      = null;
-const Mixology           = null;
+const MixologyPanel      = safeImport(() => import("../components/MixologyTabs.jsx").catch(() => ({ default: () => <div style={{ padding: "20px", color: "#7ff3ff" }}>Mixology Panel Coming Soon</div> })), "Mixology");
 const SchedulerPanel     = Schedule;
 const WidgetStudio       = null;
 const PageViewer         = null;
@@ -138,15 +138,16 @@ console.log('[Board] PastryPanel:', !!PastryPanel);
 
 if (GlowDesk) PANEL_REGISTRY.dashboard = { title: "Dashboard", Component: GlowDesk, icon: null };
 if (GlowDesk) PANEL_REGISTRY.home = { title: "Welcome", Component: GlowDesk, icon: null };
-if (KitchenLibraryTabs) PANEL_REGISTRY.culinary = { title: "Kitchen Library", Component: KitchenLibraryTabs, icon: kitchenIcon };
+if (KitchenLibraryTabs) PANEL_REGISTRY.culinary = { title: "Culinary", Component: KitchenLibraryTabs, icon: kitchenIcon };
 if (Schedule) PANEL_REGISTRY.scheduling = { title: "Schedules", Component: Schedule, icon: scheduleIcon };
-if (EchoRecipeProPanel) PANEL_REGISTRY.recipepro = { title: "EchoRecipePro", Component: EchoRecipeProPanel, icon: null };
+if (EchoRecipeProPanel) PANEL_REGISTRY.recipepro = { title: "Recipes", Component: EchoRecipeProPanel, icon: null };
 if (PurchasingPanel) PANEL_REGISTRY.purchasing = { title: "Purchasing", Component: PurchasingPanel, icon: null };
 if (EchoEventStudioPanel) PANEL_REGISTRY.eventstudio = { title: "Echo Event Studio", Component: EchoEventStudioPanel, icon: null };
 if (MaestroBQTPanel) PANEL_REGISTRY.maestrobqt = { title: "Maestro BQT", Component: MaestroBQTPanel, icon: null };
 if (EchoAurumPanel) PANEL_REGISTRY.echoaurum = { title: "EchoAurum", Component: EchoAurumPanel, icon: null };
 if (ECHOLayoutPanel) PANEL_REGISTRY.echolayout = { title: "ECHOLayout", Component: ECHOLayoutPanel, icon: null };
 if (PastryPanel) PANEL_REGISTRY.pastry = { title: "Baking & Pastry", Component: PastryPanel, icon: null };
+if (MixologyPanel) PANEL_REGISTRY.mixology = { title: "Mixology", Component: MixologyPanel, icon: null };
 
 console.log('[Board] Final PANEL_REGISTRY keys:', Object.keys(PANEL_REGISTRY));
 
