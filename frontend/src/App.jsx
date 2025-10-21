@@ -1,6 +1,6 @@
 import React, { useState, useCallback, Suspense } from "react";
 
-const Sidebar = React.lazy(() => import("./components/Sidebar.jsx"));
+const Navigation = React.lazy(() => import("./components/Navigation.jsx"));
 const Board = React.lazy(() => import("./board/Board.jsx"));
 
 class ErrorBoundary extends React.Component {
@@ -66,25 +66,16 @@ class ErrorBoundary extends React.Component {
 }
 
 export default function App() {
-  const [isOpen, setIsOpen] = useState(true);
   const [isDark, setIsDark] = useState(true);
-
-  const toggleSidebar = useCallback(() => setIsOpen(v => !v), []);
-  const toggleDark = useCallback(() => setIsDark(v => !v), []);
 
   return (
     <ErrorBoundary>
-      <div className={isDark ? "dark" : "light"} style={{ display: "flex", width: "100vw", height: "100vh", margin: 0, padding: 0, fontFamily: "system-ui, sans-serif", position: "relative" }}>
-        <Suspense fallback={<div style={{ width: "45px", flexShrink: 0 }} />}>
-          <Sidebar
-            isOpen={isOpen}
-            toggleSidebar={toggleSidebar}
-            isDarkMode={isDark}
-            toggleDarkMode={toggleDark}
-          />
+      <div className={isDark ? "dark" : "light"} style={{ width: "100vw", height: "100vh", margin: 0, padding: 0, fontFamily: "system-ui, sans-serif", backgroundColor: isDark ? "#0a1420" : "#ffffff", color: isDark ? "#e0f2fe" : "#1f2937" }}>
+        <Suspense fallback={null}>
+          <Navigation />
         </Suspense>
 
-        <main style={{ flex: 1, overflow: "hidden", position: "relative", zIndex: 1 }}>
+        <main style={{ width: "100%", height: "100%", overflow: "hidden" }}>
           <Suspense fallback={
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%", fontSize: "16px" }}>
               Loading dashboard...
