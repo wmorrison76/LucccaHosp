@@ -176,9 +176,15 @@ export default function Sidebar({
             className={itemClasses(false)}
             title="Recent"
             aria-label="Recent"
+            style={{
+              justifyContent: isOpen ? 'flex-start' : 'center',
+              width: isOpen ? '100%' : '45px',
+              height: '45px',
+              padding: isOpen ? '10px 12px' : '0',
+            }}
           >
-            <Clock3 className="justify-self-center w-[44px] h-[44px]" />
-            <Label>RECENT</Label>
+            <Clock3 className="justify-self-center flex-shrink-0" style={{ width: '45px', height: '45px' }} />
+            {isOpen && <Label>RECENT</Label>}
           </button>
         </nav>
 
