@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Menu, Sun, Moon, Clock3, Settings as Cog } from "lucide-react";
+import { Menu, Sun, Moon, Clock3, Settings as Cog, Zap, Radio, Layout, Users, TrendingUp, ChefHat } from "lucide-react";
 
 import dashboardIcon from "../assets/analytics.png";
 import kitchenIcon   from "../assets/culinary_library.png";
@@ -15,6 +15,27 @@ import chefNetIcon   from "../assets/ChefNet.png";
 import maestroBQT    from "../assets/MaestroBQT.png";
 import echoAurum     from "../assets/Echo-Ai.png";
 import echoLayout    from "../assets/Echo_F.png";
+
+// Fallback SVG icon maker - generates a colored square with emoji/icon
+const IconFallback = ({ label, color = "#00d9ff" }) => (
+  <div
+    style={{
+      width: "32px",
+      height: "32px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: `${color}20`,
+      borderRadius: "8px",
+      border: `1px solid ${color}40`,
+      fontSize: "16px",
+      fontWeight: "bold",
+    }}
+    title={label}
+  >
+    {label.charAt(0).toUpperCase()}
+  </div>
+);
 
 
 export default function Sidebar({
@@ -50,34 +71,58 @@ export default function Sidebar({
   // open a Board panel by id
   const openPanel = (id, detail = {}) => {
     if (!id) return;
-    try { window.dispatchEvent(new CustomEvent("open-panel", { detail: { id, ...detail } })); }
+    try {
+      window.dispatchEvent(new CustomEvent("open-panel", { detail: { id, ...detail } }));
+      // Auto-close sidebar on mobile/tablet or when expanded on desktop
+      if (isOpen && window.innerWidth < 1024) {
+        setLocalOpen(false);
+      }
+    }
     catch (err) { console.error("[Sidebar] open-panel failed:", err); }
+  };
+
+  // Image loader with fallback
+  const SafeImage = ({ src, alt, className }) => {
+    const [hasError, setHasError] = useState(false);
+
+    if (hasError || !src) {
+      return <IconFallback label={alt} />;
+    }
+
+    return (
+      <img
+        src={src}
+        alt={alt}
+        className={className}
+        onError={() => setHasError(true)}
+      />
+    );
   };
 
   // left column – panel buttons (no route change)
   const panelModules = useMemo(() => [
-    { label: "DASHBOARD",         icon: dashboardIcon, panelId: "dashboard" },
-    { label: "ECHO EVENT STUDIO", icon: LUCCCA_ECHO,   panelId: "eventstudio" },
-    { label: "MAESTRO BQT",       icon: maestroBQT,    panelId: "maestrobqt" },
-    { label: "ECHO AURUM",        icon: echoAurum,     panelId: "echoaurum" },
-    { label: "ECHO LAYOUT",       icon: echoLayout,    panelId: "echolayout" },
-    { label: "CULINARY",          icon: kitchenIcon,   panelId: "recipepro" },
-    { label: "BAKING & PASTRY",   icon: pastryIcon,    panelId: "pastry" },
-    { label: "MIXOLOGY",          icon: mixologyIcon,  panelId: "mixology" },
-    { label: "SCHEDULES",         icon: scheduleIcon,  panelId: "scheduling" },
-    { label: "PURCHASING",        icon: inventoryIcon, panelId: "purchasing" },
+    { label: "DASHBOARD",         icon: dashboardIcon, panelId: "dashboard", fallback: <Zap size={20} /> },
+    { label: "ECHO EVENT STUDIO", icon: LUCCCA_ECHO,   panelId: "eventstudio", fallback: <Radio size={20} /> },
+    { label: "MAESTRO BQT",       icon: maestroBQT,    panelId: "maestrobqt", fallback: <TrendingUp size={20} /> },
+    { label: "ECHO AURUM",        icon: echoAurum,     panelId: "echoaurum", fallback: <Radio size={20} /> },
+    { label: "ECHO LAYOUT",       icon: echoLayout,    panelId: "echolayout", fallback: <Layout size={20} /> },
+    { label: "CULINARY",          icon: kitchenIcon,   panelId: "recipepro", fallback: <ChefHat size={20} /> },
+    { label: "BAKING & PASTRY",   icon: pastryIcon,    panelId: "pastry", fallback: <ChefHat size={20} /> },
+    { label: "MIXOLOGY",          icon: mixologyIcon,  panelId: "mixology", fallback: <Radio size={20} /> },
+    { label: "SCHEDULES",         icon: scheduleIcon,  panelId: "scheduling", fallback: <Clock3 size={20} /> },
+    { label: "PURCHASING",        icon: inventoryIcon, panelId: "purchasing", fallback: <TrendingUp size={20} /> },
   ], []);
 
   // examples that DO change the URL
   const routeModules = useMemo(() => [
-    { path: "/inventory",   label: "INVENTORY",   icon: inventoryIcon },
-    { path: "/purchasing",  label: "PURCHASING",  icon: inventoryIcon },
-    { path: "/crm",         label: "CRM",         icon: crmIcon },
+    { path: "/inventory",   label: "INVENTORY",   icon: inventoryIcon, fallback: <TrendingUp size={20} /> },
+    { path: "/purchasing",  label: "PURCHASING",  icon: inventoryIcon, fallback: <TrendingUp size={20} /> },
+    { path: "/crm",         label: "CRM",         icon: crmIcon, fallback: <Users size={20} /> },
   ], []);
 
   const bottomRoutes = useMemo(() => [
-    { path: "/chefnet",  label: "CHEFNET",  icon: chefNetIcon },
-    { path: "/support",  label: "SUPPORT",  icon: supportIcon },
+    { path: "/chefnet",  label: "CHEFNET",  icon: chefNetIcon, fallback: <Radio size={20} /> },
+    { path: "/support",  label: "SUPPORT",  icon: supportIcon, fallback: <Radio size={20} /> },
   ], []);
 
   const itemClasses = (active = false) => {
@@ -130,8 +175,8 @@ export default function Sidebar({
         </div>
 
         {/* Core panel list */}
-        <nav className={["px-2 pt-1 space-y-1 no-scrollbar flex-1", isOpen ? "overflow-y-auto" : "overflow-hidden"].join(" ")} style={{ msOverflowStyle: "none", scrollbarWidth: "none" }}>
-          {panelModules.map(({ label, icon, panelId }) => (
+        <nav className={["px-2 pt-1 space-y-1 no-scrollbar flex-1 overflow-y-auto", "flex flex-col"].join(" ")} style={{ msOverflowStyle: "none", scrollbarWidth: "none" }}>
+          {panelModules.map(({ label, icon, panelId, fallback }) => (
             <button
               key={panelId}
               type="button"
@@ -141,13 +186,28 @@ export default function Sidebar({
               data-panel-id={panelId}
               className={itemClasses(false)}
             >
-              <img src={icon} alt={label} className="sb-menu-icon" />
+              <div className="sb-menu-icon flex-shrink-0">
+                {icon ? (
+                  <img
+                    src={icon}
+                    alt={label}
+                    style={{ width: "32px", height: "32px", objectFit: "contain" }}
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                      e.currentTarget.nextElementSibling.style.display = "flex";
+                    }}
+                  />
+                ) : null}
+                <div style={{ display: "none", width: "32px", height: "32px", alignItems: "center", justifyContent: "center", color: "#7ff3ff" }}>
+                  {fallback}
+                </div>
+              </div>
               {isOpen && <Label>{label}</Label>}
             </button>
           ))}
 
           {/* Route-based modules */}
-          {routeModules.map(({ path, label, icon }) => (
+          {routeModules.map(({ path, label, icon, fallback }) => (
             <button
               key={path}
               type="button"
@@ -156,7 +216,22 @@ export default function Sidebar({
               className={itemClasses(false)}
               onClick={() => {}}
             >
-              <img src={icon} alt={label} className="sb-menu-icon" />
+              <div className="sb-menu-icon flex-shrink-0">
+                {icon ? (
+                  <img
+                    src={icon}
+                    alt={label}
+                    style={{ width: "32px", height: "32px", objectFit: "contain" }}
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                      e.currentTarget.nextElementSibling.style.display = "flex";
+                    }}
+                  />
+                ) : null}
+                <div style={{ display: "none", width: "32px", height: "32px", alignItems: "center", justifyContent: "center", color: "#7ff3ff" }}>
+                  {fallback}
+                </div>
+              </div>
               {isOpen && <Label>{label}</Label>}
             </button>
           ))}
@@ -169,16 +244,16 @@ export default function Sidebar({
             title="Recent"
             aria-label="Recent"
           >
-            <Clock3 className="sb-menu-icon flex-shrink-0" />
+            <Clock3 className="sb-menu-icon flex-shrink-0" size={32} style={{ color: "#7ff3ff" }} />
             {isOpen && <Label>RECENT</Label>}
           </button>
         </nav>
 
         {/* Bottom section */}
-        <div className="px-2 pb-3 pt-1">
+        <div className="px-2 pb-3 pt-1 flex-shrink-0">
           <hr className={`border-t ${isDarkMode ? "border-cyan-500/25" : "border-black/10"} mb-2`} />
           <div className="space-y-1">
-            {bottomRoutes.map(({ path, label, icon }) => (
+            {bottomRoutes.map(({ path, label, icon, fallback }) => (
               <button
                 key={path}
                 type="button"
@@ -187,7 +262,22 @@ export default function Sidebar({
                 className={itemClasses(false)}
                 onClick={() => {}}
               >
-                <img src={icon} alt={label} className="sb-menu-icon" />
+                <div className="sb-menu-icon flex-shrink-0">
+                  {icon ? (
+                    <img
+                      src={icon}
+                      alt={label}
+                      style={{ width: "32px", height: "32px", objectFit: "contain" }}
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                        e.currentTarget.nextElementSibling.style.display = "flex";
+                      }}
+                    />
+                  ) : null}
+                  <div style={{ display: "none", width: "32px", height: "32px", alignItems: "center", justifyContent: "center", color: "#7ff3ff" }}>
+                    {fallback}
+                  </div>
+                </div>
                 {isOpen && <Label>{label}</Label>}
               </button>
             ))}
@@ -200,7 +290,7 @@ export default function Sidebar({
               title="Settings"
               aria-label="Settings"
             >
-              <img src={settingsIcon} alt="Settings" className="sb-menu-icon" />
+              <Cog className="sb-menu-icon flex-shrink-0" size={32} style={{ color: "#7ff3ff" }} />
               {isOpen && <Label>SETTINGS</Label>}
             </button>
           </div>
