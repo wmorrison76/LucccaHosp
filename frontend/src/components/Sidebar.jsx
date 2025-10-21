@@ -169,8 +169,22 @@ export default function Sidebar({
 
           {isOpen && (
             <div className="mt-2 leading-tight tracking-wide select-none text-center">
-              <div className="text-[20px] font-extrabold text-cyan-400 uppercase">COMPANY LOGO<br/>GOES HERE</div>
-              <div className="text-xs opacity-70">Outlet Name</div>
+              <div className="text-[18px] font-extrabold text-cyan-300 uppercase flex items-center justify-center gap-2">
+                <span style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "32px",
+                  height: "32px",
+                  borderRadius: "6px",
+                  background: "rgba(0, 217, 255, 0.15)",
+                  border: "1px solid rgba(0, 217, 255, 0.3)",
+                  fontSize: "16px",
+                  fontWeight: "bold"
+                }}>L</span>
+                UCCCA
+              </div>
+              <div className="text-xs opacity-60 mt-1">Professional Kitchen</div>
             </div>
           )}
         </div>
