@@ -16,51 +16,12 @@ const EchoBuilder  = lazy(() => import("./modules/EchoBuilder/EchoBuilder.jsx"))
 const REAL_DASHBOARD_PATH = "/whiteboard";
 
 export default function App() {
-  const [isOpen, setIsOpen] = useState(true);
-  const [isDark, setIsDark] = useState(true);
-
-  const toggleSidebar = useCallback(() => setIsOpen(v => !v), []);
-  const toggleDark = useCallback(() => setIsDark(v => !v), []);
-
-  const fallback = <div className="p-6 text-gray-400">Loading…</div>;
-
-  useEffect(() => { document.title = "LUCCCA | Unified Dashboard"; }, []);
-
   return (
-    <PresenceProvider>
-      <CommandPalette />
-      <RescueShell>
-        <div className={`flex h-screen w-screen ${isDark ? "bg-slate-900 text-white" : "bg-white text-slate-900"}`}>
-          <Sidebar
-            isOpen={isOpen}
-            toggleSidebar={toggleSidebar}
-            isDarkMode={isDark}
-            toggleDarkMode={toggleDark}
-          />
-          <main className="flex-1 overflow-hidden">
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800">
-              <div className="text-center">
-                <h1 className="text-4xl font-bold text-cyan-400 mb-4">LUCCCA</h1>
-                <p className="text-gray-400 mb-8">Initializing...</p>
-                <Suspense fallback={fallback}>
-                  <Routes>
-                    <Route path="/" element={<Navigate to={REAL_DASHBOARD_PATH} replace />} />
-                    <Route path={REAL_DASHBOARD_PATH} element={<Board />} />
-                    <Route path="/kitchen-library" element={<Culinary />} />
-                    <Route path="/baking-pastry" element={<BakingPastry />} />
-                    <Route path="/mixology" element={<Mixology />} />
-                    <Route path="/schedules" element={<Scheduling />} />
-                    <Route path="/builder" element={<EchoBuilder />} />
-                    <Route path="*" element={<Navigate to={REAL_DASHBOARD_PATH} replace />} />
-                  </Routes>
-                </Suspense>
-              </div>
-            </div>
-          </main>
-        </div>
-        <TelemetryOverlay />
-      </RescueShell>
-      <MultiCursorOverlay />
-    </PresenceProvider>
+    <div style={{ width: "100vw", height: "100vh", margin: 0, padding: 0, backgroundColor: "#0f1c2e", color: "white", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "system-ui, sans-serif" }}>
+      <div style={{ textAlign: "center" }}>
+        <h1 style={{ fontSize: "48px", fontWeight: "bold", color: "#7fffd4", marginBottom: "16px" }}>LUCCCA</h1>
+        <p style={{ color: "#999", fontSize: "16px" }}>Loading application...</p>
+      </div>
+    </div>
   );
 }
