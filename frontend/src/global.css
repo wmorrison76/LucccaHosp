@@ -1,6 +1,6 @@
 /* Global styles - echo orb removed */
 
-/* ═══════════════════════════════════════════════════════════════════════════
+/* ════════════════════════════════════��══════════════════════════════════════
    APP CONTAINER & ROOT STYLING
    ═══════════════════════════════════════════════════════════��═══════════════ */
 
@@ -300,7 +300,7 @@ html.light .gd-card-tool-btn:hover {
   background: rgba(0, 217, 255, 0.18);
   border-color: rgba(0, 217, 255, 0.5);
   color: #00ffff;
-  box-shadow: 0 0 20px rgba(0, 217, 255, 0.3), inset 0 0 8px rgba(0, 217, 255, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 217, 255, 0.3), inset 0 0 8px rgba(0, 217, 255, 0.1);
 }
 
 /* Light mode menu item styles - Apple glass */
@@ -330,7 +330,7 @@ html.light .gd-card-tool-btn:hover {
   background: rgba(255, 255, 255, 0.8);
   border-color: rgba(0, 0, 0, 0.15);
   color: #0f172a;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Menu icon - stays visible when collapsed (45px) */
