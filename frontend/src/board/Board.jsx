@@ -121,7 +121,7 @@ class PanelErrorBoundary extends React.Component {
   }
 }
 
-/* ─────────────── Registry ─────────────── */
+/* ──���──────────── Registry ─────────────── */
 const PANEL_REGISTRY = {};
 
 // Add only panels with valid components
@@ -380,46 +380,46 @@ export default function Board() {
       <div className="tb2 pointer-events-auto fixed z-[1200]" style={{ left: tbPos.x, top: tbPos.y }}>
         <div className="tb2-shell">
           <button ref={dragRef} className="tb2-handle" title="Drag toolbar">
-            <GripHorizontal size={16} /><span className="ml-1">Toolbar</span>
+            <GripHorizontal size={12} />
           </button>
 
           <div className="tb2-group">
             <button className="tb2-btn" title="Reset layout" onClick={() => { setWindows([]); setActiveId(null); }}>
-              <RefreshCcw size={16} />
+              <RefreshCcw size={13} />
             </button>
             <button className="tb2-btn" title="Dock all" onClick={() => setWindows(w => w.map(p => ({...p, minimized:true, maximized:false}))) }>
-              <SquareStack size={16} />
+              <SquareStack size={13} />
             </button>
             <button className="tb2-btn" title="Restore docked" onClick={() => setWindows(w => w.map(p => ({...p, minimized:false}))) }>
-              <LayoutDashboard size={16} />
+              <LayoutDashboard size={13} />
             </button>
 
             <div className="tb2-sep" />
 
             {/* Quick openers */}
             <button className="tb2-btn" title="Open Whiteboard" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "whiteboard", allowDuplicate: true } }))}>
-              <ImageIcon size={16} />
+              <ImageIcon size={13} />
             </button>
             <button className="tb2-btn" title="Calendar" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "calendar", allowDuplicate: true } }))}>
-              <CalendarDays size={16} />
+              <CalendarDays size={13} />
             </button>
             <button className="tb2-btn" title="Teleconference" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "teleconference", allowDuplicate: true } }))}>
-              <Video size={16} />
+              <Video size={13} />
             </button>
             <button className="tb2-btn" title="Ruler & Snap" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "ruler", allowDuplicate: true } }))}>
-              <Ruler size={16} />
+              <Ruler size={13} />
             </button>
             <button className="tb2-btn" title="Lasso / Copy" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "lasso", allowDuplicate: true } }))}>
-              <LassoSelect size={16} />
+              <LassoSelect size={13} />
             </button>
             <button className="tb2-btn" title="Templates" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "templates", allowDuplicate: true } }))}>
-              <Copy size={16} />
+              <Copy size={13} />
             </button>
 
             <div className="tb2-sep" />
 
             <button className="tb2-btn" title="Settings" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "settings", allowDuplicate: false } }))}>
-              <Cog size={16} />
+              <Cog size={13} />
             </button>
           </div>
 
