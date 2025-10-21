@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  Menu, RotateCcw, ChevronLeft, ChevronRight, Grid3x3, 
+  Menu, RotateCcw, ChevronLeft, ChevronRight, Grid3x3,
   Image as ImageIcon, Calendar, Video, Link2, Settings, Zap, Square
 } from "lucide-react";
 
@@ -10,39 +10,18 @@ export default function Toolbar({
   setPinned,
   onHoverShow,
   isDark,
-  toggleTheme,
 }) {
   const [showThemeMenu, setShowThemeMenu] = useState(false);
-  const [theme, setTheme] = useState("dark");
 
   const themes = [
-    { id: "dark", label: "Dark (TRON)", color: "#0a1420", text: "#00d9ff" },
-    { id: "light", label: "Light", color: "#ffffff", text: "#1f2937" },
-    { id: "midnight", label: "Midnight Blue", color: "#0f172a", text: "#38bdf8" },
-    { id: "slate", label: "Slate", color: "#1e293b", text: "#94a3b8" },
-    { id: "violet", label: "Violet", color: "#1e1b4b", text: "#a78bfa" },
+    { id: "dark", label: "Dark TRON", color: "#0a1420" },
+    { id: "light", label: "Light", color: "#ffffff" },
+    { id: "midnight", label: "Midnight", color: "#0f172a" },
   ];
-
-  const applyTheme = (themeId) => {
-    setTheme(themeId);
-    const selectedTheme = themes.find((t) => t.id === themeId);
-    if (selectedTheme) {
-      document.documentElement.style.setProperty(
-        "--bg",
-        selectedTheme.color
-      );
-      document.documentElement.style.setProperty(
-        "--text",
-        selectedTheme.text
-      );
-      localStorage.setItem("selectedTheme", themeId);
-    }
-    setShowThemeMenu(false);
-  };
 
   return (
     <div
-      className="board-toolbar fixed top-4 left-1/2 -translate-x-1/2 z-[1200] transition-all duration-200 pointer-events-auto"
+      className="fixed top-3 left-1/2 -translate-x-1/2 z-[1200] transition-opacity duration-200"
       style={{
         opacity: visible ? 1 : 0,
         pointerEvents: visible ? "auto" : "none",
@@ -56,206 +35,40 @@ export default function Toolbar({
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "8px",
-          padding: "8px 12px",
-          backgroundColor: "rgba(12, 20, 32, 0.85)",
-          backdropFilter: "blur(12px)",
-          border: "1px solid rgba(0, 217, 255, 0.25)",
-          borderRadius: "14px",
-          boxShadow:
-            "0 20px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 217, 255, 0.12), inset 0 0 1px rgba(255, 255, 255, 0.1)",
+          gap: "6px",
+          padding: "6px 10px",
+          backgroundColor: "rgba(15, 23, 42, 0.9)",
+          backdropFilter: "blur(10px)",
+          border: "1px solid rgba(0, 217, 255, 0.3)",
+          borderRadius: "12px",
+          boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 217, 255, 0.1)",
         }}
       >
         {/* Toolbar Label */}
-        <div
+        <span
           style={{
-            fontSize: "12px",
-            fontWeight: "600",
-            color: "rgba(127, 243, 255, 0.7)",
+            fontSize: "11px",
+            fontWeight: "700",
+            color: "rgba(127, 243, 255, 0.8)",
             textTransform: "uppercase",
-            letterSpacing: "0.5px",
-            paddingRight: "8px",
+            letterSpacing: "0.6px",
+            paddingRight: "6px",
             borderRight: "1px solid rgba(0, 217, 255, 0.2)",
           }}
         >
           Toolbar
-        </div>
+        </span>
 
-        {/* Main Buttons */}
-        <button
-          title="Reset layout"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "32px",
-            height: "32px",
-            borderRadius: "8px",
-            border: "1px solid rgba(0, 217, 255, 0.2)",
-            background: "rgba(0, 217, 255, 0.08)",
-            color: "#7ff3ff",
-            cursor: "pointer",
-            transition: "all 0.2s ease",
-            padding: 0,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "rgba(0, 217, 255, 0.15)";
-            e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.4)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "rgba(0, 217, 255, 0.08)";
-            e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.2)";
-          }}
-        >
-          <RotateCcw size={16} />
-        </button>
-
-        <button
-          title="Previous"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "32px",
-            height: "32px",
-            borderRadius: "8px",
-            border: "1px solid rgba(0, 217, 255, 0.2)",
-            background: "rgba(0, 217, 255, 0.08)",
-            color: "#7ff3ff",
-            cursor: "pointer",
-            transition: "all 0.2s ease",
-            padding: 0,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "rgba(0, 217, 255, 0.15)";
-            e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.4)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "rgba(0, 217, 255, 0.08)";
-            e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.2)";
-          }}
-        >
-          <ChevronLeft size={16} />
-        </button>
-
-        <button
-          title="Next"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "32px",
-            height: "32px",
-            borderRadius: "8px",
-            border: "1px solid rgba(0, 217, 255, 0.2)",
-            background: "rgba(0, 217, 255, 0.08)",
-            color: "#7ff3ff",
-            cursor: "pointer",
-            transition: "all 0.2s ease",
-            padding: 0,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "rgba(0, 217, 255, 0.15)";
-            e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.4)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "rgba(0, 217, 255, 0.08)";
-            e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.2)";
-          }}
-        >
-          <ChevronRight size={16} />
-        </button>
-
-        {/* Grid */}
-        <button
-          title="Grid"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "32px",
-            height: "32px",
-            borderRadius: "8px",
-            border: "1px solid rgba(0, 217, 255, 0.2)",
-            background: "rgba(0, 217, 255, 0.08)",
-            color: "#7ff3ff",
-            cursor: "pointer",
-            transition: "all 0.2s ease",
-            padding: 0,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "rgba(0, 217, 255, 0.15)";
-            e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.4)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "rgba(0, 217, 255, 0.08)";
-            e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.2)";
-          }}
-        >
-          <Grid3x3 size={16} />
-        </button>
-
-        {/* Image/Photo */}
-        <button
-          title="Image"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "32px",
-            height: "32px",
-            borderRadius: "8px",
-            border: "1px solid rgba(0, 217, 255, 0.2)",
-            background: "rgba(0, 217, 255, 0.08)",
-            color: "#7ff3ff",
-            cursor: "pointer",
-            transition: "all 0.2s ease",
-            padding: 0,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "rgba(0, 217, 255, 0.15)";
-            e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.4)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "rgba(0, 217, 255, 0.08)";
-            e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.2)";
-          }}
-        >
-          <ImageIcon size={16} />
-        </button>
-
-        {/* Calendar */}
-        <button
-          title="Calendar"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "32px",
-            height: "32px",
-            borderRadius: "8px",
-            border: "1px solid rgba(0, 217, 255, 0.2)",
-            background: "rgba(0, 217, 255, 0.08)",
-            color: "#7ff3ff",
-            cursor: "pointer",
-            transition: "all 0.2s ease",
-            padding: 0,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "rgba(0, 217, 255, 0.15)";
-            e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.4)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "rgba(0, 217, 255, 0.08)";
-            e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.2)";
-          }}
-        >
-          <Calendar size={16} />
-        </button>
-
-        {/* Video */}
-        <button
-          title="Video Conferencing"
+        {/* Icon Buttons */}
+        <ToolbarButton icon={<RotateCcw size={14} />} title="Reset" />
+        <ToolbarButton icon={<ChevronLeft size={14} />} title="Prev" />
+        <ToolbarButton icon={<ChevronRight size={14} />} title="Next" />
+        <ToolbarButton icon={<Grid3x3 size={14} />} title="Grid" />
+        <ToolbarButton icon={<ImageIcon size={14} />} title="Image" />
+        <ToolbarButton icon={<Calendar size={14} />} title="Calendar" />
+        <ToolbarButton
+          icon={<Video size={14} />}
+          title="Video"
           onClick={() =>
             window.dispatchEvent(
               new CustomEvent("open-panel", {
@@ -263,155 +76,56 @@ export default function Toolbar({
               })
             )
           }
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "32px",
-            height: "32px",
-            borderRadius: "8px",
-            border: "1px solid rgba(0, 217, 255, 0.2)",
-            background: "rgba(0, 217, 255, 0.08)",
-            color: "#7ff3ff",
-            cursor: "pointer",
-            transition: "all 0.2s ease",
-            padding: 0,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "rgba(0, 217, 255, 0.15)";
-            e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.4)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "rgba(0, 217, 255, 0.08)";
-            e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.2)";
-          }}
-        >
-          <Video size={16} />
-        </button>
+        />
+        <ToolbarButton icon={<Link2 size={14} />} title="Link" />
 
-        {/* Link */}
-        <button
-          title="Link"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "32px",
-            height: "32px",
-            borderRadius: "8px",
-            border: "1px solid rgba(0, 217, 255, 0.2)",
-            background: "rgba(0, 217, 255, 0.08)",
-            color: "#7ff3ff",
-            cursor: "pointer",
-            transition: "all 0.2s ease",
-            padding: 0,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "rgba(0, 217, 255, 0.15)";
-            e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.4)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "rgba(0, 217, 255, 0.08)";
-            e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.2)";
-          }}
-        >
-          <Link2 size={16} />
-        </button>
-
-        {/* Settings/Theme */}
+        {/* Settings with theme menu */}
         <div style={{ position: "relative" }}>
-          <button
-            title="Settings & Themes"
+          <ToolbarButton
+            icon={<Settings size={14} />}
+            title="Settings"
             onClick={() => setShowThemeMenu(!showThemeMenu)}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "32px",
-              height: "32px",
-              borderRadius: "8px",
-              border: "1px solid rgba(0, 217, 255, 0.2)",
-              background: "rgba(0, 217, 255, 0.08)",
-              color: "#7ff3ff",
-              cursor: "pointer",
-              transition: "all 0.2s ease",
-              padding: 0,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(0, 217, 255, 0.15)";
-              e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.4)";
-            }}
-            onMouseLeave={(e) => {
-              if (!showThemeMenu) {
-                e.currentTarget.style.background = "rgba(0, 217, 255, 0.08)";
-                e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.2)";
-              }
-            }}
-          >
-            <Settings size={16} />
-          </button>
-
-          {/* Theme Menu */}
+          />
           {showThemeMenu && (
             <div
               style={{
                 position: "absolute",
-                top: "40px",
+                top: "32px",
                 right: 0,
-                backgroundColor: "rgba(12, 20, 32, 0.95)",
-                backdropFilter: "blur(12px)",
+                backgroundColor: "rgba(15, 23, 42, 0.95)",
+                backdropFilter: "blur(10px)",
                 border: "1px solid rgba(0, 217, 255, 0.3)",
-                borderRadius: "12px",
-                padding: "8px",
-                minWidth: "180px",
-                boxShadow:
-                  "0 20px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 217, 255, 0.12)",
+                borderRadius: "8px",
+                padding: "6px",
+                minWidth: "140px",
+                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)",
                 zIndex: 2000,
               }}
             >
               {themes.map((t) => (
                 <button
                   key={t.id}
-                  onClick={() => applyTheme(t.id)}
                   style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px",
+                    display: "block",
                     width: "100%",
-                    padding: "8px 10px",
-                    borderRadius: "8px",
-                    border:
-                      theme === t.id
-                        ? "1px solid rgba(0, 217, 255, 0.5)"
-                        : "1px solid transparent",
-                    background:
-                      theme === t.id
-                        ? "rgba(0, 217, 255, 0.15)"
-                        : "transparent",
-                    color: "#e0f2fe",
+                    padding: "6px 8px",
+                    borderRadius: "6px",
+                    border: "1px solid transparent",
+                    background: "transparent",
+                    color: "#7ff3ff",
                     cursor: "pointer",
-                    fontSize: "12px",
+                    fontSize: "11px",
                     fontWeight: "500",
-                    transition: "all 0.2s ease",
-                    marginBottom: "4px",
+                    textAlign: "left",
+                    marginBottom: "2px",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = "rgba(0, 217, 255, 0.1)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background =
-                      theme === t.id ? "rgba(0, 217, 255, 0.15)" : "transparent";
+                    e.currentTarget.style.background = "transparent";
                   }}
                 >
-                  <div
-                    style={{
-                      width: "16px",
-                      height: "16px",
-                      borderRadius: "4px",
-                      backgroundColor: t.color,
-                      border: "1px solid rgba(255, 255, 255, 0.2)",
-                    }}
-                  />
                   {t.label}
                 </button>
               ))}
@@ -419,67 +133,43 @@ export default function Toolbar({
           )}
         </div>
 
-        {/* Zap/Power */}
-        <button
-          title="Boost/Power"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "32px",
-            height: "32px",
-            borderRadius: "8px",
-            border: "1px solid rgba(255, 165, 0, 0.3)",
-            background: "rgba(255, 165, 0, 0.1)",
-            color: "#ffa500",
-            cursor: "pointer",
-            transition: "all 0.2s ease",
-            padding: 0,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "rgba(255, 165, 0, 0.2)";
-            e.currentTarget.style.borderColor = "rgba(255, 165, 0, 0.5)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "rgba(255, 165, 0, 0.1)";
-            e.currentTarget.style.borderColor = "rgba(255, 165, 0, 0.3)";
-          }}
-        >
-          <Zap size={16} />
-        </button>
-
-        {/* Pin/Record */}
-        <button
-          title={pinned ? "Unpin toolbar" : "Pin toolbar"}
+        <ToolbarButton icon={<Zap size={14} />} title="Boost" color="#ffa500" />
+        <ToolbarButton
+          icon={<Square size={14} />}
+          title={pinned ? "Pinned" : "Pin"}
           onClick={() => setPinned(!pinned)}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "32px",
-            height: "32px",
-            borderRadius: "8px",
-            border: "1px solid rgba(0, 217, 255, 0.2)",
-            background: pinned ? "rgba(0, 217, 255, 0.2)" : "rgba(0, 217, 255, 0.08)",
-            color: "#7ff3ff",
-            cursor: "pointer",
-            transition: "all 0.2s ease",
-            padding: 0,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "rgba(0, 217, 255, 0.15)";
-            e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.4)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = pinned
-              ? "rgba(0, 217, 255, 0.2)"
-              : "rgba(0, 217, 255, 0.08)";
-            e.currentTarget.style.borderColor = "rgba(0, 217, 255, 0.2)";
-          }}
-        >
-          <Square size={16} />
-        </button>
+          active={pinned}
+        />
       </div>
     </div>
+  );
+}
+
+function ToolbarButton({ icon, title, onClick, color = "#7ff3ff", active = false }) {
+  const [hover, setHover] = React.useState(false);
+
+  return (
+    <button
+      title={title}
+      onClick={onClick}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "28px",
+        height: "28px",
+        borderRadius: "6px",
+        border: active || hover ? `1px solid ${color}40` : "1px solid rgba(0, 217, 255, 0.15)",
+        background: active || hover ? `${color}15` : "rgba(0, 217, 255, 0.05)",
+        color: color,
+        cursor: "pointer",
+        transition: "all 0.15s ease",
+        padding: 0,
+      }}
+    >
+      {icon}
+    </button>
   );
 }
