@@ -1,6 +1,6 @@
 /* Global styles - echo orb removed */
 
-/* ═══════════════════════════════════════════════════════════════════════════
+/* ═══════════════════════════��═══════════════════════════════════════════════
    DASHBOARD BUTTON & CARD STYLES
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -106,34 +106,62 @@ html.light .gd-card.dragging {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 217, 255, 0.15);
 }
+
 .gd-card-title {
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  color: #7ff3ff;
 }
+
+html.light .gd-card-title {
+  color: #1f2937;
+}
+
 .gd-card-value {
   font-size: 32px;
   font-weight: 700;
   margin: 8px 0;
-  background: linear-gradient(135deg, #fff, rgba(200, 230, 255, 0.9));
+  background: linear-gradient(135deg, #00ffff, #00d9ff, rgba(0, 217, 255, 0.8));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+html.light .gd-card-value {
+  background: linear-gradient(135deg, #1f2937, #374151);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .gd-card-meta {
   font-size: 12px;
   opacity: 0.7;
   margin-top: 8px;
+  color: #b0e0ff;
+}
+
+html.light .gd-card-meta {
+  color: #6b7280;
 }
 
 .gd-card-tools {
   display: flex;
   gap: 6px;
   align-items: center;
-  opacity: 0.6;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
 }
+
+.gd-card:hover .gd-card-tools {
+  opacity: 1;
+}
+
 .gd-card-tool-btn {
   display: inline-flex;
   align-items: center;
@@ -141,17 +169,31 @@ html.light .gd-card.dragging {
   width: 24px;
   height: 24px;
   border-radius: 6px;
-  border: 1px solid rgba(120, 220, 255, 0.25);
-  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 217, 255, 0.25);
+  background: rgba(0, 217, 255, 0.08);
   color: #7ff3ff;
   cursor: pointer;
   transition: all 0.15s ease;
   padding: 0;
   font-size: 12px;
 }
+
 .gd-card-tool-btn:hover {
-  background: rgba(120, 220, 255, 0.15);
-  opacity: 1;
+  background: rgba(0, 217, 255, 0.15);
+  border-color: rgba(0, 217, 255, 0.4);
+  box-shadow: 0 0 12px rgba(0, 217, 255, 0.2);
+}
+
+html.light .gd-card-tool-btn {
+  border-color: rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.05);
+  color: #374151;
+}
+
+html.light .gd-card-tool-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
