@@ -36,7 +36,9 @@ export default function Sidebar({
   });
 
   // collapsed/expanded width
-  const W_COLLAPSED = 62, W_EXPANDED = 214;
+  // When expanded: 425px (as per requirement)
+  // When collapsed: 45px (icons only, no labels)
+  const W_COLLAPSED = 45, W_EXPANDED = 425;
   const widthPx = isOpen ? `${W_EXPANDED}px` : `${W_COLLAPSED}px`;
 
   useEffect(() => {
