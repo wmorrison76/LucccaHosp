@@ -9,8 +9,8 @@ import UserSettings from './UserSettings';
 import EchoControl from './EchoControl';
 import ArgusMonitor from './ArgusMonitor';
 // Avoid circular import - SystemOverview is the current component
-import { PrivateRoute } from './components/PrivateRoute';
-import MainLayout from './layout/MainLayout';
+import { PrivateRoute } from '../components/PrivateRoute';
+import MainLayout from '../layout/MainLayout';
 
 export default function AppRouter() {
   return (
