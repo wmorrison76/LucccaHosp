@@ -158,12 +158,17 @@ export default function Sidebar({
           : "0 12px 36px rgba(0,0,0,0.18), inset -1px 0 0 rgba(0,0,0,0.12)"
       }}
     >
-      <div className={[
-        "relative h-full w-full flex flex-col border-r overflow-y-auto overflow-x-hidden",
-        isDarkMode 
-          ? "sb-shell-dark text-cyan-50 border-cyan-400/30 bg-gradient-to-b from-slate-900/95 to-slate-900/90" 
-          : "sb-shell-light text-slate-900 border-black/10 bg-gradient-to-b from-white/95 to-white/90",
-      ].join(" ")}>
+      <div
+        className={[
+          "relative h-full w-full flex flex-col border-r overflow-y-auto overflow-x-hidden",
+          isDarkMode
+            ? "sb-shell-dark text-cyan-50 border-cyan-400/30 bg-gradient-to-b from-slate-900/95 to-slate-900/90"
+            : "sb-shell-light text-slate-900 border-black/10 bg-gradient-to-b from-white/95 to-white/90",
+        ].join(" ")}
+        style={{
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)"
+        }}>
         {/* Glow effect on right edge (dark mode) */}
         {isDarkMode && (
           <span aria-hidden className="absolute top-0 right-[-1px] bottom-0 w-[2px] pointer-events-none"
