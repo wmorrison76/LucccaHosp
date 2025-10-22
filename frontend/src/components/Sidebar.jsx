@@ -1,43 +1,22 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { Menu, Sun, Moon, Clock3, Settings as Cog, Zap, Radio, Layout, Users, TrendingUp, ChefHat } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Menu, Sun, Moon } from "lucide-react";
 
+// Logo and all icon imports
+import LUCCCA_Logo from "../assets/LUCCCA_Vertical_Inline.png";
 import dashboardIcon from "../assets/analytics.png";
-import kitchenIcon   from "../assets/culinary_library.png";
-import pastryIcon    from "../assets/baking-&-Pastry.png";
-import mixologyIcon  from "../assets/mixology.png";
+import eventStudioIcon from "../assets/LUCCCA_ECHO.png";
+import maestroIcon from "../assets/MaestroBQT.png";
+import echoAurumIcon from "https://cdn.builder.io/api/v1/image/assets%2F8b8d61942d1d4680bbfcbe7aa6b127f4%2F2d1c0638efbc4ca6ab0d1fe261daf79d?format=webp&width=200";
+import echoLayoutIcon from "../assets/Echo_F.png";
+import culinaryIcon from "../assets/culinary_library.png";
+import pastryIcon from "../assets/baking-&-Pastry.png";
+import mixologyIcon from "../assets/mixology.png";
+import scheduleIcon from "../assets/schedule.png";
 import inventoryIcon from "../assets/food_inventory.png";
-import LUCCCA_ECHO   from "../assets/LUCCCA_ECHO.png";
-import crmIcon       from "../assets/CRM.png";
-import scheduleIcon  from "../assets/schedule.png";
-import supportIcon   from "../assets/help-desk.png";
-import settingsIcon  from "../assets/settings.png";
-import chefNetIcon   from "../assets/ChefNet.png";
-import maestroBQT    from "../assets/MaestroBQT.png";
-import echoAurum     from "../assets/Echo-Ai.png";
-import echoLayout    from "../assets/Echo_F.png";
-import echoCanvas    from "../assets/Echo_Canvas.png";
-
-// Fallback SVG icon maker - generates a colored square with emoji/icon
-const IconFallback = ({ label, color = "#00d9ff" }) => (
-  <div
-    style={{
-      width: "32px",
-      height: "32px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: `${color}20`,
-      borderRadius: "8px",
-      border: `1px solid ${color}40`,
-      fontSize: "16px",
-      fontWeight: "bold",
-    }}
-    title={label}
-  >
-    {label.charAt(0).toUpperCase()}
-  </div>
-);
-
+import crmIcon from "../assets/CRM.png";
+import chefNetIcon from "../assets/ChefNet.png";
+import supportIcon from "../assets/help-desk.png";
+import settingsIcon from "../assets/settings.png";
 
 export default function Sidebar({
   isOpen: pOpen,
@@ -45,36 +24,35 @@ export default function Sidebar({
   isDarkMode: pDark,
   toggleDarkMode: pToggleDark
 }) {
-  const [localOpen, setLocalOpen]  = useState(true);
-  const [localDark, setLocalDark]  = useState(() => document.documentElement.classList.contains("dark"));
+  const [localOpen, setLocalOpen] = useState(true);
+  const [localDark, setLocalDark] = useState(() => 
+    document.documentElement.classList.contains("dark")
+  );
 
-  const isOpen        = pOpen   ?? localOpen;
+  const isOpen = pOpen ?? localOpen;
   const toggleSidebar = pToggle ?? (() => setLocalOpen(v => !v));
-  const isDarkMode    = pDark   ?? localDark;
+  const isDarkMode = pDark ?? localDark;
   const toggleDarkMode = pToggleDark ?? (() => {
     const next = !localDark;
     setLocalDark(next);
     document.documentElement.classList.toggle("dark", next);
-    // persist via the same bus App listens to
     window.dispatchEvent(new CustomEvent("lu:settings:apply", { detail: { flags: { dark: next } } }));
   });
 
-  // collapsed/expanded width
-  // When expanded: 425px (as per requirement)
-  // When collapsed: 45px (icons only, no labels)
-  const W_COLLAPSED = 45, W_EXPANDED = 425;
+  // Collapsed/expanded width
+  const W_COLLAPSED = 60;
+  const W_EXPANDED = 280;
   const widthPx = isOpen ? `${W_EXPANDED}px` : `${W_COLLAPSED}px`;
 
   useEffect(() => {
     document.body.classList.toggle("sb-collapsed", !isOpen);
   }, [isOpen]);
 
-  // open a Board panel by id
+  // Open a Board panel by id
   const openPanel = (id, detail = {}) => {
     if (!id) return;
     try {
       window.dispatchEvent(new CustomEvent("open-panel", { detail: { id, ...detail } }));
-      // Auto-close sidebar on mobile/tablet or when expanded on desktop
       if (isOpen && window.innerWidth < 1024) {
         setLocalOpen(false);
       }
@@ -82,259 +60,224 @@ export default function Sidebar({
     catch (err) { console.error("[Sidebar] open-panel failed:", err); }
   };
 
-  // Image loader with fallback
-  const SafeImage = ({ src, alt, className }) => {
+  // Safe image component with fallback
+  const SafeImage = ({ src, alt, size = 32 }) => {
     const [hasError, setHasError] = useState(false);
 
     if (hasError || !src) {
-      return <IconFallback label={alt} />;
+      return (
+        <div style={{
+          width: `${size}px`,
+          height: `${size}px`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "rgba(0, 217, 255, 0.15)",
+          borderRadius: "6px",
+          fontSize: "14px",
+          fontWeight: "bold",
+          color: "#7ff3ff"
+        }}>
+          {alt.charAt(0)}
+        </div>
+      );
     }
 
     return (
       <img
         src={src}
         alt={alt}
-        className={className}
+        style={{ width: `${size}px`, height: `${size}px`, objectFit: "contain" }}
         onError={() => setHasError(true)}
       />
     );
   };
 
-  // left column – panel buttons (no route change)
-  const panelModules = useMemo(() => [
-    { label: "DASHBOARD",          icon: dashboardIcon, panelId: "dashboard", fallback: <Zap size={20} /> },
-    { label: "ECHO EVENT STUDIO",  icon: LUCCCA_ECHO,   panelId: "eventstudio", fallback: <Radio size={20} /> },
-    { label: "MAESTRO BQT",        icon: maestroBQT,    panelId: "maestrobqt", fallback: <TrendingUp size={20} /> },
-    { label: "ECHO AURUM",         icon: echoAurum,     panelId: "echoaurum", fallback: <Radio size={20} /> },
-    { label: "ECHO LAYOUT",        icon: echoLayout,    panelId: "echolayout", fallback: <Layout size={20} /> },
-    { label: "CULINARY",           icon: kitchenIcon,   panelId: "culinary", fallback: <ChefHat size={20} /> },
-    { label: "BAKING & PASTRY",    icon: pastryIcon,    panelId: "pastry", fallback: <ChefHat size={20} /> },
-    { label: "MIXOLOGY",           icon: mixologyIcon,  panelId: "mixology", fallback: <Radio size={20} /> },
-    { label: "SCHEDULES",          icon: scheduleIcon,  panelId: "scheduling", fallback: <Clock3 size={20} /> },
-    { label: "PURCHASING",         icon: inventoryIcon, panelId: "purchasing", fallback: <TrendingUp size={20} /> },
-  ], []);
+  // Sidebar menu items with icons and panel IDs
+  const menuItems = [
+    { label: "DASHBOARD", icon: dashboardIcon, panelId: "dashboard" },
+    { label: "ECHO EVENT STUDIO", icon: eventStudioIcon, panelId: "eventstudio" },
+    { label: "MAESTRO BQT", icon: maestroIcon, panelId: "maestrobqt" },
+    { label: "ECHO AURUM", icon: echoAurumIcon, panelId: "echoaurum" },
+    { label: "ECHO LAYOUT", icon: echoLayoutIcon, panelId: "echolayout" },
+    { label: "CULINARY", icon: culinaryIcon, panelId: "culinary" },
+    { label: "BAKING & PASTRY", icon: pastryIcon, panelId: "pastry" },
+    { label: "MIXOLOGY", icon: mixologyIcon, panelId: "mixology" },
+    { label: "SCHEDULES", icon: scheduleIcon, panelId: "scheduling" },
+    { label: "INVENTORY", icon: inventoryIcon, panelId: "purchasing" },
+    { label: "CRM", icon: crmIcon, panelId: "crm" },
+  ];
 
-  // examples that DO change the URL
-  const routeModules = useMemo(() => [
-    { path: "/inventory",   label: "INVENTORY",   icon: inventoryIcon, fallback: <TrendingUp size={20} /> },
-    { path: "/purchasing",  label: "PURCHASING",  icon: inventoryIcon, fallback: <TrendingUp size={20} /> },
-    { path: "/crm",         label: "CRM",         icon: crmIcon, fallback: <Users size={20} /> },
-  ], []);
-
-  const bottomRoutes = useMemo(() => [
-    { path: "/chefnet",  label: "CHEFNET",  icon: chefNetIcon, fallback: <Radio size={20} /> },
-    { path: "/support",  label: "SUPPORT",  icon: supportIcon, fallback: <Radio size={20} /> },
-  ], []);
-
-  const itemClasses = (active = false) => {
-    const baseClasses = "sb-menu-item";
-    const activeClass = active ? "active" : "";
-    return `${baseClasses} ${activeClass}`;
-  };
-
-  const Label = ({ children }) => (
-    <span className={`sb-menu-label ${!isOpen ? "hidden" : ""}`} style={{ minWidth: 0, flex: 1 }}>{children}</span>
-  );
+  const bottomItems = [
+    { label: "CHEFNET", icon: chefNetIcon, panelId: "chefnet" },
+    { label: "SUPPORT", icon: supportIcon, panelId: "support" },
+    { label: "SETTINGS", icon: settingsIcon, panelId: "settings" },
+  ];
 
   return (
     <aside
       aria-label="App sidebar"
       data-collapsed={!isOpen}
-      className="fixed top-0 left-0 h-screen z-[10000] transition-[width] duration-300 will-change-[width]"
-      style={{ width: widthPx, minWidth: widthPx, flexBasis: widthPx, position: "fixed" }}
+      className="fixed top-0 left-0 h-screen z-[10000] transition-[width] duration-300"
+      style={{ width: widthPx, minWidth: widthPx }}
     >
       <div className={[
-        "relative h-full w-full flex flex-col backdrop-blur-xl border-r overflow-hidden",
-        isDarkMode ? "sb-shell-dark text-cyan-50 border-cyan-400/30"
-                   : "sb-shell-light text-slate-900 border-black/10",
+        "relative h-full w-full flex flex-col border-r overflow-y-auto overflow-x-hidden",
+        isDarkMode 
+          ? "sb-shell-dark text-cyan-50 border-cyan-400/30 bg-gradient-to-b from-slate-900/95 to-slate-900/90" 
+          : "sb-shell-light text-slate-900 border-black/10 bg-gradient-to-b from-white/95 to-white/90",
       ].join(" ")}>
+        {/* Glow effect on right edge (dark mode) */}
         {isDarkMode && (
           <span aria-hidden className="absolute top-0 right-[-1px] bottom-0 w-[2px] pointer-events-none"
                 style={{ background: "linear-gradient(180deg, transparent, rgba(22,224,255,0.95), transparent)",
                          filter: "drop-shadow(0 0 8px rgba(22,224,255,.55))" }} />
         )}
 
-        {/* Toggle puck */}
-        <div className="relative px-2 pt-3 pb-2">
-          <div className="absolute top-3 -right-[12px] z-[10000]">
-            <button
-              onClick={toggleSidebar}
-              className="rounded-full p-[5px] shadow-none border bg-white/90 text-cyan-700 border-cyan-400 dark:bg-slate-900/90 dark:text-cyan-300 hover:scale-110 active:scale-95 transition"
-              aria-label={isOpen ? "Collapse sidebar" : "Expand sidebar"}
-              style={{ boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center" }}
-            >
-              <Menu size={15} />
-            </button>
-          </div>
+        {/* Header: Logo & Collapse Button */}
+        <div className="relative flex items-center justify-between px-3 py-4 flex-shrink-0">
+          {/* Collapse/Expand Toggle */}
+          <button
+            onClick={toggleSidebar}
+            className="rounded-lg p-1.5 transition-all duration-200 flex-shrink-0"
+            style={{
+              background: isDarkMode ? "rgba(0, 217, 255, 0.1)" : "rgba(0, 0, 0, 0.05)",
+              border: isDarkMode ? "1px solid rgba(0, 217, 255, 0.2)" : "1px solid rgba(0, 0, 0, 0.1)",
+              color: isDarkMode ? "#7ff3ff" : "#1e293b",
+            }}
+            aria-label={isOpen ? "Collapse sidebar" : "Expand sidebar"}
+          >
+            <Menu size={18} />
+          </button>
 
+          {/* Logo (visible when expanded) */}
           {isOpen && (
-            <div className="mt-1 leading-tight tracking-wide select-none">
-              <div className="px-2 py-3 rounded-10 flex items-center justify-center gap-3"
-                   style={{
-                     background: "rgba(0, 217, 255, 0.08)",
-                     border: "1px solid rgba(0, 217, 255, 0.15)",
-                     borderRadius: "10px"
-                   }}>
-                <span style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "36px",
-                  height: "36px",
-                  borderRadius: "8px",
-                  background: "rgba(0, 217, 255, 0.2)",
-                  border: "1px solid rgba(0, 217, 255, 0.35)",
-                  fontSize: "18px",
-                  fontWeight: "bold",
-                  color: "#00d9ff"
-                }}>L</span>
-                <div style={{ flex: 1 }}>
-                  <div className="text-[14px] font-extrabold text-cyan-300 uppercase">UCCCA</div>
-                  <div className="text-xs opacity-50 leading-tight">Professional<br/>Kitchen</div>
-                </div>
-              </div>
-            </div>
+            <img 
+              src={LUCCCA_Logo} 
+              alt="LUCCCA Logo"
+              style={{
+                height: "50px",
+                objectFit: "contain",
+                flex: 1,
+                marginLeft: "8px"
+              }}
+            />
           )}
         </div>
 
-        {/* Core panel list */}
-        <nav className="px-2 pt-2 no-scrollbar flex-1 overflow-y-auto flex flex-col gap-1" style={{ msOverflowStyle: "none", scrollbarWidth: "none" }}>
-          {panelModules.map(({ label, icon, panelId, fallback }) => (
+        {/* Divider */}
+        <div className={`h-[1px] mx-2 ${isDarkMode ? "bg-cyan-400/20" : "bg-black/10"}`} />
+
+        {/* Main Menu Items */}
+        <nav className="flex-1 px-2 py-3 space-y-1 overflow-y-auto">
+          {menuItems.map(({ label, icon, panelId }) => (
             <button
               key={panelId}
-              type="button"
               onClick={() => openPanel(panelId)}
+              className="sb-menu-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-150 cursor-pointer text-left"
               title={label}
-              aria-label={label}
-              data-panel-id={panelId}
-              className={itemClasses(false)}
+              style={{
+                background: isDarkMode ? "rgba(0, 217, 255, 0.08)" : "rgba(0, 0, 0, 0.04)",
+                border: isDarkMode ? "1px solid rgba(0, 217, 255, 0.15)" : "1px solid rgba(0, 0, 0, 0.06)",
+                color: isDarkMode ? "#b0e0ff" : "#475569",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = isDarkMode ? "rgba(0, 217, 255, 0.15)" : "rgba(0, 0, 0, 0.08)";
+                e.currentTarget.style.borderColor = isDarkMode ? "rgba(0, 217, 255, 0.25)" : "rgba(0, 0, 0, 0.12)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = isDarkMode ? "rgba(0, 217, 255, 0.08)" : "rgba(0, 0, 0, 0.04)";
+                e.currentTarget.style.borderColor = isDarkMode ? "rgba(0, 217, 255, 0.15)" : "rgba(0, 0, 0, 0.06)";
+              }}
             >
-              <div className="sb-menu-icon flex-shrink-0">
-                {icon ? (
-                  <img
-                    src={icon}
-                    alt={label}
-                    style={{ width: "32px", height: "32px", objectFit: "contain" }}
-                    onError={(e) => {
-                      e.currentTarget.style.display = "none";
-                      e.currentTarget.nextElementSibling.style.display = "flex";
-                    }}
-                  />
-                ) : null}
-                <div style={{ display: "none", width: "32px", height: "32px", alignItems: "center", justifyContent: "center", color: "#7ff3ff" }}>
-                  {fallback}
-                </div>
+              {/* Icon */}
+              <div className="flex-shrink-0">
+                <SafeImage src={icon} alt={label} size={28} />
               </div>
-              {isOpen && <Label>{label}</Label>}
+
+              {/* Label (visible when expanded) */}
+              {isOpen && (
+                <span style={{
+                  fontSize: "11px",
+                  fontWeight: "600",
+                  letterSpacing: "0.3px",
+                  textTransform: "uppercase",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  flex: 1,
+                }}>
+                  {label}
+                </span>
+              )}
             </button>
           ))}
-
-          {/* Route-based modules */}
-          {routeModules.map(({ path, label, icon, fallback }) => (
-            <button
-              key={path}
-              type="button"
-              title={label}
-              aria-label={label}
-              className={itemClasses(false)}
-              onClick={() => {}}
-            >
-              <div className="sb-menu-icon flex-shrink-0">
-                {icon ? (
-                  <img
-                    src={icon}
-                    alt={label}
-                    style={{ width: "32px", height: "32px", objectFit: "contain" }}
-                    onError={(e) => {
-                      e.currentTarget.style.display = "none";
-                      e.currentTarget.nextElementSibling.style.display = "flex";
-                    }}
-                  />
-                ) : null}
-                <div style={{ display: "none", width: "32px", height: "32px", alignItems: "center", justifyContent: "center", color: "#7ff3ff" }}>
-                  {fallback}
-                </div>
-              </div>
-              {isOpen && <Label>{label}</Label>}
-            </button>
-          ))}
-
-          {/* Recent (opens a small panel via Board) */}
-          <button
-            type="button"
-            onClick={() => openPanel("recent", { allowDuplicate: true, title: "Recent" })}
-            className={itemClasses(false)}
-            title="Recent"
-            aria-label="Recent"
-          >
-            <Clock3 className="sb-menu-icon flex-shrink-0" size={32} style={{ color: "#7ff3ff" }} />
-            {isOpen && <Label>RECENT</Label>}
-          </button>
         </nav>
 
-        {/* Bottom section */}
-        <div className="px-2 pb-3 pt-1 flex-shrink-0">
-          <hr className={`border-t ${isDarkMode ? "border-cyan-500/25" : "border-black/10"} mb-2`} />
-          <div className="space-y-1">
-            {bottomRoutes.map(({ path, label, icon, fallback }) => (
-              <button
-                key={path}
-                type="button"
-                title={label}
-                aria-label={label}
-                className={itemClasses(false)}
-                onClick={() => {}}
-              >
-                <div className="sb-menu-icon flex-shrink-0">
-                  {icon ? (
-                    <img
-                      src={icon}
-                      alt={label}
-                      style={{ width: "32px", height: "32px", objectFit: "contain" }}
-                      onError={(e) => {
-                        e.currentTarget.style.display = "none";
-                        e.currentTarget.nextElementSibling.style.display = "flex";
-                      }}
-                    />
-                  ) : null}
-                  <div style={{ display: "none", width: "32px", height: "32px", alignItems: "center", justifyContent: "center", color: "#7ff3ff" }}>
-                    {fallback}
-                  </div>
-                </div>
-                {isOpen && <Label>{label}</Label>}
-              </button>
-            ))}
+        {/* Divider before bottom section */}
+        <div className={`h-[1px] mx-2 ${isDarkMode ? "bg-cyan-400/20" : "bg-black/10"}`} />
 
-            {/* Settings opens the SettingsSuite panel directly */}
+        {/* Bottom Menu Items */}
+        <div className="px-2 py-3 space-y-1 flex-shrink-0">
+          {bottomItems.map(({ label, icon, panelId }) => (
             <button
-              type="button"
-              onClick={() => openPanel("settings")}
-              className={itemClasses(false)}
-              title="Settings"
-              aria-label="Settings"
+              key={panelId}
+              onClick={() => openPanel(panelId)}
+              className="sb-menu-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-150 cursor-pointer text-left"
+              title={label}
+              style={{
+                background: isDarkMode ? "rgba(0, 217, 255, 0.08)" : "rgba(0, 0, 0, 0.04)",
+                border: isDarkMode ? "1px solid rgba(0, 217, 255, 0.15)" : "1px solid rgba(0, 0, 0, 0.06)",
+                color: isDarkMode ? "#b0e0ff" : "#475569",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = isDarkMode ? "rgba(0, 217, 255, 0.15)" : "rgba(0, 0, 0, 0.08)";
+                e.currentTarget.style.borderColor = isDarkMode ? "rgba(0, 217, 255, 0.25)" : "rgba(0, 0, 0, 0.12)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = isDarkMode ? "rgba(0, 217, 255, 0.08)" : "rgba(0, 0, 0, 0.04)";
+                e.currentTarget.style.borderColor = isDarkMode ? "rgba(0, 217, 255, 0.15)" : "rgba(0, 0, 0, 0.06)";
+              }}
             >
-              <Cog className="sb-menu-icon flex-shrink-0" size={32} style={{ color: "#7ff3ff" }} />
-              {isOpen && <Label>SETTINGS</Label>}
-            </button>
-          </div>
+              {/* Icon */}
+              <div className="flex-shrink-0">
+                <SafeImage src={icon} alt={label} size={28} />
+              </div>
 
-          {/* Theme toggle */}
-          <div className={`mt-2 flex ${isOpen ? "justify-end pr-1" : "justify-center"}`}>
-            <button
-              onClick={toggleDarkMode}
-              className={[
-                "rounded-full border transition h-10 w-10 grid place-items-center shadow-none",
-                isDarkMode
-                  ? "bg-slate-900/85 text-cyan-300 border-cyan-400/60"
-                  : "bg-white/90 text-cyan-700 border-cyan-500/50 hover:bg-white",
-              ].join(" ")}
-              style={{ boxShadow: "none" }}
-              title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-              aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-            >
-              {isDarkMode ? <Moon size={18} /> : <Sun size={18} />}
+              {/* Label (visible when expanded) */}
+              {isOpen && (
+                <span style={{
+                  fontSize: "11px",
+                  fontWeight: "600",
+                  letterSpacing: "0.3px",
+                  textTransform: "uppercase",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  flex: 1,
+                }}>
+                  {label}
+                </span>
+              )}
             </button>
-          </div>
+          ))}
+        </div>
+
+        {/* Theme Toggle */}
+        <div className={`px-3 py-3 flex-shrink-0 ${isOpen ? "flex justify-end" : "flex justify-center"}`}>
+          <button
+            onClick={toggleDarkMode}
+            className="rounded-lg p-2 transition-all duration-200"
+            style={{
+              background: isDarkMode ? "rgba(0, 217, 255, 0.1)" : "rgba(0, 0, 0, 0.05)",
+              border: isDarkMode ? "1px solid rgba(0, 217, 255, 0.2)" : "1px solid rgba(0, 0, 0, 0.1)",
+              color: isDarkMode ? "#7ff3ff" : "#1e293b",
+            }}
+            title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          >
+            {isDarkMode ? <Moon size={18} /> : <Sun size={18} />}
+          </button>
         </div>
       </div>
     </aside>
