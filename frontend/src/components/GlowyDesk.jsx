@@ -228,7 +228,7 @@ function GlowCard({ title, color, pinned, onPin, onPop, onClose, children }) {
           background:linear-gradient(90deg, rgba(0,217,255,.08), rgba(0,217,255,.04));
           border:1px solid rgba(0,217,255,.15);
           box-shadow: 0 4px 12px rgba(0,0,0,.2), inset 0 0 0 1px rgba(0,217,255,.1);
-          color:#7ff3ff; pointer-events:auto;
+          color:#7ff3ff; pointer-events:auto; z-index:10;
         }
         html.light .gd-toolbar{
           background:linear-gradient(90deg, rgba(0,0,0,.04), rgba(0,0,0,.02));
