@@ -1,39 +1,27 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Menu, Sun, Moon } from "lucide-react";
 
-// Direct ES6 imports of asset URLs using Vite alias
-import dashboardImg from "@/assets/analytics.png";
-import eventStudioImg from "@/assets/LUCCCA_ECHO.png";
-import maestroImg from "@/assets/MaestroBQT.png";
-import echoAurumImg from "@/assets/Echo-Ai.png";
-import echoLayoutImg from "@/assets/Echo_F.png";
-import culinaryImg from "@/assets/culinary_library.png";
-import pastryImg from "@/assets/baking-&-Pastry.png";
-import mixologyImg from "@/assets/mixology.png";
-import scheduleImg from "@/assets/schedule.png";
-import inventoryImg from "@/assets/food_inventory.png";
-import crmImg from "@/assets/CRM.png";
-import chefNetImg from "@/assets/ChefNet.png";
-import supportImg from "@/assets/help-desk.png";
-import settingsImg from "@/assets/settings.png";
-import logoImg from "@/assets/LUCCCA_Vertical_Inline.png";
+// Asset URLs using Vite's import.meta.url pattern - this is the most reliable method
+const getAssetUrl = (filename) => {
+  return new URL(`../assets/${filename}`, import.meta.url).href;
+};
 
 const iconUrls = {
-  dashboard: dashboardImg,
-  eventStudio: eventStudioImg,
-  maestro: maestroImg,
-  echoAurum: echoAurumImg,
-  echoLayout: echoLayoutImg,
-  culinary: culinaryImg,
-  pastry: pastryImg,
-  mixology: mixologyImg,
-  schedule: scheduleImg,
-  inventory: inventoryImg,
-  crm: crmImg,
-  chefNet: chefNetImg,
-  support: supportImg,
-  settings: settingsImg,
-  logo: logoImg,
+  dashboard: getAssetUrl("analytics.png"),
+  eventStudio: getAssetUrl("LUCCCA_ECHO.png"),
+  maestro: getAssetUrl("MaestroBQT.png"),
+  echoAurum: getAssetUrl("Echo-Ai.png"),
+  echoLayout: getAssetUrl("Echo_F.png"),
+  culinary: getAssetUrl("culinary_library.png"),
+  pastry: getAssetUrl("baking-&-Pastry.png"),
+  mixology: getAssetUrl("mixology.png"),
+  schedule: getAssetUrl("schedule.png"),
+  inventory: getAssetUrl("food_inventory.png"),
+  crm: getAssetUrl("CRM.png"),
+  chefNet: getAssetUrl("ChefNet.png"),
+  support: getAssetUrl("help-desk.png"),
+  settings: getAssetUrl("settings.png"),
+  logo: getAssetUrl("LUCCCA_Vertical_Inline.png"),
 };
 
 export default function Sidebar({
