@@ -1,23 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Menu, Sun, Moon } from "lucide-react";
 
-// Logo and all icon imports
-import LUCCCA_Logo from "../assets/LUCCCA_Vertical_Inline.png";
-import dashboardIcon from "../assets/analytics.png";
-import eventStudioIcon from "../assets/LUCCCA_ECHO.png";
-import maestroIcon from "../assets/MaestroBQT.png";
-import echoAurumIcon from "../assets/Echo-Ai.png";
-import echoLayoutIcon from "../assets/Echo_F.png";
-import culinaryIcon from "../assets/culinary_library.png";
-import pastryIcon from "../assets/baking-&-Pastry.png";
-import mixologyIcon from "../assets/mixology.png";
-import scheduleIcon from "../assets/schedule.png";
-import inventoryIcon from "../assets/food_inventory.png";
-import crmIcon from "../assets/CRM.png";
-import chefNetIcon from "../assets/ChefNet.png";
-import supportIcon from "../assets/help-desk.png";
-import settingsIcon from "../assets/settings.png";
-
 export default function Sidebar({
   isOpen: pOpen,
   toggleSidebar: pToggle,
