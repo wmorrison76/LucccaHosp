@@ -211,15 +211,25 @@ function GlowCard({ title, color, pinned, onPin, onPop, onClose, children }) {
         .gd-toolbar{
           position:absolute; left:12px; right:12px; top:10px;
           display:flex; align-items:center; justify-content:space-between;
-          padding:6px 8px; border-radius:12px;
-          background:rgba(255,255,255,.04);
-          box-shadow: 0 8px 24px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.05);
-          color:#d7f6ff; pointer-events:auto; opacity:.96;
+          padding:8px 12px; border-radius:10px;
+          background:linear-gradient(90deg, rgba(0,217,255,.08), rgba(0,217,255,.04));
+          border:1px solid rgba(0,217,255,.15);
+          box-shadow: 0 4px 12px rgba(0,0,0,.2), inset 0 0 0 1px rgba(0,217,255,.1);
+          color:#7ff3ff; pointer-events:auto;
         }
-        .gd-handle{ display:flex; align-items:center; gap:6px; cursor:grab; }
-        .gd-ctl{ display:grid; place-items:center; width:26px; height:26px; border-radius:7px; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.03); }
-        .gd-ctl:hover{ background:rgba(255,255,255,.06); }
-        .gd-ctl.gd-on{ border-color:${hexToRGBA("#7fffd4", .45)}; background:rgba(127,255,212,.08); }
+        html.light .gd-toolbar{
+          background:linear-gradient(90deg, rgba(0,0,0,.04), rgba(0,0,0,.02));
+          border:1px solid rgba(0,0,0,.08);
+          box-shadow: 0 2px 8px rgba(0,0,0,.08), inset 0 0 0 1px rgba(255,255,255,.4);
+          color:#1f2937;
+        }
+        .gd-handle{ display:flex; align-items:center; gap:6px; cursor:grab; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.3px; }
+        .gd-ctl{ display:grid; place-items:center; width:26px; height:26px; border-radius:6px; border:1px solid rgba(0,217,255,.2); background:rgba(0,217,255,.08); color:#7ff3ff; transition:all .15s ease; }
+        .gd-ctl:hover{ background:rgba(0,217,255,.15); border-color:rgba(0,217,255,.35); box-shadow:0 0 8px rgba(0,217,255,.15); }
+        .gd-ctl.gd-on{ border-color:rgba(0,217,255,.5); background:rgba(0,217,255,.15); box-shadow:0 0 12px rgba(0,217,255,.25); }
+        html.light .gd-ctl{ border-color:rgba(0,0,0,.1); background:rgba(0,0,0,.05); color:#374151; }
+        html.light .gd-ctl:hover{ background:rgba(0,0,0,.1); border-color:rgba(0,0,0,.15); box-shadow:0 2px 6px rgba(0,0,0,.1); }
+        html.light .gd-ctl.gd-on{ border-color:rgba(0,0,0,.15); background:rgba(0,0,0,.08); }
       `}</style>
     </div>
   );
