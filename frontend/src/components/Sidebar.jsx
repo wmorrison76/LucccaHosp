@@ -1,23 +1,23 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Menu, Sun, Moon } from "lucide-react";
 
-// Asset URLs - using absolute paths that Vite resolves
+// Asset URLs - try different paths for asset resolution
 const iconUrls = {
-  dashboard: "/src/assets/analytics.png",
-  eventStudio: "/src/assets/LUCCCA_ECHO.png",
-  maestro: "/src/assets/MaestroBQT.png",
-  echoAurum: "/src/assets/Echo-Ai.png",
-  echoLayout: "/src/assets/Echo_F.png",
-  culinary: "/src/assets/culinary_library.png",
-  pastry: "/src/assets/baking-&-Pastry.png",
-  mixology: "/src/assets/mixology.png",
-  schedule: "/src/assets/schedule.png",
-  inventory: "/src/assets/food_inventory.png",
-  crm: "/src/assets/CRM.png",
-  chefNet: "/src/assets/ChefNet.png",
-  support: "/src/assets/help-desk.png",
-  settings: "/src/assets/settings.png",
-  logo: "/src/assets/LUCCCA_Vertical_Inline.png",
+  dashboard: new URL("../assets/analytics.png", import.meta.url).href,
+  eventStudio: new URL("../assets/LUCCCA_ECHO.png", import.meta.url).href,
+  maestro: new URL("../assets/MaestroBQT.png", import.meta.url).href,
+  echoAurum: new URL("../assets/Echo-Ai.png", import.meta.url).href,
+  echoLayout: new URL("../assets/Echo_F.png", import.meta.url).href,
+  culinary: new URL("../assets/culinary_library.png", import.meta.url).href,
+  pastry: new URL("../assets/baking-&-Pastry.png", import.meta.url).href,
+  mixology: new URL("../assets/mixology.png", import.meta.url).href,
+  schedule: new URL("../assets/schedule.png", import.meta.url).href,
+  inventory: new URL("../assets/food_inventory.png", import.meta.url).href,
+  crm: new URL("../assets/CRM.png", import.meta.url).href,
+  chefNet: new URL("../assets/ChefNet.png", import.meta.url).href,
+  support: new URL("../assets/help-desk.png", import.meta.url).href,
+  settings: new URL("../assets/settings.png", import.meta.url).href,
+  logo: new URL("../assets/LUCCCA_Vertical_Inline.png", import.meta.url).href,
 };
 
 export default function Sidebar({
