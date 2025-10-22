@@ -2,11 +2,17 @@ import React, { Suspense, lazy, useState, useEffect } from "react";
 import { Plus, Trash2, Save, RotateCcw } from "lucide-react";
 
 // Try to load the advanced FluidRoot whiteboard from WindowA_WhiteboardCore
-const AdvancedWhiteboardCore = lazy(() =>
-  import("../../WindowA_WhiteboardCore/FluidRoot.tsx")
-    .then((m) => ({ default: m.default || m.FluidRoot }))
-    .catch(() => null)
-);
+// Use dynamic import with proper error handling
+const AdvancedWhiteboardCore = lazy(() => {
+  try {
+    return import("../../WindowA_WhiteboardCore/FluidRoot.tsx")
+      .then((m) => ({ default: m.default || m.FluidRoot }))
+      .catch(() => ({ default: () => null }));
+  } catch (err) {
+    console.warn('[AdvancedWhiteboard] FluidRoot not available, using fallback');
+    return { default: () => null };
+  }
+});
 
 // Fallback to basic canvas whiteboard if advanced not available
 function BasicWhiteboard() {
