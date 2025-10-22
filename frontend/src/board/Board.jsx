@@ -68,6 +68,7 @@ const GlowDesk           = safeImport(() => import("../components/GlowyDesk.jsx"
 const KitchenLibraryTabs = safeImport(() => import("../components/KitchenLibraryTabs.jsx"), "KitchenLibraryTabs");
 const Schedule           = safeImport(() => import("../modules/scheduling/Schedule.jsx"), "Schedule");
 const EchoRecipeProPanel = safeImport(() => import("../components/EchoRecipePro/EchoRecipeProPanel.jsx"), "EchoRecipeProPanel");
+const CulinaryPanel      = safeImport(() => import("../components/CulinaryPanel.jsx"), "CulinaryPanel");
 const PurchasingPanel    = safeImport(() => import("../components/Purchasing/PurchasingPanel.jsx"), "PurchasingPanel");
 const EchoEventStudioPanel = safeImport(() => import("../components/EchoEventStudio/EchoEventStudioPanel.jsx"), "EchoEventStudioPanel");
 const MaestroBQTPanel    = safeImport(() => import("../components/MaestroBQTPanel.jsx"), "MaestroBQTPanel");
