@@ -473,7 +473,7 @@ export default function Board() {
                 ...p, width: ref.offsetWidth, height: ref.offsetHeight, x: pos.x, y: pos.y
               } : p))}
               enableResizing={!win.maximized && !win.minimized}
-              disableDragging={win.minimized}
+              disableDragging={true}
               style={{ zIndex: win.z, display: win.minimized ? "none" : "block" }}
               className={[
                 "panel-window resize-panel",
