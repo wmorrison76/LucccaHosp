@@ -143,6 +143,9 @@ console.log('[Board] EchoCanvasStudio:', !!EchoCanvasStudio);
 console.log('[Board] AdvancedWhiteboard:', !!AdvancedWhiteboard);
 console.log('[Board] AdvancedVideoConference:', !!AdvancedVideoConference);
 console.log('[Board] MixologyPanel:', !!MixologyPanel);
+console.log('[Board] CRMPanel:', !!CRMPanel);
+console.log('[Board] ChefNetPanel:', !!ChefNetPanel);
+console.log('[Board] SupportPanel:', !!SupportPanel);
 
 if (GlowDesk) PANEL_REGISTRY.dashboard = { title: "Dashboard", Component: GlowDesk, icon: null };
 if (GlowDesk) PANEL_REGISTRY.home = { title: "Welcome", Component: GlowDesk, icon: null };
