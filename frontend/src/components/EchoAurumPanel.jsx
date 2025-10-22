@@ -14,18 +14,30 @@ export default function EchoAurumPanel() {
   useEffect(() => {
     console.log('[EchoAurum] Component mounted');
     setIsLoading(true);
-    
+
     try {
       if (!window.builderContentLoaded) {
         const script = document.createElement('script');
         script.src = 'https://cdn.builder.io/js/react';
         script.async = true;
+
+        const timeout = setTimeout(() => {
+          if (!window.builderContentLoaded) {
+            console.warn('[EchoAurum] Script load timeout');
+            setLoadError('Builder.io script load timeout - CDN may be unavailable');
+            setIsLoading(false);
+          }
+        }, 10000);
+
         script.onload = () => {
+          clearTimeout(timeout);
           console.log('[EchoAurum] Builder.io script loaded');
           window.builderContentLoaded = true;
           renderEchoAurum();
         };
+
         script.onerror = (event) => {
+          clearTimeout(timeout);
           const errorMessage = event instanceof Event
             ? `Failed to load script from ${script.src}`
             : String(event);
@@ -33,6 +45,7 @@ export default function EchoAurumPanel() {
           setLoadError(errorMessage);
           setIsLoading(false);
         };
+
         document.head.appendChild(script);
       } else {
         console.log('[EchoAurum] Builder.io script already loaded');
