@@ -58,13 +58,15 @@ export default function Sidebar({
   // Auto-close sidebar when clicking outside (on desktop)
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (isOpen && sidebarRef.current && !sidebarRef.current.contains(e.target) && window.innerWidth >= 1024) {
+      if (localOpen && sidebarRef.current && !sidebarRef.current.contains(e.target) && window.innerWidth >= 1024) {
         setLocalOpen(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    if (localOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [localOpen]);
 
   // Open a Board panel by id
   const openPanel = (id, detail = {}) => {
