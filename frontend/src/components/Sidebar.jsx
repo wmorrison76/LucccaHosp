@@ -118,6 +118,39 @@ export default function Sidebar({
     );
   };
 
+  // Safe image component - used for logo and fallback images
+  const SafeImage = ({ src, alt, size = 32 }) => {
+    const [hasError, setHasError] = useState(false);
+
+    if (hasError || !src) {
+      return (
+        <div style={{
+          width: `${size}px`,
+          height: `${size}px`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "rgba(0, 217, 255, 0.15)",
+          borderRadius: "6px",
+          fontSize: "14px",
+          fontWeight: "bold",
+          color: "#7ff3ff"
+        }}>
+          {alt.charAt(0)}
+        </div>
+      );
+    }
+
+    return (
+      <img
+        src={src}
+        alt={alt}
+        style={{ width: `${size}px`, height: `${size}px`, objectFit: "contain" }}
+        onError={() => setHasError(true)}
+      />
+    );
+  };
+
   // Sidebar menu items with icon keys and panel IDs
   const menuItems = [
     { label: "DASHBOARD", iconKey: "dashboard", panelId: "dashboard" },
