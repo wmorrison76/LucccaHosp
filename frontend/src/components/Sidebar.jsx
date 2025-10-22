@@ -220,8 +220,8 @@ export default function Sidebar({
                 e.currentTarget.style.borderColor = isDarkMode ? "rgba(0, 217, 255, 0.15)" : "rgba(0, 0, 0, 0.06)";
               }}
             >
-              {/* Icon */}
-              <div className="flex-shrink-0">
+              {/* Icon - fixed width to prevent shift on collapse */}
+              <div className="flex-shrink-0" style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <SafeImage src={icon} alt={label} size={28} />
               </div>
 
@@ -269,8 +269,8 @@ export default function Sidebar({
                 e.currentTarget.style.borderColor = isDarkMode ? "rgba(0, 217, 255, 0.15)" : "rgba(0, 0, 0, 0.06)";
               }}
             >
-              {/* Icon */}
-              <div className="flex-shrink-0">
+              {/* Icon - fixed width to prevent shift on collapse */}
+              <div className="flex-shrink-0" style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <SafeImage src={icon} alt={label} size={28} />
               </div>
 
