@@ -641,6 +641,33 @@ export default function Board() {
           border-color: rgba(0, 0, 0, 0.15);
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
+
+        /* ===== RESET BUTTON STYLES ===== */
+        .panel-header button {
+          border: none;
+          padding: 0;
+          margin: 0;
+          font-family: inherit;
+          font-size: inherit;
+          line-height: inherit;
+          background: transparent;
+        }
+
+        /* ===== ENSURE HORIZONTAL LAYOUT ===== */
+        .panel-header {
+          display: flex !important;
+          flex-direction: row !important;
+          align-items: center !important;
+          justify-content: space-between !important;
+          gap: 8px;
+        }
+
+        .panel-header > div:first-child {
+          display: flex !important;
+          flex-direction: row !important;
+          align-items: center !important;
+          gap: 6px !important;
+        }
       `}</style>
     </div>
   );
