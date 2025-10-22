@@ -1,23 +1,38 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Menu, Sun, Moon } from "lucide-react";
 
-// Pre-computed icon URLs using Vite's import.meta.url
+import dashboardImg from "../assets/analytics.png";
+import eventStudioImg from "../assets/LUCCCA_ECHO.png";
+import maestroImg from "../assets/MaestroBQT.png";
+import echoAurumImg from "../assets/Echo-Ai.png";
+import echoLayoutImg from "../assets/Echo_F.png";
+import culinaryImg from "../assets/culinary_library.png";
+import pastryImg from "../assets/baking-&-Pastry.png";
+import mixologyImg from "../assets/mixology.png";
+import scheduleImg from "../assets/schedule.png";
+import inventoryImg from "../assets/food_inventory.png";
+import crmImg from "../assets/CRM.png";
+import chefNetImg from "../assets/ChefNet.png";
+import supportImg from "../assets/help-desk.png";
+import settingsImg from "../assets/settings.png";
+import logoImg from "../assets/LUCCCA_Vertical_Inline.png";
+
 const iconUrls = {
-  dashboard: new URL("../assets/analytics.png", import.meta.url).href,
-  eventStudio: new URL("../assets/LUCCCA_ECHO.png", import.meta.url).href,
-  maestro: new URL("../assets/MaestroBQT.png", import.meta.url).href,
-  echoAurum: new URL("../assets/Echo-Ai.png", import.meta.url).href,
-  echoLayout: new URL("../assets/Echo_F.png", import.meta.url).href,
-  culinary: new URL("../assets/culinary_library.png", import.meta.url).href,
-  pastry: new URL("../assets/baking-&-Pastry.png", import.meta.url).href,
-  mixology: new URL("../assets/mixology.png", import.meta.url).href,
-  schedule: new URL("../assets/schedule.png", import.meta.url).href,
-  inventory: new URL("../assets/food_inventory.png", import.meta.url).href,
-  crm: new URL("../assets/CRM.png", import.meta.url).href,
-  chefNet: new URL("../assets/ChefNet.png", import.meta.url).href,
-  support: new URL("../assets/help-desk.png", import.meta.url).href,
-  settings: new URL("../assets/settings.png", import.meta.url).href,
-  logo: new URL("../assets/LUCCCA_Vertical_Inline.png", import.meta.url).href,
+  dashboard: dashboardImg,
+  eventStudio: eventStudioImg,
+  maestro: maestroImg,
+  echoAurum: echoAurumImg,
+  echoLayout: echoLayoutImg,
+  culinary: culinaryImg,
+  pastry: pastryImg,
+  mixology: mixologyImg,
+  schedule: scheduleImg,
+  inventory: inventoryImg,
+  crm: crmImg,
+  chefNet: chefNetImg,
+  support: supportImg,
+  settings: settingsImg,
+  logo: logoImg,
 };
 
 export default function Sidebar({
