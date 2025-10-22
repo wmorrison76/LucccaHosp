@@ -85,36 +85,36 @@ export default function Sidebar({
     catch (err) { console.error("[Sidebar] open-panel failed:", err); }
   };
 
-  // Safe image component with fallback
-  const SafeImage = ({ src, alt, size = 32 }) => {
-    const [hasError, setHasError] = useState(false);
+  // Icon renderer component - renders lucide-react icons or fallback letter
+  const IconRenderer = ({ iconKey, label, size = 28 }) => {
+    const IconComponent = iconComponents[iconKey];
 
-    if (hasError || !src) {
+    if (IconComponent) {
       return (
-        <div style={{
-          width: `${size}px`,
-          height: `${size}px`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "rgba(0, 217, 255, 0.15)",
-          borderRadius: "6px",
-          fontSize: "14px",
-          fontWeight: "bold",
-          color: "#7ff3ff"
-        }}>
-          {alt.charAt(0)}
-        </div>
+        <IconComponent
+          size={size}
+          strokeWidth={1.5}
+          style={{ color: isDarkMode ? "#7ff3ff" : "#1f2937" }}
+        />
       );
     }
 
+    // Fallback if icon not found
     return (
-      <img
-        src={src}
-        alt={alt}
-        style={{ width: `${size}px`, height: `${size}px`, objectFit: "contain" }}
-        onError={() => setHasError(true)}
-      />
+      <div style={{
+        width: `${size}px`,
+        height: `${size}px`,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "rgba(0, 217, 255, 0.15)",
+        borderRadius: "6px",
+        fontSize: "14px",
+        fontWeight: "bold",
+        color: "#7ff3ff"
+      }}>
+        {label.charAt(0)}
+      </div>
     );
   };
 
