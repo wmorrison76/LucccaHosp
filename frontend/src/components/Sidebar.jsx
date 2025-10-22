@@ -118,25 +118,25 @@ export default function Sidebar({
     );
   };
 
-  // Sidebar menu items with icons and panel IDs
+  // Sidebar menu items with icon keys and panel IDs
   const menuItems = [
-    { label: "DASHBOARD", icon: iconUrls.dashboard, panelId: "dashboard" },
-    { label: "ECHO EVENT STUDIO", icon: iconUrls.eventStudio, panelId: "eventstudio" },
-    { label: "MAESTRO BQT", icon: iconUrls.maestro, panelId: "maestrobqt" },
-    { label: "ECHO AURUM", icon: iconUrls.echoAurum, panelId: "echoaurum" },
-    { label: "ECHO LAYOUT", icon: iconUrls.echoLayout, panelId: "echolayout" },
-    { label: "CULINARY", icon: iconUrls.culinary, panelId: "culinary" },
-    { label: "BAKING & PASTRY", icon: iconUrls.pastry, panelId: "pastry" },
-    { label: "MIXOLOGY", icon: iconUrls.mixology, panelId: "mixology" },
-    { label: "SCHEDULES", icon: iconUrls.schedule, panelId: "scheduling" },
-    { label: "INVENTORY", icon: iconUrls.inventory, panelId: "purchasing" },
-    { label: "CRM", icon: iconUrls.crm, panelId: "crm" },
+    { label: "DASHBOARD", iconKey: "dashboard", panelId: "dashboard" },
+    { label: "ECHO EVENT STUDIO", iconKey: "eventStudio", panelId: "eventstudio" },
+    { label: "MAESTRO BQT", iconKey: "maestro", panelId: "maestrobqt" },
+    { label: "ECHO AURUM", iconKey: "echoAurum", panelId: "echoaurum" },
+    { label: "ECHO LAYOUT", iconKey: "echoLayout", panelId: "echolayout" },
+    { label: "CULINARY", iconKey: "culinary", panelId: "culinary" },
+    { label: "BAKING & PASTRY", iconKey: "pastry", panelId: "pastry" },
+    { label: "MIXOLOGY", iconKey: "mixology", panelId: "mixology" },
+    { label: "SCHEDULES", iconKey: "schedule", panelId: "scheduling" },
+    { label: "INVENTORY", iconKey: "inventory", panelId: "purchasing" },
+    { label: "CRM", iconKey: "crm", panelId: "crm" },
   ];
 
   const bottomItems = [
-    { label: "CHEFNET", icon: iconUrls.chefNet, panelId: "chefnet" },
-    { label: "SUPPORT", icon: iconUrls.support, panelId: "support" },
-    { label: "SETTINGS", icon: iconUrls.settings, panelId: "settings" },
+    { label: "CHEFNET", iconKey: "chefNet", panelId: "chefnet" },
+    { label: "SUPPORT", iconKey: "support", panelId: "support" },
+    { label: "SETTINGS", iconKey: "settings", panelId: "settings" },
   ];
 
   return (
