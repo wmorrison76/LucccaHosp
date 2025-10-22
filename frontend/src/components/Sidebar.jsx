@@ -61,18 +61,17 @@ export default function Sidebar({
 
   // Collapsed/expanded width
   const W_COLLAPSED = 60;
-  const W_EXPANDED = 280;
+  const W_EXPANDED = 200;
   const widthPx = isOpen ? `${W_EXPANDED}px` : `${W_COLLAPSED}px`;
 
-  // Auto-close sidebar on page load if viewport is 425mm or larger
+  // Auto-close sidebar on page load if viewport is small (<= 768px)
   useEffect(() => {
     const width = window.innerWidth;
-    // 425mm ≈ 1606px, but more typically 425px is used for responsive design
-    // If viewport is wider than 425px, auto-close sidebar
-    if (width > 425 && localOpen) {
+    // On small screens (mobile/tablet), auto-close sidebar on load
+    if (width <= 768 && localOpen) {
       setLocalOpen(false);
     }
-  }, []);
+  }, [localOpen]);
 
   useEffect(() => {
     document.body.classList.toggle("sb-collapsed", !isOpen);
