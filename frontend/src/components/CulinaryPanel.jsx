@@ -1,125 +1,58 @@
 import React, { useEffect, useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
 
 /**
  * Culinary Panel Component
  * Loads the Culinary content from Builder.io project 838ccacd172b4efca3e3a9a3f3b94aba
  * Repository: wmorrison76/Echo-20Recipe-20Pro
- * Renders into a floating panel with full culinary functionality
+ * Uses BuilderContent component to load and render content
  */
+const BuilderContent = React.lazy(async () => {
+  return new Promise((resolve) => {
+    // Load Builder.io script and get BuilderContent component
+    const script = document.createElement('script');
+    script.src = 'https://cdn.builder.io/js/react';
+    script.async = true;
+
+    const checkBuilderLoaded = () => {
+      if (window.BuilderContent) {
+        resolve({ default: window.BuilderContent });
+      } else {
+        setTimeout(checkBuilderLoaded, 100);
+      }
+    };
+
+    script.onload = () => {
+      console.log('[Culinary] Builder.io script loaded, waiting for BuilderContent...');
+      checkBuilderLoaded();
+    };
+
+    script.onerror = () => {
+      console.error('[Culinary] Failed to load Builder.io script');
+      resolve({
+        default: () => <div style={{ padding: '20px', color: '#f87171' }}>Failed to load Builder.io</div>
+      });
+    };
+
+    if (!document.querySelector('script[src*="cdn.builder.io/js/react"]')) {
+      document.head.appendChild(script);
+    } else {
+      checkBuilderLoaded();
+    }
+  });
+});
+
 export default function CulinaryPanel() {
-  const containerRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState(null);
 
   useEffect(() => {
     console.log('[Culinary] Component mounted');
-    setIsLoading(true);
-
-    try {
-      if (!window.builderContentLoaded) {
-        const script = document.createElement('script');
-        script.src = 'https://cdn.builder.io/js/react';
-        script.async = true;
-
-        const timeout = setTimeout(() => {
-          if (!window.builderContentLoaded) {
-            console.warn('[Culinary] Script load timeout');
-            setLoadError('Builder.io script load timeout - CDN may be unavailable');
-            setIsLoading(false);
-          }
-        }, 10000);
-
-        script.onload = () => {
-          clearTimeout(timeout);
-          console.log('[Culinary] Builder.io script loaded');
-          window.builderContentLoaded = true;
-          renderCulinary();
-        };
-
-        script.onerror = (event) => {
-          clearTimeout(timeout);
-          const errorMessage = event instanceof Event
-            ? `Failed to load script from ${script.src}`
-            : String(event);
-          console.error('[Culinary] Failed to load Builder.io script:', errorMessage);
-          setLoadError(errorMessage);
-          setIsLoading(false);
-        };
-
-        document.head.appendChild(script);
-      } else {
-        console.log('[Culinary] Builder.io script already loaded');
-        renderCulinary();
-      }
-    } catch (err) {
-      console.error('[Culinary] Error in useEffect:', err);
-      setLoadError(err.message);
+    // Simulate loading delay
+    const timer = setTimeout(() => {
       setIsLoading(false);
-    }
+    }, 2000);
+    return () => clearTimeout(timer);
   }, []);
-
-  const renderCulinary = () => {
-    try {
-      console.log('[Culinary] renderCulinary called');
-
-      const apiKey = import.meta.env.VITE_BUILDER_API_KEY || 'bwncv6np70e4e8ey0yj';
-      const projectId = '838ccacd172b4efca3e3a9a3f3b94aba';
-      const modelName = 'Culinary';
-
-      const container = document.getElementById('builder-culinary-container');
-      if (!container) {
-        console.warn('[Culinary] Container element not found');
-        setLoadError('Container element not found');
-        setIsLoading(false);
-        return;
-      }
-
-      if (window.BuilderContent) {
-        console.log(`[Culinary] Rendering with Builder.io - Project: ${projectId}`);
-        const { BuilderContent } = window;
-
-        try {
-          const element = React.createElement(BuilderContent, {
-            model: modelName,
-            content: null,
-            apiKey: apiKey,
-            entry: modelName,
-            options: {
-              includeRefs: true,
-              enableTrackingPixel: false,
-            },
-            onError: (err) => {
-              console.error('[Culinary] BuilderContent error:', err);
-              setLoadError('Failed to load Builder.io content');
-            },
-            onLoad: () => {
-              console.log('[Culinary] BuilderContent loaded successfully');
-              setIsLoading(false);
-            }
-          });
-
-          if (window.ReactDOM) {
-            window.ReactDOM.render(element, container);
-          } else {
-            console.warn('[Culinary] ReactDOM not available');
-            setIsLoading(false);
-          }
-        } catch (err) {
-          console.error('[Culinary] Error rendering BuilderContent:', err);
-          setLoadError(err.message);
-          setIsLoading(false);
-        }
-      } else {
-        console.log('[Culinary] BuilderContent not yet available, will retry');
-        setTimeout(() => renderCulinary(), 500);
-      }
-    } catch (err) {
-      console.error('[Culinary] Error in renderCulinary:', err);
-      setLoadError(err.message);
-      setIsLoading(false);
-    }
-  };
 
   return (
     <div
