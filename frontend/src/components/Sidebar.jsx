@@ -1,26 +1,41 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { Menu, Sun, Moon, LayoutDashboard, Zap, Gauge, Sparkles, Layout, Utensils, Cake, Wine, Calendar, Package, BarChart3, Users, Headphones, Settings, Moon as MoonIcon } from "lucide-react";
+import { Menu, Sun, Moon } from "lucide-react";
 
-// Map icon names to lucide-react icon components
-const iconComponents = {
-  dashboard: LayoutDashboard,
-  eventStudio: Zap,
-  maestro: Gauge,
-  echoAurum: Sparkles,
-  echoLayout: Layout,
-  culinary: Utensils,
-  pastry: Cake,
-  mixology: Wine,
-  schedule: Calendar,
-  inventory: Package,
-  crm: BarChart3,
-  chefNet: Users,
-  support: Headphones,
-  settings: Settings,
+// Import icon PNGs from assets
+import dashboardImg from "../assets/analytics.png";
+import eventStudioImg from "../assets/LUCCCA_ECHO.png";
+import maestroImg from "../assets/MaestroBQT.png";
+import echoAurumImg from "../assets/Echo-Ai.png";
+import echoLayoutImg from "../assets/Echo_F.png";
+import culinaryImg from "../assets/culinary_library.png";
+import pastryImg from "../assets/baking-&-Pastry.png";
+import mixologyImg from "../assets/mixology.png";
+import scheduleImg from "../assets/schedule.png";
+import inventoryImg from "../assets/food_inventory.png";
+import crmImg from "../assets/CRM.png";
+import chefNetImg from "../assets/ChefNet.png";
+import supportImg from "../assets/help-desk.png";
+import settingsImg from "../assets/settings.png";
+import logoImg from "../assets/LUCCCA_Vertical_Inline.png";
+
+// Map icon names to image URLs
+const iconUrls = {
+  dashboard: dashboardImg,
+  eventStudio: eventStudioImg,
+  maestro: maestroImg,
+  echoAurum: echoAurumImg,
+  echoLayout: echoLayoutImg,
+  culinary: culinaryImg,
+  pastry: pastryImg,
+  mixology: mixologyImg,
+  schedule: scheduleImg,
+  inventory: inventoryImg,
+  crm: crmImg,
+  chefNet: chefNetImg,
+  support: supportImg,
+  settings: settingsImg,
+  logo: logoImg,
 };
-
-// Logo image URL
-const logoUrl = new URL("../assets/LUCCCA_Vertical_Inline.png", import.meta.url).href;
 
 export default function Sidebar({
   isOpen: pOpen,
