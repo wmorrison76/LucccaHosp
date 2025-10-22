@@ -123,7 +123,7 @@ export default function GlowyDesk() {
         return (
           <Rnd
             key={card.id}
-            bounds="parent"
+            bounds={false}
             position={{ x: px.x, y: px.y }}
             size={{ width: px.w, height: px.h }}
             minWidth={280}
