@@ -272,7 +272,7 @@ export default function Sidebar({
             >
               {/* Icon - on the left */}
               <div style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <SafeImage src={iconUrls[iconKey]} alt={label} size={28} />
+                <IconRenderer iconKey={iconKey} size={28} />
               </div>
 
               {/* Label (visible when expanded, centered) */}
@@ -329,7 +329,7 @@ export default function Sidebar({
             >
               {/* Icon - on the left */}
               <div style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <SafeImage src={iconUrls[iconKey]} alt={label} size={28} />
+                <IconRenderer iconKey={iconKey} size={28} />
               </div>
 
               {/* Label (visible when expanded, centered) */}
