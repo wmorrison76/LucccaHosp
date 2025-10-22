@@ -516,8 +516,9 @@ export default function Board() {
         })}
       </div>
 
-      {/* orb/chat removed → no portal, no extra styles */}
+      {/* Toolbar and Panel Styling */}
       <style>{`
+        /* ===== TOOLBAR ===== */
         .tb2-shell{ display:flex; align-items:center; gap:10px; padding:6px 8px; border-radius:14px; border:1px solid rgba(22,224,255,.28); background:rgba(10,16,28,.72); box-shadow:0 16px 60px rgba(0,0,0,.45), 0 0 16px rgba(22,224,255,.14), inset 0 0 0 1px rgba(255,255,255,.05); backdrop-filter: blur(8px); user-select:none; }
         .tb2-handle{ display:inline-flex; align-items:center; gap:6px; height:28px; padding:0 8px; font-size:12px; border-radius:10px; border:1px solid rgba(22,224,255,.28); background:rgba(255,255,255,.06); color:#d7f6ff; cursor:grab; }
         .tb2-group{ display:inline-flex; gap:6px; align-items:center; }
@@ -527,6 +528,114 @@ export default function Board() {
         .tb2-dock .dock-chip{ width:28px; height:28px; display:grid; place-items:center; border-radius:8px; border:1px solid rgba(22,224,255,.28); background:rgba(255,255,255,.04); }
         .tb2-dock img{ width:18px; height:18px; display:block; }
         .chip-fallback{ width:10px; height:10px; background:#9be; border-radius:3px; display:block; }
+
+        /* ===== PANELS - DARK MODE (NEON) ===== */
+        .panel-window {
+          border-radius: 12px;
+          border: 1px solid rgba(0, 217, 255, 0.35);
+          background: linear-gradient(135deg, rgba(10, 20, 35, 0.92), rgba(8, 15, 28, 0.92));
+          box-shadow:
+            0 12px 40px rgba(0, 0, 0, 0.5),
+            0 0 24px rgba(0, 217, 255, 0.25),
+            inset 0 1px 0 rgba(0, 217, 255, 0.15);
+          backdrop-filter: blur(10px);
+          overflow: hidden;
+        }
+
+        .panel-window.is-focused {
+          border-color: rgba(0, 217, 255, 0.6);
+          box-shadow:
+            0 16px 48px rgba(0, 0, 0, 0.6),
+            0 0 32px rgba(0, 217, 255, 0.4),
+            inset 0 1px 0 rgba(0, 217, 255, 0.25);
+        }
+
+        /* ===== PANELS - LIGHT MODE ===== */
+        html.light .panel-window {
+          border: 1px solid rgba(0, 0, 0, 0.12);
+          background: rgba(255, 255, 255, 0.85);
+          box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.6);
+          backdrop-filter: blur(20px);
+        }
+
+        html.light .panel-window.is-focused {
+          border-color: rgba(0, 0, 0, 0.18);
+          background: rgba(255, 255, 255, 0.95);
+          box-shadow:
+            0 12px 40px rgba(0, 0, 0, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        /* ===== PANEL HEADER ===== */
+        .panel-header {
+          background: linear-gradient(90deg, rgba(0, 217, 255, 0.08), rgba(0, 217, 255, 0.04));
+          border-bottom: 1px solid rgba(0, 217, 255, 0.15);
+          padding: 8px 12px;
+          user-select: none;
+          cursor: default;
+        }
+
+        html.light .panel-header {
+          background: linear-gradient(90deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.02));
+          border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .panel-title {
+          font-weight: 600;
+          font-size: 13px;
+          text-transform: uppercase;
+          letter-spacing: 0.3px;
+          color: #7ff3ff;
+        }
+
+        html.light .panel-title {
+          color: #1f2937;
+        }
+
+        /* ===== PANEL BODY ===== */
+        .panel-body {
+          background: transparent;
+          color: #e0f2fe;
+        }
+
+        html.light .panel-body {
+          color: #1f2937;
+        }
+
+        /* ===== CONTROL DOTS (MINIMIZE, CLOSE, ETC) ===== */
+        .dot {
+          width: 20px;
+          height: 20px;
+          border-radius: 4px;
+          border: 1px solid rgba(0, 217, 255, 0.2);
+          background: rgba(0, 217, 255, 0.08);
+          color: #7ff3ff;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.15s ease;
+        }
+
+        .dot:hover {
+          background: rgba(0, 217, 255, 0.15);
+          border-color: rgba(0, 217, 255, 0.35);
+          box-shadow: 0 0 12px rgba(0, 217, 255, 0.2);
+        }
+
+        html.light .dot {
+          border-color: rgba(0, 0, 0, 0.1);
+          background: rgba(0, 0, 0, 0.05);
+          color: #374151;
+        }
+
+        html.light .dot:hover {
+          background: rgba(0, 0, 0, 0.1);
+          border-color: rgba(0, 0, 0, 0.15);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
       `}</style>
     </div>
   );
