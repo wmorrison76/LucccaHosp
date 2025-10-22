@@ -288,12 +288,16 @@ export default function Sidebar({
             <button
               key={panelId}
               onClick={() => openPanel(panelId)}
-              className="sb-menu-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-150 cursor-pointer text-left"
+              className="sb-menu-item w-full flex items-center justify-center gap-2 px-2 py-2.5 rounded-lg transition-all duration-150 cursor-pointer text-center"
               title={label}
               style={{
                 background: isDarkMode ? "rgba(0, 217, 255, 0.08)" : "rgba(0, 0, 0, 0.04)",
                 border: isDarkMode ? "1px solid rgba(0, 217, 255, 0.15)" : "1px solid rgba(0, 0, 0, 0.06)",
                 color: isDarkMode ? "#b0e0ff" : "#475569",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = isDarkMode ? "rgba(0, 217, 255, 0.15)" : "rgba(0, 0, 0, 0.08)";
@@ -305,21 +309,22 @@ export default function Sidebar({
               }}
             >
               {/* Icon - fixed width to prevent shift on collapse */}
-              <div className="flex-shrink-0" style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <IconRenderer iconKey={iconKey} label={label} size={28} />
+              <div style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <SafeImage src={iconUrls[iconKey]} alt={label} size={28} />
               </div>
 
-              {/* Label (visible when expanded) */}
+              {/* Label (visible when expanded, centered) */}
               {isOpen && (
                 <span style={{
-                  fontSize: "11px",
+                  fontSize: "10px",
                   fontWeight: "600",
-                  letterSpacing: "0.3px",
+                  letterSpacing: "0.4px",
                   textTransform: "uppercase",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  flex: 1,
+                  whiteSpace: "normal",
+                  wordWrap: "break-word",
+                  width: "100%",
+                  lineHeight: "1.2",
+                  marginTop: "2px",
                 }}>
                   {label}
                 </span>
