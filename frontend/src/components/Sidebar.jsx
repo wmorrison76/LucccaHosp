@@ -1,21 +1,24 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Menu, Sun, Moon } from "lucide-react";
 
-import dashboardImg from "../assets/analytics.png";
-import eventStudioImg from "../assets/LUCCCA_ECHO.png";
-import maestroImg from "../assets/MaestroBQT.png";
-import echoAurumImg from "../assets/Echo-Ai.png";
-import echoLayoutImg from "../assets/Echo_F.png";
-import culinaryImg from "../assets/culinary_library.png";
-import pastryImg from "../assets/baking-&-Pastry.png";
-import mixologyImg from "../assets/mixology.png";
-import scheduleImg from "../assets/schedule.png";
-import inventoryImg from "../assets/food_inventory.png";
-import crmImg from "../assets/CRM.png";
-import chefNetImg from "../assets/ChefNet.png";
-import supportImg from "../assets/help-desk.png";
-import settingsImg from "../assets/settings.png";
-import logoImg from "../assets/LUCCCA_Vertical_Inline.png";
+// Using uploaded icon URLs from Builder.io
+const ICON_BASE = "https://cdn.builder.io/api/v1/image/assets%2F8b8d61942d1d4680bbfcbe7aa6b127f4";
+
+const dashboardImg = `${ICON_BASE}%2F1239aedcf44549ccbb984cf861bd65d9?format=webp&width=128`;
+const eventStudioImg = `${ICON_BASE}%2Ff60e12de61e54d4ab59776cf83204961?format=webp&width=128`;
+const maestroImg = `${ICON_BASE}%2F350cab0df8ea41c1ae1bc99e170079dd?format=webp&width=128`;
+const echoAurumImg = `${ICON_BASE}%2F463ede0dd9bc41f588374fc72d90e3dc?format=webp&width=128`;
+const echoLayoutImg = `${ICON_BASE}%2F131c93ed96d44b7ab7c5fe65d1cc751c?format=webp&width=128`;
+const culinaryImg = `${ICON_BASE}%2F1f9b7dac5a7449b096aeb33f227f0b00?format=webp&width=128`;
+const pastryImg = `${ICON_BASE}%2F878bed3a1b414b3e8eea3fc3e3a5d426?format=webp&width=128`;
+const mixologyImg = `${ICON_BASE}%2F4cc2b63c4ce143d38cbbd3f0acbd133b?format=webp&width=128`;
+const scheduleImg = `${ICON_BASE}%2Fff72646af2bf4617bc3f5cb5b4c1e717?format=webp&width=128`;
+const inventoryImg = `${ICON_BASE}%2F32d6bb0a3df449cf9e71d46f4ff3985d?format=webp&width=128`;
+const crmImg = `${ICON_BASE}%2Ffcf433be4f0b444f8936b8755dbcc510?format=webp&width=128`;
+const chefNetImg = `${ICON_BASE}%2F22376d2d4bd0450bbf7957f505b42f85?format=webp&width=128`;
+const supportImg = `${ICON_BASE}%2F09a01d670c074decaa32951f16fa9d87?format=webp&width=128`;
+const settingsImg = `${ICON_BASE}%2F09a01d670c074decaa32951f16fa9d87?format=webp&width=128`;
+const logoImg = "https://cdn.builder.io/api/v1/image/assets%2F8b8d61942d1d4680bbfcbe7aa6b127f4%2F8b04e1fa4cf94a8682ec0a65a6ef268d?format=webp&width=200";
 
 const iconUrls = {
   dashboard: dashboardImg,
