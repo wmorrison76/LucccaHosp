@@ -200,7 +200,7 @@ export default function Sidebar({
         <div className={`h-[1px] mx-2 ${isDarkMode ? "bg-cyan-400/20" : "bg-black/10"}`} />
 
         {/* Main Menu Items */}
-        <nav className="flex-1 flex flex-col px-2 py-3 space-y-1 overflow-y-auto">
+        <nav className="flex-1 flex flex-col px-2 py-3 space-y-1 overflow-y-auto" style={{ display: "flex", flexDirection: "column", width: "100%" }}>
           {menuItems.map(({ label, icon, panelId }) => (
             <button
               key={panelId}
@@ -249,7 +249,7 @@ export default function Sidebar({
         <div className={`h-[1px] mx-2 ${isDarkMode ? "bg-cyan-400/20" : "bg-black/10"}`} />
 
         {/* Bottom Menu Items */}
-        <div className="px-2 py-3 space-y-1 flex-shrink-0">
+        <div className="px-2 py-3 space-y-1 flex-shrink-0" style={{ display: "flex", flexDirection: "column", width: "100%" }}>
           {bottomItems.map(({ label, icon, panelId }) => (
             <button
               key={panelId}
