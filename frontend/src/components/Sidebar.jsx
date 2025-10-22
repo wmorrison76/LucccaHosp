@@ -212,7 +212,7 @@ export default function Sidebar({
 
         {/* Main Menu Items */}
         <nav className="flex-1 flex flex-col px-2 py-3 space-y-1 overflow-y-auto" style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-          {menuItems.map(({ label, icon, panelId }) => (
+          {menuItems.map(({ label, iconKey, panelId }) => (
             <button
               key={panelId}
               onClick={() => openPanel(panelId)}
