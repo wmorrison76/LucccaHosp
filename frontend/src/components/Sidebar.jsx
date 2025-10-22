@@ -1,23 +1,39 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Menu, Sun, Moon } from "lucide-react";
 
-// Asset paths - Vite will resolve these at build time
+// Direct ES6 imports of asset URLs - Vite will properly resolve these
+import dashboardImg from "../assets/analytics.png";
+import eventStudioImg from "../assets/LUCCCA_ECHO.png";
+import maestroImg from "../assets/MaestroBQT.png";
+import echoAurumImg from "../assets/Echo-Ai.png";
+import echoLayoutImg from "../assets/Echo_F.png";
+import culinaryImg from "../assets/culinary_library.png";
+import pastryImg from "../assets/baking-&-Pastry.png";
+import mixologyImg from "../assets/mixology.png";
+import scheduleImg from "../assets/schedule.png";
+import inventoryImg from "../assets/food_inventory.png";
+import crmImg from "../assets/CRM.png";
+import chefNetImg from "../assets/ChefNet.png";
+import supportImg from "../assets/help-desk.png";
+import settingsImg from "../assets/settings.png";
+import logoImg from "../assets/LUCCCA_Vertical_Inline.png";
+
 const iconUrls = {
-  dashboard: "/src/assets/analytics.png",
-  eventStudio: "/src/assets/LUCCCA_ECHO.png",
-  maestro: "/src/assets/MaestroBQT.png",
-  echoAurum: "/src/assets/Echo-Ai.png",
-  echoLayout: "/src/assets/Echo_F.png",
-  culinary: "/src/assets/culinary_library.png",
-  pastry: "/src/assets/baking-&-Pastry.png",
-  mixology: "/src/assets/mixology.png",
-  schedule: "/src/assets/schedule.png",
-  inventory: "/src/assets/food_inventory.png",
-  crm: "/src/assets/CRM.png",
-  chefNet: "/src/assets/ChefNet.png",
-  support: "/src/assets/help-desk.png",
-  settings: "/src/assets/settings.png",
-  logo: "/src/assets/LUCCCA_Vertical_Inline.png",
+  dashboard: dashboardImg,
+  eventStudio: eventStudioImg,
+  maestro: maestroImg,
+  echoAurum: echoAurumImg,
+  echoLayout: echoLayoutImg,
+  culinary: culinaryImg,
+  pastry: pastryImg,
+  mixology: mixologyImg,
+  schedule: scheduleImg,
+  inventory: inventoryImg,
+  crm: crmImg,
+  chefNet: chefNetImg,
+  support: supportImg,
+  settings: settingsImg,
+  logo: logoImg,
 };
 
 export default function Sidebar({
