@@ -170,15 +170,25 @@ export default function GlowyDesk() {
 }
 
 function GlowCard({ title, color, pinned, onPin, onPop, onClose, children }) {
+  const isDark = !document.documentElement.classList.contains("light");
+
   return (
     <div
-      className="h-full w-full rounded-2xl relative overflow-hidden group"
+      className="h-full w-full rounded-xl relative overflow-hidden group"
       style={{
-        background: "linear-gradient(180deg, rgba(13,18,29,.86), rgba(13,18,29,.72))",
-        boxShadow:
-          `0 40px 120px rgba(0,0,0,.55),
-           0 0 60px ${hexToRGBA(color, .25)},
-           0 0 1px rgba(255,255,255,.08)`,
+        background: isDark
+          ? "linear-gradient(135deg, rgba(10,20,35,.92), rgba(8,15,28,.92))"
+          : "rgba(255,255,255,.85)",
+        border: isDark
+          ? `1px solid rgba(0, 217, 255, 0.35)`
+          : `1px solid rgba(0, 0, 0, 0.12)`,
+        boxShadow: isDark
+          ? `0 12px 40px rgba(0,0,0,.5),
+             0 0 24px ${hexToRGBA(color, .25)},
+             inset 0 1px 0 rgba(0, 217, 255, 0.15)`
+          : `0 8px 32px rgba(0,0,0,.15),
+             inset 0 1px 0 rgba(255,255,255,.6)`,
+        backdropFilter: "blur(10px)",
       }}
     >
       <div
