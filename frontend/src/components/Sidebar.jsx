@@ -19,6 +19,9 @@ const iconComponents = {
   settings: Settings,
 };
 
+// Logo image URL
+const logoUrl = new URL("../assets/LUCCCA_Vertical_Inline.png", import.meta.url).href;
+
 export default function Sidebar({
   isOpen: pOpen,
   toggleSidebar: pToggle,
