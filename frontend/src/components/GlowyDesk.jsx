@@ -50,6 +50,19 @@ export default function GlowyDesk() {
   const remove = (id) => setCards(cs => cs.filter(c => c.id !== id));
   const reset  = () => setCards(DEFAULT);
 
+  const tearOut = (card) => {
+    // Create a floating panel in the main Board
+    window.dispatchEvent(new CustomEvent("open-panel", {
+      detail: {
+        id: card.id,
+        title: card.title,
+        isGlowyDeskCard: true
+      }
+    }));
+    // Optionally remove from dashboard or keep it
+    // remove(card.id);
+  };
+
   const addCard = () => {
     const id = "w-" + Math.random().toString(36).slice(2,8);
     setCards(cs => cs.concat([{ id, title: "New Widget", color: "#9bf", w: 4, h: 3, x: 0, y: 6, pinned: true }]));
