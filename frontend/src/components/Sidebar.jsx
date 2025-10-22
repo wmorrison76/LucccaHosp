@@ -155,7 +155,7 @@ export default function Sidebar({
           {/* Logo (visible when expanded) */}
           {isOpen && (
             <img
-              src={new URL("../assets/LUCCCA_Vertical_Inline.png", import.meta.url).href}
+              src={iconUrls.logo}
               alt="LUCCCA Logo"
               style={{
                 height: "50px",
