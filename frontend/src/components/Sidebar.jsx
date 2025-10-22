@@ -1,5 +1,23 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { Menu, Sun, Moon } from "lucide-react";
+import { Menu, Sun, Moon, LayoutDashboard, Zap, Gauge, Sparkles, Layout, Utensils, Cake, Wine, Calendar, Package, BarChart3, Users, Headphones, Settings } from "lucide-react";
+
+// Map icon keys to lucide icons for fallback
+const lucideIcons = {
+  dashboard: LayoutDashboard,
+  eventStudio: Zap,
+  maestro: Gauge,
+  echoAurum: Sparkles,
+  echoLayout: Layout,
+  culinary: Utensils,
+  pastry: Cake,
+  mixology: Wine,
+  schedule: Calendar,
+  inventory: Package,
+  crm: BarChart3,
+  chefNet: Users,
+  support: Headphones,
+  settings: Settings,
+};
 
 // Icon URLs using Vite asset resolution
 const iconUrls = {
