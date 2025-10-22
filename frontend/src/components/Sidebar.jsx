@@ -319,7 +319,7 @@ export default function Sidebar({
             >
               {/* Icon - fixed width to prevent shift on collapse */}
               <div className="flex-shrink-0" style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <SafeImage src={icon} alt={label} size={28} />
+                <IconRenderer iconKey={iconKey} label={label} size={28} />
               </div>
 
               {/* Label (visible when expanded) */}
