@@ -78,6 +78,9 @@ const EchoCanvasStudio   = safeImport(() => import("../components/EchoCanvasStud
 const AdvancedWhiteboard = safeImport(() => import("../components/AdvancedWhiteboard.jsx"), "AdvancedWhiteboard");
 const AdvancedVideoConference = safeImport(() => import("../components/AdvancedVideoConference.tsx"), "AdvancedVideoConference");
 const MixologyPanel      = safeImport(() => import("../components/MixologyFallback.jsx"), "Mixology");
+const CRMPanel           = safeImport(() => import("../components/CRMPanel.jsx"), "CRMPanel");
+const ChefNetPanel       = safeImport(() => import("../components/ChefNetPanel.jsx"), "ChefNetPanel");
+const SupportPanel       = safeImport(() => import("../components/SupportPanel.jsx"), "SupportPanel");
 
 // Optional panels - set to null if not available
 const SettingsSuite      = null;
