@@ -69,6 +69,18 @@ export default function Sidebar({
     document.body.classList.toggle("sb-collapsed", !isOpen);
   }, [isOpen]);
 
+  // Auto-close sidebar when clicking outside (on desktop)
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleClickOutside = (e) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(e.target) && window.innerWidth >= 1024) {
+        setLocalOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
+
   // Open a Board panel by id
   const openPanel = (id, detail = {}) => {
     if (!id) return;
