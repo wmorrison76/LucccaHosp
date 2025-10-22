@@ -47,31 +47,9 @@ export default function Sidebar({
   const W_EXPANDED = 200;
   const widthPx = isOpen ? `${W_EXPANDED}px` : `${W_COLLAPSED}px`;
 
-  // Auto-close sidebar on page load if viewport is small (<= 768px)
-  useEffect(() => {
-    const width = window.innerWidth;
-    // On small screens (mobile/tablet), auto-close sidebar on load
-    if (width <= 768 && localOpen) {
-      setLocalOpen(false);
-    }
-  }, [localOpen]);
-
   useEffect(() => {
     document.body.classList.toggle("sb-collapsed", !isOpen);
   }, [isOpen]);
-
-  // Auto-close sidebar when clicking outside (on desktop)
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (localOpen && sidebarRef.current && !sidebarRef.current.contains(e.target) && window.innerWidth >= 1024) {
-        setLocalOpen(false);
-      }
-    };
-    if (localOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
-    }
-  }, [localOpen]);
 
   // Open a Board panel by id
   const openPanel = (id, detail = {}) => {
@@ -114,7 +92,10 @@ export default function Sidebar({
         src={src}
         alt={alt}
         style={{ width: `${size}px`, height: `${size}px`, objectFit: "contain", flexShrink: 0 }}
-        onError={() => setHasError(true)}
+        onError={() => {
+          console.error(`[Sidebar] Failed to load image: ${src}`);
+          setHasError(true);
+        }}
       />
     );
   };
