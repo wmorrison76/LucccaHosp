@@ -105,7 +105,7 @@ import pastryIcon   from "../assets/baking-&-Pastry.png";
 import mixologyIcon from "../assets/mixology.png";
 import scheduleIcon from "../assets/schedule.png";
 
-/* ──────���──────── Error boundary ─────────────── */
+/* ──────���────��─── Error boundary ─────────────── */
 class PanelErrorBoundary extends React.Component {
   constructor(p){ super(p); this.state = { error: null }; }
   static getDerivedStateFromError(error){ return { error }; }
@@ -161,6 +161,9 @@ if (PastryLibrary) PANEL_REGISTRY.pastry = { title: "Baking & Pastry", Component
 if (AdvancedWhiteboard) PANEL_REGISTRY.whiteboard = { title: "Whiteboard", Component: AdvancedWhiteboard, icon: null };
 if (AdvancedVideoConference) PANEL_REGISTRY.videoconference = { title: "Video Conference", Component: AdvancedVideoConference, icon: null };
 if (MixologyPanel) PANEL_REGISTRY.mixology = { title: "Mixology", Component: MixologyPanel, icon: mixologyIcon };
+if (CRMPanel) PANEL_REGISTRY.crm = { title: "CRM & Client Tracker", Component: CRMPanel, icon: null };
+if (ChefNetPanel) PANEL_REGISTRY.chefnet = { title: "ChefNet", Component: ChefNetPanel, icon: null };
+if (SupportPanel) PANEL_REGISTRY.support = { title: "Support & Help", Component: SupportPanel, icon: null };
 
 console.log('[Board] Final PANEL_REGISTRY keys:', Object.keys(PANEL_REGISTRY));
 
