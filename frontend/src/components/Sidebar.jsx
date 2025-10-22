@@ -44,8 +44,9 @@ export default function Sidebar({
   isDarkMode: pDark,
   toggleDarkMode: pToggleDark
 }) {
+  const sidebarRef = useRef(null);
   const [localOpen, setLocalOpen] = useState(true);
-  const [localDark, setLocalDark] = useState(() => 
+  const [localDark, setLocalDark] = useState(() =>
     document.documentElement.classList.contains("dark")
   );
 
