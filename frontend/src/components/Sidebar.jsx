@@ -81,7 +81,41 @@ export default function Sidebar({
     catch (err) { console.error("[Sidebar] open-panel failed:", err); }
   };
 
-  // Safe image component - used for icons and logo
+  // Icon renderer - uses lucide-react icons
+  const IconRenderer = ({ iconKey, size = 28 }) => {
+    const IconComponent = lucideIcons[iconKey];
+
+    if (IconComponent) {
+      return (
+        <IconComponent
+          size={size}
+          strokeWidth={1.5}
+          style={{ color: isDarkMode ? "#00d9ff" : "#1f2937", flexShrink: 0 }}
+        />
+      );
+    }
+
+    // Fallback letter
+    return (
+      <div style={{
+        width: `${size}px`,
+        height: `${size}px`,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "rgba(0, 217, 255, 0.15)",
+        borderRadius: "6px",
+        fontSize: "12px",
+        fontWeight: "bold",
+        color: "#00d9ff",
+        flexShrink: 0
+      }}>
+        ?
+      </div>
+    );
+  };
+
+  // Safe image component - used for logo only
   const SafeImage = ({ src, alt, size = 32 }) => {
     const [hasError, setHasError] = useState(false);
 
@@ -111,7 +145,7 @@ export default function Sidebar({
         alt={alt}
         style={{ width: `${size}px`, height: `${size}px`, objectFit: "contain", flexShrink: 0 }}
         onError={() => {
-          console.error(`[Sidebar] Failed to load image: ${src}`);
+          console.warn(`[Sidebar] Could not load logo: ${alt}`);
           setHasError(true);
         }}
       />
