@@ -217,16 +217,16 @@ export default function Sidebar({
             <button
               key={panelId}
               onClick={() => openPanel(panelId)}
-              className="sb-menu-item w-full flex items-center justify-center gap-2 px-2 py-2.5 rounded-lg transition-all duration-150 cursor-pointer text-center"
+              className="sb-menu-item w-full flex items-center gap-2 px-2 py-2.5 rounded-lg transition-all duration-150 cursor-pointer"
               title={label}
               style={{
                 background: isDarkMode ? "rgba(0, 217, 255, 0.08)" : "rgba(0, 0, 0, 0.04)",
                 border: isDarkMode ? "1px solid rgba(0, 217, 255, 0.15)" : "1px solid rgba(0, 0, 0, 0.06)",
                 color: isDarkMode ? "#b0e0ff" : "#475569",
                 display: "flex",
-                flexDirection: "column",
+                flexDirection: "row",
                 alignItems: "center",
-                justifyContent: "center",
+                justifyContent: isOpen ? "flex-start" : "center",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = isDarkMode ? "rgba(0, 217, 255, 0.15)" : "rgba(0, 0, 0, 0.08)";
@@ -237,7 +237,7 @@ export default function Sidebar({
                 e.currentTarget.style.borderColor = isDarkMode ? "rgba(0, 217, 255, 0.15)" : "rgba(0, 0, 0, 0.06)";
               }}
             >
-              {/* Icon - fixed width to prevent shift on collapse */}
+              {/* Icon - on the left */}
               <div style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 <SafeImage src={iconUrls[iconKey]} alt={label} size={28} />
               </div>
@@ -249,11 +249,14 @@ export default function Sidebar({
                   fontWeight: "600",
                   letterSpacing: "0.4px",
                   textTransform: "uppercase",
+                  flex: 1,
+                  textAlign: "center",
+                  lineHeight: "1.3",
                   whiteSpace: "normal",
                   wordWrap: "break-word",
-                  width: "100%",
-                  lineHeight: "1.2",
-                  marginTop: "2px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}>
                   {label}
                 </span>
@@ -271,16 +274,16 @@ export default function Sidebar({
             <button
               key={panelId}
               onClick={() => openPanel(panelId)}
-              className="sb-menu-item w-full flex items-center justify-center gap-2 px-2 py-2.5 rounded-lg transition-all duration-150 cursor-pointer text-center"
+              className="sb-menu-item w-full flex items-center gap-2 px-2 py-2.5 rounded-lg transition-all duration-150 cursor-pointer"
               title={label}
               style={{
                 background: isDarkMode ? "rgba(0, 217, 255, 0.08)" : "rgba(0, 0, 0, 0.04)",
                 border: isDarkMode ? "1px solid rgba(0, 217, 255, 0.15)" : "1px solid rgba(0, 0, 0, 0.06)",
                 color: isDarkMode ? "#b0e0ff" : "#475569",
                 display: "flex",
-                flexDirection: "column",
+                flexDirection: "row",
                 alignItems: "center",
-                justifyContent: "center",
+                justifyContent: isOpen ? "flex-start" : "center",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = isDarkMode ? "rgba(0, 217, 255, 0.15)" : "rgba(0, 0, 0, 0.08)";
@@ -291,7 +294,7 @@ export default function Sidebar({
                 e.currentTarget.style.borderColor = isDarkMode ? "rgba(0, 217, 255, 0.15)" : "rgba(0, 0, 0, 0.06)";
               }}
             >
-              {/* Icon - fixed width to prevent shift on collapse */}
+              {/* Icon - on the left */}
               <div style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 <SafeImage src={iconUrls[iconKey]} alt={label} size={28} />
               </div>
@@ -303,11 +306,14 @@ export default function Sidebar({
                   fontWeight: "600",
                   letterSpacing: "0.4px",
                   textTransform: "uppercase",
+                  flex: 1,
+                  textAlign: "center",
+                  lineHeight: "1.3",
                   whiteSpace: "normal",
                   wordWrap: "break-word",
-                  width: "100%",
-                  lineHeight: "1.2",
-                  marginTop: "2px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}>
                   {label}
                 </span>
