@@ -606,17 +606,22 @@ export default function Board() {
 
         /* ===== CONTROL DOTS (MINIMIZE, CLOSE, ETC) ===== */
         .dot {
-          width: 20px;
-          height: 20px;
+          width: 24px;
+          height: 24px;
           border-radius: 4px;
           border: 1px solid rgba(0, 217, 255, 0.2);
           background: rgba(0, 217, 255, 0.08);
           color: #7ff3ff;
           cursor: pointer;
-          display: flex;
+          display: inline-flex;
           align-items: center;
           justify-content: center;
           transition: all 0.15s ease;
+          flex-shrink: 0;
+          padding: 0;
+          margin: 0;
+          font-size: 0;
+          line-height: 1;
         }
 
         .dot:hover {
