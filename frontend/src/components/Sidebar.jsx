@@ -297,7 +297,7 @@ export default function Sidebar({
 
         {/* Bottom Menu Items */}
         <div className="px-2 py-3 space-y-1 flex-shrink-0" style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-          {bottomItems.map(({ label, icon, panelId }) => (
+          {bottomItems.map(({ label, iconKey, panelId }) => (
             <button
               key={panelId}
               onClick={() => openPanel(panelId)}
