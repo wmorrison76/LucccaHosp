@@ -152,12 +152,15 @@ export default function Sidebar({
         className={[
           "relative h-full w-full flex flex-col border-r overflow-y-auto overflow-x-hidden",
           isDarkMode
-            ? "sb-shell-dark text-cyan-50 border-cyan-400/30 bg-gradient-to-b from-slate-900/95 to-slate-900/90"
-            : "sb-shell-light text-slate-900 border-black/10 bg-gradient-to-b from-white/95 to-white/90",
+            ? "sb-shell-dark text-cyan-50 border-cyan-400/30 bg-gradient-to-b from-slate-900/80 to-slate-900/75"
+            : "sb-shell-light text-slate-900 border-black/10 bg-gradient-to-b from-white/75 to-white/70",
         ].join(" ")}
         style={{
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)"
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          background: isDarkMode
+            ? "linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(10, 20, 35, 0.75))"
+            : "linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(249, 250, 251, 0.75))"
         }}>
         {/* Glow effect on right edge (dark mode) */}
         {isDarkMode && (
