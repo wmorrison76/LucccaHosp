@@ -149,15 +149,16 @@ export default function Sidebar({
 
   return (
     <aside
+      ref={sidebarRef}
       aria-label="App sidebar"
       data-collapsed={!isOpen}
-      className="fixed top-0 left-0 h-screen z-[10000] transition-[width] duration-300"
+      className="fixed top-0 left-0 h-screen z-[9999] transition-[width] duration-300"
       style={{
         width: widthPx,
         minWidth: widthPx,
         boxShadow: isDarkMode
-          ? "0 8px 32px rgba(0,0,0,0.4), 0 0 24px rgba(0,217,255,0.2), inset -1px 0 0 rgba(0,217,255,0.2)"
-          : "0 8px 16px rgba(0,0,0,0.12), inset -1px 0 0 rgba(0,0,0,0.08)"
+          ? "0 12px 48px rgba(0,0,0,0.6), 0 0 32px rgba(0,217,255,0.3), inset -1px 0 0 rgba(0,217,255,0.25)"
+          : "0 12px 36px rgba(0,0,0,0.18), inset -1px 0 0 rgba(0,0,0,0.12)"
       }}
     >
       <div className={[
