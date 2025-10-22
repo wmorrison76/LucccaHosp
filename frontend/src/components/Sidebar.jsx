@@ -6,7 +6,7 @@ import LUCCCA_Logo from "../assets/LUCCCA_Vertical_Inline.png";
 import dashboardIcon from "../assets/analytics.png";
 import eventStudioIcon from "../assets/LUCCCA_ECHO.png";
 import maestroIcon from "../assets/MaestroBQT.png";
-import echoAurumIcon from "https://cdn.builder.io/api/v1/image/assets%2F8b8d61942d1d4680bbfcbe7aa6b127f4%2F2d1c0638efbc4ca6ab0d1fe261daf79d?format=webp&width=200";
+import echoAurumIcon from "../assets/Echo-Ai.png";
 import echoLayoutIcon from "../assets/Echo_F.png";
 import culinaryIcon from "../assets/culinary_library.png";
 import pastryIcon from "../assets/baking-&-Pastry.png";
