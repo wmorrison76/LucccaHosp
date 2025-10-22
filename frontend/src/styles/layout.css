@@ -28,13 +28,13 @@ main {
   transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
 }
 
-/* Navigation sidebar - fixed positioning */
+/* Navigation sidebar - fixed positioning, floats above all content */
 aside {
   position: fixed !important;
   left: 0;
   top: 0;
   height: 100vh;
-  z-index: 9998 !important;
+  z-index: 9999 !important;
   transition: width 0.3s ease;
 }
 
