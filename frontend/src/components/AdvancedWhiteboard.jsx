@@ -2,14 +2,14 @@ import React, { Suspense, lazy, useState, useEffect } from "react";
 import { Plus, Trash2, Save, RotateCcw } from "lucide-react";
 
 // Try to load the advanced FluidRoot whiteboard from WindowA_WhiteboardCore
-// Use dynamic import with proper error handling
-const AdvancedWhiteboardCore = lazy(() => {
+// Use string-based dynamic import to avoid Vite's static analysis
+const AdvancedWhiteboardCore = lazy(async () => {
   try {
-    return import("../../WindowA_WhiteboardCore/FluidRoot.tsx")
-      .then((m) => ({ default: m.default || m.FluidRoot }))
-      .catch(() => ({ default: () => null }));
+    const path = "../../WindowA_WhiteboardCore/FluidRoot.tsx";
+    const m = await import(/* @vite-ignore */ path);
+    return { default: m.default || m.FluidRoot };
   } catch (err) {
-    console.warn('[AdvancedWhiteboard] FluidRoot not available, using fallback');
+    console.warn('[AdvancedWhiteboard] FluidRoot not available, using fallback:', err?.message);
     return { default: () => null };
   }
 });
