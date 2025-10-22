@@ -84,7 +84,7 @@ export default function App() {
           />
         </Suspense>
 
-        <main style={{ flex: 1, overflow: "hidden", position: "relative", zIndex: 1 }}>
+        <main style={{ flex: 1, overflow: "hidden", position: "relative", zIndex: 1, width: "100%", height: "100%" }}>
           <Suspense fallback={
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%", fontSize: "16px" }}>
               Loading dashboard...
