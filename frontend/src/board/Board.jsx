@@ -150,7 +150,7 @@ console.log('[Board] SupportPanel:', !!SupportPanel);
 
 if (GlowDesk) PANEL_REGISTRY.dashboard = { title: "Dashboard", Component: GlowDesk, icon: null };
 if (GlowDesk) PANEL_REGISTRY.home = { title: "Welcome", Component: GlowDesk, icon: null };
-if (KitchenLibraryTabs) PANEL_REGISTRY.culinary = { title: "Culinary", Component: KitchenLibraryTabs, icon: kitchenIcon };
+if (CulinaryPanel) PANEL_REGISTRY.culinary = { title: "Culinary", Component: CulinaryPanel, icon: kitchenIcon };
 if (Schedule) PANEL_REGISTRY.scheduling = { title: "Schedules", Component: Schedule, icon: scheduleIcon };
 if (EchoRecipeProPanel) PANEL_REGISTRY.recipepro = { title: "Recipes", Component: EchoRecipeProPanel, icon: null };
 if (PurchasingPanel) PANEL_REGISTRY.purchasing = { title: "Purchasing", Component: PurchasingPanel, icon: null };
