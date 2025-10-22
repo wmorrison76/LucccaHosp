@@ -95,25 +95,25 @@ export default function Sidebar({
     );
   };
 
-  // Sidebar menu items with icons and panel IDs (using URL-based imports)
+  // Sidebar menu items with icons and panel IDs
   const menuItems = [
-    { label: "DASHBOARD", icon: new URL("../assets/analytics.png", import.meta.url).href, panelId: "dashboard" },
-    { label: "ECHO EVENT STUDIO", icon: new URL("../assets/LUCCCA_ECHO.png", import.meta.url).href, panelId: "eventstudio" },
-    { label: "MAESTRO BQT", icon: new URL("../assets/MaestroBQT.png", import.meta.url).href, panelId: "maestrobqt" },
-    { label: "ECHO AURUM", icon: new URL("../assets/Echo-Ai.png", import.meta.url).href, panelId: "echoaurum" },
-    { label: "ECHO LAYOUT", icon: new URL("../assets/Echo_F.png", import.meta.url).href, panelId: "echolayout" },
-    { label: "CULINARY", icon: new URL("../assets/culinary_library.png", import.meta.url).href, panelId: "culinary" },
-    { label: "BAKING & PASTRY", icon: new URL("../assets/baking-&-Pastry.png", import.meta.url).href, panelId: "pastry" },
-    { label: "MIXOLOGY", icon: new URL("../assets/mixology.png", import.meta.url).href, panelId: "mixology" },
-    { label: "SCHEDULES", icon: new URL("../assets/schedule.png", import.meta.url).href, panelId: "scheduling" },
-    { label: "INVENTORY", icon: new URL("../assets/food_inventory.png", import.meta.url).href, panelId: "purchasing" },
-    { label: "CRM", icon: new URL("../assets/CRM.png", import.meta.url).href, panelId: "crm" },
+    { label: "DASHBOARD", icon: iconUrls.dashboard, panelId: "dashboard" },
+    { label: "ECHO EVENT STUDIO", icon: iconUrls.eventStudio, panelId: "eventstudio" },
+    { label: "MAESTRO BQT", icon: iconUrls.maestro, panelId: "maestrobqt" },
+    { label: "ECHO AURUM", icon: iconUrls.echoAurum, panelId: "echoaurum" },
+    { label: "ECHO LAYOUT", icon: iconUrls.echoLayout, panelId: "echolayout" },
+    { label: "CULINARY", icon: iconUrls.culinary, panelId: "culinary" },
+    { label: "BAKING & PASTRY", icon: iconUrls.pastry, panelId: "pastry" },
+    { label: "MIXOLOGY", icon: iconUrls.mixology, panelId: "mixology" },
+    { label: "SCHEDULES", icon: iconUrls.schedule, panelId: "scheduling" },
+    { label: "INVENTORY", icon: iconUrls.inventory, panelId: "purchasing" },
+    { label: "CRM", icon: iconUrls.crm, panelId: "crm" },
   ];
 
   const bottomItems = [
-    { label: "CHEFNET", icon: new URL("../assets/ChefNet.png", import.meta.url).href, panelId: "chefnet" },
-    { label: "SUPPORT", icon: new URL("../assets/help-desk.png", import.meta.url).href, panelId: "support" },
-    { label: "SETTINGS", icon: new URL("../assets/settings.png", import.meta.url).href, panelId: "settings" },
+    { label: "CHEFNET", icon: iconUrls.chefNet, panelId: "chefnet" },
+    { label: "SUPPORT", icon: iconUrls.support, panelId: "support" },
+    { label: "SETTINGS", icon: iconUrls.settings, panelId: "settings" },
   ];
 
   return (
