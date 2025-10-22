@@ -1,23 +1,39 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Menu, Sun, Moon } from "lucide-react";
 
-// Use Vite import.meta.url for proper asset resolution
+// Import asset URLs using Vite's ?url query parameter
+import dashboardUrl from "../assets/analytics.png?url";
+import eventStudioUrl from "../assets/LUCCCA_ECHO.png?url";
+import maestroUrl from "../assets/MaestroBQT.png?url";
+import echoAurumUrl from "../assets/Echo-Ai.png?url";
+import echoLayoutUrl from "../assets/Echo_F.png?url";
+import culinaryUrl from "../assets/culinary_library.png?url";
+import pastryUrl from "../assets/baking-&-Pastry.png?url";
+import mixologyUrl from "../assets/mixology.png?url";
+import scheduleUrl from "../assets/schedule.png?url";
+import inventoryUrl from "../assets/food_inventory.png?url";
+import crmUrl from "../assets/CRM.png?url";
+import chefNetUrl from "../assets/ChefNet.png?url";
+import supportUrl from "../assets/help-desk.png?url";
+import settingsUrl from "../assets/settings.png?url";
+import logoUrl from "../assets/LUCCCA_Vertical_Inline.png?url";
+
 const iconUrls = {
-  dashboard: new URL("../assets/analytics.png", import.meta.url).href,
-  eventStudio: new URL("../assets/LUCCCA_ECHO.png", import.meta.url).href,
-  maestro: new URL("../assets/MaestroBQT.png", import.meta.url).href,
-  echoAurum: new URL("../assets/Echo-Ai.png", import.meta.url).href,
-  echoLayout: new URL("../assets/Echo_F.png", import.meta.url).href,
-  culinary: new URL("../assets/culinary_library.png", import.meta.url).href,
-  pastry: new URL("../assets/baking-&-Pastry.png", import.meta.url).href,
-  mixology: new URL("../assets/mixology.png", import.meta.url).href,
-  schedule: new URL("../assets/schedule.png", import.meta.url).href,
-  inventory: new URL("../assets/food_inventory.png", import.meta.url).href,
-  crm: new URL("../assets/CRM.png", import.meta.url).href,
-  chefNet: new URL("../assets/ChefNet.png", import.meta.url).href,
-  support: new URL("../assets/help-desk.png", import.meta.url).href,
-  settings: new URL("../assets/settings.png", import.meta.url).href,
-  logo: new URL("../assets/LUCCCA_Vertical_Inline.png", import.meta.url).href,
+  dashboard: dashboardUrl,
+  eventStudio: eventStudioUrl,
+  maestro: maestroUrl,
+  echoAurum: echoAurumUrl,
+  echoLayout: echoLayoutUrl,
+  culinary: culinaryUrl,
+  pastry: pastryUrl,
+  mixology: mixologyUrl,
+  schedule: scheduleUrl,
+  inventory: inventoryUrl,
+  crm: crmUrl,
+  chefNet: chefNetUrl,
+  support: supportUrl,
+  settings: settingsUrl,
+  logo: logoUrl,
 };
 
 export default function Sidebar({
