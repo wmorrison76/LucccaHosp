@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Menu, Sun, Moon } from "lucide-react";
 
 // Using uploaded icon URLs from Builder.io
