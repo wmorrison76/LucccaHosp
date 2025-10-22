@@ -25,9 +25,12 @@ export default function EchoAurumPanel() {
           window.builderContentLoaded = true;
           renderEchoAurum();
         };
-        script.onerror = (err) => {
-          console.error('[EchoAurum] Failed to load Builder.io script:', err);
-          setLoadError('Failed to load Builder.io script');
+        script.onerror = (event) => {
+          const errorMessage = event instanceof Event
+            ? `Failed to load script from ${script.src}`
+            : String(event);
+          console.error('[EchoAurum] Failed to load Builder.io script:', errorMessage);
+          setLoadError(errorMessage);
           setIsLoading(false);
         };
         document.head.appendChild(script);
