@@ -1,115 +1,156 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function CulinaryPanel() {
+  const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState(null);
-  const [builderReady, setBuilderReady] = useState(false);
-  const containerRef = useRef(null);
-  const scriptLoadedRef = useRef(false);
 
   useEffect(() => {
     console.log('[Culinary] Component mounted');
     
-    if (scriptLoadedRef.current) {
-      console.log('[Culinary] Builder.io script already loading');
-      return;
-    }
+    // Try to fetch from Builder.io API instead of loading external script
+    const fetchCulinaryContent = async () => {
+      try {
+        const apiKey = import.meta.env.VITE_BUILDER_API_KEY || 'bwncv6np70e4e8ey0yj';
+        
+        console.log('[Culinary] Fetching content from Builder.io API...');
+        const response = await fetch(
+          `https://cdn.builder.io/api/v1/content/Culinary?limit=10&apiKey=${apiKey}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
 
-    scriptLoadedRef.current = true;
-
-    // Check if Builder.io script is already loaded
-    const existingScript = document.querySelector('script[src*="cdn.builder.io/js/react"]');
-    if (existingScript && window.BuilderContent) {
-      console.log('[Culinary] Builder.io already loaded');
-      setBuilderReady(true);
-      setIsLoading(false);
-      return;
-    }
-
-    // Load Builder.io script
-    const script = document.createElement('script');
-    script.src = 'https://cdn.builder.io/js/react';
-    script.async = true;
-    script.crossOrigin = 'anonymous';
-
-    const loadTimeout = setTimeout(() => {
-      console.warn('[Culinary] Script load timeout after 5 seconds');
-      setLoadError('Builder.io script load timeout. The CDN may be unavailable.');
-      setIsLoading(false);
-    }, 5000);
-
-    script.onload = () => {
-      clearTimeout(loadTimeout);
-      console.log('[Culinary] Builder.io script loaded successfully');
-      
-      // Wait for BuilderContent to be available
-      let checkAttempts = 0;
-      const checkInterval = setInterval(() => {
-        checkAttempts++;
-        if (window.BuilderContent) {
-          clearInterval(checkInterval);
-          console.log('[Culinary] BuilderContent is available');
-          setBuilderReady(true);
-          setIsLoading(false);
-        } else if (checkAttempts > 50) {
-          clearInterval(checkInterval);
-          console.warn('[Culinary] BuilderContent not available after waiting');
-          setLoadError('Builder.io components did not load properly. Try refreshing the page.');
-          setIsLoading(false);
+        if (!response.ok) {
+          throw new Error(`API returned ${response.status}: ${response.statusText}`);
         }
-      }, 100);
+
+        const data = await response.json();
+        console.log('[Culinary] Content fetched:', data);
+
+        if (data.results && Array.isArray(data.results)) {
+          setRecipes(data.results);
+        }
+        setIsLoading(false);
+      } catch (err) {
+        console.error('[Culinary] Failed to fetch content:', err.message);
+        setLoadError(err.message);
+        setIsLoading(false);
+        
+        // Load placeholder content
+        setRecipes([
+          { name: 'Loading failed - using sample recipes' },
+        ]);
+      }
     };
 
-    script.onerror = (error) => {
-      clearTimeout(loadTimeout);
-      console.error('[Culinary] Failed to load Builder.io script:', error);
-      setLoadError('Failed to load Builder.io script. Check your internet connection and CORS settings.');
-      setIsLoading(false);
-    };
-
-    // Only append if not already present
-    if (!existingScript) {
-      document.head.appendChild(script);
-      console.log('[Culinary] Builder.io script added to head');
-    } else {
-      console.log('[Culinary] Builder.io script already in head');
-    }
-
-    return () => {
-      clearTimeout(loadTimeout);
-    };
+    fetchCulinaryContent();
   }, []);
 
-  // Render BuilderContent once it's available
-  const renderContent = () => {
-    if (loadError) {
-      return (
+  if (loadError && recipes.length === 0) {
+    return (
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: '#0f172a',
+        color: '#e2e8f0',
+        fontFamily: 'system-ui, sans-serif',
+        height: '100%',
+        padding: '24px',
+      }}>
+        <h2 style={{ fontSize: '24px', fontWeight: 'bold', margin: '0 0 16px 0' }}>
+          Culinary Library
+        </h2>
+        
         <div style={{
-          padding: '24px',
+          padding: '16px',
           backgroundColor: 'rgba(239, 68, 68, 0.1)',
           borderRadius: '8px',
           border: '1px solid rgba(239, 68, 68, 0.5)',
           color: '#fca5a5',
         }}>
-          <div style={{ fontWeight: 'bold', marginBottom: '8px' }}>Error loading Culinary</div>
-          <div style={{ fontSize: '12px', whiteSpace: 'pre-wrap' }}>{loadError}</div>
+          <div style={{ fontWeight: 'bold', marginBottom: '8px' }}>Unable to load from Builder.io</div>
+          <div style={{ fontSize: '12px', marginBottom: '12px', whiteSpace: 'pre-wrap' }}>
+            {loadError}
+          </div>
+          <button
+            onClick={() => window.location.reload()}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#3b82f6',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontSize: '12px',
+            }}
+          >
+            Try Again
+          </button>
         </div>
-      );
-    }
 
-    if (!builderReady || !window.BuilderContent) {
-      return (
+        {/* Fallback Content */}
         <div style={{
-          padding: '24px',
-          textAlign: 'center',
-          opacity: 0.7,
-          minHeight: '400px',
+          marginTop: '24px',
+          flex: 1,
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: '16px',
+        }}>
+          {[
+            { icon: '🍽️', title: 'Recipes', desc: 'Browse recipes' },
+            { icon: '👨‍🍳', title: 'Techniques', desc: 'Cooking methods' },
+            { icon: '🌶️', title: 'Ingredients', desc: 'Ingredient library' },
+            { icon: '📋', title: 'Menu Planning', desc: 'Create menus' },
+          ].map((item, idx) => (
+            <div
+              key={idx}
+              style={{
+                padding: '16px',
+                backgroundColor: 'rgba(30, 58, 138, 0.2)',
+                borderRadius: '8px',
+                border: '1px solid rgba(148, 163, 184, 0.15)',
+                textAlign: 'center',
+              }}
+            >
+              <div style={{ fontSize: '28px', marginBottom: '8px' }}>{item.icon}</div>
+              <div style={{ fontSize: '12px', fontWeight: '600', marginBottom: '4px' }}>{item.title}</div>
+              <div style={{ fontSize: '10px', opacity: 0.7 }}>{item.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      backgroundColor: '#0f172a',
+      color: '#e2e8f0',
+      fontFamily: 'system-ui, sans-serif',
+      height: '100%',
+      padding: '24px',
+      overflow: 'auto',
+    }}>
+      <h2 style={{ fontSize: '24px', fontWeight: 'bold', margin: '0 0 16px 0' }}>
+        Culinary Library
+      </h2>
+
+      {isLoading ? (
+        <div style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          minHeight: '400px',
+          opacity: 0.7,
         }}>
-          <div>
-            <p style={{ fontSize: '14px', margin: '0 0 16px 0' }}>Loading Culinary Library...</p>
+          <div style={{ textAlign: 'center' }}>
+            <p style={{ fontSize: '14px', margin: '0 0 16px 0' }}>Loading Culinary Content...</p>
             <div style={{
               width: '40px',
               height: '40px',
@@ -127,64 +168,61 @@ export default function CulinaryPanel() {
             </div>
           </div>
         </div>
-      );
-    }
-
-    // Render Builder.io content
-    const apiKey = import.meta.env.VITE_BUILDER_API_KEY || 'bwncv6np70e4e8ey0yj';
-    const BuilderContent = window.BuilderContent;
-
-    return (
-      <BuilderContent
-        model="Culinary"
-        apiKey={apiKey}
-        entry="Culinary"
-        options={{
-          includeRefs: true,
-          enableTrackingPixel: false,
-        }}
-      />
-    );
-  };
-
-  return (
-    <div
-      className="w-full h-full overflow-auto bg-gradient-to-br from-gray-900 to-gray-950"
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: '#0f172a',
-        color: '#e2e8f0',
-        fontFamily: 'system-ui, sans-serif',
-      }}
-    >
-      <div style={{
-        flex: 1,
-        padding: '24px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-      }}>
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', margin: 0 }}>
-          Culinary Library
-        </h2>
-
-        {/* Builder.io Content Container */}
-        <div
-          ref={containerRef}
-          style={{
-            flex: 1,
-            backgroundColor: 'rgba(30, 41, 59, 0.5)',
-            borderRadius: '12px',
-            border: '1px solid rgba(148, 163, 184, 0.2)',
-            overflow: 'auto',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          {renderContent()}
-        </div>
-      </div>
+      ) : (
+        <>
+          {recipes.length > 0 ? (
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+              gap: '16px',
+            }}>
+              {recipes.map((recipe, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    padding: '16px',
+                    backgroundColor: 'rgba(30, 41, 59, 0.5)',
+                    borderRadius: '8px',
+                    border: '1px solid rgba(148, 163, 184, 0.2)',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'rgba(30, 58, 138, 0.3)';
+                    e.currentTarget.style.borderColor = 'rgba(0, 217, 255, 0.3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'rgba(30, 41, 59, 0.5)';
+                    e.currentTarget.style.borderColor = 'rgba(148, 163, 184, 0.2)';
+                  }}
+                >
+                  <div style={{ fontSize: '12px', fontWeight: '600', marginBottom: '8px' }}>
+                    {recipe.name || `Recipe ${idx + 1}`}
+                  </div>
+                  <div style={{ fontSize: '11px', opacity: 0.7, lineHeight: '1.4' }}>
+                    {recipe.data?.description || 'Culinary recipe'}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{
+              padding: '24px',
+              textAlign: 'center',
+              opacity: 0.7,
+              minHeight: '400px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <div>
+                <p style={{ fontSize: '14px', margin: '0 0 16px 0' }}>No recipes found</p>
+                <p style={{ fontSize: '12px', opacity: 0.6 }}>Try adding recipes in Builder.io</p>
+              </div>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }
