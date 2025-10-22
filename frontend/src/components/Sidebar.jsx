@@ -1,27 +1,23 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Menu, Sun, Moon } from "lucide-react";
 
-// Asset URLs using Vite's import.meta.url pattern - this is the most reliable method
-const getAssetUrl = (filename) => {
-  return new URL(`../assets/${filename}`, import.meta.url).href;
-};
-
+// Asset URLs - using absolute paths that Vite resolves
 const iconUrls = {
-  dashboard: getAssetUrl("analytics.png"),
-  eventStudio: getAssetUrl("LUCCCA_ECHO.png"),
-  maestro: getAssetUrl("MaestroBQT.png"),
-  echoAurum: getAssetUrl("Echo-Ai.png"),
-  echoLayout: getAssetUrl("Echo_F.png"),
-  culinary: getAssetUrl("culinary_library.png"),
-  pastry: getAssetUrl("baking-&-Pastry.png"),
-  mixology: getAssetUrl("mixology.png"),
-  schedule: getAssetUrl("schedule.png"),
-  inventory: getAssetUrl("food_inventory.png"),
-  crm: getAssetUrl("CRM.png"),
-  chefNet: getAssetUrl("ChefNet.png"),
-  support: getAssetUrl("help-desk.png"),
-  settings: getAssetUrl("settings.png"),
-  logo: getAssetUrl("LUCCCA_Vertical_Inline.png"),
+  dashboard: "/src/assets/analytics.png",
+  eventStudio: "/src/assets/LUCCCA_ECHO.png",
+  maestro: "/src/assets/MaestroBQT.png",
+  echoAurum: "/src/assets/Echo-Ai.png",
+  echoLayout: "/src/assets/Echo_F.png",
+  culinary: "/src/assets/culinary_library.png",
+  pastry: "/src/assets/baking-&-Pastry.png",
+  mixology: "/src/assets/mixology.png",
+  schedule: "/src/assets/schedule.png",
+  inventory: "/src/assets/food_inventory.png",
+  crm: "/src/assets/CRM.png",
+  chefNet: "/src/assets/ChefNet.png",
+  support: "/src/assets/help-desk.png",
+  settings: "/src/assets/settings.png",
+  logo: "/src/assets/LUCCCA_Vertical_Inline.png",
 };
 
 export default function Sidebar({
