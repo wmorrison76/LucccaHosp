@@ -47,6 +47,16 @@ export default function Sidebar({
   const W_EXPANDED = 280;
   const widthPx = isOpen ? `${W_EXPANDED}px` : `${W_COLLAPSED}px`;
 
+  // Auto-close sidebar on page load if viewport is 425mm or larger
+  useEffect(() => {
+    const width = window.innerWidth;
+    // 425mm ≈ 1606px, but more typically 425px is used for responsive design
+    // If viewport is wider than 425px, auto-close sidebar
+    if (width > 425 && localOpen) {
+      setLocalOpen(false);
+    }
+  }, []);
+
   useEffect(() => {
     document.body.classList.toggle("sb-collapsed", !isOpen);
   }, [isOpen]);
