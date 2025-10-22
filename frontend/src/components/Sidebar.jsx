@@ -1,39 +1,23 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Menu, Sun, Moon } from "lucide-react";
 
-// Import asset URLs using Vite's ?url query parameter
-import dashboardUrl from "../assets/analytics.png?url";
-import eventStudioUrl from "../assets/LUCCCA_ECHO.png?url";
-import maestroUrl from "../assets/MaestroBQT.png?url";
-import echoAurumUrl from "../assets/Echo-Ai.png?url";
-import echoLayoutUrl from "../assets/Echo_F.png?url";
-import culinaryUrl from "../assets/culinary_library.png?url";
-import pastryUrl from "../assets/baking-&-Pastry.png?url";
-import mixologyUrl from "../assets/mixology.png?url";
-import scheduleUrl from "../assets/schedule.png?url";
-import inventoryUrl from "../assets/food_inventory.png?url";
-import crmUrl from "../assets/CRM.png?url";
-import chefNetUrl from "../assets/ChefNet.png?url";
-import supportUrl from "../assets/help-desk.png?url";
-import settingsUrl from "../assets/settings.png?url";
-import logoUrl from "../assets/LUCCCA_Vertical_Inline.png?url";
-
+// Asset paths - Vite will resolve these at build time
 const iconUrls = {
-  dashboard: dashboardUrl,
-  eventStudio: eventStudioUrl,
-  maestro: maestroUrl,
-  echoAurum: echoAurumUrl,
-  echoLayout: echoLayoutUrl,
-  culinary: culinaryUrl,
-  pastry: pastryUrl,
-  mixology: mixologyUrl,
-  schedule: scheduleUrl,
-  inventory: inventoryUrl,
-  crm: crmUrl,
-  chefNet: chefNetUrl,
-  support: supportUrl,
-  settings: settingsUrl,
-  logo: logoUrl,
+  dashboard: "/src/assets/analytics.png",
+  eventStudio: "/src/assets/LUCCCA_ECHO.png",
+  maestro: "/src/assets/MaestroBQT.png",
+  echoAurum: "/src/assets/Echo-Ai.png",
+  echoLayout: "/src/assets/Echo_F.png",
+  culinary: "/src/assets/culinary_library.png",
+  pastry: "/src/assets/baking-&-Pastry.png",
+  mixology: "/src/assets/mixology.png",
+  schedule: "/src/assets/schedule.png",
+  inventory: "/src/assets/food_inventory.png",
+  crm: "/src/assets/CRM.png",
+  chefNet: "/src/assets/ChefNet.png",
+  support: "/src/assets/help-desk.png",
+  settings: "/src/assets/settings.png",
+  logo: "/src/assets/LUCCCA_Vertical_Inline.png",
 };
 
 export default function Sidebar({
