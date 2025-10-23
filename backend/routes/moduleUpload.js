@@ -142,13 +142,21 @@ router.post('/upload', upload.single('zip'), async (req, res) => {
     console.log(`[MODULE_UPLOAD] Copy completed in ${Date.now() - copyStartTime}ms`);
 
     // Cleanup
+    console.log(`[MODULE_UPLOAD] Starting cleanup...`);
     try {
-      await fs.rm(extractDir, { recursive: true, force: true });
-      await fs.unlink(zipPath);
+      if (extractDir) {
+        await fs.rm(extractDir, { recursive: true, force: true });
+      }
+      if (zipPath) {
+        await fs.unlink(zipPath);
+      }
       console.log(`[MODULE_UPLOAD] Cleanup completed`);
     } catch (cleanupError) {
       console.warn(`[MODULE_UPLOAD] Cleanup warning: ${cleanupError.message}`);
     }
+
+    const totalTime = Date.now() - startTime;
+    console.log(`[MODULE_UPLOAD] Total time: ${totalTime}ms (${(totalTime / 1000).toFixed(2)}s)`);
 
     res.json({
       success: true,
@@ -157,7 +165,9 @@ router.post('/upload', upload.single('zip'), async (req, res) => {
       path: destPath
     });
   } catch (error) {
-    console.error('[MODULE_UPLOAD] Error:', error.message);
+    const totalTime = Date.now() - startTime;
+    console.error(`[MODULE_UPLOAD] Error after ${totalTime}ms: ${error.message}`);
+    console.error(`[MODULE_UPLOAD] Error stack:`, error.stack);
 
     // Cleanup on error
     try {
