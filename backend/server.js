@@ -8,7 +8,7 @@ import { loggerMiddleware } from './middleware/LoggerMiddleware.js';
 import { authMiddleware } from './middleware/authMiddleware.js';
 import { PORT } from './config/envConfig.js';
 import pastryRoutes from './routes/pastryRoutes.js';
-import cakeDesignerRoutes from './routes/cakeDesignerRoutes.js';
+import cakeDesignerRoutes from './routes/cakeDesignerroutes.js';
 import echoRecipeProRoutes from './routes/echoRecipeProRoutes.js';
 import moduleUploadRoutes from './routes/moduleUpload.js';
 
