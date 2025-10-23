@@ -85,13 +85,14 @@ function ModuleUploadZone({ isDarkMode }) {
     }
   };
 
-  const uploadModule = async (file) => {
+  const uploadFolder = async (folderEntry = null, folderName = null, files = null) => {
+    const displayName = folderName || folderEntry?.name || 'Module';
     setIsUploading(true);
-    setMessage(`⏳ Uploading ${file.name}...`);
+    setMessage(`⏳ Uploading ${displayName}...`);
 
     // Broadcast upload start to all components
     window.dispatchEvent(new CustomEvent('module-upload-start', {
-      detail: { fileName: file.name, fileSize: file.size }
+      detail: { fileName: displayName, fileSize: files?.reduce((sum, f) => sum + f.size, 0) || 0 }
     }));
 
     const controller = new AbortController();
@@ -99,11 +100,23 @@ function ModuleUploadZone({ isDarkMode }) {
 
     try {
       const formData = new FormData();
-      formData.append('zip', file);
+      formData.append('folderName', displayName);
 
-      console.log(`[UPLOAD] Starting upload of ${file.name} (${file.size} bytes)`);
+      // Handle files from folder input
+      if (files && files.length > 0) {
+        files.forEach((file, index) => {
+          formData.append(`files`, file);
+          formData.append(`paths`, file.webkitRelativePath || file.name);
+        });
+      } else if (folderEntry) {
+        // Handle drag-and-drop folder (not fully supported in all browsers)
+        await readFolderRecursive(folderEntry, formData, '');
+      }
 
-      const response = await fetch('/api/modules/upload', {
+      const totalSize = Array.from(formData.getAll('files')).reduce((sum, f) => sum + f.size, 0);
+      console.log(`[UPLOAD] Starting folder upload: ${displayName} (${totalSize} bytes)`);
+
+      const response = await fetch('/api/modules/upload-folder', {
         method: 'POST',
         body: formData,
         signal: controller.signal
@@ -136,7 +149,7 @@ function ModuleUploadZone({ isDarkMode }) {
 
         // Broadcast upload error to all components
         window.dispatchEvent(new CustomEvent('module-upload-complete', {
-          detail: { moduleName: file.name, success: false, error: data.message }
+          detail: { moduleName: displayName, success: false, error: data.message }
         }));
       }
     } catch (error) {
@@ -149,7 +162,7 @@ function ModuleUploadZone({ isDarkMode }) {
 
       // Broadcast upload error to all components
       window.dispatchEvent(new CustomEvent('module-upload-complete', {
-        detail: { moduleName: file.name, success: false, error: errorMsg }
+        detail: { moduleName: displayName, success: false, error: errorMsg }
       }));
     } finally {
       setIsUploading(false);
@@ -158,6 +171,26 @@ function ModuleUploadZone({ isDarkMode }) {
       setTimeout(() => {
         setMessage('');
       }, 5000);
+    }
+  };
+
+  // Helper to recursively read folder entries (for drag-and-drop support)
+  const readFolderRecursive = async (entry, formData, path) => {
+    if (entry.isFile) {
+      const file = await new Promise((resolve, reject) => {
+        entry.file(resolve, reject);
+      });
+      formData.append('files', file);
+      formData.append('paths', path + file.name);
+    } else if (entry.isDirectory) {
+      const reader = entry.createReader();
+      const entries = await new Promise((resolve, reject) => {
+        reader.readEntries(resolve, reject);
+      });
+
+      for (const childEntry of entries) {
+        await readFolderRecursive(childEntry, formData, path + entry.name + '/');
+      }
     }
   };
 
