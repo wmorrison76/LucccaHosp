@@ -158,7 +158,7 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
                 padding: "2px 3px",
                 border: "1px solid #ccc",
                 borderRadius: "2px",
-                fontSize: "7px",
+                fontSize: "8px",
                 fontFamily: "system-ui",
               }}
             />
