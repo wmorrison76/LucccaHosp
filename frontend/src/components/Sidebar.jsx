@@ -60,20 +60,28 @@ function ModuleUploadZone({ isDarkMode }) {
     e.stopPropagation();
     setIsDragging(false);
 
-    const files = Array.from(e.dataTransfer.files);
-    const zipFile = files.find(f => f.name.endsWith('.zip'));
-
-    if (zipFile) {
-      uploadModule(zipFile);
-    } else {
-      setMessage('⚠️ Please drop a .zip file');
+    // Handle folder drop
+    const items = e.dataTransfer.items;
+    if (items) {
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].webkitGetAsEntry().isDirectory) {
+          const entry = items[i].webkitGetAsEntry();
+          uploadFolder(entry);
+          return;
+        }
+      }
     }
+
+    setMessage('⚠️ Please drop a folder');
   };
 
-  const handleFileSelect = (e) => {
+  const handleFolderSelect = async (e) => {
     const files = Array.from(e.target.files || []);
-    if (files[0]) {
-      uploadModule(files[0]);
+    if (files.length > 0) {
+      // Extract folder name from first file path
+      const firstFilePath = files[0].webkitRelativePath || files[0].name;
+      const folderName = firstFilePath.split('/')[0];
+      uploadFolder(null, folderName, files);
     }
   };
 
