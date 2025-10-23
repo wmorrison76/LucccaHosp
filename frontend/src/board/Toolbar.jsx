@@ -14,6 +14,19 @@ export default function Toolbar({
   isDark,
 }) {
   const [showThemeMenu, setShowThemeMenu] = useState(false);
+  const [reminderCount, setReminderCount] = useState(0);
+
+  const getDueReminders = useReminderStore((state) => state.getDueReminders);
+
+  // Update reminder count
+  useEffect(() => {
+    const updateCount = () => {
+      setReminderCount(getDueReminders().length);
+    };
+    updateCount();
+    const interval = setInterval(updateCount, 60000);
+    return () => clearInterval(interval);
+  }, [getDueReminders]);
 
   const themes = [
     { id: "dark", label: "Dark TRON", color: "#0a1420" },
