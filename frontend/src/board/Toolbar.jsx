@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   Menu, RotateCcw, ChevronLeft, ChevronRight, Grid3x3,
   Image as ImageIcon, Calendar, Video, Link2, Settings, Zap, Square,
-  MessageSquare, Phone, PenTool, Note, Bell
+  MessageSquare, Phone, PenTool, FileText, Bell
 } from "lucide-react";
 import useReminderStore from "../stores/reminderStore.js";
 
