@@ -88,16 +88,20 @@ router.post('/upload-folder', uploadMultiple, async (req, res) => {
     const copyStartTime = Date.now();
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
+      // Get the relative path from the file's original name (which includes the folder structure)
+      let relativePath = file.originalname;
+
       // Remove folder name from path (first segment)
-      let relativePath = paths[i] || file.originalname;
       const pathSegments = relativePath.split('/');
-      if (pathSegments[0] === folderName) {
+      if (pathSegments.length > 1 && pathSegments[0] === folderName) {
         pathSegments.shift();
       }
       relativePath = pathSegments.join('/');
 
       const destFilePath = path.join(destPath, relativePath);
       const destDir = path.dirname(destFilePath);
+
+      console.log(`[MODULE_UPLOAD] Processing file ${i + 1}/${files.length}: ${file.originalname} -> ${relativePath}`);
 
       // Create subdirectories if needed
       await fs.mkdir(destDir, { recursive: true });
