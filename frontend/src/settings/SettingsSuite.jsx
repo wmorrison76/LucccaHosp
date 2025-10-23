@@ -415,27 +415,42 @@ export default function SettingsSuite() {
 
       {/* Avatar picker modal */}
       {avatarPickerOpen && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm grid place-items-center z-50">
-          <div className="w-[520px] max-w-[92vw] rounded-2xl border border-white/15 bg-[rgba(18,24,36,.92)] p-4">
-            <div className="text-sm font-semibold mb-3">Choose avatar</div>
-            <div className="grid grid-cols-4 gap-3">
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-md grid place-items-center z-50">
+          <div className="w-[520px] max-w-[92vw] rounded-2xl border border-white/15 bg-gradient-to-b from-white/[0.08] to-white/[0.04] p-6 shadow-2xl">
+            <div className="mb-6">
+              <div className="text-xl font-semibold mb-1">Choose Avatar</div>
+              <div className="text-sm opacity-60">Select a profile picture or upload your own</div>
+            </div>
+
+            <div className="grid grid-cols-4 gap-4 mb-6">
               {PRESET_AVATARS.map(a => (
                 <button
                   key={a.id}
                   onClick={() => usePresetAvatar(a)}
-                  className={`h-20 w-full rounded-xl overflow-hidden ring-1
-                    ${avatar?.url===a.url ? "ring-cyan-300/60" : "ring-white/12 hover:ring-white/30"}`}
+                  className={`relative rounded-2xl overflow-hidden ring-2 transition-all ${
+                    avatar?.url===a.url
+                      ? "ring-cyan-400/80 scale-105"
+                      : "ring-white/20 hover:ring-white/40 hover:scale-103"
+                  }`}
                 >
-                  <img src={a.url} alt="" className="h-full w-full object-cover"/>
+                  <img src={a.url} alt="" className="h-24 w-full object-cover"/>
                 </button>
               ))}
-              <label className="h-20 w-full rounded-xl border border-dashed border-white/20 hover:border-white/35 grid place-items-center cursor-pointer text-sm">
-                Upload…
+              <label className="relative rounded-2xl border-2 border-dashed border-white/30 hover:border-white/50 grid place-items-center cursor-pointer transition-colors bg-white/5 hover:bg-white/10">
+                <div className="text-center">
+                  <div className="text-2xl mb-1">+</div>
+                  <div className="text-xs font-medium">Upload</div>
+                </div>
                 <input type="file" accept="image/*" className="hidden" onChange={(e)=>onUpload(e.target.files?.[0])}/>
               </label>
             </div>
-            <div className="mt-4 flex justify-end">
-              <button className="px-3 h-9 rounded-lg border border-white/20 hover:border-white/35"
+
+            <div className="flex gap-3">
+              <button className="flex-1 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-sm font-medium transition-colors"
+                      onClick={()=>setAvatarPickerOpen(false)}>
+                Cancel
+              </button>
+              <button className="flex-1 px-4 py-2 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 text-sm font-medium transition-colors"
                       onClick={()=>setAvatarPickerOpen(false)}>
                 Done
               </button>
