@@ -38,6 +38,131 @@ const iconUrls = {
   logo: new URL("../assets/LUCCCA_Vertical_Inline.png", import.meta.url).href,
 };
 
+// Module Upload Component
+function ModuleUploadZone({ isDarkMode }) {
+  const [isDragging, setIsDragging] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [message, setMessage] = useState('');
+  const inputRef = useRef(null);
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+
+    const files = Array.from(e.dataTransfer.files);
+    const zipFile = files.find(f => f.name.endsWith('.zip'));
+
+    if (zipFile) {
+      uploadModule(zipFile);
+    } else {
+      setMessage('⚠️ Please drop a .zip file');
+    }
+  };
+
+  const handleFileSelect = (e) => {
+    const files = Array.from(e.target.files || []);
+    if (files[0]) {
+      uploadModule(files[0]);
+    }
+  };
+
+  const uploadModule = async (file) => {
+    setIsUploading(true);
+    setMessage('Uploading...');
+
+    try {
+      const formData = new FormData();
+      formData.append('zip', file);
+
+      const response = await fetch('/api/modules/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setMessage(`✅ ${data.moduleName} loaded!`);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      } else {
+        setMessage(`❌ Error: ${data.message}`);
+      }
+    } catch (error) {
+      setMessage(`❌ Upload failed: ${error.message}`);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  return (
+    <div>
+      <div
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        onClick={() => inputRef.current?.click()}
+        style={{
+          border: isDragging
+            ? isDarkMode ? '2px dashed rgba(0, 217, 255, 0.6)' : '2px dashed rgba(0, 0, 0, 0.3)'
+            : isDarkMode ? '1px dashed rgba(0, 217, 255, 0.3)' : '1px dashed rgba(0, 0, 0, 0.2)',
+          borderRadius: '6px',
+          padding: '12px',
+          textAlign: 'center',
+          cursor: isUploading ? 'wait' : 'pointer',
+          backgroundColor: isDragging
+            ? isDarkMode ? 'rgba(0, 217, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)'
+            : 'transparent',
+          transition: 'all 0.2s',
+          opacity: isUploading ? 0.6 : 1
+        }}
+      >
+        <input
+          ref={inputRef}
+          type="file"
+          accept=".zip"
+          onChange={handleFileSelect}
+          style={{ display: 'none' }}
+          disabled={isUploading}
+        />
+        <p style={{
+          margin: 0,
+          fontSize: '11px',
+          fontWeight: '600',
+          color: isDarkMode ? '#7ff3ff' : '#1e293b',
+          textTransform: 'uppercase',
+          letterSpacing: '0.3px'
+        }}>
+          {isUploading ? '⏳ Uploading...' : '📦 Drop Module'}
+        </p>
+      </div>
+      {message && (
+        <p style={{
+          margin: '8px 0 0 0',
+          fontSize: '11px',
+          color: message.includes('✅') ? '#10b981' : message.includes('⚠️') ? '#f59e0b' : '#ef4444',
+          textAlign: 'center',
+          fontWeight: '500'
+        }}>
+          {message}
+        </p>
+      )}
+    </div>
+  );
+}
+
 export default function Sidebar({
   isOpen: pOpen,
   toggleSidebar: pToggle,
