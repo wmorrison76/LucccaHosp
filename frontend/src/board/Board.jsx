@@ -87,7 +87,7 @@ const StickyNotePanel    = safeImport(() => import("../components/EchoCore/panel
 const ReminderWidget     = safeImport(() => import("../components/ReminderWidget.jsx"), "ReminderWidget");
 
 // Optional panels - set to null if not available
-const SettingsSuite      = null;
+const SettingsSuite      = safeImport(() => import("../settings/SettingsSuite.jsx"), "SettingsSuite");
 const SchedulerPanel     = Schedule;
 const WidgetStudio       = null;
 const PageViewer         = null;
@@ -109,7 +109,7 @@ import pastryIcon   from "../assets/baking-&-Pastry.png";
 import mixologyIcon from "../assets/mixology.png";
 import scheduleIcon from "../assets/schedule.png";
 
-/* ─��────���────��─── Error boundary ─────────────── */
+/* ─��──��─���────��─── Error boundary ─────────────── */
 class PanelErrorBoundary extends React.Component {
   constructor(p){ super(p); this.state = { error: null }; }
   static getDerivedStateFromError(error){ return { error }; }
