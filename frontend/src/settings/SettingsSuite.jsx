@@ -150,19 +150,53 @@ const labelFromId = (id) =>
 
 function SectionCard({ title, children }) {
   return (
-    <section className="panel rounded-2xl p-4">
-      <div className="text-lg font-semibold mb-3">{title}</div>
-      {children}
+    <section className="mb-6">
+      {title && <div className="text-xs font-semibold uppercase tracking-wider opacity-60 px-4 py-2 mb-2">{title}</div>}
+      <div className="rounded-xl overflow-hidden bg-white/[0.05] border border-white/10 divide-y divide-white/10">
+        {children}
+      </div>
     </section>
+  );
+}
+
+function SettingRow({ label, description, children, divider = true }) {
+  return (
+    <div className={`px-4 py-3 flex items-center justify-between gap-4 ${!divider ? 'border-b border-white/10' : ''}`}>
+      <div className="flex-1">
+        <div className="text-sm font-medium">{label}</div>
+        {description && <div className="text-xs opacity-60 mt-0.5">{description}</div>}
+      </div>
+      {children && <div className="flex-shrink-0">{children}</div>}
+    </div>
+  );
+}
+
+function Toggle({ checked, onChange }) {
+  return (
+    <button
+      onClick={() => onChange(!checked)}
+      className={`w-12 h-7 rounded-full transition-colors ${
+        checked ? 'bg-green-500' : 'bg-white/20'
+      }`}
+      style={{
+        position: 'relative',
+      }}
+    >
+      <div
+        className={`w-6 h-6 rounded-full bg-white shadow-md transition-transform absolute top-0.5 ${
+          checked ? 'translate-x-6' : 'translate-x-0.5'
+        }`}
+      />
+    </button>
   );
 }
 
 function LabeledInput({ label, value, onChange, placeholder }) {
   return (
-    <label className="text-[13px] grid gap-1">
-      <span className="opacity-80">{label}</span>
+    <label className="text-sm grid gap-2">
+      <span className="opacity-80 font-medium">{label}</span>
       <input
-        className="h-9 px-3 rounded-lg bg-white/5 border border-white/12 focus:outline-none focus:border-cyan-300/60"
+        className="h-10 px-3 rounded-lg bg-white/5 border border-white/12 focus:outline-none focus:border-cyan-300/60 text-sm"
         value={value}
         onChange={(e)=>onChange(e.target.value)}
         placeholder={placeholder}
