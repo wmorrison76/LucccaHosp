@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Bell, Trash2, Send, X } from "lucide-react";
+import { Bell, Trash2, Send, X, Pin } from "lucide-react";
 import useReminderStore from "../../../stores/reminderStore.js";
 
 export default function StickyNotePanelEnhanced({ panelId = "note" }) {
+  const [isPinned, setIsPinned] = useState(false);
   const storageKey = useMemo(() => `sticky.${panelId}.v1`, [panelId]);
   const [text, setText] = useState("");
   const [showReminderForm, setShowReminderForm] = useState(false);
