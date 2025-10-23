@@ -118,7 +118,7 @@ function ModuleUploadZone({ isDarkMode }) {
     } catch (error) {
       clearTimeout(timeoutId);
       const errorMsg = error.name === 'AbortError'
-        ? 'Upload timeout (15 minutes). File may be too large or network too slow.'
+        ? 'Upload timeout (20 minutes). File may be too large or network too slow.'
         : error.message;
       setMessage(`❌ ${errorMsg}`);
       console.error(`[UPLOAD] Failed:`, errorMsg);
