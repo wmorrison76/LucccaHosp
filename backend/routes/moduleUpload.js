@@ -43,24 +43,32 @@ async function copyDir(src, dest) {
  */
 router.post('/upload-folder', uploadMultiple, async (req, res) => {
   const startTime = Date.now();
-  const uploadedFiles = new Map(); // Map to track files by path
 
   try {
     console.log(`[MODULE_UPLOAD] Upload folder endpoint hit`);
+    console.log(`[MODULE_UPLOAD] req.files type:`, Array.isArray(req.files) ? 'array' : typeof req.files);
+    console.log(`[MODULE_UPLOAD] req.files keys:`, Object.keys(req.files || {}));
 
-    if (!req.files || !req.files.files || req.files.files.length === 0) {
+    // Filter actual files (multer.any() stores files with filename property)
+    const files = Array.isArray(req.files)
+      ? req.files.filter(f => f.filename && f.path)
+      : [];
+
+    if (!files || files.length === 0) {
       console.error('[MODULE_UPLOAD] No files in request');
       return res.status(400).json({ success: false, message: 'No files provided' });
     }
 
-    // Extract folderName from fields (multer stores text fields in req.files[fieldName])
-    const folderNameField = req.files.folderName?.[0]?.filename || 'Module';
-    const folderName = folderNameField || 'Module';
+    // Extract folder name from first file's webkitRelativePath (e.g., "FolderName/file.txt" -> "FolderName")
+    const firstFilePath = files[0].originalname || files[0].filename;
+    const folderNameFromPath = firstFilePath.split('/')[0] || 'Module';
+    const folderName = folderNameFromPath;
+
     const modulesDir = path.join(__dirname, '..', '..', 'frontend', 'src', 'modules');
     const destPath = path.join(modulesDir, folderName);
 
     console.log(`[MODULE_UPLOAD] Starting folder upload: ${folderName}`);
-    console.log(`[MODULE_UPLOAD] Files count: ${req.files.length}`);
+    console.log(`[MODULE_UPLOAD] Files count: ${files.length}`);
     console.log(`[MODULE_UPLOAD] Destination: ${destPath}`);
 
     // Ensure modules directory exists
@@ -76,17 +84,10 @@ router.post('/upload-folder', uploadMultiple, async (req, res) => {
     // Create destination folder
     await fs.mkdir(destPath, { recursive: true });
 
-    // Get paths array from request body (sent as array or comma-separated)
-    const paths = Array.isArray(req.body.paths)
-      ? req.body.paths
-      : (typeof req.body.paths === 'string' ? [req.body.paths] : []);
-
-    console.log(`[MODULE_UPLOAD] Paths array length: ${paths.length}`);
-
     // Copy each file to its correct location
     const copyStartTime = Date.now();
-    for (let i = 0; i < req.files.length; i++) {
-      const file = req.files[i];
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
       // Remove folder name from path (first segment)
       let relativePath = paths[i] || file.originalname;
       const pathSegments = relativePath.split('/');
