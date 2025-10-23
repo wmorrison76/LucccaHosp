@@ -82,7 +82,7 @@ function ModuleUploadZone({ isDarkMode }) {
     setMessage(`⏳ Uploading ${file.name}...`);
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 900000); // 15 minute timeout
+    const timeoutId = setTimeout(() => controller.abort(), 20 * 60 * 1000); // 20 minute timeout
 
     try {
       const formData = new FormData();
