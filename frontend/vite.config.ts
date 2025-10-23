@@ -29,6 +29,15 @@ export default defineConfig(({ mode }) => ({
               "default-src * 'unsafe-inline' 'unsafe-eval' blob: data:;",
           }
         : {},
+
+    // Proxy API calls to backend
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+        rewrite: (path) => path,
+      },
+    },
   },
 
   // Optional build options (production tightening)
