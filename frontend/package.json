@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "echoserver": "node server/echo/server.js",
     "imgserver": "node server/imagegen/server.js",
-    "start": "concurrently -c blue,magenta \"pnpm echoserver\" \"pnpm dev\"",
+    "backend": "cd ../backend && npm start",
+    "start": "concurrently -c blue,magenta,green \"pnpm echoserver\" \"pnpm dev\" \"pnpm backend\"",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
