@@ -451,7 +451,7 @@ export default function Board() {
             <button className="tb2-btn" title="Templates" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "templates", allowDuplicate: true } }))}>
               <Copy size={13} />
             </button>
-            <button className="tb2-btn" title="Sticky Note" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "stickynote", allowDuplicate: true, width: 280, height: 320 } }))}>
+            <button className="tb2-btn" title="Sticky Note" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "stickynote", allowDuplicate: true, width: 200, height: 240 } }))}>
               <FileText size={13} />
             </button>
 
