@@ -25,6 +25,7 @@ app.use('/api/version', versionRoutes);
 app.use('/api/health', healthRoutes);
 app.use('/api/pastry', authMiddleware, pastryRoutes);
 app.use('/api/echo-recipe-pro', authMiddleware, echoRecipeProRoutes);
+app.use('/api/modules', moduleUploadRoutes);
 app.listen(PORT || 3001, () => {
   console.log(`LUCCCA Core Backend running on port ${PORT || 3001}`);
 });
