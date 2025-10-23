@@ -259,27 +259,30 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
         placeholder="Write your note here..."
         style={{
           flex: 1,
-          padding: "6px 8px",
+          padding: "3px 4px",
           border: "none",
           backgroundColor: "#fffcc0",
           color: "#1a1a1a",
           fontFamily: "Comic Sans MS, cursive",
-          fontSize: "10px",
+          fontSize: "8px",
           resize: "none",
           outline: "none",
-          minHeight: "80px",
+          lineHeight: "1.2",
         }}
       />
 
       {/* Footer - Show reminder count */}
       <div style={{
-        padding: "3px 8px",
+        padding: "2px 4px",
         backgroundColor: "rgba(255, 255, 192, 0.9)",
         borderTop: "1px solid rgba(0,0,0,0.1)",
-        fontSize: "8px",
+        fontSize: "7px",
         color: "#666",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
       }}>
-        💾 {text.length} | 🔔 {getActiveReminders().length}
+        💾{text.length}|🔔{getActiveReminders().length}
       </div>
     </div>
   );
