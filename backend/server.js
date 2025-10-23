@@ -4,7 +4,7 @@ import echoRoutes from './routes/echoRoutes.js';
 import systemRoutes from './routes/systemRoutes.js';
 import versionRoutes from './routes/versionRoutes.js';
 import healthRoutes from './routes/healthRoutes.js';
-import { loggerMiddleware } from './middleware/loggerMiddleware.js';
+import { loggerMiddleware } from './middleware/LoggerMiddleware.js';
 import { authMiddleware } from './middleware/authMiddleware.js';
 import { PORT } from './config/envConfig.js';
 import pastryRoutes from './routes/pastryRoutes.js';
