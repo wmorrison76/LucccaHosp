@@ -47,19 +47,21 @@ async function copyDir(src, dest) {
  * Body: form-data with multiple 'files' and 'paths' fields
  * Returns: { success: bool, message: string, moduleName: string }
  */
-router.post('/upload-folder', uploadMultiple.array('files', 1000), async (req, res) => {
+router.post('/upload-folder', uploadMultiple, async (req, res) => {
   const startTime = Date.now();
   const uploadedFiles = new Map(); // Map to track files by path
 
   try {
     console.log(`[MODULE_UPLOAD] Upload folder endpoint hit`);
 
-    if (!req.files || req.files.length === 0) {
+    if (!req.files || !req.files.files || req.files.files.length === 0) {
       console.error('[MODULE_UPLOAD] No files in request');
       return res.status(400).json({ success: false, message: 'No files provided' });
     }
 
-    const folderName = req.body.folderName || 'Module';
+    // Extract folderName from fields (multer stores text fields in req.files[fieldName])
+    const folderNameField = req.files.folderName?.[0]?.filename || 'Module';
+    const folderName = folderNameField || 'Module';
     const modulesDir = path.join(__dirname, '..', '..', 'frontend', 'src', 'modules');
     const destPath = path.join(modulesDir, folderName);
 
