@@ -385,27 +385,31 @@ export default function SettingsSuite() {
         )}
 
         {section === "zaro" && (
-          <SectionCard title="Super Admin (ZARO)">
-            <div className="grid gap-3">
-              <p className="opacity-80 text-sm">
-                Open the ZARO console to manage org-wide settings and elevated tasks.
-              </p>
-              <LabeledInput
-                label="ZARO URL"
-                value={zaroUrl}
-                onChange={setZaroUrl}
-                placeholder="/admin/zaro or https://admin.example.com/zaro"
-              />
-              <div className="flex gap-2">
-                <button className="px-3 h-9 rounded-lg border border-white/20 hover:border-white/35" onClick={saveZaroUrl}>
-                  Save
-                </button>
-                <a href={zaroUrl || "/admin/zaro"} className="px-3 h-9 inline-grid place-items-center rounded-lg border border-white/20 hover:border-white/35">
-                  Open ZARO
-                </a>
+          <>
+            <SectionCard title="Super Admin Portal">
+              <div className="p-4 grid gap-4">
+                <div>
+                  <p className="text-sm opacity-80 mb-3">
+                    Access the ZARO console to manage organization-wide settings and elevated administrative tasks.
+                  </p>
+                </div>
+                <LabeledInput
+                  label="ZARO Portal URL"
+                  value={zaroUrl}
+                  onChange={setZaroUrl}
+                  placeholder="/admin/zaro or https://admin.example.com/zaro"
+                />
+                <div className="flex gap-3">
+                  <button className="flex-1 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-sm font-medium transition-colors" onClick={saveZaroUrl}>
+                    Save URL
+                  </button>
+                  <a href={zaroUrl || "/admin/zaro"} className="flex-1 px-4 py-2 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 text-sm font-medium transition-colors text-center">
+                    Open Portal
+                  </a>
+                </div>
               </div>
-            </div>
-          </SectionCard>
+            </SectionCard>
+          </>
         )}
       </main>
 
