@@ -86,7 +86,7 @@ export default function Toolbar({
         <ToolbarButton icon={<Calendar size={14} />} title="Calendar" />
 
         <ToolbarButton
-          icon={<Note size={14} />}
+          icon={<FileText size={14} />}
           title="Sticky Note"
           onClick={() =>
             window.dispatchEvent(
