@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import {
   Menu, RotateCcw, ChevronLeft, ChevronRight, Grid3x3,
-  Image as ImageIcon, Calendar, Video, Link2, Settings, Zap, Square
+  Image as ImageIcon, Calendar, Video, Link2, Settings, Zap, Square,
+  MessageSquare, Phone, PenTool, Sticky
 } from "lucide-react";
 
 export default function Toolbar({
@@ -66,9 +67,46 @@ export default function Toolbar({
         <ToolbarButton icon={<Grid3x3 size={14} />} title="Grid" />
         <ToolbarButton icon={<ImageIcon size={14} />} title="Image" />
         <ToolbarButton icon={<Calendar size={14} />} title="Calendar" />
+
+        <ToolbarButton
+          icon={<Sticky size={14} />}
+          title="Sticky Note"
+          onClick={() =>
+            window.dispatchEvent(
+              new CustomEvent("open-panel", {
+                detail: { id: "stickynote", allowDuplicate: true },
+              })
+            )
+          }
+        />
+
+        <ToolbarButton
+          icon={<PenTool size={14} />}
+          title="Whiteboard"
+          onClick={() =>
+            window.dispatchEvent(
+              new CustomEvent("open-panel", {
+                detail: { id: "whiteboard", allowDuplicate: true },
+              })
+            )
+          }
+        />
+
+        <ToolbarButton
+          icon={<Phone size={14} />}
+          title="Teleconference"
+          onClick={() =>
+            window.dispatchEvent(
+              new CustomEvent("open-panel", {
+                detail: { id: "teleconference", allowDuplicate: true },
+              })
+            )
+          }
+        />
+
         <ToolbarButton
           icon={<Video size={14} />}
-          title="Video"
+          title="Video Conference"
           onClick={() =>
             window.dispatchEvent(
               new CustomEvent("open-panel", {
