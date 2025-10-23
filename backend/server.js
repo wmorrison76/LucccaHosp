@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import http from 'http';
 import echoRoutes from './routes/echoRoutes.js';
 import systemRoutes from './routes/systemRoutes.js';
 import versionRoutes from './routes/versionRoutes.js';
@@ -14,10 +15,12 @@ import moduleUploadRoutes from './routes/moduleUpload.js';
 
 const app = express();
 
-// Increase request timeout to 15 minutes (900s) to match upload timeout
+// Increase request timeout to 20 minutes (1200s) to accommodate large file uploads
+const TIMEOUT_MS = 20 * 60 * 1000; // 20 minutes
+
 app.use((req, res, next) => {
-  req.setTimeout(900000); // 15 minutes
-  res.setTimeout(900000); // 15 minutes
+  req.setTimeout(TIMEOUT_MS);
+  res.setTimeout(TIMEOUT_MS);
   next();
 });
 
@@ -34,6 +37,31 @@ app.use('/api/health', healthRoutes);
 app.use('/api/pastry', authMiddleware, pastryRoutes);
 app.use('/api/echo-recipe-pro', authMiddleware, echoRecipeProRoutes);
 app.use('/api/modules', moduleUploadRoutes);
-app.listen(PORT || 3001, () => {
+
+// Create HTTP server with proper timeout settings
+const server = http.createServer(app);
+
+// Set socket timeout to 20 minutes to handle large file uploads
+server.setTimeout(TIMEOUT_MS);
+server.keepAliveTimeout = TIMEOUT_MS + 30000; // Keep-alive timeout slightly longer than request timeout
+
+// Handle timeout errors
+server.on('clientError', (err, socket) => {
+  if (err.code === 'ECONNRESET' || !socket.writable) {
+    return;
+  }
+
+  if (err.code === 'HPE_HEADER_OVERFLOW') {
+    socket.end('HTTP/1.1 431 Request Header Fields Too Large\r\n\r\n');
+  } else if (err.message.includes('timeout')) {
+    console.error('[SERVER] Socket timeout error:', err.message);
+    socket.end('HTTP/1.1 408 Request Timeout\r\n\r\n');
+  } else {
+    socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
+  }
+});
+
+server.listen(PORT || 3001, () => {
   console.log(`LUCCCA Core Backend running on port ${PORT || 3001}`);
+  console.log(`Request timeout set to ${TIMEOUT_MS / 1000 / 60} minutes`);
 });
