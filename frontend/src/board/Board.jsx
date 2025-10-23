@@ -82,7 +82,8 @@ const MixologyPanel      = safeImport(() => import("../components/MixologyFallba
 const CRMPanel           = safeImport(() => import("../components/CRMPanel.jsx"), "CRMPanel");
 const ChefNetPanel       = safeImport(() => import("../components/ChefNetPanel.jsx"), "ChefNetPanel");
 const SupportPanel       = safeImport(() => import("../components/SupportPanel.jsx"), "SupportPanel");
-const StickyNotePanel    = safeImport(() => import("../components/EchoCore/panels/StickyNotePanel.jsx"), "StickyNotePanel");
+const StickyNotePanel    = safeImport(() => import("../components/EchoCore/panels/StickyNotePanelEnhanced.jsx"), "StickyNotePanelEnhanced");
+const ReminderWidget     = safeImport(() => import("../components/ReminderWidget.jsx"), "ReminderWidget");
 
 // Optional panels - set to null if not available
 const SettingsSuite      = null;
@@ -101,7 +102,7 @@ import RulerSnapOverlay  from "../echodesk/stubs/RulerSnapOverlay.jsx";
 import LassoCopyTool     from "../echodesk/stubs/LassoCopyTool.jsx";
 // (AI chat removed)
 
-/* ──────────────── Assets ──────────────── */
+/* ─────────��────── Assets ──────────────── */
 import kitchenIcon  from "../assets/culinary_library.png";
 import pastryIcon   from "../assets/baking-&-Pastry.png";
 import mixologyIcon from "../assets/mixology.png";
