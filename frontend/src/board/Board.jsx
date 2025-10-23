@@ -31,6 +31,7 @@ import {
   Ruler,
   LassoSelect,
   Copy,
+  FileText,
 } from "lucide-react";
 
 // Helper for named/default lazy exports
@@ -432,6 +433,9 @@ export default function Board() {
             </button>
             <button className="tb2-btn" title="Templates" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "templates", allowDuplicate: true } }))}>
               <Copy size={13} />
+            </button>
+            <button className="tb2-btn" title="Sticky Note" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "stickynote", allowDuplicate: true } }))}>
+              <FileText size={13} />
             </button>
 
             <div className="tb2-sep" />
