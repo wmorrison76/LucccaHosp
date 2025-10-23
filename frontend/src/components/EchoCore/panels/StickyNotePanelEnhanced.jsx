@@ -136,28 +136,28 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
       {/* Reminder Form */}
       {showReminderForm && (
         <div style={{
-          padding: "12px 16px",
+          padding: "6px 8px",
           backgroundColor: "rgba(229, 231, 235, 0.8)",
           borderBottom: "1px solid rgba(0,0,0,0.1)",
           display: "flex",
           flexDirection: "column",
-          gap: "10px",
+          gap: "6px",
         }}>
-          <div style={{ fontSize: "12px", fontWeight: "600", marginBottom: "4px" }}>
+          <div style={{ fontSize: "9px", fontWeight: "600" }}>
             ⏰ Set Reminder
           </div>
-          
-          <div style={{ display: "flex", gap: "8px" }}>
+
+          <div style={{ display: "flex", gap: "4px" }}>
             <input
               type="date"
               value={reminderForm.dueDate}
               onChange={(e) => setReminderForm({ ...reminderForm, dueDate: e.target.value })}
               style={{
                 flex: 1,
-                padding: "6px 8px",
+                padding: "3px 4px",
                 border: "1px solid #ccc",
-                borderRadius: "4px",
-                fontSize: "12px",
+                borderRadius: "3px",
+                fontSize: "9px",
                 fontFamily: "system-ui",
               }}
             />
@@ -167,42 +167,42 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
               onChange={(e) => setReminderForm({ ...reminderForm, dueTime: e.target.value })}
               style={{
                 flex: 0.8,
-                padding: "6px 8px",
+                padding: "3px 4px",
                 border: "1px solid #ccc",
-                borderRadius: "4px",
-                fontSize: "12px",
+                borderRadius: "3px",
+                fontSize: "9px",
                 fontFamily: "system-ui",
               }}
             />
           </div>
 
-          <div style={{ display: "flex", gap: "8px" }}>
+          <div style={{ display: "flex", gap: "4px" }}>
             <select
               value={reminderForm.priority}
               onChange={(e) => setReminderForm({ ...reminderForm, priority: e.target.value })}
               style={{
                 flex: 1,
-                padding: "6px 8px",
+                padding: "3px 4px",
                 border: "1px solid #ccc",
-                borderRadius: "4px",
-                fontSize: "12px",
+                borderRadius: "3px",
+                fontSize: "9px",
                 fontFamily: "system-ui",
               }}
             >
-              <option value="low">Low Priority</option>
-              <option value="medium">Medium Priority</option>
-              <option value="high">High Priority</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
             </select>
-            
+
             <select
               value={reminderForm.category}
               onChange={(e) => setReminderForm({ ...reminderForm, category: e.target.value })}
               style={{
                 flex: 1,
-                padding: "6px 8px",
+                padding: "3px 4px",
                 border: "1px solid #ccc",
-                borderRadius: "4px",
-                fontSize: "12px",
+                borderRadius: "3px",
+                fontSize: "9px",
                 fontFamily: "system-ui",
               }}
             >
@@ -213,44 +213,39 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
             </select>
           </div>
 
-          {/* Framework: Permission placeholder */}
-          <div style={{ fontSize: "11px", color: "#666", padding: "6px", backgroundColor: "rgba(59, 130, 246, 0.1)", borderRadius: "4px" }}>
-            📌 User/Group: [Framework - Connect permissions later]
-          </div>
-
-          <div style={{ display: "flex", gap: "8px" }}>
+          <div style={{ display: "flex", gap: "4px" }}>
             <button
               onClick={handleCreateReminder}
               style={{
                 flex: 1,
-                padding: "6px 8px",
+                padding: "3px 4px",
                 backgroundColor: "#3b82f6",
                 color: "white",
                 border: "none",
-                borderRadius: "4px",
-                fontSize: "12px",
+                borderRadius: "3px",
+                fontSize: "9px",
                 cursor: "pointer",
                 fontWeight: "600",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: "4px",
+                gap: "2px",
               }}
             >
-              <Send size={12} /> Create Reminder
+              <Send size={9} /> Add
             </button>
             <button
               onClick={() => setShowReminderForm(false)}
               style={{
-                padding: "6px 12px",
+                padding: "3px 6px",
                 backgroundColor: "transparent",
                 border: "1px solid #ccc",
-                borderRadius: "4px",
-                fontSize: "12px",
+                borderRadius: "3px",
+                fontSize: "9px",
                 cursor: "pointer",
               }}
             >
-              <X size={12} />
+              <X size={9} />
             </button>
           </div>
         </div>
