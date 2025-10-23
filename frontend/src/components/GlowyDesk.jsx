@@ -118,14 +118,16 @@ export default function GlowyDesk() {
           "radial-gradient(900px 480px at 85% 0%, rgba(255, 170, 255, .05), transparent 65%)",
       }}
     >
-      <div className="mb-3 -mt-[56px]">
-        <div className="text-3xl md:text-4xl font-black tracking-tight">Late Night Mode, Chef.</div>
-        <div className="text-sm opacity-70">Drag panels. Pin to grid. Pop out when you need space.</div>
-      </div>
-
-      <div className="absolute right-4 top-4 z-[2] flex items-center gap-2">
-        <button className="gd-btn" onClick={addCard}><Plus size={16}/> Add Widget</button>
-        <button className="gd-btn" onClick={reset}><RefreshCcw size={16}/> Reset</button>
+      {/* Header with greeting and controls */}
+      <div className="mb-6 -mt-[72px] flex items-start justify-between">
+        <div>
+          <div className="text-3xl md:text-4xl font-black tracking-tight mb-2">{getGreeting()}</div>
+          <div className="text-sm opacity-70">Drag panels. Pin to grid. Pop out when you need space.</div>
+        </div>
+        <div className="flex items-center gap-2 flex-shrink-0 ml-4">
+          <button className="gd-btn" onClick={addCard}><Plus size={16}/> Add Widget</button>
+          <button className="gd-btn" onClick={reset}><RefreshCcw size={16}/> Reset</button>
+        </div>
       </div>
 
       {cards.map(card => {
