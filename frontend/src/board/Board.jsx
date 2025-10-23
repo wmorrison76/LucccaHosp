@@ -40,7 +40,7 @@ const lazyPick = (loader, key = "default") =>
     loader().then((m) => ({ default: m?.[key] ?? m?.default ?? m }))
   );
 
-/* ───────────────── Panels (lazy) ─��─────────────── */
+/* ──────────────���── Panels (lazy) ─��─────────────── */
 
 // Simplified lazy-loaded panels with error handling
 const safeImport = (importFn, name = 'Unknown') =>
@@ -451,7 +451,7 @@ export default function Board() {
             <button className="tb2-btn" title="Templates" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "templates", allowDuplicate: true } }))}>
               <Copy size={13} />
             </button>
-            <button className="tb2-btn" title="Sticky Note" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "stickynote", allowDuplicate: true, width: 200, height: 240 } }))}>
+            <button className="tb2-btn" title="Sticky Note" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "stickynote", allowDuplicate: true, width: 240, height: 280 } }))}>
               <FileText size={13} />
             </button>
 
