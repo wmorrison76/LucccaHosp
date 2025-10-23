@@ -138,13 +138,13 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
       {showReminderForm && (
         <div style={{
           padding: "3px 4px",
-          backgroundColor: "rgba(229, 231, 235, 0.8)",
+          backgroundColor: "#fffcc0",
           borderBottom: "1px solid rgba(0,0,0,0.1)",
           display: "flex",
           flexDirection: "column",
           gap: "3px",
         }}>
-          <div style={{ fontSize: "7px", fontWeight: "600" }}>
+          <div style={{ fontSize: "8px", fontWeight: "600" }}>
             ⏰ Reminder
           </div>
 
@@ -171,7 +171,7 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
                 padding: "2px 3px",
                 border: "1px solid #ccc",
                 borderRadius: "2px",
-                fontSize: "7px",
+                fontSize: "8px",
                 fontFamily: "system-ui",
               }}
             />
@@ -186,7 +186,7 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
                 padding: "2px 3px",
                 border: "1px solid #ccc",
                 borderRadius: "2px",
-                fontSize: "7px",
+                fontSize: "8px",
                 fontFamily: "system-ui",
               }}
             >
@@ -203,7 +203,7 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
                 padding: "2px 3px",
                 border: "1px solid #ccc",
                 borderRadius: "2px",
-                fontSize: "7px",
+                fontSize: "8px",
                 fontFamily: "system-ui",
               }}
             >
@@ -224,7 +224,7 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
                 color: "white",
                 border: "none",
                 borderRadius: "2px",
-                fontSize: "7px",
+                fontSize: "8px",
                 cursor: "pointer",
                 fontWeight: "600",
                 display: "flex",
@@ -242,7 +242,7 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
                 backgroundColor: "transparent",
                 border: "1px solid #ccc",
                 borderRadius: "2px",
-                fontSize: "7px",
+                fontSize: "8px",
                 cursor: "pointer",
               }}
             >
@@ -274,7 +274,7 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
       {/* Footer - Show reminder count */}
       <div style={{
         padding: "3px 6px",
-        backgroundColor: "rgba(255, 255, 192, 0.9)",
+        backgroundColor: "#fffcc0",
         borderTop: "1px solid rgba(0,0,0,0.1)",
         fontSize: "9px",
         color: "#666",

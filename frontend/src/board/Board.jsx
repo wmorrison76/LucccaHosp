@@ -109,7 +109,7 @@ import pastryIcon   from "../assets/baking-&-Pastry.png";
 import mixologyIcon from "../assets/mixology.png";
 import scheduleIcon from "../assets/schedule.png";
 
-/* ──────���────��─── Error boundary ─────────────── */
+/* ─��────���────��─── Error boundary ─────────────── */
 class PanelErrorBoundary extends React.Component {
   constructor(p){ super(p); this.state = { error: null }; }
   static getDerivedStateFromError(error){ return { error }; }
@@ -194,7 +194,7 @@ const LS = {
   allowOffscreen: "lu:allowOffscreen",
 };
 
-/* ─────��───────── Component ─��───────────── */
+/* ─────��───────── Component ─��────────────��� */
 export default function Board() {
   const layerRef = useRef(null);
   const [windows, setWindows] = useState([]);
@@ -451,7 +451,7 @@ export default function Board() {
             <button className="tb2-btn" title="Templates" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "templates", allowDuplicate: true } }))}>
               <Copy size={13} />
             </button>
-            <button className="tb2-btn" title="Sticky Note" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "stickynote", allowDuplicate: true, width: 240, height: 280 } }))}>
+            <button className="tb2-btn" title="Sticky Note" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "stickynote", allowDuplicate: true, width: 180, height: 210 } }))}>
               <FileText size={13} />
             </button>
 
