@@ -78,7 +78,7 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
         justifyContent: "space-between",
       }}>
         <div style={{ fontSize: "11px", fontWeight: "600" }}>📝 Sticky Note</div>
-        <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+        <div style={{ display: "flex", gap: "4px", alignItems: "center" }}>
           <button
             onClick={() => {
               setIsPinned(!isPinned);
@@ -89,8 +89,8 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
               background: "none",
               border: "none",
               cursor: "pointer",
-              padding: "4px 8px",
-              borderRadius: "4px",
+              padding: "2px 4px",
+              borderRadius: "3px",
               color: isPinned ? "#ef4444" : "#9ca3af",
               backgroundColor: isPinned ? "rgba(239, 68, 68, 0.1)" : "transparent",
               transition: "all 0.2s",
@@ -107,7 +107,7 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
               e.currentTarget.style.color = isPinned ? "#ef4444" : "#9ca3af";
             }}
           >
-            <Pin size={16} />
+            <Pin size={12} />
           </button>
           <button
             onClick={() => setShowReminderForm(!showReminderForm)}
@@ -116,9 +116,8 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
               background: "none",
               border: "none",
               cursor: "pointer",
-              fontSize: "16px",
-              padding: "4px 8px",
-              borderRadius: "4px",
+              padding: "2px 4px",
+              borderRadius: "3px",
               backgroundColor: showReminderForm ? "rgba(59, 130, 246, 0.2)" : "transparent",
               transition: "all 0.2s",
             }}
@@ -129,7 +128,7 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
               e.currentTarget.style.backgroundColor = showReminderForm ? "rgba(59, 130, 246, 0.2)" : "transparent";
             }}
           >
-            <Bell size={16} />
+            <Bell size={12} />
           </button>
         </div>
       </div>
