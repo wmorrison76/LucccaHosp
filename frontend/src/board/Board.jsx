@@ -177,6 +177,11 @@ PANEL_REGISTRY.templates = { title: "Templates", Component: TemplatesLibrary, ic
 PANEL_REGISTRY.ruler = { title: "Ruler & Snap", Component: RulerSnapOverlay, icon: null };
 PANEL_REGISTRY.lasso = { title: "Lasso / Copy", Component: LassoCopyTool, icon: null };
 
+// Toolbar panel connections
+if (AdvancedWhiteboard) PANEL_REGISTRY.whiteboard = { title: "Whiteboard", Component: AdvancedWhiteboard, icon: null };
+if (StickyNotePanel) PANEL_REGISTRY.stickynote = { title: "Sticky Note", Component: StickyNotePanel, icon: null };
+if (AdvancedVideoConference) PANEL_REGISTRY.videoconference = { title: "Video Conference", Component: AdvancedVideoConference, icon: null };
+
 /* ─────────────── Helpers ─────────────── */
 let zCounter = 10;
 const genToken = () => Math.random().toString(36).slice(2) + "-" + Date.now().toString(36);
