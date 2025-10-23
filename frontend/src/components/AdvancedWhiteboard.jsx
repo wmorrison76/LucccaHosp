@@ -1,20 +1,7 @@
-import React, { Suspense, lazy, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Plus, Trash2, Save, RotateCcw } from "lucide-react";
 
-// Try to load the advanced FluidRoot whiteboard from WindowA_WhiteboardCore
-// Use string-based dynamic import to avoid Vite's static analysis
-const AdvancedWhiteboardCore = lazy(async () => {
-  try {
-    const path = "../../WindowA_WhiteboardCore/FluidRoot.tsx";
-    const m = await import(/* @vite-ignore */ path);
-    return { default: m.default || m.FluidRoot };
-  } catch (err) {
-    console.warn('[AdvancedWhiteboard] FluidRoot not available, using fallback:', err?.message);
-    return { default: () => null };
-  }
-});
-
-// Fallback to basic canvas whiteboard if advanced not available
+// Fallback to basic canvas whiteboard
 function BasicWhiteboard() {
   const canvasRef = React.useRef(null);
   const [isDrawing, setIsDrawing] = React.useState(false);
@@ -215,7 +202,8 @@ function BasicWhiteboard() {
             display: "flex",
             alignItems: "center",
             gap: "4px",
-            fontSize: "12px"
+            fontSize: "12px",
+            marginLeft: "auto"
           }}
         >
           <Save size={14} /> Save
@@ -232,7 +220,6 @@ function BasicWhiteboard() {
         style={{
           flex: 1,
           cursor: tool === "pencil" ? "crosshair" : "default",
-          backgroundColor: "#1a202c",
           display: "block"
         }}
       />
@@ -240,25 +227,7 @@ function BasicWhiteboard() {
   );
 }
 
+// Main component - just use BasicWhiteboard
 export default function AdvancedWhiteboard() {
-  const [useAdvanced, setUseAdvanced] = useState(true);
-  const [loadingAdvanced, setLoadingAdvanced] = useState(true);
-  const [advancedFailed, setAdvancedFailed] = useState(false);
-
-  return (
-    <div style={{ width: "100%", height: "100%" }}>
-      {useAdvanced && !advancedFailed && (
-        <Suspense fallback={<BasicWhiteboard />}>
-          <React.Component
-            render={() => {
-              setLoadingAdvanced(false);
-              setAdvancedFailed(false);
-            }}
-          />
-          <AdvancedWhiteboardCore />
-        </Suspense>
-      )}
-      {(!useAdvanced || advancedFailed) && <BasicWhiteboard />}
-    </div>
-  );
+  return <BasicWhiteboard />;
 }
