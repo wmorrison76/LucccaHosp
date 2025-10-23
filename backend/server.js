@@ -9,6 +9,7 @@ import { authMiddleware } from './middleware/authMiddleware.js';
 import { PORT } from './config/envConfig.js';
 import pastryRoutes from './routes/pastryRoutes.js';
 import cakeDesignerRoutes from './routes/cakeDesignerRoutes.js';
+import echoRecipeProRoutes from './routes/echoRecipeProRoutes.js';
 
 const app = express();
 app.use(cors());
@@ -21,6 +22,7 @@ app.use('/api/system', authMiddleware, systemRoutes);
 app.use('/api/version', versionRoutes);
 app.use('/api/health', healthRoutes);
 app.use('/api/pastry', authMiddleware, pastryRoutes);
+app.use('/api/echo-recipe-pro', authMiddleware, echoRecipeProRoutes);
 app.listen(PORT || 3001, () => {
   console.log(`LUCCCA Core Backend running on port ${PORT || 3001}`);
 });
