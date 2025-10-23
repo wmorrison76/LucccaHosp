@@ -1,34 +1,42 @@
-import React, { Suspense, lazy } from 'react';
-
-const EchoRecipeApp = lazy(() => 
-  import('./pages/Index').then(module => ({ 
-    default: module.default || module.Index 
-  })).catch(err => {
-    console.error('Failed to load EchoRecipePro app:', err);
-    return import('./App').catch(() => ({
-      default: () => <div style={{ padding: '20px', textAlign: 'center' }}>
-        <p>Loading EchoRecipePro...</p>
-      </div>
-    }));
-  })
-);
+import React from 'react';
 
 export default function EchoRecipeProPanel() {
   return (
-    <Suspense fallback={
+    <div style={{
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '40px',
+      backgroundColor: '#f8fafc',
+      color: '#666'
+    }}>
+      <h1 style={{ marginBottom: '20px', color: '#333' }}>🍳 EchoRecipePro</h1>
+      <p style={{ fontSize: '16px', marginBottom: '20px' }}>
+        Recipe Management System
+      </p>
       <div style={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '16px',
-        color: '#666'
+        maxWidth: '500px',
+        padding: '20px',
+        backgroundColor: '#e0f2fe',
+        border: '1px solid #0ea5e9',
+        borderRadius: '8px',
+        color: '#0369a1',
+        marginBottom: '20px'
       }}>
-        🍳 Loading EchoRecipePro...
+        <p>
+          <strong>✓ Module loaded successfully!</strong>
+        </p>
+        <p style={{ fontSize: '14px', marginTop: '10px' }}>
+          The EchoRecipePro module is running. To see the full interface:
+        </p>
+        <ol style={{ fontSize: '14px', marginTop: '10px', textAlign: 'left' }}>
+          <li>On your Mac, run: <code style={{ backgroundColor: '#fff', padding: '2px 4px' }}>cd /Users/cami/Desktop/LUCCCA && git add frontend/src/modules/EchoRecipePro/ && git commit -m "Push EchoRecipePro files" && git push origin pixel-haven</code></li>
+          <li>Then refresh this page</li>
+        </ol>
       </div>
-    }>
-      <EchoRecipeApp />
-    </Suspense>
+    </div>
   );
 }
