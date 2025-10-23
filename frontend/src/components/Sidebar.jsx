@@ -79,29 +79,49 @@ function ModuleUploadZone({ isDarkMode }) {
 
   const uploadModule = async (file) => {
     setIsUploading(true);
-    setMessage('Uploading...');
+    setMessage(`⏳ Uploading ${file.name}...`);
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 300000); // 5 minute timeout
 
     try {
       const formData = new FormData();
       formData.append('zip', file);
 
+      console.log(`[UPLOAD] Starting upload of ${file.name} (${file.size} bytes)`);
+
       const response = await fetch('/api/modules/upload', {
         method: 'POST',
-        body: formData
+        body: formData,
+        signal: controller.signal
       });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ message: response.statusText }));
+        throw new Error(errorData.message || `Upload failed with status ${response.status}`);
+      }
 
       const data = await response.json();
 
       if (data.success) {
         setMessage(`✅ ${data.moduleName} loaded!`);
+        console.log(`[UPLOAD] Success: ${data.moduleName}`);
         setTimeout(() => {
           window.location.reload();
         }, 1500);
       } else {
         setMessage(`❌ Error: ${data.message}`);
+        console.error(`[UPLOAD] Error: ${data.message}`);
       }
     } catch (error) {
-      setMessage(`❌ Upload failed: ${error.message}`);
+      clearTimeout(timeoutId);
+      const errorMsg = error.name === 'AbortError'
+        ? 'Upload timeout (5 minutes). File may be too large or network too slow.'
+        : error.message;
+      setMessage(`❌ ${errorMsg}`);
+      console.error(`[UPLOAD] Failed:`, errorMsg);
     } finally {
       setIsUploading(false);
     }
