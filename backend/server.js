@@ -10,6 +10,7 @@ import { PORT } from './config/envConfig.js';
 import pastryRoutes from './routes/pastryRoutes.js';
 import cakeDesignerRoutes from './routes/cakeDesignerRoutes.js';
 import echoRecipeProRoutes from './routes/echoRecipeProRoutes.js';
+import moduleUploadRoutes from './routes/moduleUpload.js';
 
 const app = express();
 app.use(cors());
