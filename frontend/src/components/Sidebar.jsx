@@ -219,8 +219,10 @@ function ModuleUploadZone({ isDarkMode }) {
         <input
           ref={inputRef}
           type="file"
-          accept=".zip"
-          onChange={handleFileSelect}
+          webkitdirectory="true"
+          mozdirectory="true"
+          directory="true"
+          onChange={handleFolderSelect}
           style={{ display: 'none' }}
           disabled={isUploading}
         />
@@ -232,7 +234,7 @@ function ModuleUploadZone({ isDarkMode }) {
           textTransform: 'uppercase',
           letterSpacing: '0.3px'
         }}>
-          {isUploading ? '⏳ Uploading...' : '📦 Drop Module'}
+          {isUploading ? '⏳ Uploading...' : '📁 Drop Folder'}
         </p>
       </div>
       {message && (
