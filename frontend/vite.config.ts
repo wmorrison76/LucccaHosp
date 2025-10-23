@@ -33,7 +33,7 @@ export default defineConfig(({ mode }) => ({
     // Proxy API calls to backend
     proxy: {
       "/api": {
-        target: "http://localhost:5000",
+        target: "http://localhost:3001",
         changeOrigin: true,
         rewrite: (path) => path,
       },
