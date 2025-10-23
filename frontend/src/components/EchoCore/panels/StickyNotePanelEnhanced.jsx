@@ -70,15 +70,15 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
     >
       {/* Header */}
       <div style={{
-        padding: "3px 4px",
+        padding: "4px 6px",
         backgroundColor: "rgba(255, 255, 192, 0.9)",
         borderBottom: "1px solid rgba(0,0,0,0.1)",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        minHeight: "20px",
+        minHeight: "22px",
       }}>
-        <div style={{ fontSize: "8px", fontWeight: "600" }}>📝 Sticky Note</div>
+        <div style={{ fontSize: "9px", fontWeight: "600" }}>📝 Sticky Note</div>
         <div style={{ display: "flex", gap: "2px", alignItems: "center" }}>
           <button
             onClick={() => {
