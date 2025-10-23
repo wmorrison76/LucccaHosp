@@ -333,21 +333,55 @@ export default function SettingsSuite() {
         )}
 
         {section === "notifications" && (
-          <SectionCard title="Notifications">
-            <p className="opacity-80 text-sm">(stub) Configure toast sounds, DND schedule, and message previews here.</p>
-          </SectionCard>
+          <>
+            <SectionCard title="Notification Settings">
+              <SettingRow label="Enable Notifications" description="Receive alerts for important events" divider={false}>
+                <Toggle checked={true} onChange={() => {}} />
+              </SettingRow>
+            </SectionCard>
+            <SectionCard title="Sound">
+              <SettingRow label="Toast Sounds" description="Play sound for notifications" divider={true}>
+                <Toggle checked={true} onChange={() => {}} />
+              </SettingRow>
+              <SettingRow label="Do Not Disturb" description="Mute all notifications" divider={false}>
+                <Toggle checked={false} onChange={() => {}} />
+              </SettingRow>
+            </SectionCard>
+            <div className="text-xs opacity-60 px-4 py-2">
+              Message previews and DND schedule coming soon.
+            </div>
+          </>
         )}
 
         {section === "accounts" && (
-          <SectionCard title="Accounts">
-            <p className="opacity-80 text-sm">(stub) Sign-in methods and connected services.</p>
-          </SectionCard>
+          <>
+            <SectionCard title="Sign-In Methods">
+              <div className="p-4 text-sm opacity-80">
+                Connected services and authentication methods will appear here.
+              </div>
+            </SectionCard>
+          </>
         )}
 
         {section === "advanced" && (
-          <SectionCard title="Advanced">
-            <p className="opacity-80 text-sm">(stub) Experimental flags and developer options.</p>
-          </SectionCard>
+          <>
+            <SectionCard title="Developer Options">
+              <SettingRow label="Developer Mode" description="Enable advanced debugging tools" divider={true}>
+                <Toggle checked={false} onChange={() => {}} />
+              </SettingRow>
+              <SettingRow label="Beta Features" description="Try experimental features" divider={true}>
+                <Toggle checked={false} onChange={() => {}} />
+              </SettingRow>
+              <SettingRow label="Debug Logging" description="Log internal events to console" divider={false}>
+                <Toggle checked={false} onChange={() => {}} />
+              </SettingRow>
+            </SectionCard>
+            <SectionCard title="Performance">
+              <SettingRow label="Analytics" description="Help improve the app" divider={false}>
+                <Toggle checked={true} onChange={() => {}} />
+              </SettingRow>
+            </SectionCard>
+          </>
         )}
 
         {section === "zaro" && (
