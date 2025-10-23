@@ -129,6 +129,42 @@ export default function Toolbar({
             )
           }
         />
+
+        <ToolbarButton
+          icon={
+            <div style={{ position: "relative" }}>
+              <Bell size={14} />
+              {reminderCount > 0 && (
+                <div style={{
+                  position: "absolute",
+                  top: "-4px",
+                  right: "-6px",
+                  backgroundColor: "#ef4444",
+                  color: "white",
+                  fontSize: "9px",
+                  fontWeight: "bold",
+                  borderRadius: "50%",
+                  width: "14px",
+                  height: "14px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}>
+                  {reminderCount > 9 ? "9+" : reminderCount}
+                </div>
+              )}
+            </div>
+          }
+          title={`Reminders (${reminderCount})`}
+          onClick={() =>
+            window.dispatchEvent(
+              new CustomEvent("open-panel", {
+                detail: { id: "reminders", allowDuplicate: false },
+              })
+            )
+          }
+        />
+
         <ToolbarButton icon={<Link2 size={14} />} title="Link" />
 
         {/* Settings with theme menu */}
