@@ -18,13 +18,15 @@ const GRID = { cols: 12, gap: 12, rowH: 120, pad: 16 };
 // Reserve vertical space at the top so the greeting/banner is never covered
 const SAFE_TOP = 72; // tweak this to match your greeting height
 
-// Compact defaults so everything fits cleanly - more square aspect ratios
+// All square cards (3x3) for consistency
 const DEFAULT = [
   { id: "covers",   title: "Today's Covers",   color: "#46e6ff", w: 3, h: 3, x: 0, y: 0, pinned: true },
   { id: "food",     title: "Food Cost",        color: "#b66bff", w: 3, h: 3, x: 3, y: 0, pinned: true },
   { id: "labor",    title: "Labor %",          color: "#5ff1b3", w: 3, h: 3, x: 6, y: 0, pinned: true },
   { id: "health",   title: "Outlet Health",    color: "#ffd45b", w: 3, h: 3, x: 9, y: 0, pinned: true },
-  { id: "schedule", title: "Who's Scheduled",  color: "#7fd0ff", w: 6, h: 3, x: 0, y: 3, pinned: true },
+  { id: "schedule", title: "Who's Scheduled",  color: "#7fd0ff", w: 3, h: 3, x: 0, y: 3, pinned: true },
+  { id: "revenue",  title: "Revenue Forecast", color: "#ff6b9d", w: 3, h: 3, x: 3, y: 3, pinned: true },
+  { id: "alerts",   title: "Active Alerts",    color: "#ffba3d", w: 3, h: 3, x: 6, y: 3, pinned: true },
 ];
 
 export default function GlowyDesk() {
