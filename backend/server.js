@@ -13,9 +13,17 @@ import echoRecipeProRoutes from './routes/echoRecipeProRoutes.js';
 import moduleUploadRoutes from './routes/moduleUpload.js';
 
 const app = express();
+
+// Increase request timeout to 15 minutes (900s) to match upload timeout
+app.use((req, res, next) => {
+  req.setTimeout(900000); // 15 minutes
+  res.setTimeout(900000); // 15 minutes
+  next();
+});
+
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ limit: '500mb', extended: true }));
+app.use(express.json({ limit: '2gb' }));
+app.use(express.urlencoded({ limit: '2gb', extended: true }));
 app.use(loggerMiddleware);
 
 app.use('/api/cake-designer', authMiddleware, cakeDesignerRoutes);
