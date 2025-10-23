@@ -16,7 +16,23 @@ const LSK = "lu:glowdesk:layout:v1";
 const GRID = { cols: 12, gap: 12, rowH: 120, pad: 16 };
 
 // Reserve vertical space at the top so the greeting/banner is never covered
-const SAFE_TOP = 72; // tweak this to match your greeting height
+const SAFE_TOP = 100; // tweak this to match your greeting height
+
+// Get time-based greeting
+function getGreeting() {
+  const hour = new Date().getHours();
+  const userName = localStorage.getItem("lu:username") || "Chef";
+
+  if (hour >= 5 && hour < 12) {
+    return `Good Morning, ${userName}`;
+  } else if (hour >= 12 && hour < 17) {
+    return `Good Afternoon, ${userName}`;
+  } else if (hour >= 17 && hour < 21) {
+    return `Good Evening, ${userName}`;
+  } else {
+    return `Working Late Tonight, ${userName}`;
+  }
+}
 
 // All square cards (3x3) for consistency
 const DEFAULT = [
