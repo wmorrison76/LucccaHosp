@@ -211,14 +211,16 @@ function GlowCard({ title, color, pinned, onPin, onPop, onClose, children }) {
         className="absolute -inset-16 rounded-[28px] pointer-events-none"
         style={{ background: `radial-gradient(360px 180px at 20% 0%, ${hexToRGBA(color, .25)}, transparent 60%)`, filter: "blur(24px)", opacity: .9 }}
       />
-      <div className="gd-toolbar gd-handle">
-        <div className="flex items-center gap-1">
+      <div className="gd-toolbar">
+        <div className="gd-handle flex items-center gap-2">
           <button className="gd-ctl" title="Hide" onClick={onClose}><X size={15}/></button>
+          <span className="text-xs font-semibold opacity-80 tracking-wide">{title}</span>
+        </div>
+        <div className="flex items-center gap-1">
           <button className="gd-ctl" title="Pop out" onClick={onPop}><ExternalLink size={15}/></button>
           <button className={`gd-ctl ${pinned ? "gd-on":""}`} title={pinned ? "Unpin (free float)" : "Pin to grid"} onClick={onPin}>
             {pinned ? <Pin size={15}/> : <PinOff size={15}/>}
           </button>
-          <span className="ml-2 text-xs font-semibold opacity-80 tracking-wide">{title}</span>
         </div>
       </div>
       <div className="absolute inset-[14px] rounded-xl p-3 md:p-4">{children}</div>
