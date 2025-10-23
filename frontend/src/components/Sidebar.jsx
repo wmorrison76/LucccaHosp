@@ -355,6 +355,18 @@ export default function Sidebar({
           ))}
         </div>
 
+        {/* Module Upload Dropzone */}
+        {isOpen && (
+          <div
+            className="px-3 py-3 flex-shrink-0 border-t"
+            style={{
+              borderTopColor: isDarkMode ? "rgba(0, 217, 255, 0.1)" : "rgba(0, 0, 0, 0.1)"
+            }}
+          >
+            <ModuleUploadZone isDarkMode={isDarkMode} />
+          </div>
+        )}
+
         {/* Theme Toggle */}
         <div className={`px-3 py-3 flex-shrink-0 ${isOpen ? "flex justify-end" : "flex justify-center"}`}>
           <button
