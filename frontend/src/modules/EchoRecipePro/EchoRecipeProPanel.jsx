@@ -58,14 +58,14 @@ export default function EchoRecipeProPanel() {
               placeholder="Recipe name"
               value={newRecipe.name}
               onChange={(e) => setNewRecipe({ ...newRecipe, name: e.target.value })}
-              style={{ width: '100%', marginBottom: '8px', padding: '8px', borderRadius: '4px', border: '1px solid #d1d5db', fontSize: '12px' }}
+              style={{ width: '100%', marginBottom: '8px', padding: '8px', borderRadius: '4px', border: '1px solid #d1d5db', fontSize: '12px', boxSizing: 'border-box' }}
             />
             <input
               type="text"
               placeholder="Category"
               value={newRecipe.category}
               onChange={(e) => setNewRecipe({ ...newRecipe, category: e.target.value })}
-              style={{ width: '100%', marginBottom: '8px', padding: '8px', borderRadius: '4px', border: '1px solid #d1d5db', fontSize: '12px' }}
+              style={{ width: '100%', marginBottom: '8px', padding: '8px', borderRadius: '4px', border: '1px solid #d1d5db', fontSize: '12px', boxSizing: 'border-box' }}
             />
             <button
               onClick={handleAddRecipe}
