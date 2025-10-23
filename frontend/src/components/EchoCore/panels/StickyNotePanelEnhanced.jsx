@@ -78,7 +78,37 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
         justifyContent: "space-between",
       }}>
         <div style={{ fontSize: "14px", fontWeight: "600" }}>📝 Sticky Note</div>
-        <div style={{ display: "flex", gap: "8px" }}>
+        <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+          <button
+            onClick={() => {
+              setIsPinned(!isPinned);
+              window.dispatchEvent(new CustomEvent("sticky-pin", { detail: { panelId, isPinned: !isPinned } }));
+            }}
+            title={isPinned ? "Unpin (allow to move)" : "Pin (keep on top)"}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: "4px 8px",
+              borderRadius: "4px",
+              color: isPinned ? "#ef4444" : "#9ca3af",
+              backgroundColor: isPinned ? "rgba(239, 68, 68, 0.1)" : "transparent",
+              transition: "all 0.2s",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "rgba(239, 68, 68, 0.1)";
+              e.currentTarget.style.color = "#ef4444";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = isPinned ? "rgba(239, 68, 68, 0.1)" : "transparent";
+              e.currentTarget.style.color = isPinned ? "#ef4444" : "#9ca3af";
+            }}
+          >
+            <Pin size={16} />
+          </button>
           <button
             onClick={() => setShowReminderForm(!showReminderForm)}
             title="Create Reminder"
