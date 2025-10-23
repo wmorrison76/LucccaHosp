@@ -14,10 +14,20 @@ const upload = multer({
   dest: '/tmp/uploads/',
   limits: { fileSize: 2 * 1024 * 1024 * 1024 }, // 2GB max
   fileFilter: (req, file, cb) => {
-    if (file.mimetype === 'application/zip') {
+    // Accept various zip MIME types (different browsers report different types)
+    const zipMimeTypes = [
+      'application/zip',
+      'application/x-zip-compressed',
+      'application/x-zip',
+      'application/octet-stream'
+    ];
+
+    const isZipFile = zipMimeTypes.includes(file.mimetype) || file.originalname.endsWith('.zip');
+
+    if (isZipFile) {
       cb(null, true);
     } else {
-      cb(new Error('Only zip files allowed'));
+      cb(new Error(`Only zip files allowed (received: ${file.mimetype})`));
     }
   }
 });
