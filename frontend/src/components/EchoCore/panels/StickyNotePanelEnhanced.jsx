@@ -70,15 +70,16 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
     >
       {/* Header */}
       <div style={{
-        padding: "6px 8px",
+        padding: "3px 4px",
         backgroundColor: "rgba(255, 255, 192, 0.9)",
         borderBottom: "1px solid rgba(0,0,0,0.1)",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        minHeight: "20px",
       }}>
-        <div style={{ fontSize: "11px", fontWeight: "600" }}>📝 Sticky Note</div>
-        <div style={{ display: "flex", gap: "4px", alignItems: "center" }}>
+        <div style={{ fontSize: "8px", fontWeight: "600" }}>📝 Sticky Note</div>
+        <div style={{ display: "flex", gap: "2px", alignItems: "center" }}>
           <button
             onClick={() => {
               setIsPinned(!isPinned);
@@ -89,8 +90,8 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
               background: "none",
               border: "none",
               cursor: "pointer",
-              padding: "2px 4px",
-              borderRadius: "3px",
+              padding: "1px 2px",
+              borderRadius: "2px",
               color: isPinned ? "#ef4444" : "#9ca3af",
               backgroundColor: isPinned ? "rgba(239, 68, 68, 0.1)" : "transparent",
               transition: "all 0.2s",
@@ -107,7 +108,7 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
               e.currentTarget.style.color = isPinned ? "#ef4444" : "#9ca3af";
             }}
           >
-            <Pin size={12} />
+            <Pin size={10} />
           </button>
           <button
             onClick={() => setShowReminderForm(!showReminderForm)}
@@ -116,8 +117,8 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
               background: "none",
               border: "none",
               cursor: "pointer",
-              padding: "2px 4px",
-              borderRadius: "3px",
+              padding: "1px 2px",
+              borderRadius: "2px",
               backgroundColor: showReminderForm ? "rgba(59, 130, 246, 0.2)" : "transparent",
               transition: "all 0.2s",
             }}
@@ -128,7 +129,7 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
               e.currentTarget.style.backgroundColor = showReminderForm ? "rgba(59, 130, 246, 0.2)" : "transparent";
             }}
           >
-            <Bell size={12} />
+            <Bell size={10} />
           </button>
         </div>
       </div>
