@@ -12,7 +12,7 @@ const router = express.Router();
 // Configure multer for file uploads
 const upload = multer({
   dest: '/tmp/uploads/',
-  limits: { fileSize: 500 * 1024 * 1024 }, // 500MB max
+  limits: { fileSize: 2 * 1024 * 1024 * 1024 }, // 2GB max
   fileFilter: (req, file, cb) => {
     if (file.mimetype === 'application/zip') {
       cb(null, true);
@@ -68,7 +68,7 @@ router.post('/upload', upload.single('zip'), async (req, res) => {
     await Promise.race([
       extract(zipPath, { dir: extractDir }),
       new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Extraction timeout (30s)')), 30000)
+        setTimeout(() => reject(new Error('Extraction timeout (120s)')), 120000)
       )
     ]);
 
@@ -112,7 +112,7 @@ router.post('/upload', upload.single('zip'), async (req, res) => {
     await Promise.race([
       copyDir(sourcePath, destPath),
       new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Copy timeout (60s)')), 60000)
+        setTimeout(() => reject(new Error('Copy timeout (300s)')), 300000)
       )
     ]);
 

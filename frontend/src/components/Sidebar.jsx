@@ -82,7 +82,7 @@ function ModuleUploadZone({ isDarkMode }) {
     setMessage(`⏳ Uploading ${file.name}...`);
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 300000); // 5 minute timeout
+    const timeoutId = setTimeout(() => controller.abort(), 900000); // 15 minute timeout
 
     try {
       const formData = new FormData();
@@ -118,7 +118,7 @@ function ModuleUploadZone({ isDarkMode }) {
     } catch (error) {
       clearTimeout(timeoutId);
       const errorMsg = error.name === 'AbortError'
-        ? 'Upload timeout (5 minutes). File may be too large or network too slow.'
+        ? 'Upload timeout (15 minutes). File may be too large or network too slow.'
         : error.message;
       setMessage(`❌ ${errorMsg}`);
       console.error(`[UPLOAD] Failed:`, errorMsg);
