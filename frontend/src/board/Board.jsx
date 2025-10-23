@@ -339,14 +339,31 @@ export default function Board() {
         detail: { id: "studio", allowDuplicate: true, title: `Add: ${title}` }
       }));
     };
+    const onStickyPin = (e) => {
+      const { panelId, isPinned } = e?.detail || {};
+      if (!panelId) return;
+      setWindows((w) => w.map((p) => {
+        if (p.id === panelId || p.id.startsWith(panelId + "-")) {
+          if (isPinned) {
+            zCounter += 1000;
+            return { ...p, z: zCounter };
+          } else {
+            return { ...p, z: Math.max(10, zCounter - 1000) };
+          }
+        }
+        return p;
+      }));
+    };
 
     window.addEventListener("open-panel", onOpen);
     window.addEventListener("board-close-by-token", onCloseByToken);
     window.addEventListener("hud-add-widget", onAddWidget);
+    window.addEventListener("sticky-pin", onStickyPin);
     return () => {
       window.removeEventListener("open-panel", onOpen);
       window.removeEventListener("board-close-by-token", onCloseByToken);
       window.removeEventListener("hud-add-widget", onAddWidget);
+      window.removeEventListener("sticky-pin", onStickyPin);
     };
   }, [openPanelById]);
 
