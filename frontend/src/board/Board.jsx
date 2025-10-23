@@ -40,7 +40,7 @@ const lazyPick = (loader, key = "default") =>
     loader().then((m) => ({ default: m?.[key] ?? m?.default ?? m }))
   );
 
-/* ───────────���──���── Panels (lazy) ─��─────────────── */
+/* ──────────────���── Panels (lazy) ─��─────────────── */
 
 // Simplified lazy-loaded panels with error handling
 const safeImport = (importFn, name = 'Unknown') =>
@@ -185,6 +185,7 @@ if (AdvancedWhiteboard) PANEL_REGISTRY.whiteboard = { title: "Whiteboard", Compo
 if (StickyNotePanel) PANEL_REGISTRY.stickynote = { title: "Sticky Note", Component: StickyNotePanel, icon: null };
 if (AdvancedVideoConference) PANEL_REGISTRY.videoconference = { title: "Video Conference", Component: AdvancedVideoConference, icon: null };
 if (ReminderWidget) PANEL_REGISTRY.reminders = { title: "Reminders", Component: ReminderWidget, icon: null };
+if (SettingsSuite) PANEL_REGISTRY.settings = { title: "Settings", Component: SettingsSuite, icon: null };
 
 /* ─────────────── Helpers ─────────────── */
 let zCounter = 10;
