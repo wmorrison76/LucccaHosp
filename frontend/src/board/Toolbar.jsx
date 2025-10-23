@@ -57,6 +57,9 @@ export default function Toolbar({
           border: "1px solid rgba(0, 217, 255, 0.3)",
           borderRadius: "12px",
           boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 217, 255, 0.1)",
+          flexWrap: "wrap",
+          maxWidth: "90vw",
+          justifyContent: "center",
         }}
       >
         {/* Toolbar Label */}
