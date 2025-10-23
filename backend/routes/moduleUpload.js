@@ -1,6 +1,5 @@
 import express from 'express';
 import multer from 'multer';
-import extract from 'extract-zip';
 import path from 'path';
 import fs from 'fs/promises';
 import fsSync from 'fs';
@@ -9,26 +8,13 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const router = express.Router();
 
-// Configure multer for file uploads
-const upload = multer({
+// Configure multer for folder uploads (accepts any files)
+const uploadMultiple = multer({
   dest: '/tmp/uploads/',
-  limits: { fileSize: 2 * 1024 * 1024 * 1024 }, // 2GB max
+  limits: { fileSize: 2 * 1024 * 1024 * 1024 }, // 2GB max per file
   fileFilter: (req, file, cb) => {
-    // Accept various zip MIME types (different browsers report different types)
-    const zipMimeTypes = [
-      'application/zip',
-      'application/x-zip-compressed',
-      'application/x-zip',
-      'application/octet-stream'
-    ];
-
-    const isZipFile = zipMimeTypes.includes(file.mimetype) || file.originalname.endsWith('.zip');
-
-    if (isZipFile) {
-      cb(null, true);
-    } else {
-      cb(new Error(`Only zip files allowed (received: ${file.mimetype})`));
-    }
+    // Accept all files in folder upload
+    cb(null, true);
   }
 });
 
