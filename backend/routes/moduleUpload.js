@@ -36,135 +36,112 @@ async function copyDir(src, dest) {
 }
 
 /**
- * POST /api/modules/upload
- * Upload and extract a module zip file
- * Body: form-data with 'zip' file
+ * POST /api/modules/upload-folder
+ * Upload a module folder with all its files
+ * Body: form-data with multiple 'files' and 'paths' fields
  * Returns: { success: bool, message: string, moduleName: string }
  */
-router.post('/upload', upload.single('zip'), async (req, res) => {
-  let zipPath = null;
-  let extractDir = null;
+router.post('/upload-folder', uploadMultiple.array('files', 1000), async (req, res) => {
   const startTime = Date.now();
+  const uploadedFiles = new Map(); // Map to track files by path
 
   try {
-    console.log(`[MODULE_UPLOAD] Upload endpoint hit - method: ${req.method}`);
+    console.log(`[MODULE_UPLOAD] Upload folder endpoint hit`);
 
-    if (!req.file) {
-      console.error('[MODULE_UPLOAD] No file in request');
-      return res.status(400).json({ success: false, message: 'No file provided' });
+    if (!req.files || req.files.length === 0) {
+      console.error('[MODULE_UPLOAD] No files in request');
+      return res.status(400).json({ success: false, message: 'No files provided' });
     }
 
-    zipPath = req.file.path;
+    const folderName = req.body.folderName || 'Module';
     const modulesDir = path.join(__dirname, '..', '..', 'frontend', 'src', 'modules');
-    extractDir = path.join('/tmp', 'extract_' + Date.now());
+    const destPath = path.join(modulesDir, folderName);
 
-    console.log(`[MODULE_UPLOAD] Starting upload: ${req.file.originalname} (${req.file.size} bytes) to ${modulesDir}`);
-
-    // Create extract directory
-    await fs.mkdir(extractDir, { recursive: true });
-    console.log(`[MODULE_UPLOAD] Extract directory created: ${extractDir}`);
-
-    // Extract zip with timeout
-    console.log(`[MODULE_UPLOAD] Extracting zip to ${extractDir}...`);
-    const extractStartTime = Date.now();
-    await Promise.race([
-      extract(zipPath, { dir: extractDir }),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Extraction timeout (120s)')), 120000)
-      )
-    ]);
-    console.log(`[MODULE_UPLOAD] Extraction completed in ${Date.now() - extractStartTime}ms`);
-
-    // Find the module folder (first folder in extracted zip)
-    console.log(`[MODULE_UPLOAD] Reading extracted directory...`);
-    const extractedItems = await fs.readdir(extractDir);
-    console.log(`[MODULE_UPLOAD] Extracted items: ${extractedItems.join(', ')}`);
-
-    let moduleFolder = null;
-
-    for (const item of extractedItems) {
-      const itemPath = path.join(extractDir, item);
-      const stat = await fs.stat(itemPath);
-      if (stat.isDirectory()) {
-        moduleFolder = item;
-        break;
-      }
-    }
-
-    if (!moduleFolder) {
-      console.error(`[MODULE_UPLOAD] No folder found in extracted zip`);
-      await fs.rm(extractDir, { recursive: true, force: true });
-      await fs.unlink(zipPath);
-      return res.status(400).json({ success: false, message: 'No folder found in zip' });
-    }
-
-    const sourcePath = path.join(extractDir, moduleFolder);
-    const destPath = path.join(modulesDir, moduleFolder);
-
-    console.log(`[MODULE_UPLOAD] Found module folder: ${moduleFolder}`);
-    console.log(`[MODULE_UPLOAD] Source: ${sourcePath}`);
+    console.log(`[MODULE_UPLOAD] Starting folder upload: ${folderName}`);
+    console.log(`[MODULE_UPLOAD] Files count: ${req.files.length}`);
     console.log(`[MODULE_UPLOAD] Destination: ${destPath}`);
 
     // Ensure modules directory exists
     await fs.mkdir(modulesDir, { recursive: true });
 
-    // Copy to modules directory
+    // Backup existing folder
     if (fsSync.existsSync(destPath)) {
-      // Backup existing
       const backupPath = destPath + '_backup_' + Date.now();
-      console.log(`[MODULE_UPLOAD] Module exists, backing up to ${backupPath}`);
+      console.log(`[MODULE_UPLOAD] Folder exists, backing up to ${backupPath}`);
       await fs.rename(destPath, backupPath);
     }
 
-    // Use async copy with timeout
-    console.log(`[MODULE_UPLOAD] Starting copy operation...`);
-    const copyStartTime = Date.now();
-    await Promise.race([
-      copyDir(sourcePath, destPath),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Copy timeout (300s)')), 300000)
-      )
-    ]);
-    console.log(`[MODULE_UPLOAD] Copy completed in ${Date.now() - copyStartTime}ms`);
+    // Create destination folder
+    await fs.mkdir(destPath, { recursive: true });
 
-    // Cleanup
-    console.log(`[MODULE_UPLOAD] Starting cleanup...`);
-    try {
-      if (extractDir) {
-        await fs.rm(extractDir, { recursive: true, force: true });
+    // Get paths array from request body (sent as array or comma-separated)
+    const paths = Array.isArray(req.body.paths)
+      ? req.body.paths
+      : (typeof req.body.paths === 'string' ? [req.body.paths] : []);
+
+    console.log(`[MODULE_UPLOAD] Paths array length: ${paths.length}`);
+
+    // Copy each file to its correct location
+    const copyStartTime = Date.now();
+    for (let i = 0; i < req.files.length; i++) {
+      const file = req.files[i];
+      // Remove folder name from path (first segment)
+      let relativePath = paths[i] || file.originalname;
+      const pathSegments = relativePath.split('/');
+      if (pathSegments[0] === folderName) {
+        pathSegments.shift();
       }
-      if (zipPath) {
-        await fs.unlink(zipPath);
+      relativePath = pathSegments.join('/');
+
+      const destFilePath = path.join(destPath, relativePath);
+      const destDir = path.dirname(destFilePath);
+
+      // Create subdirectories if needed
+      await fs.mkdir(destDir, { recursive: true });
+
+      // Copy file
+      await fs.copyFile(file.path, destFilePath);
+      console.log(`[MODULE_UPLOAD] Copied: ${relativePath}`);
+
+      // Clean up temp file
+      try {
+        await fs.unlink(file.path);
+      } catch (e) {
+        // Ignore cleanup errors
       }
-      console.log(`[MODULE_UPLOAD] Cleanup completed`);
-    } catch (cleanupError) {
-      console.warn(`[MODULE_UPLOAD] Cleanup warning: ${cleanupError.message}`);
     }
+
+    console.log(`[MODULE_UPLOAD] Copy completed in ${Date.now() - copyStartTime}ms`);
 
     const totalTime = Date.now() - startTime;
     console.log(`[MODULE_UPLOAD] Total time: ${totalTime}ms (${(totalTime / 1000).toFixed(2)}s)`);
 
     res.json({
       success: true,
-      message: `Module '${moduleFolder}' extracted successfully`,
-      moduleName: moduleFolder,
-      path: destPath
+      message: `Module '${folderName}' uploaded successfully`,
+      moduleName: folderName,
+      path: destPath,
+      filesCount: req.files.length
     });
+
   } catch (error) {
     const totalTime = Date.now() - startTime;
     console.error(`[MODULE_UPLOAD] Error after ${totalTime}ms: ${error.message}`);
     console.error(`[MODULE_UPLOAD] Error stack:`, error.stack);
 
-    // Cleanup on error
+    // Cleanup temp files
     try {
-      if (extractDir) {
-        await fs.rm(extractDir, { recursive: true, force: true });
-      }
-      if (zipPath) {
-        await fs.unlink(zipPath);
+      if (req.files) {
+        for (const file of req.files) {
+          try {
+            await fs.unlink(file.path);
+          } catch (e) {
+            // Ignore cleanup errors
+          }
+        }
       }
     } catch (cleanupError) {
-      console.warn(`[MODULE_UPLOAD] Error cleanup warning: ${cleanupError.message}`);
+      console.warn(`[MODULE_UPLOAD] Cleanup warning: ${cleanupError.message}`);
     }
 
     res.status(500).json({
