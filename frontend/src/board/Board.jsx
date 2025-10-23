@@ -82,6 +82,7 @@ const MixologyPanel      = safeImport(() => import("../components/MixologyFallba
 const CRMPanel           = safeImport(() => import("../components/CRMPanel.jsx"), "CRMPanel");
 const ChefNetPanel       = safeImport(() => import("../components/ChefNetPanel.jsx"), "ChefNetPanel");
 const SupportPanel       = safeImport(() => import("../components/SupportPanel.jsx"), "SupportPanel");
+const StickyNotePanel    = safeImport(() => import("../components/EchoCore/panels/StickyNotePanel.jsx"), "StickyNotePanel");
 
 // Optional panels - set to null if not available
 const SettingsSuite      = null;
