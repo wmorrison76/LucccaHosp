@@ -128,7 +128,7 @@ router.post('/upload-folder', uploadMultiple, async (req, res) => {
       message: `Module '${folderName}' uploaded successfully`,
       moduleName: folderName,
       path: destPath,
-      filesCount: req.files.length
+      filesCount: files.length
     });
 
   } catch (error) {
@@ -138,12 +138,14 @@ router.post('/upload-folder', uploadMultiple, async (req, res) => {
 
     // Cleanup temp files
     try {
-      if (req.files) {
+      if (req.files && Array.isArray(req.files)) {
         for (const file of req.files) {
-          try {
-            await fs.unlink(file.path);
-          } catch (e) {
-            // Ignore cleanup errors
+          if (file && file.path) {
+            try {
+              await fs.unlink(file.path);
+            } catch (e) {
+              // Ignore cleanup errors
+            }
           }
         }
       }
