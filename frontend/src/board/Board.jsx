@@ -182,6 +182,7 @@ PANEL_REGISTRY.lasso = { title: "Lasso / Copy", Component: LassoCopyTool, icon: 
 if (AdvancedWhiteboard) PANEL_REGISTRY.whiteboard = { title: "Whiteboard", Component: AdvancedWhiteboard, icon: null };
 if (StickyNotePanel) PANEL_REGISTRY.stickynote = { title: "Sticky Note", Component: StickyNotePanel, icon: null };
 if (AdvancedVideoConference) PANEL_REGISTRY.videoconference = { title: "Video Conference", Component: AdvancedVideoConference, icon: null };
+if (ReminderWidget) PANEL_REGISTRY.reminders = { title: "Reminders", Component: ReminderWidget, icon: null };
 
 /* ─────────────── Helpers ─────────────── */
 let zCounter = 10;
