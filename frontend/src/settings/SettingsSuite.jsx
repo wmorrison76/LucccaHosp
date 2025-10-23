@@ -276,26 +276,19 @@ export default function SettingsSuite() {
       {/* Content */}
       <main className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto w-full">
         {section === "general" && (
-          <SectionCard title="Profile">
-            <div className="flex items-center gap-4">
-              <img src={avatar?.url} alt="" className="h-16 w-16 rounded-xl object-cover ring-1 ring-white/15"/>
-              <div className="grid gap-2">
-                <div className="text-sm opacity-80">Avatar</div>
-                <div className="flex gap-2">
-                  <button className="px-3 h-9 rounded-lg border border-white/20 hover:border-white/35"
+          <>
+            <SectionCard title="Profile">
+              <SettingRow label="Avatar" description="Choose or upload your profile picture" divider={false}>
+                <div className="flex items-center gap-3">
+                  <img src={avatar?.url} alt="" className="h-12 w-12 rounded-full object-cover ring-1 ring-white/20"/>
+                  <button className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-sm font-medium transition-colors"
                           onClick={() => setAvatarPickerOpen(true)}>
-                    Edit…
+                    Change
                   </button>
-                  {avatar?.id==="custom" && (
-                    <button className="px-3 h-9 rounded-lg border border-white/20 hover:border-white/35"
-                            onClick={() => usePresetAvatar(PRESET_AVATARS[0])}>
-                      Remove upload
-                    </button>
-                  )}
                 </div>
-              </div>
-            </div>
-          </SectionCard>
+              </SettingRow>
+            </SectionCard>
+          </>
         )}
 
         {section === "appearance" && (
