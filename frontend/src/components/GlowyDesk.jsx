@@ -227,7 +227,7 @@ function GlowCard({ title, color, pinned, onPin, onPop, onClose, children }) {
       <style>{`
         .gd-toolbar{
           position:absolute; left:12px; right:12px; top:10px;
-          display:flex; align-items:center; gap:8px;
+          display:flex; align-items:center; justify-content:space-between; gap:8px;
           padding:8px 12px; border-radius:10px;
           background:linear-gradient(90deg, rgba(0,217,255,.08), rgba(0,217,255,.04));
           border:1px solid rgba(0,217,255,.15);
@@ -240,8 +240,9 @@ function GlowCard({ title, color, pinned, onPin, onPop, onClose, children }) {
           box-shadow: 0 2px 8px rgba(0,0,0,.08), inset 0 0 0 1px rgba(255,255,255,.4);
           color:#1f2937;
         }
-        .gd-toolbar.gd-handle{ cursor:grab; }
-        .gd-ctl{ display:grid; place-items:center; width:24px; height:24px; border-radius:6px; border:1px solid rgba(0,217,255,.2); background:rgba(0,217,255,.08); color:#7ff3ff; transition:all .15s ease; flex-shrink:0; }
+        .gd-handle{ cursor:grab; display:flex; align-items:center; gap:6px; flex:1; }
+        .gd-handle:active{ cursor:grabbing; }
+        .gd-ctl{ display:grid; place-items:center; width:24px; height:24px; border-radius:6px; border:1px solid rgba(0,217,255,.2); background:rgba(0,217,255,.08); color:#7ff3ff; transition:all .15s ease; flex-shrink:0; cursor:pointer; }
         .gd-ctl:hover{ background:rgba(0,217,255,.15); border-color:rgba(0,217,255,.35); box-shadow:0 0 8px rgba(0,217,255,.15); }
         .gd-ctl.gd-on{ border-color:rgba(0,217,255,.5); background:rgba(0,217,255,.15); box-shadow:0 0 12px rgba(0,217,255,.25); }
         html.light .gd-ctl{ border-color:rgba(0,0,0,.1); background:rgba(0,0,0,.05); color:#374151; }
