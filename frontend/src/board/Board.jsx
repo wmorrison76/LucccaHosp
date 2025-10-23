@@ -40,7 +40,7 @@ const lazyPick = (loader, key = "default") =>
     loader().then((m) => ({ default: m?.[key] ?? m?.default ?? m }))
   );
 
-/* ──────────────���── Panels (lazy) ─��─────────────── */
+/* ───────────���──���── Panels (lazy) ─��─────────────── */
 
 // Simplified lazy-loaded panels with error handling
 const safeImport = (importFn, name = 'Unknown') =>
@@ -150,6 +150,7 @@ console.log('[Board] MixologyPanel:', !!MixologyPanel);
 console.log('[Board] CRMPanel:', !!CRMPanel);
 console.log('[Board] ChefNetPanel:', !!ChefNetPanel);
 console.log('[Board] SupportPanel:', !!SupportPanel);
+console.log('[Board] SettingsSuite:', !!SettingsSuite);
 
 if (GlowDesk) PANEL_REGISTRY.dashboard = { title: "Dashboard", Component: GlowDesk, icon: null };
 if (GlowDesk) PANEL_REGISTRY.home = { title: "Welcome", Component: GlowDesk, icon: null };
