@@ -292,48 +292,44 @@ export default function SettingsSuite() {
         )}
 
         {section === "appearance" && (
-          <div className="grid gap-6 md:grid-cols-3">
+          <>
             <SectionCard title="Theme">
-              <div className="grid gap-2">
-                {themeIds.map(id => (
-                  <button
-                    key={id}
-                    onClick={() => setThemeId(id)}
-                    className={`text-left px-3 py-2 rounded-lg border bg-white/5
-                      ${themeId===id ? "border-cyan-400/60 outline outline-2 outline-cyan-300/50"
-                                      : "border-white/12 hover:border-white/25"}`}
-                  >
-                    {labelFromId(id)}
-                  </button>
-                ))}
-              </div>
-              <p className="text-[11px] opacity-70 mt-2">
-                Themes are starting points; tweak details on the right.
-              </p>
-            </SectionCard>
-
-            <SectionCard title="Panel chrome">
-              <div className="grid gap-3">
-                <LabeledInput label="Border width"  value={tweaks["--panel-border-width"] ?? ""} onChange={v=>setTweakVar("--panel-border-width", v)} placeholder="e.g. 1px or 2px"/>
-                <LabeledInput label="Border color"  value={tweaks["--panel-border-color"] ?? ""} onChange={v=>setTweakVar("--panel-border-color", v)} placeholder="rgba(...)"/>
-                <LabeledInput label="Glow (shadow px)" value={tweaks["--shadow"] ?? ""} onChange={v=>setTweakVar("--shadow", v)} placeholder="0 0 24px rgba(...)"/>
-                <LabeledInput label="Header (title) size" value={tweaks["--title-size"] ?? ""} onChange={v=>setTweakVar("--title-size", v)} placeholder="44px"/>
+              <div className="p-4">
+                <div className="grid grid-cols-3 gap-3">
+                  {themeIds.map(id => (
+                    <button
+                      key={id}
+                      onClick={() => setThemeId(id)}
+                      className={`p-3 rounded-xl transition-all text-center text-sm font-medium ${
+                        themeId===id
+                          ? "bg-cyan-500/20 ring-2 ring-cyan-400/60"
+                          : "bg-white/5 hover:bg-white/10 border border-white/10"
+                      }`}
+                    >
+                      {labelFromId(id)}
+                    </button>
+                  ))}
+                </div>
+                <p className="text-xs opacity-60 mt-4">
+                  Themes are starting points; customize below for fine-tuning.
+                </p>
               </div>
             </SectionCard>
 
-            <SectionCard title="Typography">
-              <div className="grid gap-3">
-                <LabeledInput label="Base size"  value={tweaks["--base-size"] ?? ""} onChange={v=>setTweakVar("--base-size", v)} placeholder="14px"/>
-                <LabeledInput label="Title size" value={tweaks["--title-size"] ?? ""} onChange={v=>setTweakVar("--title-size", v)} placeholder="18px"/>
-              </div>
-              <div className="mt-6">
-                <button className="px-3 h-9 rounded-lg border border-white/20 hover:border-white/35"
+            <SectionCard title="Customization">
+              <div className="p-4 grid gap-4">
+                <LabeledInput label="Base font size" value={tweaks["--base-size"] ?? ""} onChange={v=>setTweakVar("--base-size", v)} placeholder="14px"/>
+                <LabeledInput label="Title font size" value={tweaks["--title-size"] ?? ""} onChange={v=>setTweakVar("--title-size", v)} placeholder="18px"/>
+                <LabeledInput label="Panel border width" value={tweaks["--panel-border-width"] ?? ""} onChange={v=>setTweakVar("--panel-border-width", v)} placeholder="1px"/>
+                <LabeledInput label="Panel border color" value={tweaks["--panel-border-color"] ?? ""} onChange={v=>setTweakVar("--panel-border-color", v)} placeholder="rgba(...)"/>
+                <LabeledInput label="Shadow depth" value={tweaks["--shadow"] ?? ""} onChange={v=>setTweakVar("--shadow", v)} placeholder="0 0 24px rgba(...)"/>
+                <button className="mt-4 w-full px-4 py-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-sm font-medium transition-colors"
                         onClick={() => { setTweaksState({}); setTweaks({}); applyTheme(themeId); }}>
-                  Reset theme tweaks
+                  Reset all customizations
                 </button>
               </div>
             </SectionCard>
-          </div>
+          </>
         )}
 
         {section === "notifications" && (
