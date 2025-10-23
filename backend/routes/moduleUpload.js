@@ -8,21 +8,15 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const router = express.Router();
 
-// Configure multer for folder uploads
-const upload = multer({
+// Configure multer for folder uploads - accept all fields
+const uploadMultiple = multer({
   dest: '/tmp/uploads/',
   limits: { fileSize: 2 * 1024 * 1024 * 1024 }, // 2GB max per file
   fileFilter: (req, file, cb) => {
+    // Accept all files in folder upload
     cb(null, true);
   }
-});
-
-// Handle multipart form data with files and text fields
-const uploadMultiple = upload.fields([
-  { name: 'files', maxCount: 1000 },
-  { name: 'folderName', maxCount: 1 },
-  { name: 'paths', maxCount: 1000 }
-]);
+}).any();
 
 // Async recursive copy function
 async function copyDir(src, dest) {
