@@ -50,7 +50,10 @@ router.post('/upload', upload.single('zip'), async (req, res) => {
   let extractDir = null;
 
   try {
+    console.log(`[MODULE_UPLOAD] Upload endpoint hit - method: ${req.method}`);
+
     if (!req.file) {
+      console.error('[MODULE_UPLOAD] No file in request');
       return res.status(400).json({ success: false, message: 'No file provided' });
     }
 
@@ -58,7 +61,7 @@ router.post('/upload', upload.single('zip'), async (req, res) => {
     const modulesDir = path.join(__dirname, '..', '..', 'frontend', 'src', 'modules');
     extractDir = path.join('/tmp', 'extract_' + Date.now());
 
-    console.log(`[MODULE_UPLOAD] Starting upload: ${req.file.originalname} (${req.file.size} bytes)`);
+    console.log(`[MODULE_UPLOAD] Starting upload: ${req.file.originalname} (${req.file.size} bytes) to ${modulesDir}`);
 
     // Create extract directory
     await fs.mkdir(extractDir, { recursive: true });
