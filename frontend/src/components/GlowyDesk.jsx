@@ -21,16 +21,15 @@ const SAFE_TOP = 100; // tweak this to match your greeting height
 // Get time-based greeting
 function getGreeting() {
   const hour = new Date().getHours();
-  const userName = localStorage.getItem("lu:username") || "Chef";
 
   if (hour >= 5 && hour < 12) {
-    return `Good Morning, ${userName}`;
+    return "Good Morning, Chef";
   } else if (hour >= 12 && hour < 17) {
-    return `Good Afternoon, ${userName}`;
+    return "Good Afternoon, Chef";
   } else if (hour >= 17 && hour < 21) {
-    return `Good Evening, ${userName}`;
+    return "Good Evening, Chef";
   } else {
-    return `Working Late Tonight, ${userName}`;
+    return "Working Late Tonight, Chef";
   }
 }
 
