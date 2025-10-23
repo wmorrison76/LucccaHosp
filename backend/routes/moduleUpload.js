@@ -58,6 +58,7 @@ async function copyDir(src, dest) {
 router.post('/upload', upload.single('zip'), async (req, res) => {
   let zipPath = null;
   let extractDir = null;
+  const startTime = Date.now();
 
   try {
     console.log(`[MODULE_UPLOAD] Upload endpoint hit - method: ${req.method}`);
@@ -75,15 +76,18 @@ router.post('/upload', upload.single('zip'), async (req, res) => {
 
     // Create extract directory
     await fs.mkdir(extractDir, { recursive: true });
+    console.log(`[MODULE_UPLOAD] Extract directory created: ${extractDir}`);
 
     // Extract zip with timeout
     console.log(`[MODULE_UPLOAD] Extracting zip to ${extractDir}...`);
+    const extractStartTime = Date.now();
     await Promise.race([
       extract(zipPath, { dir: extractDir }),
       new Promise((_, reject) =>
         setTimeout(() => reject(new Error('Extraction timeout (120s)')), 120000)
       )
     ]);
+    console.log(`[MODULE_UPLOAD] Extraction completed in ${Date.now() - extractStartTime}ms`);
 
     // Find the module folder (first folder in extracted zip)
     const extractedItems = await fs.readdir(extractDir);
