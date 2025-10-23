@@ -55,7 +55,7 @@ router.post('/upload', upload.single('zip'), async (req, res) => {
     }
 
     zipPath = req.file.path;
-    const modulesDir = path.join(process.cwd(), 'frontend', 'src', 'modules');
+    const modulesDir = path.join(__dirname, '..', '..', 'frontend', 'src', 'modules');
     extractDir = path.join('/tmp', 'extract_' + Date.now());
 
     console.log(`[MODULE_UPLOAD] Starting upload: ${req.file.originalname} (${req.file.size} bytes)`);
