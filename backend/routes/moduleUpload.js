@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const router = express.Router();
 
-// Configure multer for folder uploads (accepts any files)
+// Configure multer for folder uploads (accepts files and text fields)
 const uploadMultiple = multer({
   dest: '/tmp/uploads/',
   limits: { fileSize: 2 * 1024 * 1024 * 1024 }, // 2GB max per file
@@ -17,6 +17,16 @@ const uploadMultiple = multer({
     cb(null, true);
   }
 });
+
+// Custom middleware to handle both files and fields
+const handleFolderUpload = (req, res, next) => {
+  uploadMultiple.array('files', 1000)(req, res, (err) => {
+    if (err && err.code === 'LIMIT_UNEXPECTED_FILE') {
+      return next();
+    }
+    next(err);
+  });
+};
 
 // Async recursive copy function
 async function copyDir(src, dest) {
