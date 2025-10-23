@@ -248,27 +248,33 @@ export default function SettingsSuite() {
   const saveZaroUrl = () => localStorage.setItem("lu:zaro:url", zaroUrl || "/admin/zaro");
 
   return (
-    <div className="h-full w-full grid" style={{ gridTemplateColumns: "280px 1fr" }}>
-      {/* Sidebar */}
-      <aside className="sidebar border-r border-white/10 p-4 overflow-y-auto">
-        <div className="text-xl font-semibold mb-3">Settings</div>
-        <nav className="grid gap-1">
-          {SECTIONS.map(s => (
-            <button
-              key={s.id}
-              onClick={() => setSection(s.id)}
-              className={`flex items-center gap-2 px-3 h-9 rounded-lg text-left
-                ${section===s.id ? "bg-white/10 ring-1 ring-white/20" : "hover:bg-white/5"}`}
-            >
-              <span className="w-5 text-center">{s.icon}</span>
-              <span>{s.label}</span>
-            </button>
-          ))}
-        </nav>
-      </aside>
+    <div className="h-full w-full flex flex-col bg-gradient-to-b from-white/[0.03] to-white/0">
+      {/* Top Navigation */}
+      <div className="border-b border-white/10 px-6 py-4">
+        <div className="text-2xl font-semibold">Settings</div>
+        <div className="text-sm opacity-60 mt-1">Customize your experience</div>
+      </div>
+
+      {/* Section Tabs */}
+      <nav className="border-b border-white/10 px-6 flex gap-8 overflow-x-auto scrollbar-hide">
+        {SECTIONS.map(s => (
+          <button
+            key={s.id}
+            onClick={() => setSection(s.id)}
+            className={`py-4 text-sm font-medium whitespace-nowrap transition-colors ${
+              section===s.id
+                ? "text-white border-b-2 border-cyan-400"
+                : "opacity-60 hover:opacity-80 border-b-2 border-transparent"
+            }`}
+          >
+            <span className="mr-2">{s.icon}</span>
+            {s.label}
+          </button>
+        ))}
+      </nav>
 
       {/* Content */}
-      <main className="p-6 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto w-full">
         {section === "general" && (
           <SectionCard title="Profile">
             <div className="flex items-center gap-4">
