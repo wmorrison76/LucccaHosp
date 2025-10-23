@@ -81,6 +81,11 @@ function ModuleUploadZone({ isDarkMode }) {
     setIsUploading(true);
     setMessage(`⏳ Uploading ${file.name}...`);
 
+    // Broadcast upload start to all components
+    window.dispatchEvent(new CustomEvent('module-upload-start', {
+      detail: { fileName: file.name, fileSize: file.size }
+    }));
+
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 20 * 60 * 1000); // 20 minute timeout
 
@@ -108,12 +113,23 @@ function ModuleUploadZone({ isDarkMode }) {
       if (data.success) {
         setMessage(`✅ ${data.moduleName} loaded!`);
         console.log(`[UPLOAD] Success: ${data.moduleName}`);
+
+        // Broadcast upload completion to all components
+        window.dispatchEvent(new CustomEvent('module-upload-complete', {
+          detail: { moduleName: data.moduleName, success: true }
+        }));
+
         setTimeout(() => {
           window.location.reload();
         }, 1500);
       } else {
         setMessage(`❌ Error: ${data.message}`);
         console.error(`[UPLOAD] Error: ${data.message}`);
+
+        // Broadcast upload error to all components
+        window.dispatchEvent(new CustomEvent('module-upload-complete', {
+          detail: { moduleName: file.name, success: false, error: data.message }
+        }));
       }
     } catch (error) {
       clearTimeout(timeoutId);
@@ -122,8 +138,18 @@ function ModuleUploadZone({ isDarkMode }) {
         : error.message;
       setMessage(`❌ ${errorMsg}`);
       console.error(`[UPLOAD] Failed:`, errorMsg);
+
+      // Broadcast upload error to all components
+      window.dispatchEvent(new CustomEvent('module-upload-complete', {
+        detail: { moduleName: file.name, success: false, error: errorMsg }
+      }));
     } finally {
       setIsUploading(false);
+
+      // Auto-clear message after 5 seconds if not successful reload
+      setTimeout(() => {
+        setMessage('');
+      }, 5000);
     }
   };
 
