@@ -90,7 +90,10 @@ router.post('/upload', upload.single('zip'), async (req, res) => {
     console.log(`[MODULE_UPLOAD] Extraction completed in ${Date.now() - extractStartTime}ms`);
 
     // Find the module folder (first folder in extracted zip)
+    console.log(`[MODULE_UPLOAD] Reading extracted directory...`);
     const extractedItems = await fs.readdir(extractDir);
+    console.log(`[MODULE_UPLOAD] Extracted items: ${extractedItems.join(', ')}`);
+
     let moduleFolder = null;
 
     for (const item of extractedItems) {
@@ -103,6 +106,7 @@ router.post('/upload', upload.single('zip'), async (req, res) => {
     }
 
     if (!moduleFolder) {
+      console.error(`[MODULE_UPLOAD] No folder found in extracted zip`);
       await fs.rm(extractDir, { recursive: true, force: true });
       await fs.unlink(zipPath);
       return res.status(400).json({ success: false, message: 'No folder found in zip' });
@@ -112,7 +116,8 @@ router.post('/upload', upload.single('zip'), async (req, res) => {
     const destPath = path.join(modulesDir, moduleFolder);
 
     console.log(`[MODULE_UPLOAD] Found module folder: ${moduleFolder}`);
-    console.log(`[MODULE_UPLOAD] Copying to ${destPath}...`);
+    console.log(`[MODULE_UPLOAD] Source: ${sourcePath}`);
+    console.log(`[MODULE_UPLOAD] Destination: ${destPath}`);
 
     // Ensure modules directory exists
     await fs.mkdir(modulesDir, { recursive: true });
@@ -126,14 +131,15 @@ router.post('/upload', upload.single('zip'), async (req, res) => {
     }
 
     // Use async copy with timeout
+    console.log(`[MODULE_UPLOAD] Starting copy operation...`);
+    const copyStartTime = Date.now();
     await Promise.race([
       copyDir(sourcePath, destPath),
       new Promise((_, reject) =>
         setTimeout(() => reject(new Error('Copy timeout (300s)')), 300000)
       )
     ]);
-
-    console.log(`[MODULE_UPLOAD] Copy completed successfully`);
+    console.log(`[MODULE_UPLOAD] Copy completed in ${Date.now() - copyStartTime}ms`);
 
     // Cleanup
     try {
