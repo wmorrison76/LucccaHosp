@@ -78,7 +78,7 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
         justifyContent: "space-between",
         minHeight: "22px",
       }}>
-        <div style={{ fontSize: "9px", fontWeight: "600" }}>�� Sticky Note</div>
+        <div style={{ fontSize: "9px", fontWeight: "600" }}>📝 Sticky Note</div>
         <div style={{ display: "flex", gap: "3px", alignItems: "center" }}>
           <button
             onClick={() => {
@@ -259,30 +259,27 @@ export default function StickyNotePanelEnhanced({ panelId = "note" }) {
         placeholder="Write your note here..."
         style={{
           flex: 1,
-          padding: "3px 4px",
+          padding: "6px 8px",
           border: "none",
           backgroundColor: "#fffcc0",
           color: "#1a1a1a",
           fontFamily: "Comic Sans MS, cursive",
-          fontSize: "8px",
+          fontSize: "12px",
           resize: "none",
           outline: "none",
-          lineHeight: "1.2",
+          lineHeight: "1.3",
         }}
       />
 
       {/* Footer - Show reminder count */}
       <div style={{
-        padding: "2px 4px",
+        padding: "3px 6px",
         backgroundColor: "rgba(255, 255, 192, 0.9)",
         borderTop: "1px solid rgba(0,0,0,0.1)",
-        fontSize: "7px",
+        fontSize: "9px",
         color: "#666",
-        whiteSpace: "nowrap",
-        overflow: "hidden",
-        textOverflow: "ellipsis",
       }}>
-        💾{text.length}|🔔{getActiveReminders().length}
+        💾 {text.length} | 🔔 {getActiveReminders().length}
       </div>
     </div>
   );
