@@ -15,6 +15,7 @@ import moduleUploadRoutes from './routes/moduleUpload.js';
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ limit: '500mb', extended: true }));
 app.use(loggerMiddleware);
 
 app.use('/api/cake-designer', authMiddleware, cakeDesignerRoutes);
