@@ -69,6 +69,8 @@ const EnterpriseHUD     = safeImport(() => import("../components/EnterpriseHUD.j
 const AdvancedHUD       = safeImport(() => import("../components/AdvancedHUD.jsx"), "AdvancedHUD");
 const FuturisticHUD     = safeImport(() => import("../components/FuturisticHUD.jsx"), "FuturisticHUD");
 const GlowDesk           = safeImport(() => import("../components/GlowyDesk.jsx"), "GlowyDesk");
+const ProfessionalDashboard = safeImport(() => import("../components/ProfessionalDashboard.jsx"), "ProfessionalDashboard");
+const ProfessionalToolbar = safeImport(() => import("../components/ProfessionalToolbar.jsx"), "ProfessionalToolbar");
 const KitchenLibraryTabs = safeImport(() => import("../components/KitchenLibraryTabs.jsx"), "KitchenLibraryTabs");
 const Schedule           = safeImport(() => import("../modules/scheduling/Schedule.jsx"), "Schedule");
 const EchoRecipeProPanel = safeImport(() => import("../components/EchoRecipePro/EchoRecipeProPanel.jsx"), "EchoRecipeProPanel");
