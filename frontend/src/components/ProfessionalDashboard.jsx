@@ -314,13 +314,14 @@ export default function ProfessionalDashboard() {
 
                   {/* Title (Center) */}
                   <span
-                    className="font-semibold text-xs flex-1 truncate"
+                    className="font-semibold text-xs truncate"
                     style={{
                       color: colors.text.primary,
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
-                      display: 'block',
                       whiteSpace: 'nowrap',
+                      maxWidth: '60%',
+                      flex: '0 1 auto',
                     }}
                   >
                     {t[card.title] || card.title}
