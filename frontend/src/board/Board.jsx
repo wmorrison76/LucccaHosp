@@ -65,6 +65,7 @@ const safeImport = (importFn, name = 'Unknown') =>
       });
   });
 
+const FuturisticHUD     = safeImport(() => import("../components/FuturisticHUD.jsx"), "FuturisticHUD");
 const GlowDesk           = safeImport(() => import("../components/GlowyDesk.jsx"), "GlowyDesk");
 const KitchenLibraryTabs = safeImport(() => import("../components/KitchenLibraryTabs.jsx"), "KitchenLibraryTabs");
 const Schedule           = safeImport(() => import("../modules/scheduling/Schedule.jsx"), "Schedule");
