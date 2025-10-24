@@ -350,6 +350,43 @@ function AdvancedWhiteboardCore() {
     setSnapshots(snapshots.filter(s => s.id !== snapshotId));
   };
 
+  const addKitchenTicket = () => {
+    const tableNum = prompt('Enter table number:');
+    if (tableNum) {
+      const newSticky = {
+        id: objectId,
+        type: 'sticky',
+        x: 100 + Math.random() * 400,
+        y: 100 + Math.random() * 300,
+        text: `🍽️ Table ${tableNum}
+Ready time:
+Fire time:`,
+        bgColor: '#ffb3ba'
+      };
+      setObjects(objs => [...objs, newSticky]);
+      setObjectId(id => id + 1);
+    }
+  };
+
+  const addWasteTracking = () => {
+    const wasteItem = prompt('Waste item name:');
+    if (wasteItem) {
+      const cost = prompt('Estimated cost ($):');
+      const newSticky = {
+        id: objectId,
+        type: 'sticky',
+        x: 100 + Math.random() * 400,
+        y: 100 + Math.random() * 300,
+        text: `🗑️ ${wasteItem}
+Cost: $${cost || '0'}
+Time: ${new Date().toLocaleTimeString()}`,
+        bgColor: '#ffccba'
+      };
+      setObjects(objs => [...objs, newSticky]);
+      setObjectId(id => id + 1);
+    }
+  };
+
   const addStickyNote = () => {
     const newSticky = {
       id: objectId,
