@@ -63,6 +63,8 @@ function AdvancedWhiteboardCore() {
   ]);
   const [chatMessages, setChatMessages] = React.useState([]);
   const [chatInput, setChatInput] = React.useState('');
+  const [videoCallActive, setVideoCallActive] = React.useState(false);
+  const [screenShare, setScreenShare] = React.useState(false);
 
   // Initialize Canvas
   useEffect(() => {
