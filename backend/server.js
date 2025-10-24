@@ -13,6 +13,7 @@ import cakeDesignerRoutes from './routes/cakeDesignerroutes.js';
 import echoRecipeProRoutes from './routes/echoRecipeProRoutes.js';
 import moduleUploadRoutes from './routes/moduleUpload.js';
 import { applyAllGuards } from './middleware/payloadGuards.js';
+import { initializeSocketServer } from './services/socketService.js';
 
 const app = express();
 
