@@ -6,7 +6,7 @@ import { SUPPORTED_LANGUAGES } from '../i18n/translations';
 
 export default function ProfessionalToolbar() {
   const { theme, themeMode, colorScheme, language, setThemeMode, setColorScheme, setLanguage, t } =
-    useThemeAndLanguage();
+    useThemeAndLanguageContext();
   const colors = theme.colors;
 
   const [showAppearance, setShowAppearance] = useState(false);
