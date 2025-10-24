@@ -1543,6 +1543,73 @@ Status: Open`,
               🗑️ Waste
             </button>
 
+            {/* FLOOR PLAN TOOLS */}
+            {floorPlanMode && (
+              <>
+                <button
+                  onClick={() => addFloorPlanTable(2)}
+                  title="Add 2-top table"
+                  style={{
+                    padding: "4px 6px",
+                    backgroundColor: "rgba(100, 150, 255, 0.1)",
+                    border: "1px solid rgba(100, 150, 255, 0.3)",
+                    borderRadius: "3px",
+                    color: "#6496ff",
+                    cursor: "pointer",
+                    fontSize: "10px"
+                  }}
+                >
+                  🪑2
+                </button>
+                <button
+                  onClick={() => addFloorPlanTable(4)}
+                  title="Add 4-top table"
+                  style={{
+                    padding: "4px 6px",
+                    backgroundColor: "rgba(100, 150, 255, 0.1)",
+                    border: "1px solid rgba(100, 150, 255, 0.3)",
+                    borderRadius: "3px",
+                    color: "#6496ff",
+                    cursor: "pointer",
+                    fontSize: "10px"
+                  }}
+                >
+                  🪑4
+                </button>
+                <button
+                  onClick={() => addFloorPlanTable(6)}
+                  title="Add 6-top table"
+                  style={{
+                    padding: "4px 6px",
+                    backgroundColor: "rgba(100, 150, 255, 0.1)",
+                    border: "1px solid rgba(100, 150, 255, 0.3)",
+                    borderRadius: "3px",
+                    color: "#6496ff",
+                    cursor: "pointer",
+                    fontSize: "10px"
+                  }}
+                >
+                  🪑6
+                </button>
+              </>
+            )}
+
+            <button
+              onClick={() => setFloorPlanMode(!floorPlanMode)}
+              title="Toggle floor plan mode"
+              style={{
+                padding: "4px 8px",
+                backgroundColor: floorPlanMode ? "rgba(100, 150, 255, 0.2)" : "rgba(100, 150, 255, 0.1)",
+                border: "1px solid rgba(100, 150, 255, 0.3)",
+                borderRadius: "3px",
+                color: "#6496ff",
+                cursor: "pointer",
+                fontSize: "11px"
+              }}
+            >
+              {floorPlanMode ? '✓ Floor Plan' : '🪑 Floor Plan'}
+            </button>
+
             {showTemplate && (
               <div style={{
                 position: 'absolute',
