@@ -129,12 +129,21 @@ function ModuleUploadZone({ isDarkMode }) {
       const totalSize = Array.from(formData.getAll('files')).reduce((sum, f) => sum + f.size, 0);
       console.log(`[UPLOAD] Starting folder upload: ${displayName} (${totalSize} bytes)`);
 
-      console.log(`[UPLOAD] Sending FormData to /api/modules/upload-folder`);
+      // Bypass Vite proxy for large uploads - connect directly to backend port 3001
+      // This avoids multipart parsing issues in the Vite proxy
+      const uploadUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? `http://localhost:3001/api/modules/upload-folder`
+        : `/api/modules/upload-folder`;
 
-      const response = await fetch('/api/modules/upload-folder', {
+      console.log(`[UPLOAD] Sending FormData to ${uploadUrl}`);
+
+      const response = await fetch(uploadUrl, {
         method: 'POST',
         body: formData,
-        signal: controller.signal
+        signal: controller.signal,
+        headers: {
+          // Don't set Content-Type - browser will set it with correct boundary
+        }
       });
 
       clearTimeout(timeoutId);
