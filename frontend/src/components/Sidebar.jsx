@@ -101,8 +101,12 @@ function ModuleUploadZone({ isDarkMode }) {
     try {
       const formData = new FormData();
 
+      // Add folder name as a simple text field (multer will include this as a file/field)
+      formData.append('folderName', displayName);
+
       // Handle files from folder input
       if (files && files.length > 0) {
+        console.log(`[UPLOAD] Processing ${files.length} files`);
         files.forEach((file, index) => {
           const relativePath = file.webkitRelativePath || file.name;
           console.log(`[UPLOAD] Adding file ${index + 1}/${files.length}: ${relativePath} (${file.size} bytes)`);
@@ -110,6 +114,7 @@ function ModuleUploadZone({ isDarkMode }) {
         });
       } else if (folderEntry) {
         // Handle drag-and-drop folder (not fully supported in all browsers)
+        console.log(`[UPLOAD] Processing drag-drop folder`);
         await readFolderRecursive(folderEntry, formData, '');
       }
 
