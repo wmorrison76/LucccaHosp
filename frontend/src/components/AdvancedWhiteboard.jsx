@@ -88,9 +88,34 @@ function AdvancedWhiteboardCore() {
       zoom,
       pan,
       participants,
-      chatMessages
+      chatMessages,
+      images: images.map(img => ({ ...img, src: img.src.substring(0, 100) + '...' })) // Don't save full base64
     }));
-  }, [objects, zoom, pan, participants, chatMessages]);
+  }, [objects, zoom, pan, participants, chatMessages, images]);
+
+  // Render images on canvas updates
+  useEffect(() => {
+    if (images.length === 0) return;
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+
+    // Render all images
+    images.forEach(img => {
+      const imgElement = new Image();
+      imgElement.onload = () => {
+        ctx.drawImage(imgElement, img.x, img.y, img.width, img.height);
+
+        // Draw selection box if selected
+        ctx.strokeStyle = 'rgba(0, 217, 255, 0.5)';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(img.x, img.y, img.width, img.height);
+      };
+      imgElement.src = img.src;
+    });
+  }, [images]);
 
   // Drawing functions
   const startDrawing = (e) => {
