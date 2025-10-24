@@ -221,18 +221,39 @@ export default function AdvancedEchoWhiteboard() {
     setIsDrawing(true);
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
-    const x = (e.clientX - rect.left - pan.x) / zoom;
-    const y = (e.clientY - rect.top - pan.y) / zoom;
+    let x = (e.clientX - rect.left - pan.x) / zoom;
+    let y = (e.clientY - rect.top - pan.y) / zoom;
 
-    const newObj = { id: objectId, type: tool, color, size: brushSize, start: { x, y } };
+    // Apply snap-to-grid
+    if (snapToGrid && (tool === 'line' || tool === 'rect' || tool === 'circle')) {
+      const snapped = snapToGrid({ x, y }, GRID_SIZE, GRID_SNAP_THRESHOLD);
+      x = snapped.x;
+      y = snapped.y;
+    }
+
+    // Detect guides
+    const guides = showGuides ? detectGuideLines({ x, y }, objects) : [];
+    setGuideLines(guides);
+
+    // Handle text tool
+    if (tool === 'text') {
+      setTextInputPos({ x, y });
+      setTextInputOpen(true);
+      return;
+    }
+
+    const newObj = { id: objectId, type: tool, color, size: brushSize, start: { x, y }, fontSize };
     setObjectId(id => id + 1);
 
     if (tool === 'pen' || tool === 'highlighter') {
       newObj.type = 'stroke';
       newObj.points = [{ x, y }];
+      newObj.opacity = tool === 'highlighter' ? 0.4 : 1;
     } else if (tool === 'eraser') {
       setObjects(objs => objs.filter(o => !isNearPoint(o, x, y)));
       return;
+    } else if (['line', 'rect', 'circle'].includes(tool)) {
+      setPreviewShape({ type: tool, start: { x, y }, end: { x, y }, color, size: brushSize });
     }
 
     setObjects(objs => [...objs, newObj]);
