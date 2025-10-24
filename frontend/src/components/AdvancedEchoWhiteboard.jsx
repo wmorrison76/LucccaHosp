@@ -36,10 +36,18 @@ export default function AdvancedEchoWhiteboard() {
   const [tool, setTool] = useState('pen');
   const [color, setColor] = useState('#00d9ff');
   const [brushSize, setBrushSize] = useState(3);
+  const [fontSize, setFontSize] = useState(16);
   const [isDrawing, setIsDrawing] = useState(false);
   const [drawingMode, setDrawingMode] = useState('freehand'); // freehand, line, rect, circle, text
   const [objects, setObjects] = useState([]);
   const [objectId, setObjectId] = useState(0);
+  const [previewShape, setPreviewShape] = useState(null); // Shape being drawn (preview)
+  const [textInputOpen, setTextInputOpen] = useState(false);
+  const [textInputValue, setTextInputValue] = useState('');
+  const [textInputPos, setTextInputPos] = useState({ x: 0, y: 0 });
+  const [snapToGrid, setSnapToGrid] = useState(true);
+  const [showGuides, setShowGuides] = useState(true);
+  const [guideLines, setGuideLines] = useState([]);
 
   // Canvas Transform State
   const [zoom, setZoom] = useState(1);
