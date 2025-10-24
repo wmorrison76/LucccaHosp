@@ -47,15 +47,29 @@ router.post('/upload-folder', uploadMultiple, async (req, res) => {
   try {
     console.log(`[MODULE_UPLOAD] Upload folder endpoint hit`);
     console.log(`[MODULE_UPLOAD] req.files type:`, Array.isArray(req.files) ? 'array' : typeof req.files);
-    console.log(`[MODULE_UPLOAD] req.files keys:`, Object.keys(req.files || {}));
+    console.log(`[MODULE_UPLOAD] req.files count:`, Array.isArray(req.files) ? req.files.length : 'not array');
+
+    if (Array.isArray(req.files)) {
+      console.log(`[MODULE_UPLOAD] First few files:`, req.files.slice(0, 3).map(f => ({
+        filename: f.filename,
+        originalname: f.originalname,
+        size: f.size,
+        path: f.path ? 'exists' : 'no path'
+      })));
+    }
 
     // Filter actual files (multer.any() stores files with filename property)
     const files = Array.isArray(req.files)
       ? req.files.filter(f => f.filename && f.path)
       : [];
 
+    console.log(`[MODULE_UPLOAD] Filtered files count: ${files.length}`);
+
     if (!files || files.length === 0) {
       console.error('[MODULE_UPLOAD] No files in request');
+      if (!Array.isArray(req.files)) {
+        console.error('[MODULE_UPLOAD] req.files is not an array:', typeof req.files);
+      }
       return res.status(400).json({ success: false, message: 'No files provided' });
     }
 
