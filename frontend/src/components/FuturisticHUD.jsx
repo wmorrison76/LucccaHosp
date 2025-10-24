@@ -251,15 +251,21 @@ export default function FuturisticHUD() {
       {/* WIDGETS AREA */}
       <div className="flex-1 relative overflow-auto" style={{ pointerEvents: 'auto' }}>
         <div className="relative w-full h-full" style={{ minHeight: '100%' }}>
-          {widgets.map(widgetId => {
+          {widgets.map((widgetId, idx) => {
             const config = WIDGET_REGISTRY[widgetId];
             if (!config) return null;
 
+            const defaultX = 20 + (idx % 3) * 380;
+            const defaultY = 20 + Math.floor(idx / 3) * 310;
+            const defaultW = 360;
+            const defaultH = 280;
+
             const pos = positions[widgetId] || {
-              x: Math.random() * 200,
-              y: Math.random() * 100,
-              w: 350,
-              h: 250,
+              x: defaultX,
+              y: defaultY,
+              w: defaultW,
+              h: defaultH,
+              z: 10 + idx,
             };
 
             return (
@@ -427,7 +433,7 @@ function HUDSettings({ availableWidgets, activeWidgets, onAddWidget, onRemoveWid
   );
 }
 
-// ━━━━━━━━━���━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // WIDGET COMPONENT
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -487,7 +493,7 @@ function HUDWidget({ id, config, onRemove, onBringToFront }) {
   );
 }
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━���━━━━━━━━━━━━━━━━━━━━━━
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // WIDGET CONTENT (Dynamic based on widget type)
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -520,7 +526,7 @@ function WidgetContent({ id, config }) {
           unit: 'Trends',
           detail: 'Pasta dishes trending +23%',
           metric: 'Recommend: Increase pappardelle stock',
-          trend: 'Predicted demand �� tomorrow',
+          trend: 'Predicted demand ↑ tomorrow',
         },
         // KPIs
         'kpi-covers': {
@@ -629,7 +635,7 @@ function WidgetContent({ id, config }) {
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // UTILITIES
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ━━━━━━━━━━━��━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 function hexToRGBA(hex, a) {
   const s = hex.replace('#', '');
