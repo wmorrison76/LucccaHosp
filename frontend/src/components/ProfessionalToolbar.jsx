@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Settings, Sun, Moon, ChevronDown } from 'lucide-react';
-import { useThemeAndLanguage } from '../hooks/useThemeAndLanguage';
+import { useThemeAndLanguageContext } from '../hooks/useThemeAndLanguage';
 import { colorSchemes, themeModes } from '../theme/themeSystem';
 import { SUPPORTED_LANGUAGES } from '../i18n/translations';
 
