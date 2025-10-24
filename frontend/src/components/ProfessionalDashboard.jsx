@@ -312,7 +312,7 @@ export default function ProfessionalDashboard() {
 
                   {/* Title (Center) */}
                   <h3
-                    className="font-semibold text-sm flex-1 truncate"
+                    className="font-semibold text-sm flex-1 truncate whitespace-nowrap"
                     style={{ color: colors.text.primary }}
                   >
                     {t[card.title] || card.title}
