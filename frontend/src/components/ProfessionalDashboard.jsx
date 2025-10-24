@@ -179,7 +179,7 @@ export default function ProfessionalDashboard() {
               {date} • {hour}:{mins}
             </p>
             <p style={{ color: colors.text.tertiary, fontSize: '13px', marginTop: '4px' }}>
-              {t.dragPanels} • {t.pinToGrid} • {t.popOut}
+              {t.dragPanels} • {t.pinToGrid} �� {t.popOut}
             </p>
           </div>
 
@@ -283,12 +283,22 @@ export default function ProfessionalDashboard() {
               >
                 {/* Panel Header */}
                 <div
-                  className="flex items-center px-4 py-3 border-b flex-shrink-0 gap-3"
+                  className="flex items-center px-4 py-3 border-b flex-shrink-0 gap-2"
                   style={{
                     borderColor: colors.border.secondary,
                   }}
                   data-rnd-handle
                 >
+                  {/* Minimize Button (Left) */}
+                  <button
+                    onClick={() => update(card.id, { h: card.h === 0 ? 1 : 0 })}
+                    className="p-1 hover:opacity-75 transition-opacity flex-shrink-0"
+                    style={{ color: colors.text.secondary }}
+                    title={t.minimize}
+                  >
+                    <Minus size={16} />
+                  </button>
+
                   {/* Close Button (Left) */}
                   <button
                     onClick={() => remove(card.id)}
