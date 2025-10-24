@@ -1,14 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Rnd } from 'react-rnd';
 import {
-  Pin,
-  PinOff,
-  ExternalLink,
-  X,
+  ChevronUp,
+  ChevronDown,
+  Trash2,
+  Share2,
+  Maximize2,
   RefreshCcw,
   Plus,
-  Minus,
-  Maximize2,
 } from 'lucide-react';
 import { useThemeAndLanguageContext } from '../hooks/useThemeAndLanguage';
 
