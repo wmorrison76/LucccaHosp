@@ -160,12 +160,9 @@ export const EchoCanvasIntegration: React.FC<EchoCanvasIntegrationProps> = ({ ca
       // When Stability AI API key is provided, replace with actual API call
       setStatus({ isGenerating: true, progress: 25, message: 'Preparing your request...' });
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      setStatus({ isGenerating: true, progress: 30, message: 'Preparing request...' });
 
-      setStatus({ isGenerating: true, progress: 50, message: 'Generating cake decoration image...' });
-
-      // Placeholder: actual call would be to Stability AI or similar
+      // Call the actual API
       const response = await generateImageWithStabilityAI(prompt, apiKey);
 
       if (response.success && response.imageUrl) {
