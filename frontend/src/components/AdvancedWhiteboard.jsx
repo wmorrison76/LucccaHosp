@@ -800,7 +800,8 @@ function AdvancedWhiteboardCore() {
               {[
                 { id: 'members', label: '👥 Members' },
                 { id: 'chat', label: '💬 Chat' },
-                { id: 'history', label: '⏱️ History' }
+                { id: 'history', label: '⏱️ History' },
+                { id: 'snapshots', label: '📸 Snapshots' }
               ].map(tab => (
                 <button
                   key={tab.id}
