@@ -333,48 +333,192 @@ export const EchoCanvasIntegration: React.FC<EchoCanvasIntegrationProps> = ({ ca
 };
 
 /**
- * Placeholder for Stability AI integration
- * Replace with actual API call when API key is available
+ * Stability AI Integration
+ * Generates cake decoration images using Stability AI API
+ * Falls back to placeholder if API unavailable
  */
 async function generateImageWithStabilityAI(
   prompt: string,
   apiKey: string
 ): Promise<{ success: boolean; imageUrl?: string; error?: string }> {
+  console.log('[EchoCanvas] Starting image generation...');
+  console.log('[EchoCanvas] API Key provided:', apiKey.length > 0 ? `${apiKey.substring(0, 10)}...` : 'none');
+
   try {
-    // This is a placeholder - actual implementation would call Stability AI
-    // https://platform.stability.ai/rest-api-reference#tag/v1generation
-
-    // For now, return a placeholder response
-    console.log('[EchoCanvas] Image generation requested with prompt:', prompt);
-    console.log('[EchoCanvas] API Key provided (length:', apiKey.length, ')');
-
-    // Placeholder: return a data URL with a cake emoji
-    const canvas = document.createElement('canvas');
-    canvas.width = 512;
-    canvas.height = 512;
-    const ctx = canvas.getContext('2d');
-    if (ctx) {
-      ctx.fillStyle = '#f0f0f0';
-      ctx.fillRect(0, 0, 512, 512);
-      ctx.font = 'bold 120px Arial';
-      ctx.fillStyle = '#0066cc';
-      ctx.textAlign = 'center';
-      ctx.fillText('🎂', 256, 280);
-      ctx.font = '24px Arial';
-      ctx.fillStyle = '#666';
-      ctx.fillText('Image generation ready', 256, 360);
+    // Validate inputs
+    if (!prompt || prompt.trim().length === 0) {
+      return {
+        success: false,
+        error: 'Prompt cannot be empty',
+      };
     }
 
-    return {
-      success: true,
-      imageUrl: canvas.toDataURL(),
-    };
+    if (!apiKey || apiKey.trim().length === 0) {
+      console.warn('[EchoCanvas] No API key provided, using placeholder');
+      return generatePlaceholderImage(prompt);
+    }
+
+    // Attempt real API call to Stability AI
+    console.log('[EchoCanvas] Attempting Stability AI API call...');
+
+    try {
+      const response = await fetch('https://api.stability.ai/v1/generation/stable-diffusion-xl-1024-v1-0/text-to-image', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          text_prompts: [
+            {
+              text: prompt,
+              weight: 1,
+            },
+          ],
+          cfg_scale: 7,
+          height: 512,
+          width: 512,
+          steps: 30,
+          samples: 1,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        const errorMsg = errorData.message || errorData.error || response.statusText;
+
+        console.error('[EchoCanvas] API Error:', response.status, errorMsg);
+
+        // Handle specific errors
+        if (response.status === 401) {
+          return {
+            success: false,
+            error: 'Invalid API key. Please check your Stability AI credentials.',
+          };
+        }
+
+        if (response.status === 429) {
+          return {
+            success: false,
+            error: 'Rate limit exceeded. Please wait a moment and try again.',
+          };
+        }
+
+        if (response.status === 400) {
+          return {
+            success: false,
+            error: `Invalid request: ${errorMsg}`,
+          };
+        }
+
+        // Fallback to placeholder on API error
+        console.log('[EchoCanvas] API failed, using placeholder...');
+        return generatePlaceholderImage(prompt);
+      }
+
+      const data = await response.json();
+
+      if (!data.artifacts || data.artifacts.length === 0) {
+        console.error('[EchoCanvas] No images in response');
+        return generatePlaceholderImage(prompt);
+      }
+
+      const imageData = data.artifacts[0].base64;
+      const imageUrl = `data:image/png;base64,${imageData}`;
+
+      console.log('[EchoCanvas] Image generated successfully!');
+
+      return {
+        success: true,
+        imageUrl,
+      };
+    } catch (apiError) {
+      console.warn('[EchoCanvas] API call failed, using placeholder:', apiError);
+
+      // Network error or API unavailable - use placeholder
+      return generatePlaceholderImage(prompt);
+    }
   } catch (error) {
+    console.error('[EchoCanvas] Unexpected error:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Failed to generate image',
     };
   }
+}
+
+/**
+ * Generate a professional placeholder cake decoration image
+ * Used when API is unavailable or for testing
+ */
+function generatePlaceholderImage(prompt: string): Promise<{ success: boolean; imageUrl: string }> {
+  return new Promise((resolve) => {
+    // Create a canvas with professional placeholder
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 512;
+    const ctx = canvas.getContext('2d');
+
+    if (!ctx) {
+      resolve({
+        success: true,
+        imageUrl: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22512%22 height=%22512%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22512%22 height=%22512%22/%3E%3Ctext x=%22256%22 y=%22256%22 font-size=%2232%22 text-anchor=%22middle%22 fill=%22%23999%22%3ECake Placeholder%3C/text%3E%3C/svg%3E',
+      });
+      return;
+    }
+
+    // Background gradient
+    const gradient = ctx.createLinearGradient(0, 0, 512, 512);
+    gradient.addColorStop(0, '#f9f9f9');
+    gradient.addColorStop(1, '#e8e8e8');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 512, 512);
+
+    // Draw decorative elements
+    ctx.strokeStyle = '#ddd';
+    ctx.lineWidth = 1;
+    for (let i = 0; i < 512; i += 32) {
+      ctx.beginPath();
+      ctx.moveTo(i, 0);
+      ctx.lineTo(i, 512);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(0, i);
+      ctx.lineTo(512, i);
+      ctx.stroke();
+    }
+
+    // Large cake emoji
+    ctx.font = 'bold 180px Arial';
+    ctx.fillStyle = '#0066cc';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('🎂', 256, 200);
+
+    // Status text
+    ctx.font = 'bold 24px Arial';
+    ctx.fillStyle = '#0066cc';
+    ctx.fillText('Placeholder Image', 256, 380);
+
+    // Info text
+    ctx.font = '14px Arial';
+    ctx.fillStyle = '#999';
+    ctx.fillText('Connect Stability AI API to generate real designs', 256, 420);
+
+    // Prompt snippet (if available)
+    if (prompt && prompt.length > 0) {
+      ctx.font = '12px monospace';
+      ctx.fillStyle = '#ccc';
+      const promptSnippet = prompt.substring(0, 60) + (prompt.length > 60 ? '...' : '');
+      ctx.fillText(promptSnippet, 256, 460);
+    }
+
+    resolve({
+      success: true,
+      imageUrl: canvas.toDataURL('image/png'),
+    });
+  });
 }
 
 const styles: Record<string, React.CSSProperties> = {
