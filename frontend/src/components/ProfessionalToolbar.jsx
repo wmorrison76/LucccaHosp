@@ -42,6 +42,10 @@ export default function ProfessionalToolbar() {
 
   // Draggable toolbar
   const handleMouseDown = (e) => {
+    // Only drag if clicking on the toolbar background, not on buttons or interactive elements
+    if (e.target.closest('button') || e.target.closest('[role="button"]')) {
+      return;
+    }
     setIsDragging(true);
     setDragOffset({
       x: e.clientX - position.x,
