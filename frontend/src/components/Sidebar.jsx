@@ -181,7 +181,7 @@ function ModuleUploadZone({ isDarkMode }) {
         entry.file(resolve, reject);
       });
       formData.append('files', file);
-      formData.append('paths', path + file.name);
+      console.log(`[UPLOAD] Added file via drag-drop: ${path}${file.name}`);
     } else if (entry.isDirectory) {
       const reader = entry.createReader();
       const entries = await new Promise((resolve, reject) => {
