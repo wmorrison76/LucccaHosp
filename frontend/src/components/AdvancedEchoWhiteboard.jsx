@@ -465,6 +465,27 @@ export default function AdvancedEchoWhiteboard() {
     redrawCanvas();
   }, [objects, pan, zoom, redrawCanvas]);
 
+  // Text input dialog handler
+  const handleAddText = useCallback(() => {
+    if (!textInputValue.trim()) {
+      setTextInputOpen(false);
+      return;
+    }
+
+    const newText = {
+      id: objectId,
+      type: 'text',
+      start: textInputPos,
+      text: textInputValue,
+      color,
+      fontSize
+    };
+    setObjects(objs => [...objs, newText]);
+    setObjectId(id => id + 1);
+    setTextInputValue('');
+    setTextInputOpen(false);
+  }, [textInputValue, textInputPos, color, fontSize, objectId]);
+
   return (
     <div
       ref={containerRef}
