@@ -96,7 +96,7 @@ function ModuleUploadZone({ isDarkMode }) {
     }));
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 20 * 60 * 1000); // 20 minute timeout
+    const timeoutId = setTimeout(() => controller.abort(), 60 * 60 * 1000); // 60 minute timeout for massive uploads
 
     try {
       const formData = new FormData();
