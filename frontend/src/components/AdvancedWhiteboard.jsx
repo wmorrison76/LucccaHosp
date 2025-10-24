@@ -509,6 +509,40 @@ Status: Open`,
     }]);
   };
 
+  const addMeasurement = () => {
+    const startX = 50;
+    const startY = 50;
+    const endX = 250;
+    const endY = 50;
+    const distance = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+
+    const newSticky = {
+      id: objectId,
+      type: 'sticky',
+      x: startX,
+      y: startY - 30,
+      text: `📏 Ruler
+Length: ${Math.round(distance)}px
+Start: (${startX}, ${startY})
+End: (${endX}, ${endY})`,
+      bgColor: '#daffc9'
+    };
+    setObjects(objs => [...objs, newSticky]);
+    setObjectId(id => id + 1);
+
+    // Draw measurement line on canvas
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    ctx.strokeStyle = '#00ff88';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([5, 5]);
+    ctx.beginPath();
+    ctx.moveTo(startX, startY);
+    ctx.lineTo(endX, endY);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  };
+
   const addStickyNote = () => {
     const newSticky = {
       id: objectId,
