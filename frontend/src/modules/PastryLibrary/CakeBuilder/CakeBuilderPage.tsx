@@ -330,7 +330,8 @@ const styles: Record<string, React.CSSProperties> = {
     maxWidth: '1200px',
     margin: '0 auto',
     width: '100%',
-    padding: '2rem',
+    padding: '1rem',
+    overflowY: 'auto' as const,
   },
   welcomeCard: {
     padding: '2rem',
