@@ -25,7 +25,7 @@ function getGreeting(t) {
 
   if (hour >= 5 && hour < 12) {
     greeting = `${t.goodMorning}`;
-    emoji = '����';
+    emoji = '🌅';
   } else if (hour >= 12 && hour < 17) {
     greeting = `${t.goodAfternoon}`;
     emoji = '🌤️';
@@ -270,14 +270,14 @@ export default function ProfessionalDashboard() {
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = colors.bg.panelHover;
                   e.currentTarget.style.boxShadow = themeMode === 'dark'
-                    ? `0 8px 20px ${colors.shadow.lg}, 0 0 40px ${cardColor.primary}80, inset 0 0 20px ${cardColor.primary}30`
-                    : `0 8px 16px rgba(0,0,0,0.2)`;
+                    ? `0 0 30px ${cardColor.primary}99, 0 0 60px ${cardColor.primary}77, 0 8px 24px rgba(0,0,0,0.4), inset 0 0 20px ${cardColor.primary}44`
+                    : `0 8px 24px rgba(0,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.08)`;
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor = colors.bg.panel;
                   e.currentTarget.style.boxShadow = themeMode === 'dark'
-                    ? `0 4px 6px ${colors.shadow.md}, 0 0 30px ${cardColor.primary}60, inset 0 0 20px ${cardColor.primary}20`
-                    : `0 4px 12px rgba(0,0,0,0.15)`;
+                    ? `0 0 20px ${cardColor.primary}99, 0 0 40px ${cardColor.primary}66, 0 4px 12px rgba(0,0,0,0.3), inset 0 0 20px ${cardColor.primary}33`
+                    : `0 6px 20px rgba(0,0,0,0.25), inset 0 0 20px rgba(0,0,0,0.05)`;
                 }}
               >
                 {/* Panel Header */}
