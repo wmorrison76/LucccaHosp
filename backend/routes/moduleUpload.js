@@ -28,10 +28,10 @@ const handleMulterError = (err, req, res, next) => {
   if (err instanceof multer.MulterError) {
     console.error('[MODULE_UPLOAD] Multer error:', err.code, err.message);
     if (err.code === 'LIMIT_FILE_SIZE') {
-      return res.status(413).json({ success: false, message: 'File too large' });
+      return res.status(413).json({ success: false, message: 'File too large - single file exceeds 5GB limit' });
     }
     if (err.code === 'LIMIT_FILE_COUNT') {
-      return res.status(413).json({ success: false, message: 'Too many files' });
+      return res.status(413).json({ success: false, message: `Too many files - folder has more than 50000 files. Count: ${err.limit || 'unknown'}` });
     }
     return res.status(400).json({ success: false, message: err.message });
   }
