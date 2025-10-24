@@ -1083,9 +1083,63 @@ export default function AdvancedEchoWhiteboard() {
 
             {/* HISTORY TAB */}
             {activeTab === 'history' && (
-              <div className="flex-1 overflow-auto p-3 space-y-2 text-xs text-cyan-100/70">
-                <div className="text-center py-8 text-cyan-400/50">
-                  History timeline coming soon
+              <div className="flex-1 overflow-auto p-3 space-y-3">
+                {/* Timeline Section */}
+                <div>
+                  <h3 className="text-xs font-bold text-cyan-300 mb-2">Timeline ({history.length})</h3>
+                  <div className="space-y-1">
+                    {history.length === 0 ? (
+                      <div className="text-center py-4 text-cyan-400/50 text-xs">No history yet</div>
+                    ) : (
+                      history.map((item, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => {
+                            setObjects(JSON.parse(JSON.stringify(item.objects)));
+                            setHistoryIndex(idx);
+                          }}
+                          className={`w-full text-left px-2 py-1 rounded text-xs transition-colors ${
+                            historyIndex === idx
+                              ? 'bg-cyan-500/40 text-cyan-100'
+                              : 'bg-cyan-400/10 text-cyan-100/70 hover:bg-cyan-400/20'
+                          }`}
+                        >
+                          {new Date(item.timestamp).toLocaleTimeString()}
+                        </button>
+                      ))
+                    )}
+                  </div>
+                </div>
+
+                {/* Snapshots Section */}
+                <div className="border-t border-cyan-400/20 pt-3">
+                  <h3 className="text-xs font-bold text-cyan-300 mb-2">Snapshots ({snapshots.length})</h3>
+                  <div className="space-y-1">
+                    {snapshots.length === 0 ? (
+                      <div className="text-center py-4 text-cyan-400/50 text-xs">No snapshots saved</div>
+                    ) : (
+                      snapshots.map(snap => (
+                        <div key={snap.id} className="bg-cyan-400/10 rounded p-2">
+                          <div className="text-cyan-100 text-xs font-semibold truncate">{snap.name}</div>
+                          <div className="text-cyan-400/60 text-xs">{new Date(snap.timestamp).toLocaleString()}</div>
+                          <div className="flex gap-1 mt-1">
+                            <button
+                              onClick={() => handleRestoreSnapshot(snap.id)}
+                              className="flex-1 px-1 py-0.5 bg-cyan-500/30 rounded text-xs hover:bg-cyan-500/50 text-cyan-200"
+                            >
+                              Load
+                            </button>
+                            <button
+                              onClick={() => handleDeleteSnapshot(snap.id)}
+                              className="flex-1 px-1 py-0.5 bg-red-500/20 rounded text-xs hover:bg-red-500/30 text-red-300"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
                 </div>
               </div>
             )}
