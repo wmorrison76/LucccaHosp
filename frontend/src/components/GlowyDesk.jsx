@@ -49,16 +49,16 @@ function getGreeting() {
   return { greeting, emoji, timeStr };
 }
 
-// Enhanced default cards with restaurant data
+// Enhanced default cards with restaurant data - visible in viewport
 const DEFAULT = [
-  { id: "covers",     title: "Today's Covers",      color: "#00d9ff", w: 3, h: 3, x: 0, y: 0, pinned: true, icon: "Users" },
-  { id: "food-cost",  title: "Food Cost %",         color: "#ff4d7d", w: 3, h: 3, x: 3, y: 0, pinned: true, icon: "TrendingUp" },
-  { id: "labor",      title: "Labor Cost %",        color: "#00ff88", w: 3, h: 3, x: 6, y: 0, pinned: true, icon: "Activity" },
-  { id: "orders",     title: "Active Orders",       color: "#ffc844", w: 3, h: 3, x: 9, y: 0, pinned: true, icon: "Clock" },
-  { id: "kitchen",    title: "Kitchen Status",      color: "#b84dff", w: 3, h: 3, x: 0, y: 3, pinned: true, icon: "Zap" },
-  { id: "staff",      title: "Staff on Duty",       color: "#4dbaff", w: 3, h: 3, x: 3, y: 3, pinned: true, icon: "Users" },
-  { id: "alerts",     title: "System Alerts",       color: "#ff6b4d", w: 3, h: 3, x: 6, y: 3, pinned: true, icon: "AlertTriangle" },
-  { id: "revenue",    title: "Live Revenue",        color: "#4dff9e", w: 3, h: 3, x: 9, y: 3, pinned: true, icon: "TrendingUp" },
+  { id: "covers",     title: "Today's Covers",      color: "#00d9ff", w: 3, h: 2, x: 0, y: 0, pinned: true, icon: "Users" },
+  { id: "food-cost",  title: "Food Cost %",         color: "#ff4d7d", w: 3, h: 2, x: 3, y: 0, pinned: true, icon: "TrendingUp" },
+  { id: "labor",      title: "Labor Cost %",        color: "#00ff88", w: 3, h: 2, x: 6, y: 0, pinned: true, icon: "Activity" },
+  { id: "orders",     title: "Active Orders",       color: "#ffc844", w: 3, h: 2, x: 9, y: 0, pinned: true, icon: "Clock" },
+  { id: "kitchen",    title: "Kitchen Status",      color: "#b84dff", w: 3, h: 2, x: 0, y: 2, pinned: true, icon: "Zap" },
+  { id: "staff",      title: "Staff on Duty",       color: "#4dbaff", w: 3, h: 2, x: 3, y: 2, pinned: true, icon: "Users" },
+  { id: "alerts",     title: "System Alerts",       color: "#ff6b4d", w: 3, h: 2, x: 6, y: 2, pinned: true, icon: "AlertTriangle" },
+  { id: "revenue",    title: "Live Revenue",        color: "#4dff9e", w: 3, h: 2, x: 9, y: 2, pinned: true, icon: "TrendingUp" },
 ];
 
 export default function GlowyDesk() {
