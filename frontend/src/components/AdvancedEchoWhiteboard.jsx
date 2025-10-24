@@ -1906,6 +1906,38 @@ export default function AdvancedEchoWhiteboard() {
             />
           </div>
 
+          {/* AI Tools */}
+          <div className="flex gap-1 bg-black/40 rounded-lg p-1 border border-purple-400/20">
+            <button
+              onClick={() => {
+                const items = extractActionItems();
+                setAiSummaryOpen(true);
+              }}
+              className="p-2 rounded hover:bg-purple-400/10 text-purple-400 transition-colors"
+              title="Extract action items"
+            >
+              ✓
+            </button>
+            <button
+              onClick={startVoiceRecording}
+              className={`p-2 rounded transition-colors ${
+                isRecording
+                  ? 'bg-red-500/30 text-red-300'
+                  : 'hover:bg-purple-400/10 text-purple-400'
+              }`}
+              title={isRecording ? 'Recording...' : 'Voice to sticky note'}
+            >
+              🎤
+            </button>
+            <button
+              onClick={() => setPromptDialogOpen(true)}
+              className="p-2 rounded hover:bg-purple-400/10 text-purple-400 transition-colors"
+              title="Generate diagram from prompt"
+            >
+              ✨
+            </button>
+          </div>
+
           {/* Precision Tools */}
           <div className="flex gap-1 bg-black/40 rounded-lg p-1 border border-cyan-400/20">
             <button
