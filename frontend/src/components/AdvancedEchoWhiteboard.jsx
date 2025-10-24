@@ -680,6 +680,50 @@ export default function AdvancedEchoWhiteboard() {
     }
   }, [isRecording]);
 
+  // Keyboard Shortcuts Handler
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Ctrl+Z: Undo
+      if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+        e.preventDefault();
+        handleUndo();
+      }
+      // Ctrl+Y: Redo
+      if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
+        e.preventDefault();
+        handleRedo();
+      }
+      // Ctrl+S: Save Snapshot
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        setSnapshotDialogOpen(true);
+      }
+      // Ctrl+E: Export PNG
+      if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+        e.preventDefault();
+        handleExportPNG();
+      }
+      // Delete: Remove selected
+      if (e.key === 'Delete') {
+        e.preventDefault();
+        setObjects(objs => objs.filter(o => o.id !== selectedMediaObject?.id));
+      }
+      // Escape: Close dialogs
+      if (e.key === 'Escape') {
+        setTextInputOpen(false);
+        setTemplateDialogOpen(false);
+        setPromptDialogOpen(false);
+        setAiSummaryOpen(false);
+        setPdfViewerOpen(false);
+        setVideoPlayerOpen(false);
+        setAudioPlayerOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleUndo, handleRedo, handleExportPNG, selectedMediaObject]);
+
   // Redraw canvas when objects change
   useEffect(() => {
     redrawCanvas();
