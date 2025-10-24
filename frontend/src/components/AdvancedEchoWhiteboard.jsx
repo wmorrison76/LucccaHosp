@@ -1388,7 +1388,7 @@ export default function AdvancedEchoWhiteboard() {
                           {order.items}
                         </div>
                         <div style={{ color: '#999', display: 'flex', justifyContent: 'space-between' }}>
-                          <span>���� {order.fireSince} min</span>
+                          <span>🔥 {order.fireSince} min</span>
                           <span style={{
                             padding: '2px 6px',
                             borderRadius: '2px',
@@ -1848,6 +1848,57 @@ export default function AdvancedEchoWhiteboard() {
                     Close
                   </button>
                 </div>
+              </div>
+            </div>
+          )}
+
+          {/* KEYBOARD SHORTCUTS HELP */}
+          {helpOpen && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-lg z-50 p-4">
+              <div className="bg-slate-800 rounded-lg p-6 border border-cyan-400/40 shadow-2xl max-w-md max-h-96 overflow-auto">
+                <h2 className="text-lg font-bold text-cyan-300 mb-4">⌨️ Keyboard Shortcuts</h2>
+                <div className="space-y-3 text-sm">
+                  <div>
+                    <div style={{ color: '#00d9ff', fontWeight: '600', marginBottom: '4px' }}>Drawing</div>
+                    <div style={{ color: '#ccc', fontSize: '11px' }}>
+                      <div>• Pen, Highlighter, Eraser tools in toolbar</div>
+                      <div>• Shift+Click: Snap to grid</div>
+                      <div>• Right-click: Pan canvas</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ color: '#00d9ff', fontWeight: '600', marginBottom: '4px' }}>Editing</div>
+                    <div style={{ color: '#ccc', fontSize: '11px' }}>
+                      <div>• Ctrl+Z: Undo</div>
+                      <div>• Ctrl+Y: Redo</div>
+                      <div>• Ctrl+S: Save Snapshot</div>
+                      <div>• Ctrl+E: Export PNG</div>
+                      <div>• Delete: Remove selected</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ color: '#00d9ff', fontWeight: '600', marginBottom: '4px' }}>Tools</div>
+                    <div style={{ color: '#ccc', fontSize: '11px' }}>
+                      <div>• Drag media files onto canvas</div>
+                      <div>• Click PDF/Video/Audio to open</div>
+                      <div>• Voice button: Record notes</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ color: '#00d9ff', fontWeight: '600', marginBottom: '4px' }}>View</div>
+                    <div style={{ color: '#ccc', fontSize: '11px' }}>
+                      <div>• Scroll: Pan</div>
+                      <div>• Wheel: Zoom in/out</div>
+                      <div>• Esc: Close dialogs</div>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setHelpOpen(false)}
+                  className="mt-4 w-full px-4 py-2 bg-cyan-500/30 rounded hover:bg-cyan-500/50 text-cyan-200 text-sm font-semibold"
+                >
+                  Close
+                </button>
               </div>
             </div>
           )}
