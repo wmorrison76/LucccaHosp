@@ -248,9 +248,8 @@ const HomePage: React.FC<{ onIntakeClick: () => void; onGalleryClick: () => void
 const QuickStats: React.FC = () => {
   const [stats, setStats] = useState({ designs: 0, tasks: 0, guests: 0 });
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Load from storage on component mount
-    const { getAllCakeDesigns, getAllProductionTasks } = require('./CakeDesignStorage');
     const designs = getAllCakeDesigns();
     const tasks = getAllProductionTasks();
     const guests = designs.reduce((sum: number, d: any) => sum + (d.intakeData?.guestCount || 0), 0);
