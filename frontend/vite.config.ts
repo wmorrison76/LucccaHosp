@@ -30,12 +30,14 @@ export default defineConfig(({ mode }) => ({
           }
         : {},
 
-    // Proxy API calls to backend
+    // Proxy API calls to backend with extended timeout for large uploads
     proxy: {
       "/api": {
         target: "http://localhost:3001",
         changeOrigin: true,
         rewrite: (path) => path,
+        proxyTimeout: 120 * 60 * 1000, // 120 minutes for massive uploads
+        timeout: 120 * 60 * 1000, // 120 minutes
       },
     },
   },
