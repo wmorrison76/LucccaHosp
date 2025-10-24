@@ -153,8 +153,9 @@ console.log('[Board] ChefNetPanel:', !!ChefNetPanel);
 console.log('[Board] SupportPanel:', !!SupportPanel);
 console.log('[Board] SettingsSuite:', !!SettingsSuite);
 
-if (GlowDesk) PANEL_REGISTRY.dashboard = { title: "Dashboard", Component: GlowDesk, icon: null };
-if (GlowDesk) PANEL_REGISTRY.home = { title: "Welcome", Component: GlowDesk, icon: null };
+if (FuturisticHUD) PANEL_REGISTRY.dashboard = { title: "Operations HUD", Component: FuturisticHUD, icon: null };
+if (FuturisticHUD) PANEL_REGISTRY.home = { title: "Operations HUD", Component: FuturisticHUD, icon: null };
+if (GlowDesk) PANEL_REGISTRY.glowdesk = { title: "Legacy Dashboard", Component: GlowDesk, icon: null };
 if (EchoRecipeProPanel) PANEL_REGISTRY.culinary = { title: "Culinary", Component: EchoRecipeProPanel, icon: kitchenIcon };
 if (Schedule) PANEL_REGISTRY.scheduling = { title: "Schedules", Component: Schedule, icon: scheduleIcon };
 if (EchoRecipeProPanel) PANEL_REGISTRY.recipepro = { title: "Recipes", Component: EchoRecipeProPanel, icon: null };
