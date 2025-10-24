@@ -63,7 +63,7 @@ async function copyDir(src, dest) {
  * Body: form-data with multiple 'files' and 'paths' fields
  * Returns: { success: bool, message: string, moduleName: string }
  */
-router.post('/upload-folder', uploadMultiple, async (req, res) => {
+router.post('/upload-folder', uploadMultiple, handleMulterError, async (req, res) => {
   const startTime = Date.now();
 
   try {
