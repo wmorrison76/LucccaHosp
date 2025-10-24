@@ -130,7 +130,7 @@ class PanelErrorBoundary extends React.Component {
   }
 }
 
-/* ──���────���─────── Registry ─────────────── */
+/* ──���──────────── Registry ─────────────── */
 const PANEL_REGISTRY = {};
 
 // Add only panels with valid components
@@ -154,8 +154,9 @@ console.log('[Board] ChefNetPanel:', !!ChefNetPanel);
 console.log('[Board] SupportPanel:', !!SupportPanel);
 console.log('[Board] SettingsSuite:', !!SettingsSuite);
 
-if (FuturisticHUD) PANEL_REGISTRY.dashboard = { title: "Operations HUD", Component: FuturisticHUD, icon: null };
-if (FuturisticHUD) PANEL_REGISTRY.home = { title: "Operations HUD", Component: FuturisticHUD, icon: null };
+if (AdvancedHUD) PANEL_REGISTRY.dashboard = { title: "Operations Nexus", Component: AdvancedHUD, icon: null };
+if (AdvancedHUD) PANEL_REGISTRY.home = { title: "Operations Nexus", Component: AdvancedHUD, icon: null };
+if (FuturisticHUD) PANEL_REGISTRY.futuristic = { title: "Futuristic HUD", Component: FuturisticHUD, icon: null };
 if (GlowDesk) PANEL_REGISTRY.glowdesk = { title: "Legacy Dashboard", Component: GlowDesk, icon: null };
 if (EchoRecipeProPanel) PANEL_REGISTRY.culinary = { title: "Culinary", Component: EchoRecipeProPanel, icon: kitchenIcon };
 if (Schedule) PANEL_REGISTRY.scheduling = { title: "Schedules", Component: Schedule, icon: scheduleIcon };
@@ -200,7 +201,7 @@ const LS = {
   allowOffscreen: "lu:allowOffscreen",
 };
 
-/* ─────��───────── Component ─��────────────��� */
+/* ─────���───────── Component ─��────────────��� */
 export default function Board() {
   const layerRef = useRef(null);
   const [windows, setWindows] = useState([]);
