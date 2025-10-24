@@ -454,6 +454,36 @@ function AdvancedWhiteboardCore() {
     }
   };
 
+  const addMediaEmbed = (type) => {
+    if (type === 'video') {
+      const url = prompt('Enter YouTube or MP4 URL:');
+      if (url) {
+        setMediaEmbeds([...mediaEmbeds, {
+          id: Math.random().toString(36).slice(2),
+          type: 'video',
+          url,
+          x: 50 + Math.random() * 200,
+          y: 50 + Math.random() * 200,
+          width: 300,
+          height: 200
+        }]);
+      }
+    } else if (type === 'audio') {
+      const url = prompt('Enter audio URL (MP3, WAV):');
+      if (url) {
+        setMediaEmbeds([...mediaEmbeds, {
+          id: Math.random().toString(36).slice(2),
+          type: 'audio',
+          url,
+          x: 50 + Math.random() * 200,
+          y: 50 + Math.random() * 200,
+          width: 300,
+          height: 60
+        }]);
+      }
+    }
+  };
+
   return (
     <div style={{
       display: "flex",
