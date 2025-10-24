@@ -227,6 +227,16 @@ const HomePage: React.FC<{ onIntakeClick: () => void; onGalleryClick: () => void
             onIntakeClick();
           }}
           onMouseDown={(e) => e.stopPropagation()}
+          onMouseEnter={(e) => {
+            const btn = e.currentTarget as HTMLButtonElement;
+            btn.style.backgroundColor = '#0052a3';
+            btn.style.transform = 'translateY(-2px)';
+          }}
+          onMouseLeave={(e) => {
+            const btn = e.currentTarget as HTMLButtonElement;
+            btn.style.backgroundColor = '#0066cc';
+            btn.style.transform = 'translateY(0)';
+          }}
           style={styles.buttonLarge}
         >
           ➕ Create New Cake Order
@@ -239,6 +249,18 @@ const HomePage: React.FC<{ onIntakeClick: () => void; onGalleryClick: () => void
             onGalleryClick();
           }}
           onMouseDown={(e) => e.stopPropagation()}
+          onMouseEnter={(e) => {
+            const btn = e.currentTarget as HTMLButtonElement;
+            btn.style.borderColor = '#0052a3';
+            btn.style.color = '#0052a3';
+            btn.style.transform = 'translateY(-2px)';
+          }}
+          onMouseLeave={(e) => {
+            const btn = e.currentTarget as HTMLButtonElement;
+            btn.style.borderColor = '#0066cc';
+            btn.style.color = '#0066cc';
+            btn.style.transform = 'translateY(0)';
+          }}
           style={styles.buttonLargeSecondary}
         >
           📁 View Cake Gallery
