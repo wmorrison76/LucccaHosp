@@ -50,6 +50,9 @@ const server = http.createServer(app);
 server.setTimeout(TIMEOUT_MS);
 server.keepAliveTimeout = TIMEOUT_MS + 30000; // Keep-alive timeout slightly longer than request timeout
 
+// Initialize Socket.IO for real-time collaboration
+initializeSocketServer(server);
+
 // Handle timeout errors
 server.on('clientError', (err, socket) => {
   console.error('[SERVER] Client error:', err.code, err.message);
