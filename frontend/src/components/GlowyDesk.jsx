@@ -180,14 +180,13 @@ export default function GlowyDesk() {
 
       {/* Scrollable Cards Container */}
       <div className="flex-1 overflow-auto relative w-full" style={{ minHeight: 0 }}>
-        <div className="w-full h-full relative" style={{ padding: `${GRID.pad}px` }}>
+        <div className="w-full relative" style={{ padding: `${GRID.pad}px` }}>
           {/* Grid container with proper sizing */}
           <div className="relative w-full" style={{ pointerEvents: 'none' }}>
             {cards.map(card => {
-              if (!containerRef.current) return null;
-              
-              const containerWidth = containerRef.current.clientWidth - GRID.pad * 2;
-              const px = card.pinned ? gridToPx(card, containerWidth) : {
+              const containerWidth = containerRef.current?.clientWidth ?? 1200;
+              const width = Math.max(240, containerWidth - GRID.pad * 2);
+              const px = card.pinned ? gridToPx(card, width) : {
                 x: card.fx ?? 50,
                 y: card.fy ?? 50,
                 w: card.fw ?? 300,
