@@ -129,6 +129,8 @@ function ModuleUploadZone({ isDarkMode }) {
       const totalSize = Array.from(formData.getAll('files')).reduce((sum, f) => sum + f.size, 0);
       console.log(`[UPLOAD] Starting folder upload: ${displayName} (${totalSize} bytes)`);
 
+      console.log(`[UPLOAD] Sending FormData to /api/modules/upload-folder`);
+
       const response = await fetch('/api/modules/upload-folder', {
         method: 'POST',
         body: formData,
@@ -137,8 +139,16 @@ function ModuleUploadZone({ isDarkMode }) {
 
       clearTimeout(timeoutId);
 
+      console.log(`[UPLOAD] Response received: status ${response.status}`);
+
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ message: response.statusText }));
+        let errorData;
+        try {
+          errorData = await response.json();
+        } catch (parseErr) {
+          errorData = { message: response.statusText };
+          console.error(`[UPLOAD] Could not parse error response:`, parseErr.message);
+        }
         throw new Error(errorData.message || `Upload failed with status ${response.status}`);
       }
 
