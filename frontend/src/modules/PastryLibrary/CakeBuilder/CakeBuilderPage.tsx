@@ -383,6 +383,9 @@ const styles: Record<string, React.CSSProperties> = {
     borderRadius: '4px',
     cursor: 'pointer',
     boxShadow: '0 4px 12px rgba(0,102,204,0.3)',
+    transition: 'all 0.3s ease',
+    position: 'relative' as const,
+    zIndex: 10,
   },
   buttonLargeSecondary: {
     padding: '1rem 2.5rem',
@@ -393,6 +396,9 @@ const styles: Record<string, React.CSSProperties> = {
     border: '2px solid #0066cc',
     borderRadius: '4px',
     cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    position: 'relative' as const,
+    zIndex: 10,
   },
   statsCard: {
     padding: '2rem',
