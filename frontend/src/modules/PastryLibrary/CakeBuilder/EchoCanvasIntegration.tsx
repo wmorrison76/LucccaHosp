@@ -91,6 +91,18 @@ export const EchoCanvasIntegration: React.FC<EchoCanvasIntegrationProps> = ({ ca
   const [prompt, setPrompt] = useState<string>(buildImagePrompt(cakeData));
   const [apiKey, setApiKey] = useState<string>('');
   const [apiKeyError, setApiKeyError] = useState<string>('');
+  const [apiConfigured, setApiConfigured] = useState<boolean>(false);
+  const [testingConnection, setTestingConnection] = useState<boolean>(false);
+  const [connectionStatus, setConnectionStatus] = useState<string>('');
+
+  // Load saved configuration on mount
+  useEffect(() => {
+    const config = getEchoCanvasConfig();
+    if (config.apiKey) {
+      setApiKey(config.apiKey);
+      setApiConfigured(true);
+    }
+  }, []);
 
   const handleGenerateImage = async () => {
     if (!apiKey) {
