@@ -1523,6 +1523,82 @@ export default function AdvancedEchoWhiteboard() {
             </div>
           )}
 
+          {/* ACTION ITEMS SUMMARY MODAL */}
+          {aiSummaryOpen && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-lg z-50 p-4">
+              <div className="bg-slate-800 rounded-lg p-6 border border-purple-400/40 shadow-2xl max-w-lg w-full max-h-96 overflow-auto">
+                <h2 className="text-lg font-bold text-purple-300 mb-4">✓ Action Items</h2>
+                {actionItems.length === 0 ? (
+                  <div className="text-center py-8 text-cyan-400/50 text-sm">
+                    No action items found. Add sticky notes with @mentions or TODO: labels
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    {actionItems.map((item, idx) => (
+                      <div key={idx} className={`p-3 rounded border-l-4 ${
+                        item.type === 'todo' ? 'border-yellow-500 bg-yellow-500/10' :
+                        item.type === 'done' ? 'border-green-500 bg-green-500/10' :
+                        'border-purple-500 bg-purple-500/10'
+                      }`}>
+                        <div style={{ color: '#fff', fontSize: '12px', fontWeight: '600', marginBottom: '4px' }}>
+                          {item.type.toUpperCase()} - {item.assignee}
+                        </div>
+                        <div style={{ color: '#ccc', fontSize: '11px' }}>{item.text}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <button
+                  onClick={() => setAiSummaryOpen(false)}
+                  className="mt-4 w-full px-4 py-2 bg-purple-500/30 rounded hover:bg-purple-500/50 text-purple-200 text-sm font-semibold"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* DIAGRAM PROMPT INPUT DIALOG */}
+          {promptDialogOpen && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-lg z-50 p-4">
+              <div className="bg-slate-800 rounded-lg p-6 border border-purple-400/40 shadow-2xl max-w-md w-full">
+                <h2 className="text-lg font-bold text-purple-300 mb-4">✨ Generate Diagram</h2>
+                <p style={{ color: '#ccc', fontSize: '12px', marginBottom: '12px' }}>
+                  Examples: "flowchart", "org chart", "kanban board"
+                </p>
+                <textarea
+                  value={diagramPrompt}
+                  onChange={e => setDiagramPrompt(e.target.value)}
+                  placeholder="Describe the diagram you want..."
+                  className="w-full h-20 bg-purple-400/10 border border-purple-400/20 rounded px-3 py-2 text-purple-100 placeholder-purple-400/40 mb-4 text-sm"
+                  autoFocus
+                />
+                <div className="flex gap-2">
+                  <button
+                    onClick={generateDiagramFromPrompt}
+                    disabled={!diagramPrompt.trim()}
+                    className={`flex-1 px-4 py-2 rounded text-sm font-semibold transition-colors ${
+                      diagramPrompt.trim()
+                        ? 'bg-purple-500/30 hover:bg-purple-500/50 text-purple-200'
+                        : 'bg-purple-500/10 text-purple-400/50 cursor-not-allowed'
+                    }`}
+                  >
+                    Generate
+                  </button>
+                  <button
+                    onClick={() => {
+                      setPromptDialogOpen(false);
+                      setDiagramPrompt('');
+                    }}
+                    className="flex-1 px-4 py-2 bg-red-500/20 rounded hover:bg-red-500/30 text-red-300 text-sm font-semibold"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* TEMPLATE SELECTION DIALOG */}
           {templateDialogOpen && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-lg z-50 p-4">
