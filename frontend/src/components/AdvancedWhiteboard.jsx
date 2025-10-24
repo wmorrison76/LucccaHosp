@@ -697,13 +697,27 @@ function AdvancedWhiteboardCore() {
                   pointerEvents: 'auto',
                   border: '1px solid rgba(100, 200, 255, 0.4)',
                   borderRadius: '6px',
-                  background: 'rgba(10, 20, 35, 0.8)',
+                  background: 'rgba(10, 20, 35, 0.9)',
                   padding: '8px',
                   display: 'flex',
-                  flexDirection: 'column'
+                  flexDirection: 'column',
+                  overflow: 'hidden'
                 }}
               >
-                {media.type === 'video' ? (
+                {media.type === 'pdf' ? (
+                  <>
+                    <div style={{ fontSize: '9px', color: '#00d9ff', marginBottom: '4px', fontWeight: 'bold' }}>
+                      📄 {media.fileName}
+                    </div>
+                    <iframe
+                      src={media.url + '#toolbar=0'}
+                      width="100%"
+                      height={media.height - 40}
+                      frameBorder="0"
+                      style={{ borderRadius: '4px' }}
+                    />
+                  </>
+                ) : media.type === 'video' ? (
                   <>
                     <iframe
                       src={media.url.includes('youtube.com') || media.url.includes('youtu.be')
@@ -715,18 +729,23 @@ function AdvancedWhiteboardCore() {
                       allowFullScreen
                       style={{ borderRadius: '4px' }}
                     />
+                    <div style={{ fontSize: '9px', color: '#00d9ff', marginTop: '4px', opacity: 0.6 }}>
+                      🎥 Video
+                    </div>
                   </>
                 ) : (
-                  <audio
-                    controls
-                    style={{ width: '100%', marginTop: '8px' }}
-                  >
-                    <source src={media.url} />
-                  </audio>
+                  <>
+                    <audio
+                      controls
+                      style={{ width: '100%', marginTop: '8px' }}
+                    >
+                      <source src={media.url} />
+                    </audio>
+                    <div style={{ fontSize: '9px', color: '#00d9ff', marginTop: '4px', opacity: 0.6 }}>
+                      🎵 Audio
+                    </div>
+                  </>
                 )}
-                <div style={{ fontSize: '9px', color: '#00d9ff', marginTop: '4px', opacity: 0.6 }}>
-                  {media.type === 'video' ? '🎥 Video' : '🎵 Audio'}
-                </div>
               </div>
             ))}
           </div>
