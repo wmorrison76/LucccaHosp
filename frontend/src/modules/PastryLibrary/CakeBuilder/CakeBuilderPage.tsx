@@ -297,8 +297,7 @@ const QuickStats: React.FC = () => {
 const styles: Record<string, React.CSSProperties> = {
   pageContainer: {
     width: '100%',
-    height: '100%',
-    overflow: 'auto',
+    minHeight: '100%',
     backgroundColor: '#f5f5f5',
     fontFamily: 'system-ui, -apple-system, sans-serif',
   },
@@ -310,19 +309,20 @@ const styles: Record<string, React.CSSProperties> = {
     backgroundColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
   },
   homeHeader: {
-    padding: '3rem 2rem',
+    padding: '0.75rem 1.5rem',
     textAlign: 'center',
     color: '#fff',
     background: 'rgba(0,0,0,0.3)',
+    flexShrink: 0,
   },
   homeTitle: {
-    margin: '0 0 0.5rem 0',
-    fontSize: '2.5rem',
+    margin: '0 0 0.25rem 0',
+    fontSize: '1.3rem',
     fontWeight: 'bold',
   },
   homeSubtitle: {
     margin: '0',
-    fontSize: '1.1rem',
+    fontSize: '0.85rem',
     opacity: 0.9,
   },
   homeContent: {
