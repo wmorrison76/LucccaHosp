@@ -975,6 +975,46 @@ export default function AdvancedEchoWhiteboard() {
             </div>
           )}
 
+          {/* SNAPSHOT SAVE DIALOG */}
+          {snapshotDialogOpen && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-lg z-50">
+              <div className="bg-slate-800 rounded-lg p-6 border border-green-400/40 shadow-2xl max-w-md w-80">
+                <h2 className="text-lg font-bold text-green-300 mb-4">💾 Save Snapshot</h2>
+                <input
+                  type="text"
+                  value={snapshotName}
+                  onChange={e => setSnapshotName(e.target.value)}
+                  placeholder="Enter snapshot name..."
+                  className="w-full bg-green-400/10 border border-green-400/20 rounded px-3 py-2 text-green-100 placeholder-green-400/40 mb-4 text-sm"
+                  autoFocus
+                  onKeyPress={e => e.key === 'Enter' && handleSaveSnapshot()}
+                />
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleSaveSnapshot}
+                    disabled={!snapshotName.trim()}
+                    className={`flex-1 px-4 py-2 rounded text-sm font-semibold transition-colors ${
+                      snapshotName.trim()
+                        ? 'bg-green-500/30 hover:bg-green-500/50 text-green-200'
+                        : 'bg-green-500/10 text-green-400/50 cursor-not-allowed'
+                    }`}
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSnapshotDialogOpen(false);
+                      setSnapshotName('');
+                    }}
+                    className="flex-1 px-4 py-2 bg-red-500/20 rounded hover:bg-red-500/30 text-red-300 text-sm font-semibold"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* ZOOM CONTROLS */}
           <div className="absolute bottom-4 right-4 flex gap-2 bg-black/40 rounded-lg p-2 border border-cyan-400/20">
             <button
