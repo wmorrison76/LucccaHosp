@@ -43,9 +43,15 @@ export default function EnterpriseHUD() {
     return MOCK_OUTLETS.filter(o => canViewOutlet(o.id));
   }, [user.outletIds]);
 
-  // Emit dashboard ready event on mount
+  // Emit dashboard ready event immediately on mount
   useEffect(() => {
+    // Dispatch immediately
     window.dispatchEvent(new Event('dashboard-ready'));
+    // Also dispatch after a tiny delay to ensure sidebar catches it
+    const timer = setTimeout(() => {
+      window.dispatchEvent(new Event('dashboard-ready'));
+    }, 10);
+    return () => clearTimeout(timer);
   }, []);
 
   // Save state to localStorage
@@ -440,7 +446,7 @@ function OutletCard({ outlet, selected, onClick, onDetail }) {
   );
 }
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━���━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 function KPICard({ title, value, detail, color }) {
   return (
