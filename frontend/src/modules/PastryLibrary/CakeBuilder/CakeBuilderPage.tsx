@@ -220,19 +220,25 @@ const HomePage: React.FC<{ onIntakeClick: () => void; onGalleryClick: () => void
       {/* Action Buttons */}
       <div style={styles.actionSection}>
         <button
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
             console.log('[HomePage] Create New Cake Order clicked');
             onIntakeClick();
           }}
+          onMouseDown={(e) => e.stopPropagation()}
           style={styles.buttonLarge}
         >
           ➕ Create New Cake Order
         </button>
         <button
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
             console.log('[HomePage] View Cake Gallery clicked');
             onGalleryClick();
           }}
+          onMouseDown={(e) => e.stopPropagation()}
           style={styles.buttonLargeSecondary}
         >
           📁 View Cake Gallery
