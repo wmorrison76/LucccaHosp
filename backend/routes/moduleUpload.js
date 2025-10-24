@@ -68,6 +68,15 @@ async function copyDir(src, dest) {
 router.post('/upload-folder', uploadMultiple, handleMulterError, async (req, res) => {
   const startTime = Date.now();
 
+  // Handle client disconnect
+  req.on('aborted', () => {
+    const elapsed = Date.now() - startTime;
+    console.error(`[MODULE_UPLOAD] Client aborted upload after ${elapsed}ms (${(elapsed / 1000 / 60).toFixed(1)} minutes)`);
+    if (req.files && Array.isArray(req.files)) {
+      console.log(`[MODULE_UPLOAD] Received ${req.files.length} files before abort`);
+    }
+  });
+
   try {
     console.log(`[MODULE_UPLOAD] Upload folder endpoint hit`);
     console.log(`[MODULE_UPLOAD] req.files type:`, Array.isArray(req.files) ? 'array' : typeof req.files);
