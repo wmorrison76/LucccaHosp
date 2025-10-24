@@ -32,6 +32,9 @@ function AdvancedWhiteboardCore() {
   const [textInput, setTextInput] = React.useState('');
   const [images, setImages] = React.useState([]);
   const [draggingImage, setDraggingImage] = React.useState(null);
+  const [mediaEmbeds, setMediaEmbeds] = React.useState([]);
+  const [mediaInput, setMediaInput] = React.useState('');
+  const [showMediaInput, setShowMediaInput] = React.useState(false);
 
   // Advanced Features
   const [objects, setObjects] = React.useState([]);
