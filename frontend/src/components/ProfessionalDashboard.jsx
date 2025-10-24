@@ -283,11 +283,12 @@ export default function ProfessionalDashboard() {
               >
                 {/* Panel Header */}
                 <div
-                  className="flex items-center px-4 py-2 border-b gap-1"
+                  className="flex items-center px-3 py-2 border-b gap-1"
                   style={{
                     borderColor: colors.border.secondary,
-                    height: '36px',
+                    height: '32px',
                     minWidth: 0,
+                    flexWrap: 'nowrap',
                   }}
                   data-rnd-handle
                 >
