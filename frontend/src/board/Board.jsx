@@ -216,6 +216,27 @@ const LS = {
 /* ────�����───────── Component ─��────────────��� */
 export default function Board() {
   console.log('[Board] Component rendering, PANEL_REGISTRY keys:', Object.keys(PANEL_REGISTRY));
+
+  // Simple direct return if PANEL_REGISTRY is empty
+  if (Object.keys(PANEL_REGISTRY).length === 0) {
+    console.error('[Board] PANEL_REGISTRY is empty!');
+    return (
+      <div style={{
+        padding: '40px',
+        backgroundColor: '#f87171',
+        color: '#fff',
+        fontFamily: 'monospace',
+        fontSize: '14px',
+        whiteSpace: 'pre-wrap'
+      }}>
+        ERROR: PANEL_REGISTRY is empty
+        {'\n\n'}
+        This means ProfessionalDashboard component is not loading properly.
+        Check browser console for import errors.
+      </div>
+    );
+  }
+
   const layerRef = useRef(null);
   const [windows, setWindows] = useState([]);
   const [activeId, setActiveId] = useState(null);
