@@ -536,19 +536,7 @@ export default function Sidebar({
             <Menu size={18} />
           </button>
 
-          {/* Logo (visible when expanded) */}
-          {isOpen && (
-            <img
-              src={iconUrls.logo}
-              alt="LUCCCA Logo"
-              style={{
-                height: "50px",
-                objectFit: "contain",
-                flex: 1,
-                marginLeft: "8px"
-              }}
-            />
-          )}
+          {/* Logo removed per user request */}
         </div>
 
         {/* Divider */}
