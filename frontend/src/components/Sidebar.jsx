@@ -369,13 +369,10 @@ export default function Sidebar({
     document.body.classList.toggle("sb-collapsed", !isOpen);
   }, [isOpen]);
 
-  // Auto-close sidebar 425ms after dashboard loads
+  // Ensure sidebar stays closed when dashboard loads
   useEffect(() => {
     const handleDashboardLoad = () => {
-      // Close sidebar after 425ms
-      setTimeout(() => {
-        setLocalOpen(false);
-      }, 425);
+      setLocalOpen(false);
     };
 
     window.addEventListener('dashboard-ready', handleDashboardLoad);
