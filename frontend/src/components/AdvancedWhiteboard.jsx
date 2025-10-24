@@ -256,6 +256,59 @@ function AdvancedWhiteboardCore() {
     setChatInput('');
   };
 
+  const commitTextBox = () => {
+    if (!textInputPos || !textInput.trim()) {
+      setTextInputPos(null);
+      setTextInput('');
+      return;
+    }
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    ctx.font = "14px Arial";
+    ctx.fillStyle = color;
+    ctx.fillText(textInput, textInputPos.x, textInputPos.y);
+
+    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    setHistory([...history, imgData]);
+
+    setTextInputPos(null);
+    setTextInput('');
+  };
+
+  const handleImageDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const files = e.dataTransfer.files;
+    for (let file of files) {
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = canvasRef.current;
+            const ctx = canvas.getContext("2d");
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            setImages([...images, {
+              src: event.target.result,
+              x, y,
+              width: 150,
+              height: 150,
+              id: Math.random().toString(36).slice(2)
+            }]);
+          };
+          img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  };
+
   return (
     <div style={{
       display: "flex",
