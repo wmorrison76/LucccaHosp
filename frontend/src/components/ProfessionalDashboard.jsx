@@ -287,62 +287,67 @@ export default function ProfessionalDashboard() {
                     height: '32px',
                     minWidth: 0,
                     flexWrap: 'nowrap',
+                    justifyContent: 'space-between',
                   }}
                   data-rnd-handle
                 >
-                  {/* Minimize Button (Left) */}
-                  <button
-                    onClick={() => update(card.id, { h: card.h === 0 ? 1 : 0 })}
-                    className="p-0.5 hover:opacity-75 transition-opacity"
-                    style={{ color: colors.text.secondary }}
-                    title={t.minimize}
-                  >
-                    <Minus size={14} />
-                  </button>
+                  {/* Left Controls */}
+                  <div className="flex items-center gap-0.5">
+                    {/* Minimize Button */}
+                    <button
+                      onClick={() => update(card.id, { h: card.h === 0 ? 1 : 0 })}
+                      className="p-0.5 hover:opacity-75 transition-opacity"
+                      style={{ color: colors.text.secondary }}
+                      title={t.minimize}
+                    >
+                      {card.h === 0 ? <ChevronDown size={16} /> : <ChevronUp size={16} />}
+                    </button>
 
-                  {/* Close Button (Left) */}
-                  <button
-                    onClick={() => remove(card.id)}
-                    className="p-0.5 hover:opacity-75 transition-opacity"
-                    style={{ color: colors.text.secondary }}
-                    title={t.close}
-                  >
-                    <X size={14} />
-                  </button>
+                    {/* Close Button */}
+                    <button
+                      onClick={() => remove(card.id)}
+                      className="p-0.5 hover:opacity-75 transition-opacity"
+                      style={{ color: colors.text.secondary }}
+                      title={t.close}
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
 
                   {/* Title (Center) */}
                   <span
-                    className="font-semibold text-xs truncate"
+                    className="font-semibold text-xs truncate flex-1 mx-2"
                     style={{
                       color: colors.text.primary,
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       whiteSpace: 'nowrap',
-                      maxWidth: '60%',
-                      flex: '0 1 auto',
                     }}
                   >
                     {t[card.title] || card.title}
                   </span>
 
-                  {/* Pin Button */}
-                  <button
-                    onClick={() => update(card.id, { pinned: !card.pinned })}
-                    className="p-0.5 hover:opacity-75 transition-opacity"
-                    style={{ color: colors.text.secondary }}
-                    title={card.pinned ? t.pinToGrid : t.dragPanels}
-                  >
-                    {card.pinned ? <Pin size={14} /> : <PinOff size={14} />}
-                  </button>
+                  {/* Right Controls - Pin & Pop Out */}
+                  <div className="flex items-center gap-0.5">
+                    {/* Pin Button */}
+                    <button
+                      onClick={() => update(card.id, { pinned: !card.pinned })}
+                      className="p-0.5 hover:opacity-75 transition-opacity"
+                      style={{ color: colors.text.secondary }}
+                      title={card.pinned ? t.pinToGrid : t.dragPanels}
+                    >
+                      <Maximize2 size={14} />
+                    </button>
 
-                  {/* Pop Out Button */}
-                  <button
-                    className="p-0.5 hover:opacity-75 transition-opacity"
-                    style={{ color: colors.text.secondary }}
-                    title={t.popOut}
-                  >
-                    <ExternalLink size={14} />
-                  </button>
+                    {/* Pop Out Button */}
+                    <button
+                      className="p-0.5 hover:opacity-75 transition-opacity"
+                      style={{ color: colors.text.secondary }}
+                      title={t.popOut}
+                    >
+                      <Share2 size={14} />
+                    </button>
+                  </div>
                 </div>
 
                 {/* Panel Content */}
