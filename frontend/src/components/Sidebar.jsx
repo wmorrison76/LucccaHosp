@@ -100,13 +100,13 @@ function ModuleUploadZone({ isDarkMode }) {
 
     try {
       const formData = new FormData();
-      formData.append('folderName', displayName);
 
       // Handle files from folder input
       if (files && files.length > 0) {
         files.forEach((file, index) => {
+          const relativePath = file.webkitRelativePath || file.name;
+          console.log(`[UPLOAD] Adding file ${index + 1}/${files.length}: ${relativePath} (${file.size} bytes)`);
           formData.append(`files`, file);
-          formData.append(`paths`, file.webkitRelativePath || file.name);
         });
       } else if (folderEntry) {
         // Handle drag-and-drop folder (not fully supported in all browsers)
