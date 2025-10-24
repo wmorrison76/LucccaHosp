@@ -74,86 +74,80 @@ async function copyDir(src, dest) {
  * Body: form-data with multiple 'files' and 'paths' fields
  * Returns: { success: bool, message: string, moduleName: string }
  */
+// In-memory tracking of active uploads
+const activeUploads = new Map();
+
 router.post('/upload-folder', uploadMultiple, handleMulterError, async (req, res) => {
   const startTime = Date.now();
 
-  // Handle client disconnect
-  req.on('aborted', () => {
-    const elapsed = Date.now() - startTime;
-    console.error(`[MODULE_UPLOAD] Client aborted upload after ${elapsed}ms (${(elapsed / 1000 / 60).toFixed(1)} minutes)`);
-    if (req.files && Array.isArray(req.files)) {
-      console.log(`[MODULE_UPLOAD] Received ${req.files.length} files before abort`);
-    }
-  });
-
   try {
-    console.log(`[MODULE_UPLOAD] Upload folder endpoint hit`);
-    console.log(`[MODULE_UPLOAD] req.files type:`, Array.isArray(req.files) ? 'array' : typeof req.files);
-    console.log(`[MODULE_UPLOAD] req.files count:`, Array.isArray(req.files) ? req.files.length : 'not array');
-
-    if (Array.isArray(req.files)) {
-      console.log(`[MODULE_UPLOAD] First few files:`, req.files.slice(0, 3).map(f => ({
-        filename: f.filename,
-        originalname: f.originalname,
-        size: f.size,
-        path: f.path ? 'exists' : 'no path'
-      })));
-    }
-
-    // Filter actual files (multer.any() stores files with filename property)
-    const files = Array.isArray(req.files)
-      ? req.files.filter(f => f.filename && f.path)
-      : [];
-
-    console.log(`[MODULE_UPLOAD] Filtered files count: ${files.length}`);
-
-    if (!files || files.length === 0) {
-      console.error('[MODULE_UPLOAD] No files in request');
-      if (!Array.isArray(req.files)) {
-        console.error('[MODULE_UPLOAD] req.files is not an array:', typeof req.files);
-      }
-      return res.status(400).json({ success: false, message: 'No files provided' });
-    }
-
-    // Extract folder name from request body or from first file's path
-    let folderName = req.body?.folderName;
-    console.log(`[MODULE_UPLOAD] folderName from body: ${folderName}`);
+    const folderName = req.body?.folderName;
+    const finalize = req.body?.finalize === 'true';
+    const isFirstBatch = req.body?.isFirstBatch === 'true';
+    const isLastBatch = req.body?.isLastBatch === 'true';
+    const batchNumber = parseInt(req.body?.batchNumber) || 0;
+    const totalBatches = parseInt(req.body?.totalBatches) || 0;
 
     if (!folderName) {
-      const firstFilePath = files[0].originalname || files[0].filename;
-      const folderNameFromPath = firstFilePath.split('/')[0] || 'Module';
-      folderName = folderNameFromPath;
-      console.log(`[MODULE_UPLOAD] folderName from file path: ${folderName}`);
+      return res.status(400).json({ success: false, message: 'folderName required' });
     }
+
+    console.log(`[MODULE_UPLOAD] Request: folder=${folderName}, finalize=${finalize}, batch=${batchNumber}/${totalBatches}`);
 
     const modulesDir = path.join(__dirname, '..', '..', 'frontend', 'src', 'modules');
     const destPath = path.join(modulesDir, folderName);
 
-    console.log(`[MODULE_UPLOAD] Starting folder upload: ${folderName}`);
-    console.log(`[MODULE_UPLOAD] Files count: ${files.length}`);
-    console.log(`[MODULE_UPLOAD] Destination: ${destPath}`);
+    // Handle finalization request
+    if (finalize) {
+      console.log(`[MODULE_UPLOAD] Finalizing: ${folderName}`);
+      activeUploads.delete(folderName);
 
-    // Ensure modules directory exists
-    await fs.mkdir(modulesDir, { recursive: true });
-
-    // Backup existing folder
-    if (fsSync.existsSync(destPath)) {
-      const backupPath = destPath + '_backup_' + Date.now();
-      console.log(`[MODULE_UPLOAD] Folder exists, backing up to ${backupPath}`);
-      await fs.rename(destPath, backupPath);
+      if (fsSync.existsSync(destPath)) {
+        console.log(`[MODULE_UPLOAD] Module installed: ${folderName}`);
+        return res.json({
+          success: true,
+          message: `Module '${folderName}' uploaded successfully`,
+          moduleName: folderName,
+          path: destPath
+        });
+      } else {
+        return res.status(400).json({ success: false, message: 'Module folder not found after upload' });
+      }
     }
 
-    // Create destination folder
-    await fs.mkdir(destPath, { recursive: true });
+    // Handle batch upload
+    const files = Array.isArray(req.files)
+      ? req.files.filter(f => f.filename && f.path)
+      : [];
 
-    // Copy each file to its correct location
-    const copyStartTime = Date.now();
+    if (!files || files.length === 0) {
+      return res.status(400).json({ success: false, message: 'No files in batch' });
+    }
+
+    // On first batch, create/backup module folder
+    if (isFirstBatch) {
+      console.log(`[MODULE_UPLOAD] First batch: creating folder ${folderName}`);
+      await fs.mkdir(modulesDir, { recursive: true });
+
+      if (fsSync.existsSync(destPath)) {
+        const backupPath = destPath + '_backup_' + Date.now();
+        console.log(`[MODULE_UPLOAD] Backing up existing folder to ${backupPath}`);
+        await fs.rename(destPath, backupPath);
+      }
+
+      await fs.mkdir(destPath, { recursive: true });
+      activeUploads.set(folderName, { startTime, batchCount: 0, fileCount: 0 });
+    }
+
+    // Copy batch files
+    console.log(`[MODULE_UPLOAD] Batch ${batchNumber}/${totalBatches}: copying ${files.length} files`);
+
+    let uploadInfo = activeUploads.get(folderName) || { startTime, batchCount: 0, fileCount: 0 };
+
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      // Get the relative path from the file's original name (which includes the folder structure)
       let relativePath = file.originalname;
 
-      // Remove folder name from path (first segment)
       const pathSegments = relativePath.split('/');
       if (pathSegments.length > 1 && pathSegments[0] === folderName) {
         pathSegments.shift();
@@ -163,66 +157,52 @@ router.post('/upload-folder', uploadMultiple, handleMulterError, async (req, res
       const destFilePath = path.join(destPath, relativePath);
       const destDir = path.dirname(destFilePath);
 
-      console.log(`[MODULE_UPLOAD] Processing file ${i + 1}/${files.length}: ${file.originalname} -> ${relativePath}`);
-
-      // Create subdirectories if needed
       await fs.mkdir(destDir, { recursive: true });
-
-      // Copy file
       await fs.copyFile(file.path, destFilePath);
-      console.log(`[MODULE_UPLOAD] Copied: ${relativePath}`);
 
-      // Clean up temp file
       try {
         await fs.unlink(file.path);
       } catch (e) {
         // Ignore cleanup errors
       }
+
+      uploadInfo.fileCount++;
     }
 
-    console.log(`[MODULE_UPLOAD] Copy completed in ${Date.now() - copyStartTime}ms`);
+    uploadInfo.batchCount++;
+    activeUploads.set(folderName, uploadInfo);
 
-    const totalTime = Date.now() - startTime;
-    console.log(`[MODULE_UPLOAD] Total time: ${totalTime}ms (${(totalTime / 1000).toFixed(2)}s)`);
+    console.log(`[MODULE_UPLOAD] Batch ${batchNumber}/${totalBatches} complete. Total files: ${uploadInfo.fileCount}`);
 
     res.json({
       success: true,
-      message: `Module '${folderName}' uploaded successfully`,
-      moduleName: folderName,
-      path: destPath,
-      filesCount: files.length
+      message: `Batch ${batchNumber}/${totalBatches} received`,
+      batch: batchNumber,
+      filesInBatch: files.length,
+      totalFilesReceived: uploadInfo.fileCount
     });
 
   } catch (error) {
     const totalTime = Date.now() - startTime;
     console.error(`[MODULE_UPLOAD] Error after ${totalTime}ms:`, error.message);
-    console.error(`[MODULE_UPLOAD] Error code:`, error.code);
-    console.error(`[MODULE_UPLOAD] Error stack:`, error.stack);
+    console.error(`[MODULE_UPLOAD] Stack:`, error.stack);
 
-    // Cleanup temp files
-    try {
-      if (req.files && Array.isArray(req.files)) {
-        for (const file of req.files) {
-          if (file && file.path) {
-            try {
-              await fs.unlink(file.path);
-              console.log(`[MODULE_UPLOAD] Cleaned up: ${file.path}`);
-            } catch (e) {
-              // Ignore cleanup errors
-            }
+    if (req.files && Array.isArray(req.files)) {
+      for (const file of req.files) {
+        if (file && file.path) {
+          try {
+            await fs.unlink(file.path);
+          } catch (e) {
+            // Ignore
           }
         }
       }
-    } catch (cleanupError) {
-      console.warn(`[MODULE_UPLOAD] Cleanup warning: ${cleanupError.message}`);
     }
 
-    // Only send response if headers not sent
     if (!res.headersSent) {
       res.status(500).json({
         success: false,
-        message: error.message || 'Upload failed',
-        code: error.code
+        message: error.message || 'Upload failed'
       });
     }
   }
