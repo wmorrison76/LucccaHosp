@@ -19,8 +19,8 @@ import {
 } from "lucide-react";
 
 const LSK = "lu:glowdesk:layout:v1";
-const GRID = { cols: 12, gap: 16, rowH: 140, pad: 20 };
-const SAFE_TOP = 140;
+const GRID = { cols: 12, gap: 14, rowH: 120, pad: 16 };
+const SAFE_TOP = 120;
 
 // Time-based greeting with detailed timestamp
 function getGreeting() {
