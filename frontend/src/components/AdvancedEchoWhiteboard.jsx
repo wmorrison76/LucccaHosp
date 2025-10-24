@@ -4,9 +4,9 @@ const Rnd = RND_NS.Rnd ?? RND_NS.default ?? RND_NS;
 
 import {
   Pencil, Highlighter, Trash2, Square, Circle, Line, Type, StickyNote,
-  Ruler, Image as ImageIcon, FileText, Video, Mic, MicOff, Video as VideoCam,
+  Ruler, Image, FileText, Video, Mic, MicOff, Video as VideoCam,
   VideoOff, Users, Send, Settings, MoreVertical, Save, Share2, Download,
-  ZoomIn, ZoomOut, RotateCcw, Plus, GripHorizontal, X, Clock, Zap,
+  ZoomIn, ZoomOut, RotateCcw, Plus, GripHorizontal, X, Clock, Zap, Undo, Redo,
   Maximize2, Minimize2, Lock, Unlock, Eye, EyeOff, Palette, Copy, Trash,
   BarChart3, TrendingUp, AlertTriangle, ChefHat
 } from 'lucide-react';
