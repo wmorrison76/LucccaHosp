@@ -1218,6 +1218,45 @@ function AdvancedWhiteboardCore() {
               🎵 Audio
             </button>
 
+            <label
+              title="Upload PDF (drag-drop supported)"
+              style={{
+                padding: "4px 8px",
+                backgroundColor: "rgba(200, 100, 100, 0.1)",
+                border: "1px solid rgba(200, 100, 100, 0.3)",
+                borderRadius: "3px",
+                color: "#c86464",
+                cursor: "pointer",
+                fontSize: "11px"
+              }}
+            >
+              📄 PDF
+              <input
+                type="file"
+                accept=".pdf"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                      setMediaEmbeds([...mediaEmbeds, {
+                        id: Math.random().toString(36).slice(2),
+                        type: 'pdf',
+                        url: event.target.result,
+                        fileName: file.name,
+                        x: 50,
+                        y: 50,
+                        width: 300,
+                        height: 400
+                      }]);
+                    };
+                    reader.readAsDataURL(file);
+                  }
+                }}
+                style={{ display: 'none' }}
+              />
+            </label>
+
             <button
               onClick={addInjectedPanel}
               title="Inject LUCCCA panel"
