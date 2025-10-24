@@ -83,6 +83,17 @@ export default function AdvancedEchoWhiteboard() {
   const [promptDialogOpen, setPromptDialogOpen] = useState(false);
   const [diagramPrompt, setDiagramPrompt] = useState('');
 
+  // Collaboration Features
+  const [videoOpen, setVideoOpen] = useState(false);
+  const [participants, setParticipants] = useState([
+    { id: 1, name: 'You', color: '#00d9ff', cursorX: 100, cursorY: 100, speaking: false },
+    { id: 2, name: 'Chef Marcus', color: '#ff6b4d', cursorX: 300, cursorY: 200, speaking: false },
+    { id: 3, name: 'Manager Sarah', color: '#4dff9e', cursorX: 200, cursorY: 150, speaking: false },
+  ]);
+  const [followPresenterMode, setFollowPresenterMode] = useState(false);
+  const [presenterZoom, setPresenterZoom] = useState(1);
+  const [presenterPan, setPresenterPan] = useState({ x: 0, y: 0 });
+
   // Canvas Transform State
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
@@ -1060,7 +1071,7 @@ export default function AdvancedEchoWhiteboard() {
             fontSize: 12,
           },
         ];
-        const allergens = ['🥛', '🥜', '🐚', '🌾', '🥚'];
+        const allergens = ['🥛', '🥜', '���', '🌾', '🥚'];
         allergens.forEach((allergen, idx) => {
           newObjects.push({
             id: objectId + 2 + idx,
