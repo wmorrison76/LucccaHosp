@@ -637,6 +637,7 @@ function AdvancedWhiteboardCore() {
           <option value="line">Line</option>
           <option value="rect">Rectangle</option>
           <option value="circle">Circle</option>
+          <option value="text">Text</option>
         </select>
 
         <input
