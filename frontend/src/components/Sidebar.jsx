@@ -369,6 +369,19 @@ export default function Sidebar({
     document.body.classList.toggle("sb-collapsed", !isOpen);
   }, [isOpen]);
 
+  // Auto-close sidebar 425ms after dashboard loads
+  useEffect(() => {
+    const handleDashboardLoad = () => {
+      // Close sidebar after 425ms
+      setTimeout(() => {
+        setLocalOpen(false);
+      }, 425);
+    };
+
+    window.addEventListener('dashboard-ready', handleDashboardLoad);
+    return () => window.removeEventListener('dashboard-ready', handleDashboardLoad);
+  }, []);
+
   // Open a Board panel by id
   const openPanel = (id, detail = {}) => {
     if (!id) return;
