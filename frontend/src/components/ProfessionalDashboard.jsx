@@ -10,7 +10,7 @@ import {
   Minus,
   Maximize2,
 } from 'lucide-react';
-import { useThemeAndLanguage } from '../hooks/useThemeAndLanguage';
+import { useThemeAndLanguageContext } from '../hooks/useThemeAndLanguage';
 
 const LSK = 'luccca:professional-dashboard:v1';
 const GRID = { cols: 4, gap: 16, rowH: 140, pad: 20 };
@@ -61,7 +61,7 @@ const colorMap = {
 };
 
 export default function ProfessionalDashboard() {
-  const { theme, t, getCSSVariables } = useThemeAndLanguage();
+  const { theme, t, getCSSVariables } = useThemeAndLanguageContext();
   const containerRef = useRef(null);
   const [cards, setCards] = useState(() => {
     try {
