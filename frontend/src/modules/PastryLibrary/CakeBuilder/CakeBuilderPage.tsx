@@ -285,14 +285,16 @@ const QuickStats: React.FC = () => {
 const styles: Record<string, React.CSSProperties> = {
   pageContainer: {
     width: '100%',
-    minHeight: '100vh',
+    height: '100%',
+    overflow: 'hidden',
     backgroundColor: '#f5f5f5',
     fontFamily: 'system-ui, -apple-system, sans-serif',
   },
   homeContainer: {
     display: 'flex',
     flexDirection: 'column',
-    minHeight: '100vh',
+    height: '100%',
+    overflow: 'auto',
     backgroundColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
   },
   homeHeader: {
