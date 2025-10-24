@@ -760,6 +760,36 @@ Status: Open`,
           >
             👥
           </button>
+          <button
+            onClick={toggleVideoCall}
+            title={videoCallActive ? 'End video call' : 'Start video call'}
+            style={{
+              padding: '4px 8px',
+              backgroundColor: videoCallActive ? 'rgba(255, 100, 100, 0.2)' : 'rgba(0, 217, 255, 0.05)',
+              border: videoCallActive ? '1px solid rgba(255, 100, 100, 0.3)' : '1px solid rgba(0, 217, 255, 0.3)',
+              borderRadius: '3px',
+              color: videoCallActive ? '#ff6464' : '#7ff3ff',
+              cursor: 'pointer',
+              fontSize: '11px'
+            }}
+          >
+            {videoCallActive ? '📹' : '📷'}
+          </button>
+          <button
+            onClick={toggleScreenShare}
+            title={screenShare ? 'Stop screen sharing' : 'Start screen sharing'}
+            style={{
+              padding: '4px 8px',
+              backgroundColor: screenShare ? 'rgba(100, 200, 100, 0.2)' : 'rgba(0, 217, 255, 0.05)',
+              border: screenShare ? '1px solid rgba(100, 200, 100, 0.3)' : '1px solid rgba(0, 217, 255, 0.3)',
+              borderRadius: '3px',
+              color: screenShare ? '#64c864' : '#7ff3ff',
+              cursor: 'pointer',
+              fontSize: '11px'
+            }}
+          >
+            {screenShare ? '🖥️' : '⚡'}
+          </button>
         </div>
       </div>
 
