@@ -53,6 +53,9 @@ function AdvancedWhiteboardCore() {
   const [showSnapshotInput, setShowSnapshotInput] = React.useState(false);
   const [touchDistance, setTouchDistance] = React.useState(0);
   const [participantCursors, setParticipantCursors] = React.useState({});
+  const [snapToGrid, setSnapToGrid] = React.useState(false);
+  const [gridSize, setGridSize] = React.useState(20);
+  const [floorPlanMode, setFloorPlanMode] = React.useState(false);
 
   // Communication
   const [participants, setParticipants] = React.useState([
