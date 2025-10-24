@@ -245,23 +245,30 @@ export default function Board() {
 
   // Auto-open ProfessionalDashboard on mount
   useEffect(() => {
-    // Always try to open dashboard on first render
-    console.log('[Board] Initializing Board with PANEL_REGISTRY keys:', Object.keys(PANEL_REGISTRY));
-    setWindows([{
-      id: 'dashboard',
-      title: "Professional Dashboard",
-      icon: null,
-      z: 10,
-      x: 40,
-      y: 40,
-      width: Math.min(window.innerWidth - 120, 1400),
-      height: Math.min(window.innerHeight - 140, 800),
-      minimized: false,
-      maximized: false,
-      props: {},
-    }]);
-    zCounter = 10;
-    setActiveId('dashboard');
+    console.log('[Board] Auto-open useEffect running');
+    console.log('[Board] PANEL_REGISTRY keys:', Object.keys(PANEL_REGISTRY));
+    console.log('[Board] ProfessionalDashboard:', PANEL_REGISTRY.dashboard?.Component?.name);
+    console.log('[Board] Setting initial window state');
+    try {
+      setWindows([{
+        id: 'dashboard',
+        title: "Professional Dashboard",
+        icon: null,
+        z: 10,
+        x: 40,
+        y: 40,
+        width: Math.min(window.innerWidth - 120, 1400),
+        height: Math.min(window.innerHeight - 140, 800),
+        minimized: false,
+        maximized: false,
+        props: {},
+      }]);
+      zCounter = 10;
+      setActiveId('dashboard');
+      console.log('[Board] Initial window state set successfully');
+    } catch (err) {
+      console.error('[Board] Error setting initial windows:', err);
+    }
   }, []); // Run only once on mount
 
   const bringToFront = useCallback((id) => {
