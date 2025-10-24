@@ -16,7 +16,14 @@ export default function ProfessionalToolbar() {
   const toolbarRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('lu:toolbar:pos:v1') || '');
+      return saved || { x: 60, y: 12 };
+    } catch {
+      return { x: 60, y: 12 };
+    }
+  });
 
   // Close dropdowns when clicking outside
   useEffect(() => {
