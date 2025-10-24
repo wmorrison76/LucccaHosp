@@ -427,7 +427,12 @@ export default function Board() {
         onRequestRestoreAll={() => setWindows(w => w.map(p => ({...p, minimized:false})))}
       />
 
-      {/* Toolbar (draggable, persistent) */}
+      {/* Professional Toolbar (Theme + Language Controls) */}
+      <Suspense fallback={null}>
+        {ProfessionalToolbar && <ProfessionalToolbar />}
+      </Suspense>
+
+      {/* Board Control Toolbar (draggable, persistent) */}
       <div className="tb2 pointer-events-auto fixed z-[1200]" style={{ left: tbPos.x, top: tbPos.y }}>
         <div className="tb2-shell">
           <button ref={dragRef} className="tb2-handle" title="Drag toolbar">
