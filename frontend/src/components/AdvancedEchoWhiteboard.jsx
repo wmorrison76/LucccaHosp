@@ -770,6 +770,169 @@ export default function AdvancedEchoWhiteboard() {
     URL.revokeObjectURL(url);
   }, [objects, zoom, pan]);
 
+  // AI Functions
+  const extractActionItems = useCallback(() => {
+    const items = [];
+    const stickyNotes = objects.filter(o => o.type === 'sticky');
+
+    stickyNotes.forEach(note => {
+      const text = note.text || '';
+
+      // Find @mentions
+      const mentions = text.match(/@(\w+)/g) || [];
+      mentions.forEach(mention => {
+        items.push({
+          type: 'mention',
+          assignee: mention.slice(1),
+          text: text,
+          priority: 'normal',
+        });
+      });
+
+      // Find TODO items
+      if (text.includes('TODO:') || text.toUpperCase().includes('TODO')) {
+        items.push({
+          type: 'todo',
+          assignee: 'Unassigned',
+          text: text,
+          priority: 'high',
+        });
+      }
+
+      // Find DONE items
+      if (text.includes('DONE:') || text.toUpperCase().includes('DONE')) {
+        items.push({
+          type: 'done',
+          assignee: 'Completed',
+          text: text,
+          priority: 'low',
+        });
+      }
+    });
+
+    setActionItems(items);
+    return items;
+  }, [objects]);
+
+  const startVoiceRecording = useCallback(() => {
+    if (typeof window === 'undefined' || !window.webkitSpeechRecognition && !window.SpeechRecognition) {
+      alert('Speech recognition not supported in this browser');
+      return;
+    }
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+
+    recognition.onstart = () => setIsRecording(true);
+    recognition.onend = () => setIsRecording(false);
+    recognition.onresult = (event) => {
+      let transcript = '';
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        transcript += event.results[i][0].transcript;
+      }
+      setVoiceTranscript(transcript);
+
+      // Auto-create sticky note from voice
+      if (transcript.trim()) {
+        const newNote = {
+          id: objectId,
+          type: 'sticky',
+          x: 100 + Math.random() * 200,
+          y: 100 + Math.random() * 200,
+          bgColor: '#fff700',
+          text: transcript,
+        };
+        setObjects(objs => [...objs, newNote]);
+        setObjectId(id => id + 1);
+      }
+    };
+
+    recognition.start();
+  }, [objectId]);
+
+  const generateDiagramFromPrompt = useCallback(() => {
+    if (!diagramPrompt.trim()) return;
+
+    const prompt = diagramPrompt.toLowerCase();
+    let newObjects = [];
+    const startX = 100;
+    const startY = 100;
+
+    if (prompt.includes('flowchart')) {
+      // Create simple flowchart
+      const steps = ['Start', 'Process', 'Decision', 'End'];
+      steps.forEach((step, idx) => {
+        newObjects.push({
+          id: objectId + idx * 2,
+          type: 'rect',
+          start: { x: startX, y: startY + idx * 100 },
+          end: { x: startX + 150, y: startY + idx * 100 + 60 },
+          color: '#00d9ff',
+          size: 2,
+        });
+        newObjects.push({
+          id: objectId + idx * 2 + 1,
+          type: 'text',
+          start: { x: startX + 40, y: startY + idx * 100 + 30 },
+          text: step,
+          color: '#fff',
+          fontSize: 12,
+        });
+      });
+    } else if (prompt.includes('org chart') || prompt.includes('organization')) {
+      // Create org chart
+      const positions = [
+        { x: startX + 50, y: startY, label: 'CEO' },
+        { x: startX, y: startY + 100, label: 'Manager 1' },
+        { x: startX + 100, y: startY + 100, label: 'Manager 2' },
+      ];
+      positions.forEach((pos, idx) => {
+        newObjects.push({
+          id: objectId + idx,
+          type: 'rect',
+          start: { x: pos.x, y: pos.y },
+          end: { x: pos.x + 100, y: pos.y + 60 },
+          color: '#b84dff',
+          size: 2,
+        });
+        newObjects.push({
+          id: objectId + 10 + idx,
+          type: 'text',
+          start: { x: pos.x + 25, y: pos.y + 30 },
+          text: pos.label,
+          color: '#fff',
+          fontSize: 11,
+        });
+      });
+    } else if (prompt.includes('kanban')) {
+      // Create kanban board (columns)
+      const columns = ['To Do', 'In Progress', 'Done'];
+      columns.forEach((col, idx) => {
+        newObjects.push({
+          id: objectId + idx,
+          type: 'rect',
+          start: { x: startX + idx * 150, y: startY },
+          end: { x: startX + idx * 150 + 120, y: startY + 300 },
+          color: '#4d7aff',
+          size: 2,
+        });
+        newObjects.push({
+          id: objectId + 10 + idx,
+          type: 'text',
+          start: { x: startX + idx * 150 + 20, y: startY + 10 },
+          text: col,
+          color: '#fff',
+          fontSize: 12,
+        });
+      });
+    }
+
+    setObjects(objs => [...objs, ...newObjects]);
+    setObjectId(id => id + (newObjects.length + 20));
+    setPromptDialogOpen(false);
+    setDiagramPrompt('');
+  }, [diagramPrompt, objectId]);
+
   // Template generators
   const applyTemplate = useCallback((templateType) => {
     let newObjects = [];
