@@ -9,22 +9,16 @@ import {
   X,
   RefreshCcw,
   Plus,
-  TrendingUp,
-  Activity,
-  Users,
-  AlertTriangle,
-  Clock,
-  Zap,
 } from "lucide-react";
 
 const LSK = "lu:glowdesk:layout:v1";
-const GRID = { cols: 12, gap: 16, rowH: 150, pad: 24 };
+const GRID = { cols: 4, gap: 16, rowH: 140, pad: 20 };
 
 function getGreeting() {
   const now = new Date();
   const hour = now.getHours();
   const mins = String(now.getMinutes()).padStart(2, '0');
-  const timeStr = `${String(hour).padStart(2, '0')}:${mins}`;
+  const date = now.toLocaleDateString();
 
   let greeting = "";
   let emoji = "";
@@ -43,57 +37,41 @@ function getGreeting() {
     emoji = "🌃";
   }
 
-  return { greeting, emoji, timeStr };
+  return { greeting, emoji, date, hour, mins };
 }
 
 const DEFAULT = [
-  { id: "covers",     title: "Today's Covers",      color: "#00d9ff", w: 3, h: 2, x: 0, y: 0, pinned: true },
-  { id: "food-cost",  title: "Food Cost %",         color: "#ff4d7d", w: 3, h: 2, x: 3, y: 0, pinned: true },
-  { id: "labor",      title: "Labor Cost %",        color: "#00ff88", w: 3, h: 2, x: 6, y: 0, pinned: true },
-  { id: "orders",     title: "Active Orders",       color: "#ffc844", w: 3, h: 2, x: 9, y: 0, pinned: true },
-  { id: "kitchen",    title: "Kitchen Status",      color: "#b84dff", w: 3, h: 2, x: 0, y: 2, pinned: true },
-  { id: "staff",      title: "Staff on Duty",       color: "#4dbaff", w: 3, h: 2, x: 3, y: 2, pinned: true },
-  { id: "alerts",     title: "System Alerts",       color: "#ff6b4d", w: 3, h: 2, x: 6, y: 2, pinned: true },
-  { id: "revenue",    title: "Live Revenue",        color: "#4dff9e", w: 3, h: 2, x: 9, y: 2, pinned: true },
+  { id: "covers",     title: "Today's Covers",      color: "#00d9ff", w: 1, h: 1, x: 0, y: 0, pinned: true },
+  { id: "food-cost",  title: "Food Cost %",         color: "#ff4d7d", w: 1, h: 1, x: 1, y: 0, pinned: true },
+  { id: "labor",      title: "Labor Cost %",        color: "#00ff88", w: 1, h: 1, x: 2, y: 0, pinned: true },
+  { id: "orders",     title: "Active Orders",       color: "#ffc844", w: 1, h: 1, x: 3, y: 0, pinned: true },
+  { id: "kitchen",    title: "Kitchen Status",      color: "#b84dff", w: 1, h: 1, x: 0, y: 1, pinned: true },
+  { id: "staff",      title: "Staff on Duty",       color: "#4dbaff", w: 1, h: 1, x: 1, y: 1, pinned: true },
+  { id: "alerts",     title: "System Alerts",       color: "#ff6b4d", w: 1, h: 1, x: 2, y: 1, pinned: true },
+  { id: "revenue",    title: "Live Revenue",        color: "#4dff9e", w: 1, h: 1, x: 3, y: 1, pinned: true },
 ];
 
 export default function GlowyDesk() {
   const containerRef = useRef(null);
   const [cards, setCards] = useState(() => {
-    try { return JSON.parse(localStorage.getItem(LSK) || "null") ?? DEFAULT; }
-    catch { return DEFAULT; }
+    try { 
+      const saved = JSON.parse(localStorage.getItem(LSK) || "null");
+      return saved ?? DEFAULT; 
+    } catch { 
+      return DEFAULT; 
+    }
   });
   const [z, setZ] = useState(10);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [containerSize, setContainerSize] = useState({ w: 1200, h: 800 });
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  useEffect(() => { localStorage.setItem(LSK, JSON.stringify(cards)); }, [cards]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (containerRef.current) {
-        setContainerSize({
-          w: containerRef.current.clientWidth,
-          h: containerRef.current.clientHeight,
-        });
-      }
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const grid = useMemo(() => {
-    const W = containerSize.w;
-    const { cols, gap, pad, rowH } = GRID;
-    const colW = Math.floor((W - pad * 2 - gap * (cols - 1)) / cols);
-    return { ...GRID, colW, W, rowH };
-  }, [containerSize.w]);
+  useEffect(() => { 
+    localStorage.setItem(LSK, JSON.stringify(cards)); 
+  }, [cards]);
 
   const bringToFront = (id) => {
     setCards(cs => cs.map(c => c.id === id ? { ...c, z: z + 1 } : c));
@@ -104,40 +82,53 @@ export default function GlowyDesk() {
   const remove = (id) => setCards(cs => cs.filter(c => c.id !== id));
   const reset = () => setCards(DEFAULT);
 
+  const addCard = () => {
+    const id = "w-" + Math.random().toString(36).slice(2, 8);
+    const lastY = Math.max(...cards.map(c => c.y + c.h), 0);
+    setCards(cs => cs.concat([{ 
+      id, 
+      title: "New Widget", 
+      color: "#00d9ff", 
+      w: 1, 
+      h: 1, 
+      x: 0, 
+      y: lastY + 1, 
+      pinned: true 
+    }]));
+  };
+
   const tearOut = (card) => {
     window.dispatchEvent(new CustomEvent("open-panel", {
       detail: { id: card.id, title: card.title, isGlowyDeskCard: true }
     }));
   };
 
-  const addCard = () => {
-    const id = "w-" + Math.random().toString(36).slice(2, 8);
-    setCards(cs => cs.concat([{ id, title: "New Widget", color: "#00d9ff", w: 3, h: 2, x: 0, y: 4, pinned: true }]));
-  };
-
-  const toPx = (c) => {
-    const { pad, gap, colW, rowH } = grid;
-    const headerH = 140;
-    const x = pad + c.x * (colW + gap);
-    const y = headerH + pad + c.y * (rowH + gap);
-    const w = c.w * colW + (c.w - 1) * gap;
-    const h = c.h * rowH + (c.h - 1) * gap;
+  const gridToPx = (card, containerWidth) => {
+    const { cols, gap, pad, rowH } = GRID;
+    const colW = (containerWidth - pad * 2 - gap * (cols - 1)) / cols;
+    
+    const x = pad + card.x * (colW + gap);
+    const y = pad + card.y * (rowH + gap);
+    const w = card.w * colW + Math.max(0, card.w - 1) * gap;
+    const h = card.h * rowH + Math.max(0, card.h - 1) * gap;
+    
     return { x, y, w, h };
   };
 
-  const fromPx = (px) => {
-    const { colW, rowH, gap } = grid;
-    const q = (v, unit) => Math.max(0, Math.round(v / (unit + gap)));
-    return {
-      x: q(px.x - GRID.pad, colW),
-      y: q(px.y - 140 - GRID.pad, rowH),
-      w: Math.max(1, q(px.w + gap, colW)),
-      h: Math.max(1, q(px.h + gap, rowH)),
-    };
+  const pxToGrid = (px, containerWidth) => {
+    const { cols, gap, pad, rowH } = GRID;
+    const colW = (containerWidth - pad * 2 - gap * (cols - 1)) / cols;
+    
+    const x = Math.max(0, Math.min(cols - 1, Math.round((px.x - pad) / (colW + gap))));
+    const y = Math.max(0, Math.round((px.y - pad) / (rowH + gap)));
+    const w = Math.max(1, Math.min(cols - x, Math.round((px.w + gap / 2) / (colW + gap))));
+    const h = Math.max(1, Math.round((px.h + gap / 2) / (rowH + gap)));
+    
+    return { x, y, w, h };
   };
 
-  const { greeting, emoji, timeStr } = getGreeting();
-
+  const { greeting, emoji, date, hour, mins } = getGreeting();
+  
   return (
     <div
       ref={containerRef}
@@ -149,238 +140,124 @@ export default function GlowyDesk() {
           "linear-gradient(180deg, rgba(15, 28, 42, 0.4) 0%, rgba(10, 20, 35, 0.6) 100%)",
       }}
     >
-      {/* Welcome Header - Always Visible */}
-      <div className="flex-shrink-0 border-b border-cyan-400/20 px-6 py-6 bg-gradient-to-r from-slate-900/50 to-slate-800/50 backdrop-blur-sm">
-        <div className="flex items-start justify-between gap-8 max-w-7xl mx-auto">
-          <div className="flex-1">
-            <div className="flex items-baseline gap-4 mb-3">
-              <span className="text-5xl">{emoji}</span>
-              <div className="text-4xl md:text-5xl font-black tracking-tight bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300 bg-clip-text text-transparent">
+      {/* Welcome Header - Always Visible & Not Scrollable */}
+      <div className="flex-shrink-0 border-b border-cyan-400/20 px-6 py-5 bg-gradient-to-r from-slate-900/80 to-slate-800/80 backdrop-blur-sm">
+        <div className="flex items-start justify-between gap-6">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-baseline gap-3 mb-2">
+              <span className="text-3xl flex-shrink-0">{emoji}</span>
+              <div className="text-3xl font-bold tracking-tight bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300 bg-clip-text text-transparent">
                 {greeting}
               </div>
             </div>
-            <div className="flex items-center gap-4 flex-wrap">
-              <div className="text-xs font-mono text-cyan-400/70 bg-cyan-400/5 px-3 py-1.5 rounded-lg border border-cyan-400/20">
-                {currentTime.toLocaleDateString()} • {timeStr}
+            <div className="flex items-center gap-3 flex-wrap text-sm">
+              <div className="text-xs font-mono text-cyan-400/70 bg-cyan-400/5 px-2.5 py-1 rounded border border-cyan-400/20">
+                {date} • {String(hour).padStart(2, '0')}:{mins}
               </div>
-              <div className="text-sm text-white/60">
+              <div className="text-xs text-white/50">
                 Drag panels • Pin to grid • Pop out anytime
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-3 flex-shrink-0">
-            <button className="hud-btn" onClick={addCard} title="Add new widget">
-              <Plus size={16} /> Add
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <button 
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded border border-cyan-400/30 bg-cyan-400/10 text-cyan-300 text-xs font-semibold hover:bg-cyan-400/20 hover:border-cyan-400/50 transition-all"
+              onClick={addCard} 
+              title="Add new widget"
+            >
+              <Plus size={14} /> Add
             </button>
-            <button className="hud-btn" onClick={reset} title="Reset layout">
-              <RefreshCcw size={16} /> Reset
+            <button 
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded border border-cyan-400/30 bg-cyan-400/10 text-cyan-300 text-xs font-semibold hover:bg-cyan-400/20 hover:border-cyan-400/50 transition-all"
+              onClick={reset} 
+              title="Reset layout"
+            >
+              <RefreshCcw size={14} /> Reset
             </button>
           </div>
         </div>
       </div>
 
-      {/* Scrollable Cards Area */}
-      <div
-        className="flex-1 overflow-auto relative"
-        style={{ padding: GRID.pad }}
-      >
-        {/* Positioned cards container */}
-        <div
-          className="relative pointer-events-none"
-          style={{
-            width: '100%',
-            minHeight: cards.length > 0 ? Math.max(800, (Math.max(...cards.map(c => c.y + c.h)) + 1) * (GRID.rowH + GRID.gap)) : 400,
-          }}
-        >
-          {cards.map(card => {
-            const px = card.pinned ? toPx(card) : {
-              x: card.fx ?? 48,
-              y: card.fy ?? 160,
-              w: card.fw ?? 380,
-              h: card.fh ?? 240,
-            };
+      {/* Scrollable Cards Container */}
+      <div className="flex-1 overflow-auto relative w-full" style={{ minHeight: 0 }}>
+        <div className="w-full h-full relative" style={{ padding: `${GRID.pad}px` }}>
+          {/* Grid container with proper sizing */}
+          <div className="relative w-full" style={{ pointerEvents: 'none' }}>
+            {cards.map(card => {
+              if (!containerRef.current) return null;
+              
+              const containerWidth = containerRef.current.clientWidth - GRID.pad * 2;
+              const px = card.pinned ? gridToPx(card, containerWidth) : {
+                x: card.fx ?? 50,
+                y: card.fy ?? 50,
+                w: card.fw ?? 300,
+                h: card.fh ?? 180,
+              };
 
-            return (
-              <Rnd
-                key={card.id}
-                bounds={false}
-                position={{ x: px.x, y: px.y }}
-                size={{ width: px.w, height: px.h }}
-                minWidth={280}
-                minHeight={200}
-                enableResizing
-                dragHandleClassName="hud-handle"
-                onDragStart={() => bringToFront(card.id)}
-                onResizeStart={() => bringToFront(card.id)}
-                onDragStop={(_, d) => {
-                  if (card.pinned) {
-                    const snapped = fromPx({ x: d.x, y: d.y, w: px.w, h: px.h });
-                    update(card.id, snapped);
-                  } else {
-                    update(card.id, { fx: d.x, fy: d.y });
-                  }
-                }}
-                onResizeStop={(_, __, ref, ___, pos) => {
-                  if (card.pinned) {
-                    const snapped = fromPx({ x: pos.x, y: pos.y, w: ref.offsetWidth, h: ref.offsetHeight });
-                    update(card.id, snapped);
-                  } else {
-                    update(card.id, { fw: ref.offsetWidth, fh: ref.offsetHeight, fx: pos.x, fy: pos.y });
-                  }
-                }}
-                style={{ zIndex: card.z ?? 10 }}
-                className="pointer-events-auto"
-              >
-                <HUDCard
-                  id={card.id}
-                  title={card.title}
-                  color={card.color}
-                  pinned={card.pinned}
-                  onPin={() => update(card.id, { pinned: !card.pinned })}
-                  onPop={() => tearOut(card)}
-                  onClose={() => remove(card.id)}
-                  currentTime={currentTime}
-                />
-              </Rnd>
-            );
-          })}
+              return (
+                <Rnd
+                  key={card.id}
+                  bounds={false}
+                  position={{ x: px.x, y: px.y }}
+                  size={{ width: px.w, height: px.h }}
+                  minWidth={240}
+                  minHeight={160}
+                  enableResizing={!card.pinned}
+                  dragHandleClassName="hud-handle"
+                  onDragStart={() => bringToFront(card.id)}
+                  onResizeStart={() => bringToFront(card.id)}
+                  onDragStop={(_, d) => {
+                    if (card.pinned) {
+                      const containerWidth = containerRef.current?.clientWidth - GRID.pad * 2 || 800;
+                      const snapped = pxToGrid({ x: d.x, y: d.y, w: px.w, h: px.h }, containerWidth);
+                      update(card.id, snapped);
+                    } else {
+                      update(card.id, { fx: d.x, fy: d.y });
+                    }
+                  }}
+                  onResizeStop={(_, __, ref, ___, pos) => {
+                    if (card.pinned) {
+                      const containerWidth = containerRef.current?.clientWidth - GRID.pad * 2 || 800;
+                      const snapped = pxToGrid(
+                        { x: pos.x, y: pos.y, w: ref.offsetWidth, h: ref.offsetHeight }, 
+                        containerWidth
+                      );
+                      update(card.id, snapped);
+                    } else {
+                      update(card.id, { 
+                        fw: ref.offsetWidth, 
+                        fh: ref.offsetHeight, 
+                        fx: pos.x, 
+                        fy: pos.y 
+                      });
+                    }
+                  }}
+                  style={{ 
+                    zIndex: card.z ?? 10,
+                    pointerEvents: 'auto',
+                  }}
+                >
+                  <HUDCard
+                    id={card.id}
+                    title={card.title}
+                    color={card.color}
+                    pinned={card.pinned}
+                    onPin={() => update(card.id, { pinned: !card.pinned })}
+                    onPop={() => tearOut(card)}
+                    onClose={() => remove(card.id)}
+                  />
+                </Rnd>
+              );
+            })}
+          </div>
         </div>
       </div>
-
-      <style>{`
-        .hud-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          padding: 0.5rem 0.875rem;
-          border-radius: 6px;
-          font-weight: 700;
-          font-size: 0.85rem;
-          border: 1px solid rgba(0, 217, 255, 0.3);
-          background: linear-gradient(135deg, rgba(0, 217, 255, 0.12), rgba(0, 217, 255, 0.06));
-          color: #00d9ff;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          backdrop-filter: blur(8px);
-        }
-        .hud-btn:hover {
-          background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(0, 217, 255, 0.12));
-          border-color: rgba(0, 217, 255, 0.6);
-          box-shadow: 0 0 16px rgba(0, 217, 255, 0.25);
-        }
-      `}</style>
     </div>
   );
 }
 
-function HUDCard({ id, title, color, pinned, onPin, onPop, onClose, currentTime }) {
-  const isDark = !document.documentElement.classList.contains("light");
-
-  return (
-    <div
-      className="h-full w-full rounded-lg relative overflow-hidden group"
-      style={{
-        background: isDark
-          ? "linear-gradient(135deg, rgba(5, 15, 25, 0.95), rgba(8, 18, 32, 0.92))"
-          : "linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.88))",
-        border: isDark
-          ? `1.5px solid ${hexToRGBA(color, 0.35)}`
-          : `1.5px solid ${hexToRGBA(color, 0.2)}`,
-        boxShadow: isDark
-          ? `0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px ${hexToRGBA(color, 0.25)}, inset 0 1px 0 rgba(255, 255, 255, 0.08)`
-          : `0 12px 40px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.7)`,
-        backdropFilter: "blur(12px)",
-      }}
-    >
-      <div
-        aria-hidden
-        className="absolute -inset-20 rounded-[32px] pointer-events-none"
-        style={{
-          background: `radial-gradient(350px 200px at 30% 0%, ${hexToRGBA(color, 0.25)}, transparent 65%)`,
-          filter: "blur(28px)",
-          opacity: isDark ? 0.7 : 0.3,
-        }}
-      />
-
-      <div className="hud-toolbar">
-        <div className="hud-handle flex items-center gap-2 cursor-grab">
-          <div
-            className="w-2 h-2 rounded-full flex-shrink-0"
-            style={{
-              background: color,
-              boxShadow: `0 0 10px ${hexToRGBA(color, 0.5)}`,
-            }}
-          />
-          <span className="text-xs font-bold tracking-wide opacity-85 uppercase">{title}</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <button className="hud-ctl" title="Pop out" onClick={onPop}>
-            <ExternalLink size={14} />
-          </button>
-          <button className={`hud-ctl ${pinned ? "hud-active" : ""}`} title={pinned ? "Unpin" : "Pin"} onClick={onPin}>
-            {pinned ? <Pin size={14} /> : <PinOff size={14} />}
-          </button>
-          <button className="hud-ctl" title="Close" onClick={onClose}>
-            <X size={14} />
-          </button>
-        </div>
-      </div>
-
-      <div className="absolute inset-[14px] rounded-lg p-4 flex flex-col justify-between overflow-hidden">
-        <HUDContent id={id} color={color} />
-      </div>
-
-      <style>{`
-        .hud-toolbar {
-          position: absolute;
-          left: 12px;
-          right: 12px;
-          top: 10px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 8px;
-          padding: 8px 12px;
-          border-radius: 8px;
-          background: linear-gradient(90deg, rgba(0, 217, 255, 0.09), rgba(0, 217, 255, 0.04));
-          border: 1px solid rgba(0, 217, 255, 0.2);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-          color: #7ff3ff;
-          pointer-events: auto;
-          z-index: 10;
-          backdrop-filter: blur(8px);
-        }
-        .hud-handle { user-select: none; }
-        .hud-handle:active { cursor: grabbing; }
-        .hud-ctl {
-          display: grid;
-          place-items: center;
-          width: 24px;
-          height: 24px;
-          border-radius: 5px;
-          border: 1px solid rgba(0, 217, 255, 0.2);
-          background: rgba(0, 217, 255, 0.08);
-          color: #7ff3ff;
-          cursor: pointer;
-          transition: all 0.15s ease;
-          flex-shrink: 0;
-        }
-        .hud-ctl:hover {
-          background: rgba(0, 217, 255, 0.15);
-          border-color: rgba(0, 217, 255, 0.4);
-          box-shadow: 0 0 8px rgba(0, 217, 255, 0.2);
-        }
-        .hud-ctl.hud-active {
-          border-color: rgba(0, 217, 255, 0.5);
-          background: rgba(0, 217, 255, 0.15);
-          box-shadow: 0 0 12px rgba(0, 217, 255, 0.3);
-        }
-      `}</style>
-    </div>
-  );
-}
-
-function HUDContent({ id, color }) {
+function HUDCard({ id, title, color, pinned, onPin, onPop, onClose }) {
+  const isDark = true;
   const [data, setData] = useState({});
 
   useEffect(() => {
@@ -389,14 +266,14 @@ function HUDContent({ id, color }) {
       const baseVal = Math.sin(now.getTime() / 8000) * 10;
 
       const dataMap = {
-        "covers": { value: Math.floor(1200 + baseVal * 50), unit: "today", detail: "↑ 12% vs yesterday", color: "#00d9ff" },
-        "food-cost": { value: (28.3 + baseVal * 0.5).toFixed(1), unit: "%", detail: "Target: 28%", color: "#ff4d7d" },
-        "labor": { value: (25.8 + baseVal * 0.3).toFixed(1), unit: "%", detail: "Target: 26%", color: "#00ff88" },
-        "orders": { value: Math.floor(24 + baseVal * 5), unit: "live", detail: "Avg wait: 12 min", color: "#ffc844" },
-        "kitchen": { value: Math.floor(87 + baseVal * 5), unit: "%", detail: "Efficiency: Optimal", color: "#b84dff" },
-        "staff": { value: Math.floor(18 + baseVal * 2), unit: "people", detail: "2 breaks scheduled", color: "#4dbaff" },
-        "alerts": { value: Math.floor(2 + Math.abs(baseVal)), unit: "active", detail: "1 warning, 1 info", color: "#ff6b4d" },
-        "revenue": { value: Math.floor(3450 + baseVal * 200), unit: "$", detail: "↑ 8.5% vs avg", color: "#4dff9e" },
+        "covers": { value: Math.floor(1200 + baseVal * 50), unit: "today", detail: "↑ 12% vs yesterday" },
+        "food-cost": { value: (28.3 + baseVal * 0.5).toFixed(1), unit: "%", detail: "Target: 28%" },
+        "labor": { value: (25.8 + baseVal * 0.3).toFixed(1), unit: "%", detail: "Target: 26%" },
+        "orders": { value: Math.floor(24 + baseVal * 5), unit: "live", detail: "Avg wait: 12 min" },
+        "kitchen": { value: Math.floor(87 + baseVal * 5), unit: "%", detail: "Efficiency: Optimal" },
+        "staff": { value: Math.floor(18 + baseVal * 2), unit: "people", detail: "2 breaks scheduled" },
+        "alerts": { value: Math.floor(2 + Math.abs(baseVal)), unit: "active", detail: "1 warning, 1 info" },
+        "revenue": { value: Math.floor(3450 + baseVal * 200), unit: "$", detail: "↑ 8.5% vs avg" },
       };
 
       setData(dataMap[id] || dataMap.covers);
@@ -408,17 +285,97 @@ function HUDContent({ id, color }) {
   }, [id]);
 
   return (
-    <div>
-      <div className="flex items-baseline gap-2 mb-4">
-        <div className="text-4xl md:text-5xl font-black tracking-tight" style={{ color: data.color || color }}>
-          {data.value}
+    <div
+      className="w-full h-full rounded-lg relative overflow-hidden group"
+      style={{
+        background: isDark
+          ? "linear-gradient(135deg, rgba(5, 15, 25, 0.95), rgba(8, 18, 32, 0.92))"
+          : "linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.88))",
+        border: `1.5px solid ${hexToRGBA(color, 0.35)}`,
+        boxShadow: isDark
+          ? `0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px ${hexToRGBA(color, 0.25)}, inset 0 1px 0 rgba(255, 255, 255, 0.08)`
+          : `0 12px 40px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.7)`,
+        backdropFilter: "blur(12px)",
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <div
+        aria-hidden
+        className="absolute -inset-20 rounded-[32px] pointer-events-none"
+        style={{
+          background: `radial-gradient(350px 200px at 30% 0%, ${hexToRGBA(color, 0.25)}, transparent 65%)`,
+          filter: "blur(28px)",
+          opacity: 0.7,
+        }}
+      />
+
+      {/* Toolbar */}
+      <div
+        className="flex-shrink-0 flex items-center justify-between gap-2 p-3 border-b"
+        style={{
+          borderBottomColor: hexToRGBA(color, 0.2),
+          background: `linear-gradient(90deg, ${hexToRGBA(color, 0.08)}, ${hexToRGBA(color, 0.04)})`,
+        }}
+      >
+        <div className="hud-handle flex items-center gap-2 cursor-grab active:cursor-grabbing min-w-0">
+          <div
+            className="w-2 h-2 rounded-full flex-shrink-0"
+            style={{
+              background: color,
+              boxShadow: `0 0 10px ${hexToRGBA(color, 0.5)}`,
+            }}
+          />
+          <span className="text-xs font-bold tracking-wide opacity-85 uppercase truncate">
+            {title}
+          </span>
         </div>
-        <div className="text-xs font-semibold opacity-60">{data.unit}</div>
+        <div className="flex items-center gap-1 flex-shrink-0">
+          <button 
+            className="w-6 h-6 flex items-center justify-center rounded text-xs hover:bg-cyan-400/20 transition-all flex-shrink-0" 
+            title="Pop out" 
+            onClick={onPop}
+            style={{ color }}
+          >
+            <ExternalLink size={12} />
+          </button>
+          <button 
+            className="w-6 h-6 flex items-center justify-center rounded text-xs hover:bg-cyan-400/20 transition-all flex-shrink-0" 
+            title={pinned ? "Unpin" : "Pin"} 
+            onClick={onPin}
+            style={{ color: pinned ? color : 'rgba(255,255,255,0.4)' }}
+          >
+            {pinned ? <Pin size={12} /> : <PinOff size={12} />}
+          </button>
+          <button 
+            className="w-6 h-6 flex items-center justify-center rounded text-xs hover:bg-red-400/20 transition-all flex-shrink-0" 
+            title="Close" 
+            onClick={onClose}
+            style={{ color: '#ff6b6b' }}
+          >
+            <X size={12} />
+          </button>
+        </div>
       </div>
-      <div className="text-xs opacity-60 mb-auto">{data.detail}</div>
-      <div className="flex items-center justify-between text-[10px] mt-4 opacity-50">
-        <span className="font-mono">Live</span>
-        <span className="inline-block w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: color }} />
+
+      {/* Content */}
+      <div className="flex-1 p-4 flex flex-col justify-between overflow-hidden relative z-0">
+        <div>
+          <div className="flex items-baseline gap-1 mb-3">
+            <div className="text-3xl md:text-4xl font-black tracking-tight" style={{ color }}>
+              {data.value}
+            </div>
+            <div className="text-xs font-semibold opacity-60">{data.unit}</div>
+          </div>
+          <div className="text-xs opacity-60">{data.detail}</div>
+        </div>
+        <div className="flex items-center justify-between text-[10px] opacity-50">
+          <span className="font-mono">Live</span>
+          <span 
+            className="inline-block w-1.5 h-1.5 rounded-full animate-pulse" 
+            style={{ background: color }}
+          />
+        </div>
       </div>
     </div>
   );
