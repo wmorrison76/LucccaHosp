@@ -462,6 +462,22 @@ Time: ${new Date().toLocaleTimeString()}`,
     });
   };
 
+  const addFloorPlanTable = (numSeats) => {
+    const tableNum = prompt(`Add table (T1, T2, etc):`) || `T${Math.floor(Math.random() * 100)}`;
+    const newSticky = {
+      id: objectId,
+      type: 'sticky',
+      x: 100 + Math.random() * 400,
+      y: 100 + Math.random() * 300,
+      text: `${tableNum}
+Seats: ${numSeats}
+Status: Open`,
+      bgColor: '#bae1ff'
+    };
+    setObjects(objs => [...objs, newSticky]);
+    setObjectId(id => id + 1);
+  };
+
   const addStickyNote = () => {
     const newSticky = {
       id: objectId,
