@@ -304,6 +304,52 @@ function AdvancedWhiteboardCore() {
     input.click();
   };
 
+  const createSnapshot = () => {
+    if (!snapshotName.trim()) {
+      alert('Please enter a snapshot name');
+      return;
+    }
+
+    const snapshot = {
+      id: Math.random().toString(36).slice(2),
+      name: snapshotName,
+      timestamp: new Date().toISOString(),
+      canvas: canvasRef.current.toDataURL('image/png'),
+      state: {
+        objects,
+        zoom,
+        pan,
+        chatMessages,
+        participants,
+        images,
+        mediaEmbeds,
+        floatingPanels
+      }
+    };
+
+    setSnapshots([...snapshots, snapshot]);
+    setSnapshotName('');
+    setShowSnapshotInput(false);
+  };
+
+  const restoreSnapshot = (snapshotId) => {
+    const snapshot = snapshots.find(s => s.id === snapshotId);
+    if (!snapshot) return;
+
+    setObjects(snapshot.state.objects || []);
+    setZoom(snapshot.state.zoom || 1);
+    setPan(snapshot.state.pan || { x: 0, y: 0 });
+    setParticipants(snapshot.state.participants || []);
+    setChatMessages(snapshot.state.chatMessages || []);
+    setImages(snapshot.state.images || []);
+    setMediaEmbeds(snapshot.state.mediaEmbeds || []);
+    setFloatingPanels(snapshot.state.floatingPanels || []);
+  };
+
+  const deleteSnapshot = (snapshotId) => {
+    setSnapshots(snapshots.filter(s => s.id !== snapshotId));
+  };
+
   const addStickyNote = () => {
     const newSticky = {
       id: objectId,
