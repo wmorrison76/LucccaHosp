@@ -13,6 +13,8 @@ import {
 
 const LS_WHITEBOARD = 'luccca:whiteboard:v1';
 const LS_BOARD_STATE = 'luccca:board:state:v1';
+const GRID_SIZE = 20; // Snap-to-grid spacing
+const GRID_SNAP_THRESHOLD = 8; // Distance to snap
 
 /**
  * Advanced EchoDesk Hospitality Whiteboard
