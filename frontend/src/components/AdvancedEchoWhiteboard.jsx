@@ -1511,6 +1511,15 @@ export default function AdvancedEchoWhiteboard() {
             </button>
           </div>
 
+          {/* Templates */}
+          <button
+            onClick={() => setTemplateDialogOpen(true)}
+            className="px-3 py-1 rounded bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 text-sm font-semibold transition-colors"
+            title="Load template"
+          >
+            📋 Templates
+          </button>
+
           {/* Export & Snapshots */}
           <div className="flex gap-1 bg-black/40 rounded-lg p-1 border border-cyan-400/20">
             <button
