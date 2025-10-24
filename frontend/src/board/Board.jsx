@@ -133,7 +133,7 @@ class PanelErrorBoundary extends React.Component {
   }
 }
 
-/* ──���──────────── Registry ─────────────── */
+/* ──���──────────── Registry ─���───────────── */
 const PANEL_REGISTRY = {};
 
 // Add only panels with valid components
@@ -200,7 +200,7 @@ if (AdvancedVideoConference) PANEL_REGISTRY.videoconference = { title: "Video Co
 if (ReminderWidget) PANEL_REGISTRY.reminders = { title: "Reminders", Component: ReminderWidget, icon: null };
 if (SettingsSuite) PANEL_REGISTRY.settings = { title: "Settings", Component: SettingsSuite, icon: null };
 
-/* ─────────────── Helpers ─────────────── */
+/* ─────────────── Helpers ───────────���─── */
 let zCounter = 10;
 const genToken = () => Math.random().toString(36).slice(2) + "-" + Date.now().toString(36);
 
@@ -237,6 +237,31 @@ export default function Board() {
     }
   });
   useEffect(() => { try { localStorage.setItem(LS.toolbar, JSON.stringify(tbPos)); } catch {} }, [tbPos]);
+
+  // Auto-open ProfessionalDashboard on mount
+  useEffect(() => {
+    if (windows.length === 0) {
+      // Open dashboard on first load
+      const dashboardEntry = PANEL_REGISTRY.dashboard;
+      if (dashboardEntry && dashboardEntry.Component) {
+        setWindows([{
+          id: 'dashboard',
+          title: dashboardEntry.title,
+          icon: dashboardEntry.icon ?? null,
+          z: 10,
+          x: 40,
+          y: 40,
+          width: Math.min(window.innerWidth - 120, 1400),
+          height: Math.min(window.innerHeight - 140, 800),
+          minimized: false,
+          maximized: false,
+          props: {},
+        }]);
+        zCounter = 10;
+        setActiveId('dashboard');
+      }
+    }
+  }, []); // Run only once on mount
 
   const bringToFront = useCallback((id) => {
     zCounter += 1;
