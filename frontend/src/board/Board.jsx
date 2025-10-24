@@ -155,8 +155,9 @@ console.log('[Board] ChefNetPanel:', !!ChefNetPanel);
 console.log('[Board] SupportPanel:', !!SupportPanel);
 console.log('[Board] SettingsSuite:', !!SettingsSuite);
 
-if (AdvancedHUD) PANEL_REGISTRY.dashboard = { title: "Operations Nexus", Component: AdvancedHUD, icon: null };
-if (AdvancedHUD) PANEL_REGISTRY.home = { title: "Operations Nexus", Component: AdvancedHUD, icon: null };
+if (EnterpriseHUD) PANEL_REGISTRY.dashboard = { title: "Enterprise HUD", Component: EnterpriseHUD, icon: null };
+if (EnterpriseHUD) PANEL_REGISTRY.home = { title: "Enterprise HUD", Component: EnterpriseHUD, icon: null };
+if (AdvancedHUD) PANEL_REGISTRY.advanced = { title: "Operations Nexus", Component: AdvancedHUD, icon: null };
 if (FuturisticHUD) PANEL_REGISTRY.futuristic = { title: "Futuristic HUD", Component: FuturisticHUD, icon: null };
 if (GlowDesk) PANEL_REGISTRY.glowdesk = { title: "Legacy Dashboard", Component: GlowDesk, icon: null };
 if (EchoRecipeProPanel) PANEL_REGISTRY.culinary = { title: "Culinary", Component: EchoRecipeProPanel, icon: kitchenIcon };
