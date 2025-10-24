@@ -1744,6 +1744,22 @@ End: (${endX}, ${endY})`,
               {floorPlanMode ? '✓ Floor Plan' : '🪑 Floor Plan'}
             </button>
 
+            <button
+              onClick={addMeasurement}
+              title="Add measurement ruler"
+              style={{
+                padding: "4px 8px",
+                backgroundColor: "rgba(150, 200, 100, 0.1)",
+                border: "1px solid rgba(150, 200, 100, 0.3)",
+                borderRadius: "3px",
+                color: "#96c864",
+                cursor: "pointer",
+                fontSize: "11px"
+              }}
+            >
+              📏 Ruler
+            </button>
+
             {showTemplate && (
               <div style={{
                 position: 'absolute',
