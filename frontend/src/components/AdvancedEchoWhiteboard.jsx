@@ -153,8 +153,54 @@ export default function AdvancedEchoWhiteboard() {
       drawObject(ctx, obj);
     });
 
+    // Draw shape preview (dotted line while drawing)
+    if (previewShape) {
+      ctx.strokeStyle = previewShape.color || '#00d9ff';
+      ctx.lineWidth = previewShape.size || 2;
+      ctx.setLineDash([5, 5]);
+
+      const { start, end, type } = previewShape;
+      if (type === 'line') {
+        ctx.beginPath();
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(end.x, end.y);
+        ctx.stroke();
+      } else if (type === 'rect') {
+        const width = end.x - start.x;
+        const height = end.y - start.y;
+        ctx.strokeRect(start.x, start.y, width, height);
+      } else if (type === 'circle') {
+        const radius = Math.sqrt(Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2));
+        ctx.beginPath();
+        ctx.arc(start.x, start.y, radius, 0, 2 * Math.PI);
+        ctx.stroke();
+      }
+      ctx.setLineDash([]);
+    }
+
+    // Draw guide lines
+    if (showGuides && guideLines.length > 0) {
+      ctx.strokeStyle = 'rgba(255, 100, 100, 0.5)';
+      ctx.lineWidth = 1;
+      guideLines.forEach(guide => {
+        ctx.setLineDash([3, 3]);
+        if (guide.type === 'vertical') {
+          ctx.beginPath();
+          ctx.moveTo(guide.pos, -10000);
+          ctx.lineTo(guide.pos, 10000);
+          ctx.stroke();
+        } else if (guide.type === 'horizontal') {
+          ctx.beginPath();
+          ctx.moveTo(-10000, guide.pos);
+          ctx.lineTo(10000, guide.pos);
+          ctx.stroke();
+        }
+      });
+      ctx.setLineDash([]);
+    }
+
     ctx.restore();
-  }, [objects, pan, zoom]);
+  }, [objects, pan, zoom, previewShape, showGuides, guideLines]);
 
   const drawObject = (ctx, obj) => {
     ctx.strokeStyle = obj.color || '#00d9ff';
