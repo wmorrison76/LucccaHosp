@@ -398,7 +398,9 @@ const styles: Record<string, React.CSSProperties> = {
     transition: 'all 0.3s ease',
     position: 'relative' as const,
     zIndex: 10,
-  },
+    pointerEvents: 'auto' as const,
+    outline: 'none',
+  } as React.CSSProperties,
   buttonLargeSecondary: {
     padding: '1rem 2.5rem',
     fontSize: '1.1rem',
@@ -411,7 +413,9 @@ const styles: Record<string, React.CSSProperties> = {
     transition: 'all 0.3s ease',
     position: 'relative' as const,
     zIndex: 10,
-  },
+    pointerEvents: 'auto' as const,
+    outline: 'none',
+  } as React.CSSProperties,
   statsCard: {
     padding: '2rem',
     backgroundColor: '#fff',
