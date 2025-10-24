@@ -25,8 +25,8 @@ app.use((req, res, next) => {
 });
 
 app.use(cors());
-app.use(express.json({ limit: '2gb' }));
-app.use(express.urlencoded({ limit: '2gb', extended: true }));
+app.use(express.json({ limit: '5gb' }));
+app.use(express.urlencoded({ limit: '5gb', extended: true }));
 app.use(loggerMiddleware);
 
 app.use('/api/cake-designer', authMiddleware, cakeDesignerRoutes);
