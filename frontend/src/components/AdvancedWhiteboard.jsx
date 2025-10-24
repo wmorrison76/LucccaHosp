@@ -1374,6 +1374,38 @@ Time: ${new Date().toLocaleTimeString()}`,
               📋 Template
             </button>
 
+            <button
+              onClick={addKitchenTicket}
+              title="Add kitchen ticket/order"
+              style={{
+                padding: "4px 8px",
+                backgroundColor: "rgba(255, 150, 100, 0.1)",
+                border: "1px solid rgba(255, 150, 100, 0.3)",
+                borderRadius: "3px",
+                color: "#ff9664",
+                cursor: "pointer",
+                fontSize: "11px"
+              }}
+            >
+              🎫 Ticket
+            </button>
+
+            <button
+              onClick={addWasteTracking}
+              title="Track waste and cost"
+              style={{
+                padding: "4px 8px",
+                backgroundColor: "rgba(100, 200, 100, 0.1)",
+                border: "1px solid rgba(100, 200, 100, 0.3)",
+                borderRadius: "3px",
+                color: "#64c864",
+                cursor: "pointer",
+                fontSize: "11px"
+              }}
+            >
+              🗑️ Waste
+            </button>
+
             {showTemplate && (
               <div style={{
                 position: 'absolute',
