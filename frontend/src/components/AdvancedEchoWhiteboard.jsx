@@ -680,3 +680,54 @@ function isNearPoint(obj, x, y, threshold = 10) {
   }
   return false;
 }
+
+// Snap point to grid
+function snapToGrid(point, gridSize, threshold) {
+  const snappedX = Math.abs((point.x % gridSize) - gridSize) < threshold ?
+    Math.round(point.x / gridSize) * gridSize : point.x;
+  const snappedY = Math.abs((point.y % gridSize) - gridSize) < threshold ?
+    Math.round(point.y / gridSize) * gridSize : point.y;
+  return { x: snappedX, y: snappedY };
+}
+
+// Detect alignment guides
+function detectGuideLines(point, objects, threshold = 10) {
+  const guides = [];
+  const verticalLines = new Set();
+  const horizontalLines = new Set();
+
+  // Add grid guides
+  verticalLines.add(Math.round(point.x / GRID_SIZE) * GRID_SIZE);
+  horizontalLines.add(Math.round(point.y / GRID_SIZE) * GRID_SIZE);
+
+  // Check alignment with existing objects
+  objects.forEach(obj => {
+    if (obj.type === 'sticky') {
+      verticalLines.add(obj.x);
+      verticalLines.add(obj.x + 150);
+      verticalLines.add(obj.x + 75);
+      horizontalLines.add(obj.y);
+      horizontalLines.add(obj.y + 150);
+      horizontalLines.add(obj.y + 75);
+    } else if (obj.type === 'rect' || obj.type === 'line') {
+      verticalLines.add(obj.start?.x || obj.x);
+      verticalLines.add(obj.end?.x || obj.x + obj.width);
+      horizontalLines.add(obj.start?.y || obj.y);
+      horizontalLines.add(obj.end?.y || obj.y + obj.height);
+    }
+  });
+
+  // Return guides within threshold
+  verticalLines.forEach(x => {
+    if (Math.abs(point.x - x) < threshold) {
+      guides.push({ type: 'vertical', pos: x });
+    }
+  });
+  horizontalLines.forEach(y => {
+    if (Math.abs(point.y - y) < threshold) {
+      guides.push({ type: 'horizontal', pos: y });
+    }
+  });
+
+  return guides;
+}
