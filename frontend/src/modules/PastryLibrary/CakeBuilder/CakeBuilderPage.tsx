@@ -11,6 +11,9 @@ import { CakeGallery } from './CakeGallery';
 import { CakeIntakeData, CakeDesign, ProductionTask } from './types';
 import { saveCakeDesign, getTasksByDesignId, saveProductionTasks } from './CakeDesignStorage';
 
+// Suppress React import rule for TypeScript JSX
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+
 type WorkflowStep = 'home' | 'intake' | 'design' | 'schedule' | 'gallery';
 
 interface CakeBuilderPageState {
