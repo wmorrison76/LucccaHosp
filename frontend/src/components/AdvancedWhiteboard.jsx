@@ -389,6 +389,53 @@ Time: ${new Date().toLocaleTimeString()}`,
     }
   };
 
+  const handleTouchStart = (e) => {
+    if (e.touches.length === 2) {
+      const touch1 = e.touches[0];
+      const touch2 = e.touches[1];
+      const distance = Math.sqrt(
+        Math.pow(touch2.clientX - touch1.clientX, 2) +
+        Math.pow(touch2.clientY - touch1.clientY, 2)
+      );
+      setTouchDistance(distance);
+    }
+  };
+
+  const handleTouchMove = (e) => {
+    if (e.touches.length === 2 && touchDistance > 0) {
+      const touch1 = e.touches[0];
+      const touch2 = e.touches[1];
+      const newDistance = Math.sqrt(
+        Math.pow(touch2.clientX - touch1.clientX, 2) +
+        Math.pow(touch2.clientY - touch1.clientY, 2)
+      );
+
+      const pinchDelta = (newDistance - touchDistance) / 100;
+      const newZoom = Math.max(0.1, Math.min(5, zoom + pinchDelta * 0.5));
+      setZoom(newZoom);
+      setTouchDistance(newDistance);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setTouchDistance(0);
+  };
+
+  const broadcastCursorPosition = (e) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Simulate updating other participants' cursors (in real app, would broadcast via WebSocket)
+    setParticipantCursors({
+      ...participantCursors,
+      'self': { x, y, name: 'You', color: '#00d9ff' }
+    });
+  };
+
   const addStickyNote = () => {
     const newSticky = {
       id: objectId,
