@@ -1145,6 +1145,59 @@ export default function AdvancedEchoWhiteboard() {
             ))}
           </div>
 
+          {/* Undo/Redo & History */}
+          <div className="flex gap-1 bg-black/40 rounded-lg p-1 border border-cyan-400/20">
+            <button
+              onClick={handleUndo}
+              disabled={historyIndex <= 0}
+              className={`p-2 rounded transition-colors ${
+                historyIndex <= 0
+                  ? 'text-cyan-400/30 cursor-not-allowed'
+                  : 'text-cyan-400/60 hover:text-cyan-300'
+              }`}
+              title="Undo (Ctrl+Z)"
+            >
+              <Undo size={16} />
+            </button>
+            <button
+              onClick={handleRedo}
+              disabled={historyIndex >= history.length - 1}
+              className={`p-2 rounded transition-colors ${
+                historyIndex >= history.length - 1
+                  ? 'text-cyan-400/30 cursor-not-allowed'
+                  : 'text-cyan-400/60 hover:text-cyan-300'
+              }`}
+              title="Redo (Ctrl+Y)"
+            >
+              <Redo size={16} />
+            </button>
+          </div>
+
+          {/* Export & Snapshots */}
+          <div className="flex gap-1 bg-black/40 rounded-lg p-1 border border-cyan-400/20">
+            <button
+              onClick={handleExportPNG}
+              className="p-2 rounded hover:bg-cyan-400/10 text-cyan-400 transition-colors"
+              title="Export as PNG"
+            >
+              <Image size={16} />
+            </button>
+            <button
+              onClick={handleExportJSON}
+              className="p-2 rounded hover:bg-cyan-400/10 text-cyan-400 transition-colors"
+              title="Export as JSON"
+            >
+              <Download size={16} />
+            </button>
+            <button
+              onClick={() => setSnapshotDialogOpen(true)}
+              className="p-2 rounded hover:bg-cyan-400/10 text-cyan-400 transition-colors"
+              title="Save snapshot"
+            >
+              <Save size={16} />
+            </button>
+          </div>
+
           {/* Sticky Note & Panel Injection */}
           <div className="flex gap-1 bg-black/40 rounded-lg p-1 border border-cyan-400/20">
             <button
