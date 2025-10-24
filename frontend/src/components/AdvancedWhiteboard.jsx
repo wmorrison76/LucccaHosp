@@ -620,6 +620,53 @@ function AdvancedWhiteboardCore() {
                 <div style={{ opacity: 0.6, fontSize: '10px' }}>Type: {panel.panelType}</div>
               </div>
             ))}
+
+            {/* MEDIA EMBEDS */}
+            {mediaEmbeds.map(media => (
+              <div
+                key={media.id}
+                style={{
+                  position: 'absolute',
+                  left: media.x,
+                  top: media.y,
+                  width: media.width,
+                  height: media.height,
+                  zIndex: 50,
+                  pointerEvents: 'auto',
+                  border: '1px solid rgba(100, 200, 255, 0.4)',
+                  borderRadius: '6px',
+                  background: 'rgba(10, 20, 35, 0.8)',
+                  padding: '8px',
+                  display: 'flex',
+                  flexDirection: 'column'
+                }}
+              >
+                {media.type === 'video' ? (
+                  <>
+                    <iframe
+                      src={media.url.includes('youtube.com') || media.url.includes('youtu.be')
+                        ? `https://www.youtube.com/embed/${media.url.split('v=')[1] || media.url.split('/').pop()}`
+                        : media.url}
+                      width="100%"
+                      height={media.height - 30}
+                      frameBorder="0"
+                      allowFullScreen
+                      style={{ borderRadius: '4px' }}
+                    />
+                  </>
+                ) : (
+                  <audio
+                    controls
+                    style={{ width: '100%', marginTop: '8px' }}
+                  >
+                    <source src={media.url} />
+                  </audio>
+                )}
+                <div style={{ fontSize: '9px', color: '#00d9ff', marginTop: '4px', opacity: 0.6 }}>
+                  {media.type === 'video' ? '��� Video' : '🎵 Audio'}
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* TEXT INPUT DIALOG */}
