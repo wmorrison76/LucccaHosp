@@ -882,6 +882,38 @@ function AdvancedWhiteboardCore() {
             >
               {isLocked ? '🔒 Locked' : '🔓 Lock'}
             </button>
+
+            <button
+              onClick={exportAsJSON}
+              title="Export board as JSON"
+              style={{
+                padding: "4px 8px",
+                backgroundColor: "rgba(100, 200, 255, 0.1)",
+                border: "1px solid rgba(100, 200, 255, 0.3)",
+                borderRadius: "3px",
+                color: "#64c8ff",
+                cursor: "pointer",
+                fontSize: "11px"
+              }}
+            >
+              📤 Export
+            </button>
+
+            <button
+              onClick={importFromJSON}
+              title="Import board from JSON"
+              style={{
+                padding: "4px 8px",
+                backgroundColor: "rgba(100, 200, 255, 0.1)",
+                border: "1px solid rgba(100, 200, 255, 0.3)",
+                borderRadius: "3px",
+                color: "#64c8ff",
+                cursor: "pointer",
+                fontSize: "11px"
+              }}
+            >
+              📥 Import
+            </button>
           </>
         )}
 
