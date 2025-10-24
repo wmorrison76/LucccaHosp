@@ -65,6 +65,7 @@ const safeImport = (importFn, name = 'Unknown') =>
       });
   });
 
+const EnterpriseHUD     = safeImport(() => import("../components/EnterpriseHUD.jsx"), "EnterpriseHUD");
 const AdvancedHUD       = safeImport(() => import("../components/AdvancedHUD.jsx"), "AdvancedHUD");
 const FuturisticHUD     = safeImport(() => import("../components/FuturisticHUD.jsx"), "FuturisticHUD");
 const GlowDesk           = safeImport(() => import("../components/GlowyDesk.jsx"), "GlowyDesk");
@@ -201,7 +202,7 @@ const LS = {
   allowOffscreen: "lu:allowOffscreen",
 };
 
-/* ─────���───────── Component ─��────────────��� */
+/* ─────��───────── Component ─��────────────��� */
 export default function Board() {
   const layerRef = useRef(null);
   const [windows, setWindows] = useState([]);
