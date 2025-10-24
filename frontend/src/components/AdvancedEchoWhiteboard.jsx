@@ -272,8 +272,25 @@ export default function AdvancedEchoWhiteboard() {
 
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
-    const x = (e.clientX - rect.left - pan.x) / zoom;
-    const y = (e.clientY - rect.top - pan.y) / zoom;
+    let x = (e.clientX - rect.left - pan.x) / zoom;
+    let y = (e.clientY - rect.top - pan.y) / zoom;
+
+    // Apply snap-to-grid
+    if (snapToGrid && (tool === 'line' || tool === 'rect' || tool === 'circle')) {
+      const snapped = snapToGrid({ x, y }, GRID_SIZE, GRID_SNAP_THRESHOLD);
+      x = snapped.x;
+      y = snapped.y;
+    }
+
+    // Detect guides
+    const guides = showGuides ? detectGuideLines({ x, y }, objects) : [];
+    setGuideLines(guides);
+
+    // Update shape preview
+    if (['line', 'rect', 'circle'].includes(tool)) {
+      setPreviewShape(prev => prev ? { ...prev, end: { x, y } } : null);
+      return;
+    }
 
     setObjects(objs => {
       const lastObj = objs[objs.length - 1];
