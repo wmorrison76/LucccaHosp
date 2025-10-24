@@ -48,6 +48,9 @@ function AdvancedWhiteboardCore() {
   const [isRecording, setIsRecording] = React.useState(false);
   const [laserMode, setLaserMode] = React.useState(false);
   const [laserPos, setLaserPos] = React.useState(null);
+  const [snapshots, setSnapshots] = React.useState([]);
+  const [snapshotName, setSnapshotName] = React.useState('');
+  const [showSnapshotInput, setShowSnapshotInput] = React.useState(false);
 
   // Communication
   const [participants, setParticipants] = React.useState([
