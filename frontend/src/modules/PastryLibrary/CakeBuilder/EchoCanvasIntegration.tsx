@@ -4,8 +4,18 @@
  * Integrates with Stability AI or other image generators
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CakeIntakeData } from './types';
+import {
+  getEchoCanvasConfig,
+  saveEchoCanvasConfig,
+  isAPIConfigured,
+  getAPIKeyDisplay,
+  testAPIConnectivity,
+  getAPIDocumentationURL,
+  getAPISignupURL,
+  validateAPIKeyFormat,
+} from './EchoCanvasConfig';
 
 interface EchoCanvasIntegrationProps {
   cakeData: CakeIntakeData;
