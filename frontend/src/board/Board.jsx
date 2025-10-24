@@ -85,7 +85,7 @@ const ChefNetPanel       = safeImport(() => import("../components/ChefNetPanel.j
 const SupportPanel       = safeImport(() => import("../components/SupportPanel.jsx"), "SupportPanel");
 const StickyNotePanel    = safeImport(() => import("../components/EchoCore/panels/StickyNotePanelEnhanced.jsx"), "StickyNotePanelEnhanced");
 const ReminderWidget     = safeImport(() => import("../components/ReminderWidget.jsx"), "ReminderWidget");
-const CakeBuilder        = safeImport(() => import("../modules/PastryLibrary/CakeBuilder/CakeBuilderPage.jsx"), "CakeBuilderPage");
+const CakeBuilder        = safeImport(() => import("../modules/PastryLibrary/CakeBuilder/CakeBuilderPage.tsx"), "CakeBuilderPage");
 
 // Optional panels - set to null if not available
 const SettingsSuite      = safeImport(() => import("../settings/SettingsSuite.jsx"), "SettingsSuite");
@@ -109,7 +109,7 @@ import pastryIcon   from "../assets/baking-&-Pastry.png";
 import mixologyIcon from "../assets/mixology.png";
 import scheduleIcon from "../assets/schedule.png";
 
-/* ─��──��─���────��─── Error boundary ─────────────── */
+/* ─��──��������────��─── Error boundary ─────────────── */
 class PanelErrorBoundary extends React.Component {
   constructor(p){ super(p); this.state = { error: null }; }
   static getDerivedStateFromError(error){ return { error }; }
