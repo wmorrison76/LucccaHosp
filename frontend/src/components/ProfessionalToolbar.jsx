@@ -72,6 +72,15 @@ export default function ProfessionalToolbar() {
     }
   }, [isDragging, dragOffset]);
 
+  // Persist position to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('lu:toolbar:pos:v1', JSON.stringify(position));
+    } catch (e) {
+      console.warn('Failed to save toolbar position:', e);
+    }
+  }, [position]);
+
   return (
     <div
       ref={toolbarRef}
