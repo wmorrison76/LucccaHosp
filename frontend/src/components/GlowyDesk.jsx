@@ -311,13 +311,13 @@ function HUDCard({ id, title, color, pinned, onPin, onPop, onClose }) {
 
       {/* Toolbar */}
       <div
-        className="flex-shrink-0 flex items-center justify-between gap-2 p-3 border-b"
+        className="flex-shrink-0 flex items-center justify-between gap-2 px-3 py-2 border-b"
         style={{
           borderBottomColor: hexToRGBA(color, 0.2),
           background: `linear-gradient(90deg, ${hexToRGBA(color, 0.08)}, ${hexToRGBA(color, 0.04)})`,
         }}
       >
-        <div className="hud-handle flex items-center gap-2 cursor-grab active:cursor-grabbing min-w-0">
+        <div className="hud-handle flex items-center gap-2 cursor-grab active:cursor-grabbing min-w-0 flex-1">
           <div
             className="w-2 h-2 rounded-full flex-shrink-0"
             style={{
@@ -329,30 +329,30 @@ function HUDCard({ id, title, color, pinned, onPin, onPop, onClose }) {
             {title}
           </span>
         </div>
-        <div className="flex items-center gap-1 flex-shrink-0">
-          <button 
-            className="w-6 h-6 flex items-center justify-center rounded text-xs hover:bg-cyan-400/20 transition-all flex-shrink-0" 
-            title="Pop out" 
+        <div className="flex items-center gap-0.5 flex-shrink-0">
+          <button
+            className="w-5 h-5 flex items-center justify-center rounded text-xs hover:bg-white/10 transition-all flex-shrink-0"
+            title="Pop out"
             onClick={onPop}
-            style={{ color }}
+            style={{ color: 'rgba(255,255,255,0.6)' }}
           >
-            <ExternalLink size={12} />
+            <ExternalLink size={11} />
           </button>
-          <button 
-            className="w-6 h-6 flex items-center justify-center rounded text-xs hover:bg-cyan-400/20 transition-all flex-shrink-0" 
-            title={pinned ? "Unpin" : "Pin"} 
+          <button
+            className="w-5 h-5 flex items-center justify-center rounded text-xs hover:bg-white/10 transition-all flex-shrink-0"
+            title={pinned ? "Unpin" : "Pin"}
             onClick={onPin}
             style={{ color: pinned ? color : 'rgba(255,255,255,0.4)' }}
           >
-            {pinned ? <Pin size={12} /> : <PinOff size={12} />}
+            {pinned ? <Pin size={11} /> : <PinOff size={11} />}
           </button>
-          <button 
-            className="w-6 h-6 flex items-center justify-center rounded text-xs hover:bg-red-400/20 transition-all flex-shrink-0" 
-            title="Close" 
+          <button
+            className="w-5 h-5 flex items-center justify-center rounded text-xs hover:bg-white/10 transition-all flex-shrink-0"
+            title="Close"
             onClick={onClose}
-            style={{ color: '#ff6b6b' }}
+            style={{ color: 'rgba(255,255,255,0.5)' }}
           >
-            <X size={12} />
+            <X size={11} />
           </button>
         </div>
       </div>
