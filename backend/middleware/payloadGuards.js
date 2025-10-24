@@ -117,19 +117,18 @@ const guardModuleFolderProcessing = (req, res, next) => {
   next();
 };
 
-module.exports = {
+export const applyAllGuards = (app) => {
+  app.use(guardEmbeddingsPayload);
+  app.use(guardChatPayload);
+  app.use(guardIngestPayload);
+  app.use(guardBuilderPayload);
+  app.use(guardModuleFolderProcessing);
+};
+
+export {
   guardEmbeddingsPayload,
   guardChatPayload,
   guardIngestPayload,
   guardBuilderPayload,
-  guardModuleFolderProcessing,
-  
-  // Apply all guards
-  applyAllGuards: (app) => {
-    app.use(guardEmbeddingsPayload);
-    app.use(guardChatPayload);
-    app.use(guardIngestPayload);
-    app.use(guardBuilderPayload);
-    app.use(guardModuleFolderProcessing);
-  }
+  guardModuleFolderProcessing
 };
