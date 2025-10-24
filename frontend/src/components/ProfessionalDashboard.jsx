@@ -285,14 +285,15 @@ export default function ProfessionalDashboard() {
                   style={{
                     borderColor: colors.border.secondary,
                     height: '32px',
-                    minWidth: 0,
+                    display: 'flex',
                     flexWrap: 'nowrap',
-                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    overflow: 'hidden',
                   }}
                   data-rnd-handle
                 >
                   {/* Left Controls */}
-                  <div className="flex items-center gap-0.5">
+                  <div className="flex items-center gap-0.5 flex-shrink-0">
                     {/* Minimize Button */}
                     <button
                       onClick={() => update(card.id, { h: card.h === 0 ? 1 : 0 })}
@@ -316,19 +317,21 @@ export default function ProfessionalDashboard() {
 
                   {/* Title (Center) */}
                   <span
-                    className="font-semibold text-xs truncate flex-1 mx-2"
+                    className="font-semibold text-xs truncate mx-2"
                     style={{
                       color: colors.text.primary,
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       whiteSpace: 'nowrap',
+                      minWidth: 0,
+                      flex: '1 1 auto',
                     }}
                   >
                     {t[card.title] || card.title}
                   </span>
 
                   {/* Right Controls - Pin & Pop Out */}
-                  <div className="flex items-center gap-0.5">
+                  <div className="flex items-center gap-0.5 flex-shrink-0">
                     {/* Pin Button */}
                     <button
                       onClick={() => update(card.id, { pinned: !card.pinned })}
