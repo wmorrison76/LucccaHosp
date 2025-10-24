@@ -1259,6 +1259,49 @@ export default function AdvancedEchoWhiteboard() {
             </div>
           )}
 
+          {/* TEMPLATE SELECTION DIALOG */}
+          {templateDialogOpen && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-lg z-50 p-4">
+              <div className="bg-slate-800 rounded-lg p-6 border border-purple-400/40 shadow-2xl max-w-2xl w-full max-h-96 overflow-auto">
+                <h2 className="text-lg font-bold text-purple-300 mb-4">📋 Load Template</h2>
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { id: 'mise-en-place', name: '✓ Mise en Place', icon: '📝' },
+                    { id: 'production-timeline', name: '⏱️ Production Timeline', icon: '📊' },
+                    { id: 'floor-plan', name: '🏪 Floor Plan', icon: '🛋️' },
+                    { id: 'allergen-matrix', name: '⚠️ Allergen Matrix', icon: '🚨' },
+                    { id: 'cost-sheet', name: '💰 Cost Sheet', icon: '📈' },
+                    { id: 'recipe-card', name: '👨‍🍳 Recipe Card', icon: '🍳' },
+                  ].map(template => (
+                    <button
+                      key={template.id}
+                      onClick={() => applyTemplate(template.id)}
+                      className={`p-4 rounded-lg border-2 transition-all text-left ${
+                        selectedTemplate === template.id
+                          ? 'border-purple-400 bg-purple-500/20'
+                          : 'border-purple-400/30 bg-purple-400/10 hover:border-purple-400/60'
+                      }`}
+                    >
+                      <div style={{ fontSize: '24px', marginBottom: '8px' }}>{template.icon}</div>
+                      <div className="font-semibold text-purple-200">{template.name}</div>
+                    </button>
+                  ))}
+                </div>
+                <div className="flex gap-2 mt-4">
+                  <button
+                    onClick={() => {
+                      setTemplateDialogOpen(false);
+                      setSelectedTemplate(null);
+                    }}
+                    className="flex-1 px-4 py-2 bg-red-500/20 rounded hover:bg-red-500/30 text-red-300 text-sm font-semibold"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* ZOOM CONTROLS */}
           <div className="absolute bottom-4 right-4 flex gap-2 bg-black/40 rounded-lg p-2 border border-cyan-400/20">
             <button
