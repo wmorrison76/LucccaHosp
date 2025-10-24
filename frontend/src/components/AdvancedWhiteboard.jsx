@@ -489,6 +489,26 @@ Status: Open`,
     setObjectId(id => id + 1);
   };
 
+  const toggleVideoCall = () => {
+    setVideoCallActive(!videoCallActive);
+    setChatMessages([...chatMessages, {
+      id: chatMessages.length + 1,
+      author: 'System',
+      text: videoCallActive ? '📴 Video call ended' : '📹 Video call started',
+      timestamp: new Date()
+    }]);
+  };
+
+  const toggleScreenShare = () => {
+    setScreenShare(!screenShare);
+    setChatMessages([...chatMessages, {
+      id: chatMessages.length + 1,
+      author: 'System',
+      text: screenShare ? '🖥️ Screen sharing stopped' : '🖥️ Screen sharing started',
+      timestamp: new Date()
+    }]);
+  };
+
   const addStickyNote = () => {
     const newSticky = {
       id: objectId,
