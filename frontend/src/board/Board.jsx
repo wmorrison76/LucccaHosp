@@ -99,7 +99,7 @@ const WidgetStudio       = null;
 const PageViewer         = null;
 const StickyNotePanelLazy = null;
 
-/* ───────────── EchoDesk stub tools/panels (installed by script) ───────────── */
+/* ───────────── EchoDesk stub tools/panels (installed by script) ─────────���─── */
 import CalendarOverlay   from "../echodesk/stubs/CalendarOverlay.jsx";
 import Teleconference    from "../echodesk/stubs/TeleconferenceOverlay.jsx";
 import ExpoRailPanel     from "../echodesk/stubs/ExpoRailPanel.jsx";
@@ -521,6 +521,11 @@ export default function Board() {
 
       {/* Panels */}
       <div ref={layerRef} className="pane-layer absolute inset-0" style={{ overflow: allowOffscreen ? "visible" : "hidden" }}>
+        {windows.length === 0 && (
+          <div style={{ padding: '40px', fontSize: '16px', color: '#999' }}>
+            [Waiting for dashboard to load... windows.length={windows.length}]
+          </div>
+        )}
         {windows.map((win) => {
           const baseKey = (win.id.includes("-") ? win.id.split("-")[0] : win.id);
           console.log(`[Board] Rendering window: ${win.id}, baseKey: ${baseKey}`);
