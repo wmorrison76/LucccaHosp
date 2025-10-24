@@ -1362,6 +1362,160 @@ export default function AdvancedEchoWhiteboard() {
                 )}
               </div>
             )}
+
+            {/* PARTICIPANT CURSORS */}
+            {participants.map(participant => (
+              <div
+                key={participant.id}
+                style={{
+                  position: 'absolute',
+                  left: participant.cursorX,
+                  top: participant.cursorY,
+                  zIndex: 900,
+                  pointerEvents: 'none',
+                }}
+              >
+                <div
+                  style={{
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '50%',
+                    border: `2px solid ${participant.color}`,
+                    backgroundColor: `${participant.color}20`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '16px',
+                    boxShadow: `0 0 10px ${participant.color}40`,
+                  }}
+                >
+                  👤
+                </div>
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '-20px',
+                    left: '0',
+                    backgroundColor: participant.color,
+                    color: '#fff',
+                    padding: '2px 6px',
+                    borderRadius: '3px',
+                    fontSize: '10px',
+                    fontWeight: 'bold',
+                    whiteSpace: 'nowrap',
+                    opacity: 0.9,
+                  }}
+                >
+                  {participant.name}
+                </div>
+              </div>
+            ))}
+
+            {/* VIDEO CONFERENCE PANEL */}
+            {videoOpen && (
+              <div style={{
+                position: 'absolute',
+                right: 20,
+                bottom: 20,
+                width: 320,
+                maxHeight: 300,
+                zIndex: 1000,
+                backgroundColor: '#1a1a1a',
+                border: '2px solid #4dff9e',
+                borderRadius: '8px',
+                padding: '12px',
+                boxShadow: '0 0 30px rgba(77, 255, 158, 0.3)',
+                pointerEvents: 'auto',
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                  <h3 style={{ margin: 0, color: '#4dff9e', fontSize: '14px', fontWeight: 'bold' }}>
+                    📹 Video Conference ({participants.length})
+                  </h3>
+                  <button
+                    onClick={() => setVideoOpen(false)}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: '#4dff9e',
+                      cursor: 'pointer',
+                      fontSize: '18px',
+                    }}
+                  >
+                    ×
+                  </button>
+                </div>
+
+                {/* Participant Grid */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '12px' }}>
+                  {participants.map(p => (
+                    <div
+                      key={p.id}
+                      style={{
+                        backgroundColor: `${p.color}15`,
+                        border: `1px solid ${p.color}`,
+                        borderRadius: '4px',
+                        padding: '8px',
+                        textAlign: 'center',
+                      }}
+                    >
+                      <div style={{
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '50%',
+                        backgroundColor: `${p.color}40`,
+                        margin: '0 auto 4px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '20px',
+                      }}>
+                        👤
+                      </div>
+                      <div style={{ color: '#ccc', fontSize: '11px', fontWeight: '600' }}>
+                        {p.name}
+                      </div>
+                      <div style={{
+                        color: p.speaking ? '#4dff9e' : '#666',
+                        fontSize: '10px',
+                        marginTop: '4px',
+                      }}>
+                        {p.speaking ? '🎤 Speaking' : '🔇 Mute'}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Controls */}
+                <div style={{ display: 'flex', gap: '6px', borderTop: '1px solid #4dff9e30', paddingTop: '12px' }}>
+                  <button style={{
+                    flex: 1,
+                    padding: '6px',
+                    backgroundColor: '#4dff9e20',
+                    border: 'none',
+                    borderRadius: '3px',
+                    color: '#4dff9e',
+                    fontSize: '11px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                  }}>
+                    🎤 Mute
+                  </button>
+                  <button style={{
+                    flex: 1,
+                    padding: '6px',
+                    backgroundColor: '#4dff9e20',
+                    border: 'none',
+                    borderRadius: '3px',
+                    color: '#4dff9e',
+                    fontSize: '11px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                  }}>
+                    📷 Camera
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* TEXT INPUT DIALOG */}
