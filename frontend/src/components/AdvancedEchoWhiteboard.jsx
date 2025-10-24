@@ -463,7 +463,7 @@ export default function AdvancedEchoWhiteboard() {
   // Redraw canvas when objects change
   useEffect(() => {
     redrawCanvas();
-  }, [objects, pan, zoom, redrawCanvas]);
+  }, [objects, pan, zoom, redrawCanvas, previewShape, guideLines, showGuides]);
 
   // Text input dialog handler
   const handleAddText = useCallback(() => {
