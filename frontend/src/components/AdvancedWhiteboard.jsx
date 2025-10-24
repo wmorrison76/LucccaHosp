@@ -1275,6 +1275,45 @@ Status: Open`,
         />
 
         <button
+          onClick={() => setSnapToGrid(!snapToGrid)}
+          title="Toggle snap-to-grid"
+          style={{
+            padding: "4px 8px",
+            backgroundColor: snapToGrid ? "rgba(100, 200, 100, 0.2)" : "rgba(0, 217, 255, 0.1)",
+            border: "1px solid rgba(0, 217, 255, 0.3)",
+            borderRadius: "3px",
+            color: snapToGrid ? "#64c864" : "#7ff3ff",
+            cursor: "pointer",
+            fontSize: "11px"
+          }}
+        >
+          {snapToGrid ? '✓ Grid' : '⊞ Grid'}
+        </button>
+
+        {snapToGrid && (
+          <>
+            <label style={{ fontSize: '11px', color: '#7ff3ff' }}>
+              Grid:
+              <input
+                type="range"
+                min="5"
+                max="50"
+                value={gridSize}
+                onChange={(e) => setGridSize(parseInt(e.target.value))}
+                style={{
+                  width: "50px",
+                  marginLeft: "4px",
+                  cursor: "pointer",
+                  verticalAlign: "middle"
+                }}
+                title={`Grid size: ${gridSize}px`}
+              />
+              <span style={{ marginLeft: '4px' }}>{gridSize}px</span>
+            </label>
+          </>
+        )}
+
+        <button
           onClick={undo}
           title="Undo (Ctrl+Z)"
           style={{
