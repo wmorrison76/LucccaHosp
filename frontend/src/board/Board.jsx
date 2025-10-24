@@ -138,6 +138,8 @@ const PANEL_REGISTRY = {};
 
 // Add only panels with valid components
 console.log('[Board] Initializing PANEL_REGISTRY');
+console.log('[Board] ProfessionalDashboard:', !!ProfessionalDashboard);
+console.log('[Board] ProfessionalToolbar:', !!ProfessionalToolbar);
 console.log('[Board] GlowDesk:', !!GlowDesk);
 console.log('[Board] KitchenLibraryTabs:', !!KitchenLibraryTabs);
 console.log('[Board] Schedule:', !!Schedule);
@@ -207,7 +209,7 @@ const LS = {
   allowOffscreen: "lu:allowOffscreen",
 };
 
-/* ─────��───────── Component ─��────────────��� */
+/* ────�����───────── Component ─��────────────��� */
 export default function Board() {
   const layerRef = useRef(null);
   const [windows, setWindows] = useState([]);
