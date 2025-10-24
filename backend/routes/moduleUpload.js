@@ -11,12 +11,34 @@ const router = express.Router();
 // Configure multer for folder uploads - accept all fields
 const uploadMultiple = multer({
   dest: '/tmp/uploads/',
-  limits: { fileSize: 2 * 1024 * 1024 * 1024 }, // 2GB max per file
+  limits: {
+    fileSize: 2 * 1024 * 1024 * 1024, // 2GB max per file
+    files: 2000 // max number of files
+  },
   fileFilter: (req, file, cb) => {
     // Accept all files in folder upload
     cb(null, true);
   }
 }).any();
+
+// Error handler for multer
+const handleMulterError = (err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    console.error('[MODULE_UPLOAD] Multer error:', err.code, err.message);
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      return res.status(413).json({ success: false, message: 'File too large' });
+    }
+    if (err.code === 'LIMIT_FILE_COUNT') {
+      return res.status(413).json({ success: false, message: 'Too many files' });
+    }
+    return res.status(400).json({ success: false, message: err.message });
+  }
+  if (err) {
+    console.error('[MODULE_UPLOAD] Upload middleware error:', err.message);
+    return res.status(400).json({ success: false, message: err.message });
+  }
+  next();
+};
 
 // Async recursive copy function
 async function copyDir(src, dest) {
