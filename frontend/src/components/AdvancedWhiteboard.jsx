@@ -721,6 +721,47 @@ function AdvancedWhiteboardCore() {
               📌 Note
             </button>
 
+            <label
+              title="Upload image (or drag-drop onto canvas)"
+              style={{
+                padding: "4px 8px",
+                backgroundColor: "rgba(100, 150, 255, 0.1)",
+                border: "1px solid rgba(100, 150, 255, 0.3)",
+                borderRadius: "3px",
+                color: "#6496ff",
+                cursor: "pointer",
+                fontSize: "11px"
+              }}
+            >
+              🖼️ Image
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                      const img = new Image();
+                      img.onload = () => {
+                        setImages([...images, {
+                          src: event.target.result,
+                          x: 50,
+                          y: 50,
+                          width: 150,
+                          height: 150,
+                          id: Math.random().toString(36).slice(2)
+                        }]);
+                      };
+                      img.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                  }
+                }}
+                style={{ display: 'none' }}
+              />
+            </label>
+
             <button
               onClick={addInjectedPanel}
               title="Inject LUCCCA panel"
