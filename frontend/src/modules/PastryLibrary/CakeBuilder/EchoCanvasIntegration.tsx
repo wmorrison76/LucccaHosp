@@ -805,6 +805,20 @@ const styles: Record<string, React.CSSProperties> = {
     cursor: 'pointer',
     width: '100%',
   },
+  buttonGroup: {
+    display: 'flex',
+    gap: '0.75rem',
+    flexDirection: 'column',
+  },
+  successBox: {
+    padding: '1rem',
+    backgroundColor: '#D1FAE5',
+    borderRadius: '4px',
+    border: '1px solid #6EE7B7',
+    color: '#065F46',
+    fontWeight: '500',
+    marginBottom: '1rem',
+  },
   footer: {
     padding: '1.5rem 2rem',
     backgroundColor: '#fff',
