@@ -88,32 +88,40 @@ function ModuleUploadZone({ isDarkMode }) {
   const uploadFolder = async (folderEntry = null, folderName = null, files = null) => {
     const displayName = folderName || folderEntry?.name || 'Module';
     setIsUploading(true);
-    setMessage(`⏳ Uploading ${displayName}...`);
+
+    // Calculate total size
+    const totalSize = files?.reduce((sum, f) => sum + f.size, 0) || 0;
+    const totalMB = (totalSize / 1024 / 1024).toFixed(1);
+    const totalFiles = files?.length || 0;
+
+    console.log(`[UPLOAD] Folder: ${displayName}, Files: ${totalFiles}, Size: ${totalMB}MB`);
+    setMessage(`⏳ Uploading ${displayName} (${totalFiles} files, ${totalMB}MB)...`);
 
     // Broadcast upload start to all components
     window.dispatchEvent(new CustomEvent('module-upload-start', {
-      detail: { fileName: displayName, fileSize: files?.reduce((sum, f) => sum + f.size, 0) || 0 }
+      detail: { fileName: displayName, fileSize: totalSize, fileCount: totalFiles }
     }));
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 60 * 60 * 1000); // 60 minute timeout for massive uploads
+    const timeoutId = setTimeout(() => controller.abort(), 60 * 60 * 1000); // 60 minute timeout
 
     try {
       const formData = new FormData();
 
-      // Add folder name as a simple text field (multer will include this as a file/field)
+      // Add folder name as a simple text field
       formData.append('folderName', displayName);
 
       // Handle files from folder input
       if (files && files.length > 0) {
-        console.log(`[UPLOAD] Processing ${files.length} files`);
+        console.log(`[UPLOAD] Processing ${files.length} files (total ${totalMB}MB)`);
         files.forEach((file, index) => {
           const relativePath = file.webkitRelativePath || file.name;
-          console.log(`[UPLOAD] Adding file ${index + 1}/${files.length}: ${relativePath} (${file.size} bytes)`);
+          if (index < 10 || index % 1000 === 0) {
+            console.log(`[UPLOAD] Adding file ${index + 1}/${files.length}: ${relativePath}`);
+          }
           formData.append(`files`, file);
         });
       } else if (folderEntry) {
-        // Handle drag-and-drop folder (not fully supported in all browsers)
         console.log(`[UPLOAD] Processing drag-drop folder`);
         await readFolderRecursive(folderEntry, formData, '');
       }
