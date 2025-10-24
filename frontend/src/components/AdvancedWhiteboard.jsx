@@ -326,6 +326,64 @@ function AdvancedWhiteboardCore() {
     setObjectId(id => id + 1);
   };
 
+  const loadTemplate = (templateName) => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    // Clear canvas
+    ctx.fillStyle = "#1a202c";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.font = "bold 20px Arial";
+    ctx.fillStyle = "#00d9ff";
+    ctx.fillText(templateName, 20, 40);
+
+    if (templateName === 'BOH Mise en Place') {
+      const items = [
+        'Station 1: Prep Vegetables',
+        'Station 2: Proteins',
+        'Station 3: Sauces',
+        'Station 4: Garnish'
+      ];
+      items.forEach((item, idx) => {
+        ctx.font = "14px Arial";
+        ctx.fillStyle = "#fff";
+        ctx.fillText('□ ' + item, 40, 80 + idx * 30);
+      });
+    } else if (templateName === 'FOH Floor Plan') {
+      ctx.strokeStyle = "#00d9ff";
+      ctx.lineWidth = 2;
+      for (let i = 0; i < 6; i++) {
+        for (let j = 0; j < 4; j++) {
+          ctx.strokeRect(40 + i * 150, 80 + j * 120, 130, 100);
+          ctx.font = "12px Arial";
+          ctx.fillStyle = "#fff";
+          ctx.fillText(`T${i * 4 + j + 1}`, 80 + i * 150, 130 + j * 120);
+        }
+      }
+    } else if (templateName === 'Corporate Cost Sheet') {
+      const headers = ['Property', 'Labor Cost', 'Food Cost', 'Total'];
+      const y = 80;
+      let x = 40;
+
+      ctx.font = "bold 12px Arial";
+      ctx.fillStyle = "#00d9ff";
+      headers.forEach(h => {
+        ctx.fillText(h, x, y);
+        x += 150;
+      });
+
+      ctx.font = "12px Arial";
+      ctx.fillStyle = "#fff";
+      for (let i = 0; i < 5; i++) {
+        ctx.fillText(`Outlet ${i + 1}`, 40, y + 25 + i * 25);
+      }
+    }
+
+    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    setHistory([...history, imgData]);
+  };
+
   const sendMessage = () => {
     if (!chatInput.trim()) return;
     const newMsg = {
