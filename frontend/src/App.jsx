@@ -66,7 +66,7 @@ class ErrorBoundary extends React.Component {
 }
 
 export default function App() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false); // Start sidebar CLOSED
   const [isDark, setIsDark] = useState(true);
 
   const toggleSidebar = useCallback(() => setIsOpen(v => !v), []);
