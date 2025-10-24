@@ -952,6 +952,64 @@ function AdvancedWhiteboardCore() {
             </button>
 
             <button
+              onClick={() => setShowTemplate(!showTemplate)}
+              title="Load hospitality templates"
+              style={{
+                padding: "4px 8px",
+                backgroundColor: "rgba(200, 100, 255, 0.1)",
+                border: "1px solid rgba(200, 100, 255, 0.3)",
+                borderRadius: "3px",
+                color: "#c864ff",
+                cursor: "pointer",
+                fontSize: "11px"
+              }}
+            >
+              📋 Template
+            </button>
+
+            {showTemplate && (
+              <div style={{
+                position: 'absolute',
+                bottom: '60px',
+                left: '12px',
+                backgroundColor: 'rgba(10, 20, 35, 0.95)',
+                border: '1px solid rgba(0, 217, 255, 0.3)',
+                borderRadius: '4px',
+                padding: '6px',
+                zIndex: 100
+              }}>
+                {[
+                  { name: 'BOH Mise en Place', emoji: '🍳' },
+                  { name: 'FOH Floor Plan', emoji: '🪑' },
+                  { name: 'Corporate Cost Sheet', emoji: '💰' }
+                ].map(t => (
+                  <button
+                    key={t.name}
+                    onClick={() => {
+                      loadTemplate(t.name);
+                      setShowTemplate(false);
+                    }}
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      padding: '6px 8px',
+                      margin: '2px 0',
+                      backgroundColor: 'rgba(0, 217, 255, 0.1)',
+                      border: '1px solid rgba(0, 217, 255, 0.2)',
+                      borderRadius: '3px',
+                      color: '#7ff3ff',
+                      cursor: 'pointer',
+                      fontSize: '11px',
+                      textAlign: 'left'
+                    }}
+                  >
+                    {t.emoji} {t.name}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            <button
               onClick={exportAsJSON}
               title="Export board as JSON"
               style={{
