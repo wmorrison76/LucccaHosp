@@ -8,20 +8,26 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const router = express.Router();
 
-// Configure multer for folder uploads - accept all fields
+// Configure multer for folder uploads - explicitly define fields
 const uploadMultiple = multer({
   dest: '/tmp/uploads/',
   limits: {
     fileSize: 5 * 1024 * 1024 * 1024, // 5GB max per file
-    files: 50000, // max number of files (was 5000, increased to 50k)
+    files: 50000, // max number of files
     fieldNameSize: 1000,
     fieldSize: 500 * 1024 * 1024 // 500MB for field data
   },
   fileFilter: (req, file, cb) => {
-    // Accept all files in folder upload
     cb(null, true);
   }
-}).any();
+}).fields([
+  { name: 'files', maxCount: 50000 }, // Allow up to 50k files per batch
+  { name: 'folderName', maxCount: 1 },
+  { name: 'isFirstBatch', maxCount: 1 },
+  { name: 'isLastBatch', maxCount: 1 },
+  { name: 'batchNumber', maxCount: 1 },
+  { name: 'totalBatches', maxCount: 1 }
+]);
 
 // Error handler for multer
 const handleMulterError = (err, req, res, next) => {
