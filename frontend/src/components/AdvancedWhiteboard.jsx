@@ -43,6 +43,8 @@ function AdvancedWhiteboardCore() {
   const [zIndex, setZIndex] = React.useState(10);
   const [isLocked, setIsLocked] = React.useState(false);
   const [isRecording, setIsRecording] = React.useState(false);
+  const [laserMode, setLaserMode] = React.useState(false);
+  const [laserPos, setLaserPos] = React.useState(null);
 
   // Communication
   const [participants, setParticipants] = React.useState([
