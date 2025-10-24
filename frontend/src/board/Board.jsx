@@ -85,13 +85,13 @@ const ChefNetPanel       = safeImport(() => import("../components/ChefNetPanel.j
 const SupportPanel       = safeImport(() => import("../components/SupportPanel.jsx"), "SupportPanel");
 const StickyNotePanel    = safeImport(() => import("../components/EchoCore/panels/StickyNotePanelEnhanced.jsx"), "StickyNotePanelEnhanced");
 const ReminderWidget     = safeImport(() => import("../components/ReminderWidget.jsx"), "ReminderWidget");
+const CakeBuilder        = safeImport(() => import("../modules/PastryLibrary/CakeBuilder/CakeBuilderPage.jsx"), "CakeBuilderPage");
 
 // Optional panels - set to null if not available
 const SettingsSuite      = safeImport(() => import("../settings/SettingsSuite.jsx"), "SettingsSuite");
 const SchedulerPanel     = Schedule;
 const WidgetStudio       = null;
 const PageViewer         = null;
-const CakeBuilder        = null;
 const StickyNotePanelLazy = null;
 
 /* ───────────── EchoDesk stub tools/panels (installed by script) ───────────── */
