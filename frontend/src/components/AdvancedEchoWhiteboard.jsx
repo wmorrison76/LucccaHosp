@@ -206,6 +206,7 @@ export default function AdvancedEchoWhiteboard() {
     ctx.strokeStyle = obj.color || '#00d9ff';
     ctx.fillStyle = obj.fillColor || 'transparent';
     ctx.lineWidth = obj.size || 3;
+    ctx.globalAlpha = obj.opacity ?? 1;
 
     switch (obj.type) {
       case 'stroke':
@@ -218,26 +219,45 @@ export default function AdvancedEchoWhiteboard() {
         break;
 
       case 'line':
-        ctx.beginPath();
-        ctx.moveTo(obj.start.x, obj.start.y);
-        ctx.lineTo(obj.end.x, obj.end.y);
-        ctx.stroke();
+        if (obj.start && obj.end) {
+          ctx.beginPath();
+          ctx.moveTo(obj.start.x, obj.start.y);
+          ctx.lineTo(obj.end.x, obj.end.y);
+          ctx.stroke();
+          // Draw endpoints
+          ctx.fillStyle = obj.color || '#00d9ff';
+          ctx.beginPath();
+          ctx.arc(obj.start.x, obj.start.y, 3, 0, 2 * Math.PI);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(obj.end.x, obj.end.y, 3, 0, 2 * Math.PI);
+          ctx.fill();
+        }
         break;
 
       case 'rect':
-        ctx.strokeRect(obj.x, obj.y, obj.width, obj.height);
+        if (obj.start && obj.end) {
+          const width = obj.end.x - obj.start.x;
+          const height = obj.end.y - obj.start.y;
+          ctx.strokeRect(obj.start.x, obj.start.y, width, height);
+        }
         break;
 
       case 'circle':
-        ctx.beginPath();
-        ctx.arc(obj.cx, obj.cy, obj.radius, 0, 2 * Math.PI);
-        ctx.stroke();
+        if (obj.start && obj.end) {
+          const radius = Math.sqrt(Math.pow(obj.end.x - obj.start.x, 2) + Math.pow(obj.end.y - obj.start.y, 2));
+          ctx.beginPath();
+          ctx.arc(obj.start.x, obj.start.y, radius, 0, 2 * Math.PI);
+          ctx.stroke();
+        }
         break;
 
       case 'text':
-        ctx.font = `${obj.fontSize || 16}px Arial`;
-        ctx.fillStyle = obj.color || '#00d9ff';
-        ctx.fillText(obj.text, obj.x, obj.y);
+        if (obj.start) {
+          ctx.font = `${obj.fontSize || 16}px Arial`;
+          ctx.fillStyle = obj.color || '#00d9ff';
+          ctx.fillText(obj.text || '', obj.start.x, obj.start.y);
+        }
         break;
 
       case 'sticky':
@@ -254,6 +274,8 @@ export default function AdvancedEchoWhiteboard() {
       default:
         break;
     }
+
+    ctx.globalAlpha = 1;
   };
 
   // Mouse Events
