@@ -379,7 +379,7 @@ Fire time:`,
         type: 'sticky',
         x: 100 + Math.random() * 400,
         y: 100 + Math.random() * 300,
-        text: `🗑️ ${wasteItem}
+        text: `🗑�� ${wasteItem}
 Cost: $${cost || '0'}
 Time: ${new Date().toLocaleTimeString()}`,
         bgColor: '#ffccba'
@@ -710,17 +710,25 @@ Time: ${new Date().toLocaleTimeString()}`,
             }}
             onDrop={handleImageDrop}
             onMouseMove={(e) => {
+              broadcastCursorPosition(e);
               if (laserMode) {
                 const rect = canvasRef.current.getBoundingClientRect();
                 setLaserPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
               }
             }}
-            onMouseLeave={() => laserMode && setLaserPos(null)}
+            onMouseLeave={() => {
+              laserMode && setLaserPos(null);
+              setParticipantCursors({});
+            }}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
             style={{
               flex: 1,
               cursor: laserMode ? 'pointer' : tool === "pencil" ? "crosshair" : tool === "eraser" ? "grab" : tool === "text" ? "text" : "default",
               display: "block",
-              backgroundColor: '#1a202c'
+              backgroundColor: '#1a202c',
+              touchAction: 'none'
             }}
           />
 
