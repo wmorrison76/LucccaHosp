@@ -223,10 +223,16 @@ export const EchoCanvasIntegration: React.FC<EchoCanvasIntegrationProps> = ({ ca
             <h2 style={styles.sectionTitle}>🔐 Configuration</h2>
             <p style={styles.sectionText}>
               To generate cake decoration images, provide your Stability AI API key. Get one free at{' '}
-              <a href="https://platform.stability.ai" target="_blank" rel="noopener noreferrer" style={styles.link}>
+              <a href={getAPISignupURL()} target="_blank" rel="noopener noreferrer" style={styles.link}>
                 platform.stability.ai
               </a>
             </p>
+
+            {apiConfigured && (
+              <div style={styles.successBox}>
+                ✅ API Configured: {getAPIKeyDisplay()}
+              </div>
+            )}
 
             <div style={styles.formGroup}>
               <label style={styles.label}>Stability AI API Key</label>
@@ -239,9 +245,43 @@ export const EchoCanvasIntegration: React.FC<EchoCanvasIntegrationProps> = ({ ca
                 }}
                 placeholder="sk-..."
                 style={styles.input}
+                disabled={apiConfigured}
               />
-              {apiKeyError && <p style={styles.errorText}>{apiKeyError}</p>}
-              <p style={styles.hint}>Your API key is stored locally and never sent to our servers</p>
+              {apiKeyError && <p style={styles.errorText}>⚠️ {apiKeyError}</p>}
+              {connectionStatus && (
+                <p style={{
+                  ...styles.hint,
+                  color: connectionStatus.includes('successful') ? '#22c55e' : '#0066cc',
+                }}>
+                  {connectionStatus}
+                </p>
+              )}
+              <p style={styles.hint}>Your API key is stored locally in your browser (not sent to servers)</p>
+            </div>
+
+            {/* Action Buttons */}
+            <div style={styles.buttonGroup}>
+              {!apiConfigured ? (
+                <button onClick={handleSaveAPIKey} style={styles.buttonPrimary}>
+                  💾 Save API Key
+                </button>
+              ) : (
+                <>
+                  <button onClick={handleTestConnection} disabled={testingConnection} style={styles.buttonSecondary}>
+                    {testingConnection ? '⏳ Testing...' : '🧪 Test Connection'}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setApiKey('');
+                      setApiConfigured(false);
+                      setConnectionStatus('');
+                    }}
+                    style={styles.buttonCancel}
+                  >
+                    🔄 Change Key
+                  </button>
+                </>
+              )}
             </div>
           </div>
 
