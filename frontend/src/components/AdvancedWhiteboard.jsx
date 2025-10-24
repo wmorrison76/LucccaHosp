@@ -663,7 +663,7 @@ function AdvancedWhiteboardCore() {
                   </audio>
                 )}
                 <div style={{ fontSize: '9px', color: '#00d9ff', marginTop: '4px', opacity: 0.6 }}>
-                  {media.type === 'video' ? '��� Video' : '🎵 Audio'}
+                  {media.type === 'video' ? '🎥 Video' : '🎵 Audio'}
                 </div>
               </div>
             ))}
@@ -1009,6 +1009,38 @@ function AdvancedWhiteboardCore() {
                 style={{ display: 'none' }}
               />
             </label>
+
+            <button
+              onClick={() => addMediaEmbed('video')}
+              title="Embed video (YouTube or MP4 URL)"
+              style={{
+                padding: "4px 8px",
+                backgroundColor: "rgba(255, 100, 100, 0.1)",
+                border: "1px solid rgba(255, 100, 100, 0.3)",
+                borderRadius: "3px",
+                color: "#ff6464",
+                cursor: "pointer",
+                fontSize: "11px"
+              }}
+            >
+              🎥 Video
+            </button>
+
+            <button
+              onClick={() => addMediaEmbed('audio')}
+              title="Embed audio (MP3 or WAV URL)"
+              style={{
+                padding: "4px 8px",
+                backgroundColor: "rgba(150, 100, 255, 0.1)",
+                border: "1px solid rgba(150, 100, 255, 0.3)",
+                borderRadius: "3px",
+                color: "#9664ff",
+                cursor: "pointer",
+                fontSize: "11px"
+              }}
+            >
+              🎵 Audio
+            </button>
 
             <button
               onClick={addInjectedPanel}
