@@ -304,8 +304,23 @@ export default function AdvancedEchoWhiteboard() {
   };
 
   const handleMouseUp = () => {
+    if (previewShape && ['line', 'rect', 'circle'].includes(tool)) {
+      setObjects(objs => {
+        const lastObj = objs[objs.length - 1];
+        if (!lastObj) return objs;
+
+        // Finalize shape with end point
+        lastObj.end = previewShape.end;
+        lastObj.points = undefined; // Remove points from shapes
+
+        return [...objs.slice(0, -1), lastObj];
+      });
+      setPreviewShape(null);
+    }
+
     setIsDrawing(false);
     setIsPanning(false);
+    setGuideLines([]);
   };
 
   const handleWheel = (e) => {
