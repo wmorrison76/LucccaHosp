@@ -13,9 +13,9 @@ const uploadMultiple = multer({
   dest: '/tmp/uploads/',
   limits: {
     fileSize: 5 * 1024 * 1024 * 1024, // 5GB max per file
-    files: 5000, // max number of files
-    fieldNameSize: 100,
-    fieldSize: 100 * 1024 * 1024 // 100MB for field data
+    files: 50000, // max number of files (was 5000, increased to 50k)
+    fieldNameSize: 1000,
+    fieldSize: 500 * 1024 * 1024 // 500MB for field data
   },
   fileFilter: (req, file, cb) => {
     // Accept all files in folder upload
