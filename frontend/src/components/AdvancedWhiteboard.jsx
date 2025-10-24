@@ -706,6 +706,7 @@ function AdvancedWhiteboardCore() {
           }}
         >
           <option value="pencil">Pencil</option>
+          <option value="highlighter">Highlighter</option>
           <option value="eraser">Eraser</option>
           <option value="line">Line</option>
           <option value="rect">Rectangle</option>
