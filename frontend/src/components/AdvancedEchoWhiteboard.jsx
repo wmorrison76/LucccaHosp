@@ -748,6 +748,235 @@ export default function AdvancedEchoWhiteboard() {
     URL.revokeObjectURL(url);
   }, [objects, zoom, pan]);
 
+  // Template generators
+  const applyTemplate = useCallback((templateType) => {
+    let newObjects = [];
+    const startX = 100;
+    const startY = 100;
+
+    switch (templateType) {
+      case 'mise-en-place':
+        // Mise en place checklist layout
+        newObjects = [
+          {
+            id: objectId + 0,
+            type: 'text',
+            start: { x: startX, y: startY },
+            text: 'MISE EN PLACE CHECKLIST',
+            color: '#00d9ff',
+            fontSize: 20,
+          },
+          {
+            id: objectId + 1,
+            type: 'rect',
+            start: { x: startX, y: startY + 40 },
+            end: { x: startX + 400, y: startY + 400 },
+            color: '#00d9ff',
+            size: 2,
+          },
+        ];
+        for (let i = 0; i < 5; i++) {
+          newObjects.push({
+            id: objectId + 2 + i,
+            type: 'sticky',
+            x: startX + 20,
+            y: startY + 60 + i * 70,
+            bgColor: '#fff700',
+            text: `☐ Item ${i + 1}`,
+          });
+        }
+        break;
+
+      case 'production-timeline':
+        // Production timeline with task boxes
+        newObjects = [
+          {
+            id: objectId + 0,
+            type: 'text',
+            start: { x: startX, y: startY },
+            text: 'PRODUCTION TIMELINE',
+            color: '#ff6b4d',
+            fontSize: 20,
+          },
+        ];
+        const tasks = ['Prep', 'Cook', 'Plate', 'Serve'];
+        tasks.forEach((task, idx) => {
+          newObjects.push({
+            id: objectId + 1 + idx,
+            type: 'rect',
+            start: { x: startX + idx * 120, y: startY + 60 },
+            end: { x: startX + idx * 120 + 100, y: startY + 140 },
+            color: '#ff6b4d',
+            size: 2,
+          });
+          newObjects.push({
+            id: objectId + 5 + idx,
+            type: 'text',
+            start: { x: startX + idx * 120 + 25, y: startY + 100 },
+            text: task,
+            color: '#fff',
+            fontSize: 12,
+          });
+        });
+        break;
+
+      case 'floor-plan':
+        // Floor plan template with table layout
+        newObjects = [
+          {
+            id: objectId + 0,
+            type: 'text',
+            start: { x: startX, y: startY },
+            text: 'FLOOR PLAN',
+            color: '#4d7aff',
+            fontSize: 20,
+          },
+        ];
+        // Create grid of table placeholders
+        for (let row = 0; row < 3; row++) {
+          for (let col = 0; col < 3; col++) {
+            newObjects.push({
+              id: objectId + 1 + row * 3 + col,
+              type: 'circle',
+              start: { x: startX + col * 130, y: startY + 60 + row * 130 },
+              end: { x: startX + col * 130 + 100, y: startY + 60 + row * 130 + 100 },
+              color: '#4d7aff',
+              size: 2,
+            });
+            newObjects.push({
+              id: objectId + 10 + row * 3 + col,
+              type: 'text',
+              start: { x: startX + col * 130 + 35, y: startY + 110 + row * 130 },
+              text: `T${row * 3 + col + 1}`,
+              color: '#fff',
+              fontSize: 14,
+            });
+          }
+        }
+        break;
+
+      case 'allergen-matrix':
+        // Allergen tracking matrix
+        newObjects = [
+          {
+            id: objectId + 0,
+            type: 'text',
+            start: { x: startX, y: startY },
+            text: 'ALLERGEN MATRIX',
+            color: '#f39c12',
+            fontSize: 20,
+          },
+          {
+            id: objectId + 1,
+            type: 'text',
+            start: { x: startX, y: startY + 50 },
+            text: '🥛 Dairy | 🥜 Nuts | 🐚 Shellfish | 🌾 Gluten | 🥚 Eggs',
+            color: '#f39c12',
+            fontSize: 12,
+          },
+        ];
+        const allergens = ['🥛', '🥜', '🐚', '🌾', '🥚'];
+        allergens.forEach((allergen, idx) => {
+          newObjects.push({
+            id: objectId + 2 + idx,
+            type: 'sticky',
+            x: startX + idx * 100,
+            y: startY + 100,
+            bgColor: '#ff6b4d',
+            text: allergen,
+          });
+        });
+        break;
+
+      case 'cost-sheet':
+        // Cost tracking sheet
+        newObjects = [
+          {
+            id: objectId + 0,
+            type: 'text',
+            start: { x: startX, y: startY },
+            text: 'COST SHEET',
+            color: '#4dff9e',
+            fontSize: 20,
+          },
+          {
+            id: objectId + 1,
+            type: 'rect',
+            start: { x: startX, y: startY + 50 },
+            end: { x: startX + 400, y: startY + 300 },
+            color: '#4dff9e',
+            size: 2,
+          },
+        ];
+        const categories = ['Food Cost', 'Labor', 'Overhead', 'Total'];
+        categories.forEach((cat, idx) => {
+          newObjects.push({
+            id: objectId + 2 + idx,
+            type: 'text',
+            start: { x: startX + 20, y: startY + 70 + idx * 60 },
+            text: `${cat}: $0.00`,
+            color: '#4dff9e',
+            fontSize: 12,
+          });
+        });
+        break;
+
+      case 'recipe-card':
+        // Recipe card template
+        newObjects = [
+          {
+            id: objectId + 0,
+            type: 'rect',
+            start: { x: startX, y: startY },
+            end: { x: startX + 300, y: startY + 400 },
+            color: '#b84dff',
+            size: 2,
+          },
+          {
+            id: objectId + 1,
+            type: 'text',
+            start: { x: startX + 20, y: startY + 20 },
+            text: 'RECIPE NAME',
+            color: '#b84dff',
+            fontSize: 16,
+          },
+          {
+            id: objectId + 2,
+            type: 'text',
+            start: { x: startX + 20, y: startY + 60 },
+            text: 'INGREDIENTS:',
+            color: '#b84dff',
+            fontSize: 12,
+          },
+          {
+            id: objectId + 3,
+            type: 'text',
+            start: { x: startX + 20, y: startY + 150 },
+            text: 'INSTRUCTIONS:',
+            color: '#b84dff',
+            fontSize: 12,
+          },
+          {
+            id: objectId + 4,
+            type: 'text',
+            start: { x: startX + 20, y: startY + 250 },
+            text: 'TIME: | SERVINGS: | DIFFICULTY:',
+            color: '#b84dff',
+            fontSize: 11,
+          },
+        ];
+        break;
+
+      default:
+        break;
+    }
+
+    setObjects(objs => [...objs, ...newObjects]);
+    setObjectId(id => id + (newObjects.length + 20));
+    setTemplateDialogOpen(false);
+    setSelectedTemplate(null);
+  }, [objectId]);
+
   // Text input dialog handler
   const handleAddText = useCallback(() => {
     if (!textInputValue.trim()) {
