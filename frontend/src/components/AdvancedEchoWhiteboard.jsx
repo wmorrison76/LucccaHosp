@@ -569,6 +569,62 @@ export default function AdvancedEchoWhiteboard() {
             ))}
           </div>
 
+          {/* TEXT INPUT DIALOG */}
+          {textInputOpen && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-lg z-50">
+              <div className="bg-slate-800 rounded-lg p-6 border border-cyan-400/40 shadow-2xl max-w-md w-96">
+                <h2 className="text-lg font-bold text-cyan-300 mb-4">Add Text</h2>
+                <textarea
+                  value={textInputValue}
+                  onChange={e => setTextInputValue(e.target.value)}
+                  onKeyPress={e => e.key === 'Enter' && e.ctrlKey && handleAddText()}
+                  placeholder="Enter text (Ctrl+Enter to add)..."
+                  className="w-full h-24 bg-cyan-400/10 border border-cyan-400/20 rounded px-3 py-2 text-cyan-100 placeholder-cyan-400/40 mb-4 text-sm"
+                  autoFocus
+                />
+                <div className="flex items-center gap-3 mb-4">
+                  <label className="text-xs text-cyan-400">Font Size:</label>
+                  <input
+                    type="range"
+                    min="8"
+                    max="48"
+                    value={fontSize}
+                    onChange={e => setFontSize(parseInt(e.target.value))}
+                    className="flex-1"
+                  />
+                  <span className="text-xs text-cyan-300 w-8">{fontSize}px</span>
+                </div>
+                <div className="flex items-center gap-2 mb-4">
+                  <label className="text-xs text-cyan-400">Color:</label>
+                  <input
+                    type="color"
+                    value={color}
+                    onChange={e => setColor(e.target.value)}
+                    className="w-8 h-8 rounded cursor-pointer"
+                  />
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleAddText}
+                    className="flex-1 px-4 py-2 bg-cyan-500/30 rounded hover:bg-cyan-500/50 text-cyan-200 text-sm font-semibold"
+                  >
+                    Add Text
+                  </button>
+                  <button
+                    onClick={() => {
+                      setTextInputOpen(false);
+                      setTextInputValue('');
+                      setObjects(objs => objs.slice(0, -1)); // Remove incomplete object
+                    }}
+                    className="flex-1 px-4 py-2 bg-red-500/20 rounded hover:bg-red-500/30 text-red-300 text-sm font-semibold"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* ZOOM CONTROLS */}
           <div className="absolute bottom-4 right-4 flex gap-2 bg-black/40 rounded-lg p-2 border border-cyan-400/20">
             <button
