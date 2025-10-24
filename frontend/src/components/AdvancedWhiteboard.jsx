@@ -963,6 +963,22 @@ function AdvancedWhiteboardCore() {
             </button>
 
             <button
+              onClick={() => setLaserMode(!laserMode)}
+              title="Laser pointer (training mode)"
+              style={{
+                padding: "4px 8px",
+                backgroundColor: laserMode ? "rgba(255, 0, 0, 0.2)" : "rgba(0, 217, 255, 0.1)",
+                border: laserMode ? "1px solid rgba(255, 0, 0, 0.5)" : "1px solid rgba(0, 217, 255, 0.3)",
+                borderRadius: "3px",
+                color: laserMode ? "#ff6b6b" : "#7ff3ff",
+                cursor: "pointer",
+                fontSize: "11px"
+              }}
+            >
+              {laserMode ? '🔴 Laser' : '🔦 Laser'}
+            </button>
+
+            <button
               onClick={() => setIsLocked(!isLocked)}
               title={isLocked ? 'Unlock board' : 'Lock board'}
               style={{
