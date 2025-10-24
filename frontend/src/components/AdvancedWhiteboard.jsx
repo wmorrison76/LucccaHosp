@@ -95,12 +95,27 @@ function AdvancedWhiteboardCore() {
   // Drawing functions
   const startDrawing = (e) => {
     if (isLocked) return;
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    const rect = canvas.getBoundingClientRect();
 
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    if (tool === "text") {
+      setTextInputPos({ x, y });
+      setTextInput('');
+      return;
+    }
+
+    if (["line", "rect", "circle"].includes(tool)) {
+      setStartPoint({ x, y });
+      setIsDrawing(true);
+      return;
+    }
+
+    const ctx = canvas.getContext("2d");
     ctx.beginPath();
-    ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+    ctx.moveTo(x, y);
     setIsDrawing(true);
   };
 
@@ -115,24 +130,60 @@ function AdvancedWhiteboardCore() {
 
     if (tool === "eraser") {
       ctx.clearRect(x - brushSize / 2, y - brushSize / 2, brushSize, brushSize);
-    } else {
+      return;
+    }
+
+    if (tool === "pencil") {
       ctx.strokeStyle = color;
       ctx.lineWidth = brushSize;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
       ctx.lineTo(x, y);
       ctx.stroke();
+      return;
+    }
+
+    // For shapes, redraw with preview
+    if (["line", "rect", "circle"].includes(tool) && startPoint) {
+      // Redraw canvas from history
+      if (history.length > 0) {
+        ctx.putImageData(history[history.length - 1], 0, 0);
+      }
+
+      ctx.strokeStyle = color;
+      ctx.lineWidth = brushSize;
+
+      if (tool === "line") {
+        ctx.beginPath();
+        ctx.moveTo(startPoint.x, startPoint.y);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+      } else if (tool === "rect") {
+        const width = x - startPoint.x;
+        const height = y - startPoint.y;
+        ctx.strokeRect(startPoint.x, startPoint.y, width, height);
+      } else if (tool === "circle") {
+        const radius = Math.sqrt(Math.pow(x - startPoint.x, 2) + Math.pow(y - startPoint.y, 2));
+        ctx.beginPath();
+        ctx.arc(startPoint.x, startPoint.y, radius, 0, 2 * Math.PI);
+        ctx.stroke();
+      }
     }
   };
 
   const stopDrawing = () => {
-    if (isDrawing && !isLocked) {
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext("2d");
+    if (!isDrawing) return;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    if (!isLocked) {
       const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       setHistory([...history, imgData]);
     }
+
     setIsDrawing(false);
+    setStartPoint(null);
   };
 
   const clearCanvas = () => {
