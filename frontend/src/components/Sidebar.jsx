@@ -108,6 +108,7 @@ function ModuleUploadZone({ isDarkMode }) {
       let filesToUpload = [];
 
       if (files && files.length > 0) {
+        // Input files already have webkitRelativePath
         filesToUpload = Array.from(files);
       } else if (folderEntry) {
         filesToUpload = await readFolderToArray(folderEntry, '');
@@ -137,7 +138,9 @@ function ModuleUploadZone({ isDarkMode }) {
         formData.append('batchNumber', batchNum);
         formData.append('totalBatches', batches.length);
 
-        batch.forEach((file) => {
+        batch.forEach((item) => {
+          // Handle both File objects (from input) and {file, relativePath} objects (from drag-drop)
+          const file = item.file || item;
           formData.append('files', file);
         });
 
