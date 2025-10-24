@@ -650,6 +650,19 @@ export default function AdvancedEchoWhiteboard() {
     redrawCanvas();
   }, [objects, pan, zoom, redrawCanvas, previewShape, guideLines, showGuides]);
 
+  // Auto-save to history
+  useEffect(() => {
+    if (isDrawing || textInputOpen) return; // Don't save while actively drawing or inputting text
+
+    const timer = setTimeout(() => {
+      if (historyIndex === -1 || JSON.stringify(history[historyIndex]?.objects) !== JSON.stringify(objects)) {
+        saveToHistory();
+      }
+    }, 500); // Save 500ms after user stops drawing
+
+    return () => clearTimeout(timer);
+  }, [objects, isDrawing, textInputOpen, history, historyIndex, saveToHistory]);
+
   // History Management
   const saveToHistory = useCallback(() => {
     const newHistory = history.slice(0, historyIndex + 1);
