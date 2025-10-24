@@ -316,7 +316,7 @@ export default function FuturisticHUD() {
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // HEADER COMPONENT
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━���━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 function HUDHeader({ showSettings, onToggleSettings, onFullscreen, onReset, fullscreen }) {
   const now = new Date();
@@ -435,7 +435,7 @@ function HUDSettings({ availableWidgets, activeWidgets, onAddWidget, onRemoveWid
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // WIDGET COMPONENT
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━��━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 function HUDWidget({ id, config, onRemove, onBringToFront }) {
   const Icon = config.icon;
@@ -508,100 +508,111 @@ function WidgetContent({ id, config }) {
       const contentMap = {
         // AI Modules
         'ai-cpa': {
-          value: Math.floor(45000 + baseVal * 5000),
+          value: '$' + Math.floor(45000 + baseVal * 5000).toLocaleString(),
           unit: 'Daily Revenue',
           detail: '↑ 8.5% vs 10-day avg',
-          metric: '27.3% food cost',
-          trend: '↓ 2.1% improvement',
+          metric: '27.3% food cost | ↓ 2.1% improvement',
+          trend: '10-day ahead: +12% growth predicted',
         },
         'ai-operations': {
-          value: Math.floor(87 + baseVal * 5),
-          unit: '% Efficiency',
+          value: Math.floor(87 + baseVal * 5) + '%',
+          unit: 'Efficiency',
           detail: 'Kitchen: 89% | Service: 85%',
-          metric: 'Prep time: 12 min avg',
-          trend: '⚡ Optimal conditions',
+          metric: 'Prep time: 12 min avg | Status: Optimal',
+          trend: '⚡ All stations performing above target',
         },
         'ai-chef': {
           value: '🔥 HOT',
           unit: 'Trends',
           detail: 'Pasta dishes trending +23%',
-          metric: 'Recommend: Increase pappardelle stock',
-          trend: 'Predicted demand ↑ tomorrow',
+          metric: 'Recommend: ↑ pappardelle, ↓ salads',
+          trend: 'Predicted demand surge +18% tomorrow',
         },
         // KPIs
         'kpi-covers': {
-          value: Math.floor(1200 + baseVal * 50),
-          unit: 'today',
+          value: Math.floor(1200 + baseVal * 50).toLocaleString(),
+          unit: 'covers',
           detail: '↑ 12% vs yesterday',
-          metric: 'Peak: 2 PM (234 covers)',
+          metric: 'Peak: 2-3 PM (234 max)',
+          trend: 'Forecast: 1,350 tomorrow',
         },
         'kpi-revenue': {
-          value: Math.floor(45000 + baseVal * 5000),
-          unit: '$',
-          detail: '↑ 8.5% vs avg',
-          metric: 'Per cover: $37.50',
+          value: '$' + Math.floor(45000 + baseVal * 5000).toLocaleString(),
+          unit: 'daily',
+          detail: '↑ 8.5% vs 10-day avg',
+          metric: 'Per cover: $37.50 | Check avg: $47.20',
+          trend: 'On track for +$156K monthly',
         },
         'kpi-labor': {
-          value: (25.8 + baseVal * 0.3).toFixed(1),
-          unit: '%',
-          detail: 'Target: 26% ✓',
-          metric: '18 staff members scheduled',
+          value: (25.8 + baseVal * 0.3).toFixed(1) + '%',
+          unit: 'of revenue',
+          detail: 'Target: 26% ✓ Within range',
+          metric: '18 scheduled | 16 on duty | 2 breaks',
+          trend: 'Perfect efficiency window 2-4 PM',
         },
         'kpi-food': {
-          value: (28.3 + baseVal * 0.5).toFixed(1),
-          unit: '%',
-          detail: 'Target: 28% ✓',
-          metric: 'Waste: 2.1% (↓ 0.3%)',
+          value: (28.3 + baseVal * 0.5).toFixed(1) + '%',
+          unit: 'of revenue',
+          detail: 'Target: 28% ✓ Excellent',
+          metric: 'Waste: 2.1% (↓ 0.3% improvement)',
+          trend: 'Best week ever: -3.2% cost improvement',
         },
         // Operations
         'orders-live': {
-          value: Math.floor(14 + baseVal * 3),
-          unit: 'orders',
-          detail: 'Table 23: 2 steaks (VIP)',
-          metric: 'Avg wait: 11 min',
-          status: '3 ready for pickup',
+          value: Math.max(8, Math.floor(14 + baseVal * 3)),
+          unit: 'active',
+          detail: 'Table 23: 2 steaks (VIP Guest) | Pri: HIGH',
+          metric: 'Avg wait: 11 min | Next ready: 2 min',
+          status: '3 ready for pickup | 1 comping dessert',
         },
         'alerts-anomaly': {
-          value: Math.floor(2 + Math.abs(baseVal * 0.5)),
+          value: Math.max(0, Math.floor(2 + Math.abs(baseVal * 0.5))),
           unit: 'alerts',
-          detail: 'Station A temp ⚠️ | Stock low 🚨',
-          metric: 'All critical: acknowledged',
+          detail: 'Station A temp warning ⚠️ | Stock level 🚨',
+          metric: 'Status: All acknowledged & managed',
+          trend: 'No critical issues - all within tolerance',
         },
         'trends-forecast': {
           value: '+15%',
           unit: 'growth',
           detail: '10-day prediction: ↑ 15% covers',
-          metric: 'Best day: Thursday predicted',
+          metric: 'Best day: Thursday | Low: Monday',
+          trend: 'Monthly forecast: $412K (↑ $28K)',
         },
         'cctv-kitchen': {
           value: '🎥',
-          unit: 'Live',
-          detail: 'Kitchen CCTV Stream',
-          metric: 'Quality: 1080p @ 30fps',
+          unit: 'Live Feed',
+          detail: 'Kitchen CCTV Stream Active',
+          metric: '4 stations | All busy | Quality: 1080p 30fps',
+          trend: 'Efficiency: 89% | No bottlenecks detected',
         },
         'cctv-dining': {
           value: '🎥',
-          unit: 'Live',
-          detail: 'Dining Room CCTV Stream',
-          metric: 'Guests: 143 seated | 23 waiting',
+          unit: 'Live Feed',
+          detail: 'Dining Room CCTV Stream Active',
+          metric: 'Seated: 143 guests | Waiting: 23 | Avg: 4.8/5 ⭐',
+          trend: 'Satisfaction high | Service tempo excellent',
         },
         'comms-ai': {
-          value: '💬',
-          unit: 'Smart',
-          detail: 'Guest feedback: 4.8/5 ⭐',
-          metric: 'Top compliment: Chef excellence',
+          value: '💬 4.8/5',
+          unit: '⭐',
+          detail: 'Guest feedback: Excellent | Real-time sentiment',
+          metric: 'Top: "Chef excellence" | Issue: "Wait time" 1%',
+          trend: 'Communication score: +0.3pts vs yesterday',
         },
         'schedule-staff': {
           value: '18',
-          unit: 'staff',
-          detail: 'On duty: 16 | On break: 2',
-          metric: 'Next break: 3 PM (2 staff)',
+          unit: 'scheduled',
+          detail: 'On duty: 16 | On break: 2 | Available: 1',
+          metric: 'Next break: 3 PM (2 staff) | Coverage: 100%',
+          trend: 'Optimal staffing through 10 PM service',
         },
         'inventory-status': {
           value: '94%',
           unit: 'stocked',
-          detail: 'Critical items: 3 low',
-          metric: 'Beef ribeye: 8 portions left',
+          detail: 'Inventory levels good | 3 items flagged low',
+          metric: 'Critical: Beef ribeye 8 portions | Order: YES',
+          trend: 'Predicted stockout: 6 PM without order',
         },
       };
 
@@ -635,7 +646,7 @@ function WidgetContent({ id, config }) {
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // UTILITIES
-// ━━━━━━━━━━━��━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 function hexToRGBA(hex, a) {
   const s = hex.replace('#', '');
