@@ -74,27 +74,29 @@ export default function App() {
   const toggleDark = useCallback(() => setIsDark(v => !v), []);
 
   return (
-    <ErrorBoundary>
-      <div className={isDark ? "dark" : "light"} style={{ display: "flex", width: "100vw", height: "100vh", margin: 0, padding: 0, fontFamily: "system-ui, sans-serif" }}>
-        <Suspense fallback={<div style={{ width: "45px", flexShrink: 0 }} />}>
-          <Sidebar
-            isOpen={isOpen}
-            toggleSidebar={toggleSidebar}
-            isDarkMode={isDark}
-            toggleDarkMode={toggleDark}
-          />
-        </Suspense>
-
-        <main style={{ flex: 1, overflow: "hidden", position: "relative", zIndex: 1, width: "100%", height: "100%" }}>
-          <Suspense fallback={
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%", fontSize: "16px" }}>
-              Loading dashboard...
-            </div>
-          }>
-            <Board />
+    <ThemeAndLanguageProvider>
+      <ErrorBoundary>
+        <div className={isDark ? "dark" : "light"} style={{ display: "flex", width: "100vw", height: "100vh", margin: 0, padding: 0, fontFamily: "system-ui, sans-serif" }}>
+          <Suspense fallback={<div style={{ width: "45px", flexShrink: 0 }} />}>
+            <Sidebar
+              isOpen={isOpen}
+              toggleSidebar={toggleSidebar}
+              isDarkMode={isDark}
+              toggleDarkMode={toggleDark}
+            />
           </Suspense>
-        </main>
-      </div>
-    </ErrorBoundary>
+
+          <main style={{ flex: 1, overflow: "hidden", position: "relative", zIndex: 1, width: "100%", height: "100%" }}>
+            <Suspense fallback={
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%", fontSize: "16px" }}>
+                Loading dashboard...
+              </div>
+            }>
+              <Board />
+            </Suspense>
+          </main>
+        </div>
+      </ErrorBoundary>
+    </ThemeAndLanguageProvider>
   );
 }
