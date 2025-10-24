@@ -1071,7 +1071,7 @@ export default function AdvancedEchoWhiteboard() {
             fontSize: 12,
           },
         ];
-        const allergens = ['🥛', '🥜', '���', '🌾', '🥚'];
+        const allergens = ['🥛', '🥜', '🐚', '🌾', '🥚'];
         allergens.forEach((allergen, idx) => {
           newObjects.push({
             id: objectId + 2 + idx,
@@ -1991,6 +1991,32 @@ export default function AdvancedEchoWhiteboard() {
               onChange={e => setBrushSize(parseInt(e.target.value))}
               className="w-24"
             />
+          </div>
+
+          {/* Collaboration Tools */}
+          <div className="flex gap-1 bg-black/40 rounded-lg p-1 border border-green-400/20">
+            <button
+              onClick={() => setVideoOpen(!videoOpen)}
+              className={`p-2 rounded transition-colors ${
+                videoOpen
+                  ? 'bg-green-500/30 text-green-200'
+                  : 'text-green-400/60 hover:text-green-300'
+              }`}
+              title={videoOpen ? 'Close video' : 'Open video conference'}
+            >
+              <VideoCam size={16} />
+            </button>
+            <button
+              onClick={() => setFollowPresenterMode(!followPresenterMode)}
+              className={`p-2 rounded transition-colors ${
+                followPresenterMode
+                  ? 'bg-green-500/30 text-green-200'
+                  : 'text-green-400/60 hover:text-green-300'
+              }`}
+              title={followPresenterMode ? 'Stop following' : 'Follow presenter'}
+            >
+              👁️
+            </button>
           </div>
 
           {/* AI Tools */}
