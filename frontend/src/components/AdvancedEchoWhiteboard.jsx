@@ -1566,14 +1566,27 @@ export default function AdvancedEchoWhiteboard() {
             </button>
           </div>
 
-          {/* Templates */}
-          <button
-            onClick={() => setTemplateDialogOpen(true)}
-            className="px-3 py-1 rounded bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 text-sm font-semibold transition-colors"
-            title="Load template"
-          >
-            📋 Templates
-          </button>
+          {/* Hospitality Tools */}
+          <div className="flex gap-1 bg-black/40 rounded-lg p-1 border border-cyan-400/20">
+            <button
+              onClick={() => setTemplateDialogOpen(true)}
+              className="px-3 py-1 rounded bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 text-xs font-semibold transition-colors"
+              title="Load template"
+            >
+              📋
+            </button>
+            <button
+              onClick={() => setExpoRailOpen(!expoRailOpen)}
+              className={`px-3 py-1 rounded text-xs font-semibold transition-colors ${
+                expoRailOpen
+                  ? 'bg-red-500/30 text-red-300'
+                  : 'bg-red-500/10 hover:bg-red-500/20 text-red-400'
+              }`}
+              title={expoRailOpen ? 'Hide Expo Rail' : 'Show Expo Rail'}
+            >
+              🔥
+            </button>
+          </div>
 
           {/* Export & Snapshots */}
           <div className="flex gap-1 bg-black/40 rounded-lg p-1 border border-cyan-400/20">
