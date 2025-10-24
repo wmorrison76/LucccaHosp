@@ -379,7 +379,7 @@ Fire time:`,
         type: 'sticky',
         x: 100 + Math.random() * 400,
         y: 100 + Math.random() * 300,
-        text: `🗑�� ${wasteItem}
+        text: `🗑️ ${wasteItem}
 Cost: $${cost || '0'}
 Time: ${new Date().toLocaleTimeString()}`,
         bgColor: '#ffccba'
@@ -749,6 +749,44 @@ Time: ${new Date().toLocaleTimeString()}`,
               }}
             />
           )}
+
+          {/* PARTICIPANT CURSORS */}
+          {Object.entries(participantCursors).map(([key, cursor]) => (
+            <div
+              key={key}
+              style={{
+                position: 'absolute',
+                left: cursor.x,
+                top: cursor.y - 20,
+                pointerEvents: 'none',
+                zIndex: 100
+              }}
+            >
+              <div
+                style={{
+                  width: '12px',
+                  height: '12px',
+                  backgroundColor: cursor.color,
+                  borderRadius: '50%',
+                  boxShadow: `0 0 8px ${cursor.color}`,
+                  marginBottom: '4px'
+                }}
+              />
+              <div
+                style={{
+                  fontSize: '9px',
+                  backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                  color: cursor.color,
+                  padding: '2px 4px',
+                  borderRadius: '2px',
+                  whiteSpace: 'nowrap',
+                  fontWeight: 'bold'
+                }}
+              >
+                {cursor.name}
+              </div>
+            </div>
+          ))}
 
           {/* FLOATING PANELS OVERLAY */}
           <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
