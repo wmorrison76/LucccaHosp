@@ -169,7 +169,8 @@ router.post('/upload-folder', uploadMultiple, handleMulterError, async (req, res
 
   } catch (error) {
     const totalTime = Date.now() - startTime;
-    console.error(`[MODULE_UPLOAD] Error after ${totalTime}ms: ${error.message}`);
+    console.error(`[MODULE_UPLOAD] Error after ${totalTime}ms:`, error.message);
+    console.error(`[MODULE_UPLOAD] Error code:`, error.code);
     console.error(`[MODULE_UPLOAD] Error stack:`, error.stack);
 
     // Cleanup temp files
@@ -179,6 +180,7 @@ router.post('/upload-folder', uploadMultiple, handleMulterError, async (req, res
           if (file && file.path) {
             try {
               await fs.unlink(file.path);
+              console.log(`[MODULE_UPLOAD] Cleaned up: ${file.path}`);
             } catch (e) {
               // Ignore cleanup errors
             }
@@ -189,10 +191,14 @@ router.post('/upload-folder', uploadMultiple, handleMulterError, async (req, res
       console.warn(`[MODULE_UPLOAD] Cleanup warning: ${cleanupError.message}`);
     }
 
-    res.status(500).json({
-      success: false,
-      message: error.message || 'Upload failed'
-    });
+    // Only send response if headers not sent
+    if (!res.headersSent) {
+      res.status(500).json({
+        success: false,
+        message: error.message || 'Upload failed',
+        code: error.code
+      });
+    }
   }
 });
 
