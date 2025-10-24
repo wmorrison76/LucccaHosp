@@ -238,8 +238,12 @@ function ModuleUploadZone({ isDarkMode }) {
       const file = await new Promise((resolve, reject) => {
         entry.file(resolve, reject);
       });
-      file.webkitRelativePath = path + file.name;
-      files.push(file);
+      // Don't modify file object - use webkitRelativePath if available, else use constructed path
+      // The webkitRelativePath property is read-only, so we can't set it
+      files.push({
+        file,
+        relativePath: file.webkitRelativePath || (path + file.name)
+      });
     } else if (entry.isDirectory) {
       const reader = entry.createReader();
       const entries = await new Promise((resolve, reject) => {
