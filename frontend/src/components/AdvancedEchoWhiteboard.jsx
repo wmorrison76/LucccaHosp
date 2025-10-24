@@ -1388,7 +1388,7 @@ export default function AdvancedEchoWhiteboard() {
                           {order.items}
                         </div>
                         <div style={{ color: '#999', display: 'flex', justifyContent: 'space-between' }}>
-                          <span>🔥 {order.fireSince} min</span>
+                          <span>���� {order.fireSince} min</span>
                           <span style={{
                             padding: '2px 6px',
                             borderRadius: '2px',
@@ -1813,7 +1813,7 @@ export default function AdvancedEchoWhiteboard() {
           {templateDialogOpen && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-lg z-50 p-4">
               <div className="bg-slate-800 rounded-lg p-6 border border-purple-400/40 shadow-2xl max-w-2xl w-full max-h-96 overflow-auto">
-                <h2 className="text-lg font-bold text-purple-300 mb-4">�� Load Template</h2>
+                <h2 className="text-lg font-bold text-purple-300 mb-4">📋 Load Template</h2>
                 <div className="grid grid-cols-2 gap-3">
                   {[
                     { id: 'mise-en-place', name: '✓ Mise en Place', icon: '📝' },
@@ -2273,6 +2273,13 @@ export default function AdvancedEchoWhiteboard() {
               title={showGuides ? 'Alignment guides ON' : 'Alignment guides OFF'}
             >
               <AlertTriangle size={16} />
+            </button>
+            <button
+              onClick={() => setHelpOpen(!helpOpen)}
+              className="p-2 rounded hover:bg-cyan-400/10 text-cyan-400 transition-colors"
+              title="Keyboard shortcuts"
+            >
+              ?
             </button>
           </div>
 
