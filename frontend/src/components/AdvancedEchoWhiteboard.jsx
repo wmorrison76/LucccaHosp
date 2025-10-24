@@ -1099,6 +1099,85 @@ export default function AdvancedEchoWhiteboard() {
                 </div>
               </div>
             ))}
+
+            {/* EXPO RAIL FLOATING PANEL */}
+            {expoRailOpen && (
+              <div style={{
+                position: 'absolute',
+                right: 20,
+                top: 20,
+                width: 280,
+                maxHeight: 400,
+                zIndex: 1000,
+                backgroundColor: '#1a1a1a',
+                border: '2px solid #ff6b4d',
+                borderRadius: '8px',
+                padding: '12px',
+                boxShadow: '0 0 30px rgba(255, 107, 77, 0.4)',
+                overflowY: 'auto',
+                pointerEvents: 'auto',
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                  <h3 style={{ margin: 0, color: '#ff6b4d', fontSize: '14px', fontWeight: 'bold' }}>
+                    🔥 EXPO RAIL ({liveOrders.length})
+                  </h3>
+                  <button
+                    onClick={() => setExpoRailOpen(false)}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: '#ff6b4d',
+                      cursor: 'pointer',
+                      fontSize: '18px',
+                    }}
+                  >
+                    ×
+                  </button>
+                </div>
+
+                {liveOrders.length === 0 ? (
+                  <div style={{ color: '#999', fontSize: '12px', textAlign: 'center', padding: '20px 0' }}>
+                    No active orders
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {liveOrders.map(order => (
+                      <div
+                        key={order.id}
+                        style={{
+                          backgroundColor: order.status === 'ready' ? '#4dff9e20' : order.status === 'plating' ? '#ff6b4d30' : '#4d7aff20',
+                          border: `1px solid ${order.status === 'ready' ? '#4dff9e' : order.status === 'plating' ? '#ff6b4d' : '#4d7aff'}`,
+                          borderRadius: '4px',
+                          padding: '8px',
+                          fontSize: '11px',
+                        }}
+                      >
+                        <div style={{ fontWeight: 'bold', color: '#fff', marginBottom: '4px' }}>
+                          🍽️ Table {order.table}
+                        </div>
+                        <div style={{ color: '#ccc', marginBottom: '2px' }}>
+                          {order.items}
+                        </div>
+                        <div style={{ color: '#999', display: 'flex', justifyContent: 'space-between' }}>
+                          <span>🔥 {order.fireSince} min</span>
+                          <span style={{
+                            padding: '2px 6px',
+                            borderRadius: '2px',
+                            backgroundColor: order.status === 'ready' ? '#4dff9e40' : order.status === 'plating' ? '#ff6b4d40' : '#4d7aff40',
+                            color: order.status === 'ready' ? '#4dff9e' : order.status === 'plating' ? '#ff6b4d' : '#4d7aff',
+                            fontSize: '10px',
+                            fontWeight: 'bold',
+                            textTransform: 'uppercase',
+                          }}>
+                            {order.status}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* TEXT INPUT DIALOG */}
