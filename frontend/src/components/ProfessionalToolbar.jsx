@@ -13,6 +13,10 @@ export default function ProfessionalToolbar() {
   const [showLanguage, setShowLanguage] = useState(false);
   const appearanceRef = useRef(null);
   const languageRef = useRef(null);
+  const toolbarRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState({ x: 0, y: 0 });
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -29,31 +33,57 @@ export default function ProfessionalToolbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Draggable toolbar
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setDragOffset({
+      x: e.clientX - position.x,
+      y: e.clientY - position.y,
+    });
+  };
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!isDragging) return;
+      setPosition({
+        x: e.clientX - dragOffset.x,
+        y: e.clientY - dragOffset.y,
+      });
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+      };
+    }
+  }, [isDragging, dragOffset]);
+
   return (
     <div
+      ref={toolbarRef}
       className="flex items-center justify-between h-14 px-6 border-b backdrop-blur-md transition-colors"
       style={{
         backgroundColor: colors.bg.secondary,
         borderColor: colors.border.secondary,
+        position: 'fixed',
+        top: `${position.y}px`,
+        left: `${position.x}px`,
+        right: 'auto',
+        width: 'auto',
+        zIndex: 1100,
+        cursor: isDragging ? 'grabbing' : 'grab',
+        userSelect: 'none',
+        minWidth: '400px',
       }}
+      onMouseDown={handleMouseDown}
     >
-      {/* Left Side - Logo/Brand */}
-      <div className="flex items-center gap-3">
-        <div
-          className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white"
-          style={{
-            background: `linear-gradient(135deg, ${colors.primary} 0%, ${colors.secondary} 100%)`,
-          }}
-        >
-          Ⓛ
-        </div>
-        <h1
-          className="text-sm font-semibold tracking-tight hidden sm:block"
-          style={{ color: colors.text.primary }}
-        >
-          LUCCCA
-        </h1>
-      </div>
 
       {/* Right Side - Controls */}
       <div className="flex items-center gap-2">
