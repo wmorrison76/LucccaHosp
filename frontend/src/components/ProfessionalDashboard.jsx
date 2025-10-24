@@ -258,12 +258,13 @@ export default function ProfessionalDashboard() {
                 className="w-full h-full flex flex-col rounded-lg overflow-hidden transition-all duration-300"
                 style={{
                   backgroundColor: colors.bg.panel,
-                  border: `1px solid ${colors.border.primary}`,
+                  border: themeMode === 'dark'
+                    ? `2px solid ${cardColor.primary}`
+                    : `1px solid #000000`,
                   backdropFilter: 'blur(12px)',
-                  boxShadow: `
-                    0 4px 6px ${colors.shadow.md},
-                    0 0 20px ${cardColor.glow}
-                  `,
+                  boxShadow: themeMode === 'dark'
+                    ? `0 4px 6px ${colors.shadow.md}, 0 0 30px ${cardColor.primary}60, inset 0 0 20px ${cardColor.primary}20`
+                    : `0 4px 12px rgba(0,0,0,0.15)`,
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = colors.bg.panelHover;
