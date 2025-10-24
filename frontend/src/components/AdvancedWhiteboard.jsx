@@ -528,9 +528,16 @@ function AdvancedWhiteboardCore() {
               e.stopPropagation();
             }}
             onDrop={handleImageDrop}
+            onMouseMove={(e) => {
+              if (laserMode) {
+                const rect = canvasRef.current.getBoundingClientRect();
+                setLaserPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+              }
+            }}
+            onMouseLeave={() => laserMode && setLaserPos(null)}
             style={{
               flex: 1,
-              cursor: tool === "pencil" ? "crosshair" : tool === "eraser" ? "grab" : tool === "text" ? "text" : "default",
+              cursor: laserMode ? 'pointer' : tool === "pencil" ? "crosshair" : tool === "eraser" ? "grab" : tool === "text" ? "text" : "default",
               display: "block",
               backgroundColor: '#1a202c'
             }}
