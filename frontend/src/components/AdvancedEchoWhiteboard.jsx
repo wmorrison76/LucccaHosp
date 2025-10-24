@@ -813,6 +813,80 @@ export default function AdvancedEchoWhiteboard() {
             </div>
           )}
 
+          {/* PDF VIEWER MODAL */}
+          {pdfViewerOpen && selectedMediaObject && (
+            <div style={{
+              position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50
+            }}>
+              <div style={{
+                backgroundColor: '#1a1a1a', borderRadius: '12px', padding: '16px',
+                border: '1px solid #ff6b4d', maxWidth: '90vw', maxHeight: '90vh',
+                display: 'flex', flexDirection: 'column'
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
+                  <h2 style={{ margin: 0, color: '#ff6b4d', fontSize: '16px' }}>
+                    📄 {selectedMediaObject.fileName}
+                  </h2>
+                  <button onClick={() => setPdfViewerOpen(false)} style={{
+                    background: 'none', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '20px'
+                  }}>×</button>
+                </div>
+                <iframe src={selectedMediaObject.fileUrl} style={{
+                  width: '600px', height: '400px', border: 'none', borderRadius: '6px'
+                }} />
+              </div>
+            </div>
+          )}
+
+          {/* VIDEO PLAYER MODAL */}
+          {videoPlayerOpen && selectedMediaObject && (
+            <div style={{
+              position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50
+            }}>
+              <div style={{
+                backgroundColor: '#1a1a1a', borderRadius: '12px', padding: '16px',
+                border: '1px solid #4d7aff', maxWidth: '90vw'
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
+                  <h2 style={{ margin: 0, color: '#4d7aff', fontSize: '16px' }}>
+                    ▶️ {selectedMediaObject.fileName}
+                  </h2>
+                  <button onClick={() => setVideoPlayerOpen(false)} style={{
+                    background: 'none', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '20px'
+                  }}>×</button>
+                </div>
+                <video src={selectedMediaObject.fileUrl} controls style={{
+                  maxWidth: '600px', width: '100%', borderRadius: '6px'
+                }} />
+              </div>
+            </div>
+          )}
+
+          {/* AUDIO PLAYER MODAL */}
+          {audioPlayerOpen && selectedMediaObject && (
+            <div style={{
+              position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50
+            }}>
+              <div style={{
+                backgroundColor: '#1a1a1a', borderRadius: '12px', padding: '16px',
+                border: '1px solid #f39c12', minWidth: '300px'
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
+                  <h2 style={{ margin: 0, color: '#f39c12', fontSize: '16px' }}>
+                    🔊 {selectedMediaObject.fileName}
+                  </h2>
+                  <button onClick={() => setAudioPlayerOpen(false)} style={{
+                    background: 'none', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '20px'
+                  }}>×</button>
+                </div>
+                <audio src={selectedMediaObject.fileUrl} controls style={{ width: '100%' }} />
+              </div>
+            </div>
+          )}
+
           {/* ZOOM CONTROLS */}
           <div className="absolute bottom-4 right-4 flex gap-2 bg-black/40 rounded-lg p-2 border border-cyan-400/20">
             <button
