@@ -215,6 +215,7 @@ const LS = {
 
 /* ────�����───────── Component ─��────────────��� */
 export default function Board() {
+  console.log('[Board] Component rendering, PANEL_REGISTRY keys:', Object.keys(PANEL_REGISTRY));
   const layerRef = useRef(null);
   const [windows, setWindows] = useState([]);
   const [activeId, setActiveId] = useState(null);
