@@ -313,12 +313,18 @@ export default function ProfessionalDashboard() {
                   </button>
 
                   {/* Title (Center) */}
-                  <h3
+                  <span
                     className="font-semibold text-xs flex-1 truncate"
-                    style={{ color: colors.text.primary, overflow: 'hidden', textOverflow: 'ellipsis' }}
+                    style={{
+                      color: colors.text.primary,
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      display: 'block',
+                      whiteSpace: 'nowrap',
+                    }}
                   >
                     {t[card.title] || card.title}
-                  </h3>
+                  </span>
 
                   {/* Pin Button */}
                   <button
