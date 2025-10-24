@@ -60,6 +60,18 @@ export default function AdvancedEchoWhiteboard() {
   const [snapshotDialogOpen, setSnapshotDialogOpen] = useState(false);
   const [templateDialogOpen, setTemplateDialogOpen] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const [expoRailOpen, setExpoRailOpen] = useState(false);
+  const [liveOrders, setLiveOrders] = useState([
+    { id: 1, table: 5, items: 'Beef Wellington', fireSince: 8, status: 'plating' },
+    { id: 2, table: 3, items: 'Coq au Vin', fireSince: 12, status: 'plating' },
+    { id: 3, table: 7, items: 'French Onion Soup', fireSince: 3, status: 'sent' },
+    { id: 4, table: 1, items: 'Hollandaise', fireSince: 2, status: 'ready' },
+  ]);
+  const [wasteNotes, setWasteNotes] = useState([
+    { id: 1, category: 'spoilage', item: 'Old lettuce', cost: 15 },
+    { id: 2, category: 'prep', item: 'Carrot trim', cost: 3.50 },
+    { id: 3, category: 'returned', item: 'Overcooked steak', cost: 32 },
+  ]);
 
   // Canvas Transform State
   const [zoom, setZoom] = useState(1);
