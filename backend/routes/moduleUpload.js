@@ -95,10 +95,16 @@ router.post('/upload-folder', uploadMultiple, handleMulterError, async (req, res
       return res.status(400).json({ success: false, message: 'No files provided' });
     }
 
-    // Extract folder name from first file's webkitRelativePath (e.g., "FolderName/file.txt" -> "FolderName")
-    const firstFilePath = files[0].originalname || files[0].filename;
-    const folderNameFromPath = firstFilePath.split('/')[0] || 'Module';
-    const folderName = folderNameFromPath;
+    // Extract folder name from request body or from first file's path
+    let folderName = req.body?.folderName;
+    console.log(`[MODULE_UPLOAD] folderName from body: ${folderName}`);
+
+    if (!folderName) {
+      const firstFilePath = files[0].originalname || files[0].filename;
+      const folderNameFromPath = firstFilePath.split('/')[0] || 'Module';
+      folderName = folderNameFromPath;
+      console.log(`[MODULE_UPLOAD] folderName from file path: ${folderName}`);
+    }
 
     const modulesDir = path.join(__dirname, '..', '..', 'frontend', 'src', 'modules');
     const destPath = path.join(modulesDir, folderName);
