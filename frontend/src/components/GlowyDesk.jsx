@@ -103,7 +103,7 @@ export default function GlowyDesk() {
 
   const addCard = () => {
     const id = "w-" + Math.random().toString(36).slice(2, 8);
-    setCards(cs => cs.concat([{ id, title: "New Widget", color: "#00d9ff", w: 3, h: 3, x: 0, y: 6, pinned: true, icon: "Activity" }]));
+    setCards(cs => cs.concat([{ id, title: "New Widget", color: "#00d9ff", w: 3, h: 2, x: 0, y: 4, pinned: true, icon: "Activity" }]));
   };
 
   const toPx = (c) => {
