@@ -42,6 +42,11 @@ export default defineConfig(({ mode }) => ({
     },
   },
 
+  // Watch options - ignore modules folder to prevent reload during uploads
+  watch: {
+    ignored: ['**/node_modules/**', '**/src/modules/**']
+  },
+
   // Optional build options (production tightening)
   build: {
     sourcemap: mode === "development",
