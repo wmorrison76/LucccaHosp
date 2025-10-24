@@ -8,3 +8,7 @@ export * from './CakeSizeCalculator';
 export * from './IntakeForm';
 export * from './CakeBuilder';
 export * from './ProductionScheduler';
+export * from './CakeDesignStorage';
+export * from './CakeBuilderPage';
+export * from './CakeGallery';
+export * from './EchoCanvasIntegration';
