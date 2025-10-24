@@ -219,10 +219,22 @@ const HomePage: React.FC<{ onIntakeClick: () => void; onGalleryClick: () => void
 
       {/* Action Buttons */}
       <div style={styles.actionSection}>
-        <button onClick={onIntakeClick} style={styles.buttonLarge}>
+        <button
+          onClick={() => {
+            console.log('[HomePage] Create New Cake Order clicked');
+            onIntakeClick();
+          }}
+          style={styles.buttonLarge}
+        >
           ➕ Create New Cake Order
         </button>
-        <button onClick={onGalleryClick} style={styles.buttonLargeSecondary}>
+        <button
+          onClick={() => {
+            console.log('[HomePage] View Cake Gallery clicked');
+            onGalleryClick();
+          }}
+          style={styles.buttonLargeSecondary}
+        >
           📁 View Cake Gallery
         </button>
       </div>
@@ -286,15 +298,15 @@ const styles: Record<string, React.CSSProperties> = {
   pageContainer: {
     width: '100%',
     height: '100%',
-    overflow: 'hidden',
+    overflow: 'auto',
     backgroundColor: '#f5f5f5',
     fontFamily: 'system-ui, -apple-system, sans-serif',
   },
   homeContainer: {
     display: 'flex',
     flexDirection: 'column',
-    height: '100%',
-    overflow: 'auto',
+    minHeight: '100%',
+    width: '100%',
     backgroundColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
   },
   homeHeader: {
