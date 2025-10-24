@@ -89,7 +89,6 @@ function ModuleUploadZone({ isDarkMode }) {
     const displayName = folderName || folderEntry?.name || 'Module';
     setIsUploading(true);
 
-    // Calculate total size
     const totalSize = files?.reduce((sum, f) => sum + f.size, 0) || 0;
     const totalMB = (totalSize / 1024 / 1024).toFixed(1);
     const totalFiles = files?.length || 0;
@@ -97,77 +96,111 @@ function ModuleUploadZone({ isDarkMode }) {
     console.log(`[UPLOAD] Folder: ${displayName}, Files: ${totalFiles}, Size: ${totalMB}MB`);
     setMessage(`⏳ Uploading ${displayName} (${totalFiles} files, ${totalMB}MB)...`);
 
-    // Broadcast upload start to all components
     window.dispatchEvent(new CustomEvent('module-upload-start', {
       detail: { fileName: displayName, fileSize: totalSize, fileCount: totalFiles }
     }));
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 60 * 60 * 1000); // 60 minute timeout
-
     try {
-      const formData = new FormData();
-
-      // Add folder name as a simple text field
-      formData.append('folderName', displayName);
-
-      // Handle files from folder input
-      if (files && files.length > 0) {
-        console.log(`[UPLOAD] Processing ${files.length} files (total ${totalMB}MB)`);
-        files.forEach((file, index) => {
-          const relativePath = file.webkitRelativePath || file.name;
-          if (index < 10 || index % 1000 === 0) {
-            console.log(`[UPLOAD] Adding file ${index + 1}/${files.length}: ${relativePath}`);
-          }
-          formData.append(`files`, file);
-        });
-      } else if (folderEntry) {
-        console.log(`[UPLOAD] Processing drag-drop folder`);
-        await readFolderRecursive(folderEntry, formData, '');
-      }
-
-      const totalSize = Array.from(formData.getAll('files')).reduce((sum, f) => sum + f.size, 0);
-      console.log(`[UPLOAD] Starting folder upload: ${displayName} (${totalSize} bytes)`);
-
-      // Bypass Vite proxy for large uploads - connect directly to backend port 3001
-      // This avoids multipart parsing issues in the Vite proxy
       const uploadUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? `http://localhost:3001/api/modules/upload-folder`
         : `/api/modules/upload-folder`;
 
-      console.log(`[UPLOAD] Sending FormData to ${uploadUrl}`);
+      let filesToUpload = [];
 
-      const response = await fetch(uploadUrl, {
-        method: 'POST',
-        body: formData,
-        signal: controller.signal,
-        headers: {
-          // Don't set Content-Type - browser will set it with correct boundary
-        }
-      });
-
-      clearTimeout(timeoutId);
-
-      console.log(`[UPLOAD] Response received: status ${response.status}`);
-
-      if (!response.ok) {
-        let errorData;
-        try {
-          errorData = await response.json();
-        } catch (parseErr) {
-          errorData = { message: response.statusText };
-          console.error(`[UPLOAD] Could not parse error response:`, parseErr.message);
-        }
-        throw new Error(errorData.message || `Upload failed with status ${response.status}`);
+      if (files && files.length > 0) {
+        filesToUpload = Array.from(files);
+      } else if (folderEntry) {
+        filesToUpload = await readFolderToArray(folderEntry, '');
       }
 
-      const data = await response.json();
+      const BATCH_SIZE = 500;
+      const batches = [];
+      for (let i = 0; i < filesToUpload.length; i += BATCH_SIZE) {
+        batches.push(filesToUpload.slice(i, i + BATCH_SIZE));
+      }
+
+      console.log(`[UPLOAD] Uploading in ${batches.length} batches of max ${BATCH_SIZE} files`);
+
+      for (let batchIndex = 0; batchIndex < batches.length; batchIndex++) {
+        const batch = batches[batchIndex];
+        const batchNum = batchIndex + 1;
+        const isFirstBatch = batchIndex === 0;
+        const isLastBatch = batchIndex === batches.length - 1;
+
+        console.log(`[UPLOAD] Batch ${batchNum}/${batches.length}: ${batch.length} files`);
+        setMessage(`⏳ Uploading ${displayName} (batch ${batchNum}/${batches.length})...`);
+
+        const formData = new FormData();
+        formData.append('folderName', displayName);
+        formData.append('isFirstBatch', isFirstBatch);
+        formData.append('isLastBatch', isLastBatch);
+        formData.append('batchNumber', batchNum);
+        formData.append('totalBatches', batches.length);
+
+        batch.forEach((file) => {
+          formData.append('files', file);
+        });
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15 * 60 * 1000);
+
+        try {
+          const response = await fetch(uploadUrl, {
+            method: 'POST',
+            body: formData,
+            signal: controller.signal
+          });
+
+          clearTimeout(timeoutId);
+
+          if (!response.ok) {
+            let errorData;
+            try {
+              errorData = await response.json();
+            } catch {
+              errorData = { message: response.statusText };
+            }
+            throw new Error(`Batch ${batchNum}: ${errorData.message || response.statusText}`);
+          }
+
+          await response.json();
+          console.log(`[UPLOAD] Batch ${batchNum} complete`);
+        } catch (batchError) {
+          throw new Error(`Batch ${batchNum}/${batches.length} failed: ${batchError.message}`);
+        }
+      }
+
+      const finalFormData = new FormData();
+      finalFormData.append('folderName', displayName);
+      finalFormData.append('finalize', 'true');
+
+      const finalController = new AbortController();
+      const finalTimeoutId = setTimeout(() => finalController.abort(), 10 * 60 * 1000);
+
+      const finalResponse = await fetch(uploadUrl, {
+        method: 'POST',
+        body: finalFormData,
+        signal: finalController.signal
+      });
+
+      clearTimeout(finalTimeoutId);
+
+      if (!finalResponse.ok) {
+        let errorData;
+        try {
+          errorData = await finalResponse.json();
+        } catch {
+          errorData = { message: finalResponse.statusText };
+        }
+        throw new Error(errorData.message || `Finalization failed`);
+      }
+
+      const data = await finalResponse.json();
 
       if (data.success) {
         setMessage(`✅ ${data.moduleName} loaded!`);
         console.log(`[UPLOAD] Success: ${data.moduleName}`);
 
-        // Broadcast upload completion to all components
         window.dispatchEvent(new CustomEvent('module-upload-complete', {
           detail: { moduleName: data.moduleName, success: true }
         }));
@@ -177,33 +210,47 @@ function ModuleUploadZone({ isDarkMode }) {
         }, 1500);
       } else {
         setMessage(`❌ Error: ${data.message}`);
-        console.error(`[UPLOAD] Error: ${data.message}`);
-
-        // Broadcast upload error to all components
         window.dispatchEvent(new CustomEvent('module-upload-complete', {
           detail: { moduleName: displayName, success: false, error: data.message }
         }));
       }
     } catch (error) {
-      clearTimeout(timeoutId);
       const errorMsg = error.name === 'AbortError'
-        ? 'Upload timeout (60 minutes). Connection lost - check network and try again.'
+        ? 'Upload timeout. Check network and try again.'
         : error.message;
       setMessage(`❌ ${errorMsg}`);
       console.error(`[UPLOAD] Failed:`, errorMsg);
 
-      // Broadcast upload error to all components
       window.dispatchEvent(new CustomEvent('module-upload-complete', {
         detail: { moduleName: displayName, success: false, error: errorMsg }
       }));
     } finally {
       setIsUploading(false);
-
-      // Auto-clear message after 5 seconds if not successful reload
       setTimeout(() => {
         setMessage('');
       }, 5000);
     }
+  };
+
+  const readFolderToArray = async (entry, path) => {
+    const files = [];
+    if (entry.isFile) {
+      const file = await new Promise((resolve, reject) => {
+        entry.file(resolve, reject);
+      });
+      file.webkitRelativePath = path + file.name;
+      files.push(file);
+    } else if (entry.isDirectory) {
+      const reader = entry.createReader();
+      const entries = await new Promise((resolve, reject) => {
+        reader.readEntries(resolve, reject);
+      });
+      for (const childEntry of entries) {
+        const childFiles = await readFolderToArray(childEntry, path + entry.name + '/');
+        files.push(...childFiles);
+      }
+    }
+    return files;
   };
 
   // Helper to recursively read folder entries (for drag-and-drop support)
