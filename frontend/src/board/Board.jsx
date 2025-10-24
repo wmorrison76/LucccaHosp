@@ -530,8 +530,22 @@ export default function Board() {
       {/* Panels */}
       <div ref={layerRef} className="pane-layer absolute inset-0" style={{ overflow: allowOffscreen ? "visible" : "hidden" }}>
         {windows.length === 0 && (
-          <div style={{ padding: '40px', fontSize: '16px', color: '#999' }}>
-            [Waiting for dashboard to load... windows.length={windows.length}]
+          <div style={{
+            padding: '40px',
+            fontSize: '18px',
+            color: '#fff',
+            backgroundColor: '#1a1a2e',
+            textAlign: 'center',
+            minHeight: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            gap: '20px'
+          }}>
+            <div>⏳ Loading Dashboard...</div>
+            <div style={{ fontSize: '12px', color: '#888' }}>windows.length={windows.length}</div>
+            <div style={{ fontSize: '12px', color: '#666' }}>Check console for details</div>
           </div>
         )}
         {windows.map((win) => {
