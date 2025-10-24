@@ -104,9 +104,47 @@ export const EchoCanvasIntegration: React.FC<EchoCanvasIntegrationProps> = ({ ca
     }
   }, []);
 
+  const handleSaveAPIKey = () => {
+    if (!apiKey) {
+      setApiKeyError('API key cannot be empty');
+      return;
+    }
+
+    const validation = validateAPIKeyFormat(apiKey);
+    if (!validation.valid) {
+      setApiKeyError(validation.message);
+      return;
+    }
+
+    saveEchoCanvasConfig({ apiKey });
+    setApiConfigured(true);
+    setApiKeyError('');
+    setConnectionStatus('API key saved. Click "Test Connection" to verify.');
+  };
+
+  const handleTestConnection = async () => {
+    if (!apiKey) {
+      setApiKeyError('Please enter an API key first');
+      return;
+    }
+
+    setTestingConnection(true);
+    setConnectionStatus('Testing connection...');
+
+    const result = await testAPIConnectivity();
+    setTestingConnection(false);
+    setConnectionStatus(result.message);
+
+    if (!result.success) {
+      setApiKeyError('Connection failed: ' + result.message);
+    } else {
+      setApiKeyError('');
+    }
+  };
+
   const handleGenerateImage = async () => {
     if (!apiKey) {
-      setApiKeyError('API key is required');
+      setApiKeyError('API key is required. Enter and save your key first.');
       return;
     }
 
