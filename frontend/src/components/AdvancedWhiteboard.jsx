@@ -381,9 +381,14 @@ function AdvancedWhiteboardCore() {
               e.preventDefault();
               setZoom(z => Math.max(0.1, Math.min(5, z + (e.deltaY > 0 ? -0.1 : 0.1))));
             }}
+            onDragOver={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+            onDrop={handleImageDrop}
             style={{
               flex: 1,
-              cursor: tool === "pencil" ? "crosshair" : tool === "eraser" ? "grab" : "default",
+              cursor: tool === "pencil" ? "crosshair" : tool === "eraser" ? "grab" : tool === "text" ? "text" : "default",
               display: "block",
               backgroundColor: '#1a202c'
             }}
