@@ -1,4 +1,5 @@
 import React, { useState, useCallback, Suspense, useEffect } from "react";
+import { ThemeAndLanguageProvider } from "./hooks/useThemeAndLanguage";
 
 const Sidebar = React.lazy(() => import("./components/Sidebar.jsx"));
 const Board = React.lazy(() => import("./board/Board.jsx"));
