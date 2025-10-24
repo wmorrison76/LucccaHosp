@@ -47,17 +47,27 @@ server.keepAliveTimeout = TIMEOUT_MS + 30000; // Keep-alive timeout slightly lon
 
 // Handle timeout errors
 server.on('clientError', (err, socket) => {
+  console.error('[SERVER] Client error:', err.code, err.message);
+
   if (err.code === 'ECONNRESET' || !socket.writable) {
+    console.log('[SERVER] Connection already closed or reset');
     return;
   }
 
   if (err.code === 'HPE_HEADER_OVERFLOW') {
+    console.error('[SERVER] Header overflow detected');
     socket.end('HTTP/1.1 431 Request Header Fields Too Large\r\n\r\n');
   } else if (err.message.includes('timeout')) {
-    console.error('[SERVER] Socket timeout error:', err.message);
+    console.error('[SERVER] Socket timeout - increase timeout settings');
     socket.end('HTTP/1.1 408 Request Timeout\r\n\r\n');
+  } else if (err.code === 'ECONNREFUSED' || err.code === 'EPIPE') {
+    console.error('[SERVER] Connection refused or broken pipe');
+    return;
   } else {
-    socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
+    console.error('[SERVER] Unknown client error:', err.code);
+    if (socket.writable) {
+      socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
+    }
   }
 });
 
