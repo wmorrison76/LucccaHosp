@@ -60,7 +60,7 @@ const colorMap = {
 };
 
 export default function ProfessionalDashboard() {
-  const { theme, t, getCSSVariables } = useThemeAndLanguageContext();
+  const { theme, themeMode, t, getCSSVariables } = useThemeAndLanguageContext();
   const containerRef = useRef(null);
   const [cards, setCards] = useState(() => {
     try {
