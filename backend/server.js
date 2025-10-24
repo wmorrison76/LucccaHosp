@@ -30,6 +30,9 @@ app.use(express.json({ limit: '5gb' }));
 app.use(express.urlencoded({ limit: '5gb', extended: true }));
 app.use(loggerMiddleware);
 
+// Apply payload guards to prevent 413 errors on external API calls
+applyAllGuards(app);
+
 app.use('/api/cake-designer', authMiddleware, cakeDesignerRoutes);
 app.use('/api/echo', echoRoutes);
 app.use('/api/system', authMiddleware, systemRoutes);
