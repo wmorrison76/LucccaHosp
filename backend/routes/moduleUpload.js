@@ -26,18 +26,27 @@ const uploadMultiple = multer({
 // Error handler for multer
 const handleMulterError = (err, req, res, next) => {
   if (err instanceof multer.MulterError) {
-    console.error('[MODULE_UPLOAD] Multer error:', err.code, err.message);
+    console.error('[MODULE_UPLOAD] Multer error - Code:', err.code);
+    console.error('[MODULE_UPLOAD] Multer error - Message:', err.message);
+    console.error('[MODULE_UPLOAD] Multer error - Field:', err.field);
+    console.error('[MODULE_UPLOAD] Multer error - Limit:', err.limit);
+
     if (err.code === 'LIMIT_FILE_SIZE') {
       return res.status(413).json({ success: false, message: 'File too large - single file exceeds 5GB limit' });
     }
     if (err.code === 'LIMIT_FILE_COUNT') {
-      return res.status(413).json({ success: false, message: `Too many files - folder has more than 50000 files. Count: ${err.limit || 'unknown'}` });
+      return res.status(413).json({ success: false, message: `Too many files - reached 50000 file limit` });
+    }
+    if (err.code === 'LIMIT_FIELD_SIZE') {
+      return res.status(413).json({ success: false, message: `Single field exceeds 500MB limit` });
     }
     return res.status(400).json({ success: false, message: err.message });
   }
   if (err) {
     console.error('[MODULE_UPLOAD] Upload middleware error:', err.message);
-    return res.status(400).json({ success: false, message: err.message });
+    console.error('[MODULE_UPLOAD] Error code:', err.code);
+    console.error('[MODULE_UPLOAD] Error stack:', err.stack);
+    return res.status(400).json({ success: false, message: err.message, code: err.code });
   }
   next();
 };
