@@ -53,6 +53,11 @@ export default function AdvancedEchoWhiteboard() {
   const [videoPlayerOpen, setVideoPlayerOpen] = useState(false);
   const [audioPlayerOpen, setAudioPlayerOpen] = useState(false);
   const [selectedMediaObject, setSelectedMediaObject] = useState(null);
+  const [history, setHistory] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const [snapshots, setSnapshots] = useState([]);
+  const [snapshotName, setSnapshotName] = useState('');
+  const [snapshotDialogOpen, setSnapshotDialogOpen] = useState(false);
 
   // Canvas Transform State
   const [zoom, setZoom] = useState(1);
