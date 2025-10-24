@@ -73,6 +73,16 @@ export default function AdvancedEchoWhiteboard() {
     { id: 3, category: 'returned', item: 'Overcooked steak', cost: 32 },
   ]);
 
+  // AI Features
+  const [aiApiKey, setAiApiKey] = useState(localStorage.getItem('echo:ai:key') || '');
+  const [isRecording, setIsRecording] = useState(false);
+  const [voiceTranscript, setVoiceTranscript] = useState('');
+  const [aiSummaryOpen, setAiSummaryOpen] = useState(false);
+  const [aiSummary, setAiSummary] = useState('');
+  const [actionItems, setActionItems] = useState([]);
+  const [promptDialogOpen, setPromptDialogOpen] = useState(false);
+  const [diagramPrompt, setDiagramPrompt] = useState('');
+
   // Canvas Transform State
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
