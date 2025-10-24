@@ -283,41 +283,31 @@ export default function ProfessionalDashboard() {
               >
                 {/* Panel Header */}
                 <div
-                  className="flex items-center justify-between px-4 py-3 border-b flex-shrink-0"
+                  className="flex items-center px-4 py-3 border-b flex-shrink-0 gap-3"
                   style={{
                     borderColor: colors.border.secondary,
                   }}
                   data-rnd-handle
                 >
-                  <div className="flex items-center gap-2 flex-1">
-                    {/* Minimize Button */}
-                    <button
-                      onClick={() => update(card.id, { h: card.h === 0 ? 1 : 0 })}
-                      className="p-1 hover:opacity-75 transition-opacity flex-shrink-0"
-                      style={{ color: colors.text.secondary }}
-                      title={t.minimize}
-                    >
-                      <Minus size={16} />
-                    </button>
+                  {/* Close Button (Left) */}
+                  <button
+                    onClick={() => remove(card.id)}
+                    className="p-1 hover:opacity-75 transition-opacity flex-shrink-0"
+                    style={{ color: colors.text.secondary }}
+                    title={t.close}
+                  >
+                    <X size={16} />
+                  </button>
 
-                    {/* Expand Button */}
-                    <button
-                      className="p-1 hover:opacity-75 transition-opacity flex-shrink-0"
-                      style={{ color: colors.text.secondary }}
-                      title={t.expand}
-                    >
-                      <Maximize2 size={16} />
-                    </button>
+                  {/* Title (Center) */}
+                  <h3
+                    className="font-semibold text-sm flex-1 truncate"
+                    style={{ color: colors.text.primary }}
+                  >
+                    {t[card.title] || card.title}
+                  </h3>
 
-                    {/* Title */}
-                    <h3
-                      className="font-semibold text-sm flex-1 truncate"
-                      style={{ color: colors.text.primary }}
-                    >
-                      {t[card.title] || card.title}
-                    </h3>
-                  </div>
-
+                  {/* Pin & Pop Out Buttons (Right) */}
                   <div className="flex items-center gap-1 flex-shrink-0">
                     {/* Pin Button */}
                     <button
@@ -336,16 +326,6 @@ export default function ProfessionalDashboard() {
                       title={t.popOut}
                     >
                       <ExternalLink size={16} />
-                    </button>
-
-                    {/* Close Button */}
-                    <button
-                      onClick={() => remove(card.id)}
-                      className="p-1 hover:opacity-75 transition-opacity"
-                      style={{ color: colors.text.secondary }}
-                      title={t.close}
-                    >
-                      <X size={16} />
                     </button>
                   </div>
                 </div>
