@@ -239,6 +239,54 @@ function AdvancedWhiteboardCore() {
     link.click();
   };
 
+  const exportAsJSON = () => {
+    const boardData = {
+      timestamp: new Date().toISOString(),
+      zoom,
+      pan,
+      objects,
+      participants,
+      chatMessages,
+      tool,
+      color,
+      brushSize
+    };
+
+    const link = document.createElement("a");
+    link.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(boardData, null, 2));
+    link.download = `whiteboard-${Date.now()}.json`;
+    link.click();
+  };
+
+  const importFromJSON = () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".json";
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const data = JSON.parse(event.target.result);
+            setObjects(data.objects || []);
+            setZoom(data.zoom || 1);
+            setPan(data.pan || { x: 0, y: 0 });
+            setParticipants(data.participants || []);
+            setChatMessages(data.chatMessages || []);
+            setTool(data.tool || 'pencil');
+            setColor(data.color || '#ffffff');
+            setBrushSize(data.brushSize || 3);
+          } catch (err) {
+            alert('Failed to import whiteboard: ' + err.message);
+          }
+        };
+        reader.readAsText(file);
+      }
+    };
+    input.click();
+  };
+
   const addStickyNote = () => {
     const newSticky = {
       id: objectId,
