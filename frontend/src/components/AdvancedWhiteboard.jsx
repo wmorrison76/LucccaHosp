@@ -422,6 +422,55 @@ function AdvancedWhiteboardCore() {
             ))}
           </div>
 
+          {/* TEXT INPUT DIALOG */}
+          {textInputPos && (
+            <div style={{
+              position: 'absolute',
+              left: textInputPos.x + 'px',
+              top: (textInputPos.y - 40) + 'px',
+              zIndex: 1000,
+              backgroundColor: 'rgba(15, 28, 46, 0.95)',
+              border: '2px solid rgba(0, 217, 255, 0.5)',
+              borderRadius: '4px',
+              padding: '8px',
+              display: 'flex',
+              gap: '4px'
+            }}>
+              <input
+                autoFocus
+                type="text"
+                value={textInput}
+                onChange={(e) => setTextInput(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && commitTextBox()}
+                placeholder="Enter text..."
+                style={{
+                  padding: '4px 6px',
+                  backgroundColor: 'rgba(0, 217, 255, 0.1)',
+                  border: '1px solid rgba(0, 217, 255, 0.3)',
+                  borderRadius: '3px',
+                  color: color,
+                  fontSize: '13px',
+                  minWidth: '150px',
+                  outline: 'none'
+                }}
+              />
+              <button
+                onClick={commitTextBox}
+                style={{
+                  padding: '4px 8px',
+                  backgroundColor: 'rgba(0, 217, 255, 0.2)',
+                  border: '1px solid rgba(0, 217, 255, 0.4)',
+                  borderRadius: '3px',
+                  color: '#00d9ff',
+                  cursor: 'pointer',
+                  fontSize: '11px'
+                }}
+              >
+                OK
+              </button>
+            </div>
+          )}
+
           {/* ZOOM CONTROLS */}
           <div style={{
             position: 'absolute',
