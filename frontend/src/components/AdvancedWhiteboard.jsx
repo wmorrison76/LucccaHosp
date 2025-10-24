@@ -158,13 +158,22 @@ function AdvancedWhiteboardCore() {
       return;
     }
 
-    if (tool === "pencil") {
-      ctx.strokeStyle = color;
-      ctx.lineWidth = brushSize;
+    if (tool === "pencil" || tool === "highlighter") {
+      if (tool === "highlighter") {
+        // Highlighter has transparency
+        ctx.globalAlpha = 0.3;
+        ctx.strokeStyle = color;
+        ctx.lineWidth = brushSize * 2;
+      } else {
+        ctx.globalAlpha = 1;
+        ctx.strokeStyle = color;
+        ctx.lineWidth = brushSize;
+      }
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
       ctx.lineTo(x, y);
       ctx.stroke();
+      ctx.globalAlpha = 1;
       return;
     }
 
