@@ -65,6 +65,7 @@ const safeImport = (importFn, name = 'Unknown') =>
       });
   });
 
+const AdvancedHUD       = safeImport(() => import("../components/AdvancedHUD.jsx"), "AdvancedHUD");
 const FuturisticHUD     = safeImport(() => import("../components/FuturisticHUD.jsx"), "FuturisticHUD");
 const GlowDesk           = safeImport(() => import("../components/GlowyDesk.jsx"), "GlowyDesk");
 const KitchenLibraryTabs = safeImport(() => import("../components/KitchenLibraryTabs.jsx"), "KitchenLibraryTabs");
@@ -129,7 +130,7 @@ class PanelErrorBoundary extends React.Component {
   }
 }
 
-/* ──���──────────── Registry ─────────────── */
+/* ──���────���─────── Registry ─────────────── */
 const PANEL_REGISTRY = {};
 
 // Add only panels with valid components
