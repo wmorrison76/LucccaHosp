@@ -276,6 +276,72 @@ export default function AdvancedEchoWhiteboard() {
         ctx.fillText(obj.text || '...', obj.x + 5, obj.y + 20);
         break;
 
+      case 'image':
+        if (obj.src) {
+          const img = new Image();
+          img.onload = () => {
+            ctx.drawImage(img, obj.x, obj.y, obj.width, obj.height);
+            // Border
+            ctx.strokeStyle = 'rgba(0, 217, 255, 0.3)';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(obj.x, obj.y, obj.width, obj.height);
+          };
+          img.src = obj.src;
+        }
+        break;
+
+      case 'pdf':
+        ctx.fillStyle = '#ff6b4d';
+        ctx.fillRect(obj.x, obj.y, obj.width, obj.height);
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 14px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('📄', obj.x + obj.width / 2, obj.y + obj.height / 2 - 10);
+        ctx.font = '11px Arial';
+        ctx.fillText('PDF', obj.x + obj.width / 2, obj.y + obj.height / 2 + 12);
+        ctx.textAlign = 'left';
+        break;
+
+      case 'video':
+        ctx.fillStyle = '#4d7aff';
+        ctx.fillRect(obj.x, obj.y, obj.width, obj.height);
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 16px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('▶️', obj.x + obj.width / 2, obj.y + obj.height / 2 - 8);
+        ctx.font = '11px Arial';
+        ctx.fillText('VIDEO', obj.x + obj.width / 2, obj.y + obj.height / 2 + 12);
+        ctx.textAlign = 'left';
+        break;
+
+      case 'audio':
+        ctx.fillStyle = '#f39c12';
+        ctx.fillRect(obj.x, obj.y, obj.width, obj.height);
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 16px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('🔊', obj.x + obj.width / 2, obj.y + obj.height / 2 - 8);
+        ctx.font = '11px Arial';
+        ctx.fillText('AUDIO', obj.x + obj.width / 2, obj.y + obj.height / 2 + 12);
+        ctx.textAlign = 'left';
+        break;
+
+      case 'model-link':
+        ctx.fillStyle = '#9b59b6';
+        ctx.fillRect(obj.x, obj.y, obj.width, obj.height);
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 16px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('🎨', obj.x + obj.width / 2, obj.y + obj.height / 2 - 8);
+        ctx.font = '11px Arial';
+        ctx.fillText('3D', obj.x + obj.width / 2, obj.y + obj.height / 2 + 12);
+        ctx.textAlign = 'left';
+        break;
+
       default:
         break;
     }
