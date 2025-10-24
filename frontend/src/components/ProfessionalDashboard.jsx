@@ -294,52 +294,49 @@ export default function ProfessionalDashboard() {
                   {/* Minimize Button (Left) */}
                   <button
                     onClick={() => update(card.id, { h: card.h === 0 ? 1 : 0 })}
-                    className="p-1 hover:opacity-75 transition-opacity flex-shrink-0"
+                    className="p-0.5 hover:opacity-75 transition-opacity"
                     style={{ color: colors.text.secondary }}
                     title={t.minimize}
                   >
-                    <Minus size={16} />
+                    <Minus size={14} />
                   </button>
 
                   {/* Close Button (Left) */}
                   <button
                     onClick={() => remove(card.id)}
-                    className="p-1 hover:opacity-75 transition-opacity flex-shrink-0"
+                    className="p-0.5 hover:opacity-75 transition-opacity"
                     style={{ color: colors.text.secondary }}
                     title={t.close}
                   >
-                    <X size={16} />
+                    <X size={14} />
                   </button>
 
                   {/* Title (Center) */}
                   <h3
-                    className="font-semibold text-sm flex-1 truncate whitespace-nowrap"
-                    style={{ color: colors.text.primary }}
+                    className="font-semibold text-xs flex-1 truncate"
+                    style={{ color: colors.text.primary, overflow: 'hidden', textOverflow: 'ellipsis' }}
                   >
                     {t[card.title] || card.title}
                   </h3>
 
-                  {/* Pin & Pop Out Buttons (Right) */}
-                  <div className="flex items-center gap-1 flex-shrink-0">
-                    {/* Pin Button */}
-                    <button
-                      onClick={() => update(card.id, { pinned: !card.pinned })}
-                      className="p-1 hover:opacity-75 transition-opacity"
-                      style={{ color: colors.text.secondary }}
-                      title={card.pinned ? t.pinToGrid : t.dragPanels}
-                    >
-                      {card.pinned ? <Pin size={16} /> : <PinOff size={16} />}
-                    </button>
+                  {/* Pin Button */}
+                  <button
+                    onClick={() => update(card.id, { pinned: !card.pinned })}
+                    className="p-0.5 hover:opacity-75 transition-opacity"
+                    style={{ color: colors.text.secondary }}
+                    title={card.pinned ? t.pinToGrid : t.dragPanels}
+                  >
+                    {card.pinned ? <Pin size={14} /> : <PinOff size={14} />}
+                  </button>
 
-                    {/* Pop Out Button */}
-                    <button
-                      className="p-1 hover:opacity-75 transition-opacity"
-                      style={{ color: colors.text.secondary }}
-                      title={t.popOut}
-                    >
-                      <ExternalLink size={16} />
-                    </button>
-                  </div>
+                  {/* Pop Out Button */}
+                  <button
+                    className="p-0.5 hover:opacity-75 transition-opacity"
+                    style={{ color: colors.text.secondary }}
+                    title={t.popOut}
+                  >
+                    <ExternalLink size={14} />
+                  </button>
                 </div>
 
                 {/* Panel Content */}
