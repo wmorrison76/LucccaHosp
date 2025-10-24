@@ -650,6 +650,89 @@ export default function AdvancedEchoWhiteboard() {
     redrawCanvas();
   }, [objects, pan, zoom, redrawCanvas, previewShape, guideLines, showGuides]);
 
+  // History Management
+  const saveToHistory = useCallback(() => {
+    const newHistory = history.slice(0, historyIndex + 1);
+    newHistory.push({
+      timestamp: new Date().toISOString(),
+      objects: JSON.parse(JSON.stringify(objects)),
+      title: `Save at ${new Date().toLocaleTimeString()}`
+    });
+    setHistory(newHistory);
+    setHistoryIndex(newHistory.length - 1);
+  }, [history, historyIndex, objects]);
+
+  const handleUndo = useCallback(() => {
+    if (historyIndex > 0) {
+      const newIndex = historyIndex - 1;
+      setObjects(history[newIndex].objects);
+      setHistoryIndex(newIndex);
+    }
+  }, [history, historyIndex]);
+
+  const handleRedo = useCallback(() => {
+    if (historyIndex < history.length - 1) {
+      const newIndex = historyIndex + 1;
+      setObjects(history[newIndex].objects);
+      setHistoryIndex(newIndex);
+    }
+  }, [history, historyIndex]);
+
+  const handleSaveSnapshot = useCallback(() => {
+    if (!snapshotName.trim()) return;
+
+    const newSnapshot = {
+      id: Date.now(),
+      name: snapshotName,
+      timestamp: new Date().toISOString(),
+      objects: JSON.parse(JSON.stringify(objects))
+    };
+    setSnapshots([...snapshots, newSnapshot]);
+    setSnapshotName('');
+    setSnapshotDialogOpen(false);
+  }, [snapshotName, objects, snapshots]);
+
+  const handleRestoreSnapshot = useCallback((snapshotId) => {
+    const snapshot = snapshots.find(s => s.id === snapshotId);
+    if (snapshot) {
+      setObjects(JSON.parse(JSON.stringify(snapshot.objects)));
+      saveToHistory();
+    }
+  }, [snapshots, saveToHistory]);
+
+  const handleDeleteSnapshot = useCallback((snapshotId) => {
+    setSnapshots(snapshots.filter(s => s.id !== snapshotId));
+  }, [snapshots]);
+
+  const handleExportPNG = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL('image/png');
+    link.download = `whiteboard-${Date.now()}.png`;
+    link.click();
+  }, []);
+
+  const handleExportJSON = useCallback(() => {
+    const boardData = {
+      timestamp: new Date().toISOString(),
+      version: '1.0',
+      objects: objects,
+      zoom: zoom,
+      pan: pan,
+    };
+
+    const json = JSON.stringify(boardData, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `whiteboard-${Date.now()}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+  }, [objects, zoom, pan]);
+
   // Text input dialog handler
   const handleAddText = useCallback(() => {
     if (!textInputValue.trim()) {
