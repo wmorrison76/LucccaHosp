@@ -103,40 +103,54 @@ export const CakeBuilderPage: React.FC = () => {
 
   // Render different steps
   const renderContent = () => {
+    const LoadingFallback = () => (
+      <div style={{ padding: '2rem', textAlign: 'center', color: '#999' }}>
+        <p>Loading...</p>
+      </div>
+    );
+
     switch (state.currentStep) {
       case 'intake':
         return (
-          <IntakeForm
-            onSubmit={handleIntakeSubmit}
-            onCancel={handleBackToHome}
-          />
+          <Suspense fallback={<LoadingFallback />}>
+            <IntakeForm
+              onSubmit={handleIntakeSubmit}
+              onCancel={handleBackToHome}
+            />
+          </Suspense>
         );
 
       case 'design':
         if (!state.cakeData) return null;
         return (
-          <CakeBuilder
-            cakeData={state.cakeData}
-            onExport={handleDesignExport}
-            onClose={handleBackClick}
-          />
+          <Suspense fallback={<LoadingFallback />}>
+            <CakeBuilder
+              cakeData={state.cakeData}
+              onExport={handleDesignExport}
+              onClose={handleBackClick}
+            />
+          </Suspense>
         );
 
       case 'schedule':
         if (!state.cakeDesign) return null;
         return (
-          <ProductionScheduler
-            design={state.cakeDesign}
-            onTasksGenerated={handleTasksGenerated}
-            onClose={handleBackToHome}
-          />
+          <Suspense fallback={<LoadingFallback />}>
+            <ProductionScheduler
+              design={state.cakeDesign}
+              onTasksGenerated={handleTasksGenerated}
+              onClose={handleBackToHome}
+            />
+          </Suspense>
         );
 
       case 'gallery':
         return (
-          <CakeGallery
-            onClose={handleBackToHome}
-          />
+          <Suspense fallback={<LoadingFallback />}>
+            <CakeGallery
+              onClose={handleBackToHome}
+            />
+          </Suspense>
         );
 
       case 'home':
@@ -147,7 +161,9 @@ export const CakeBuilderPage: React.FC = () => {
 
   return (
     <div style={styles.pageContainer}>
-      {renderContent()}
+      <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>Loading CakeBuilder...</div>}>
+        {renderContent()}
+      </Suspense>
     </div>
   );
 };
