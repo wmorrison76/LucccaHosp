@@ -260,11 +260,12 @@ export default function ProfessionalDashboard() {
                   backgroundColor: colors.bg.panel,
                   border: themeMode === 'dark'
                     ? `2px solid ${cardColor.primary}`
-                    : `1px solid #000000`,
+                    : `2px solid #000000`,
                   backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
                   boxShadow: themeMode === 'dark'
                     ? `0 4px 6px ${colors.shadow.md}, 0 0 30px ${cardColor.primary}60, inset 0 0 20px ${cardColor.primary}20`
-                    : `0 4px 12px rgba(0,0,0,0.15)`,
+                    : `0 6px 16px rgba(0,0,0,0.2)`,
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = colors.bg.panelHover;
