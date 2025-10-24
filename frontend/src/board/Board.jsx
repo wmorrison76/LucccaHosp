@@ -244,52 +244,23 @@ export default function Board() {
 
   // Auto-open ProfessionalDashboard on mount
   useEffect(() => {
-    console.log('[Board] Auto-open effect running, windows.length:', windows.length);
-    if (windows.length === 0) {
-      // Try ProfessionalDashboard first, fallback to any available component
-      const dashboardEntry = PANEL_REGISTRY.dashboard || PANEL_REGISTRY['professional-dashboard'];
-      console.log('[Board] Dashboard entry:', !!dashboardEntry, dashboardEntry?.title);
-
-      if (dashboardEntry && dashboardEntry.Component) {
-        console.log('[Board] Opening dashboard:', dashboardEntry.title);
-        setWindows([{
-          id: 'dashboard',
-          title: dashboardEntry.title,
-          icon: dashboardEntry.icon ?? null,
-          z: 10,
-          x: 40,
-          y: 40,
-          width: Math.min(window.innerWidth - 120, 1400),
-          height: Math.min(window.innerHeight - 140, 800),
-          minimized: false,
-          maximized: false,
-          props: {},
-        }]);
-        zCounter = 10;
-        setActiveId('dashboard');
-      } else {
-        console.error('[Board] No dashboard component found in registry');
-        // FALLBACK: Show a simple panel
-        const fallbackEntry = Object.values(PANEL_REGISTRY).find(e => e && e.Component);
-        if (fallbackEntry) {
-          console.log('[Board] Using fallback component:', fallbackEntry.title);
-          setWindows([{
-            id: 'fallback',
-            title: fallbackEntry.title,
-            icon: null,
-            z: 10,
-            x: 40,
-            y: 40,
-            width: Math.min(window.innerWidth - 120, 1400),
-            height: Math.min(window.innerHeight - 140, 800),
-            minimized: false,
-            maximized: false,
-            props: {},
-          }]);
-          setActiveId('fallback');
-        }
-      }
-    }
+    // Always try to open dashboard on first render
+    console.log('[Board] Initializing Board with PANEL_REGISTRY keys:', Object.keys(PANEL_REGISTRY));
+    setWindows([{
+      id: 'dashboard',
+      title: "Professional Dashboard",
+      icon: null,
+      z: 10,
+      x: 40,
+      y: 40,
+      width: Math.min(window.innerWidth - 120, 1400),
+      height: Math.min(window.innerHeight - 140, 800),
+      minimized: false,
+      maximized: false,
+      props: {},
+    }]);
+    zCounter = 10;
+    setActiveId('dashboard');
   }, []); // Run only once on mount
 
   const bringToFront = useCallback((id) => {
