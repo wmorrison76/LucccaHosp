@@ -3,16 +3,15 @@
  * Orchestrates the complete cake design workflow
  */
 
-import React, { useState, useEffect } from 'react';
-import { IntakeForm } from './IntakeForm';
-import { CakeBuilder } from './CakeBuilder';
-import { ProductionScheduler } from './ProductionScheduler';
-import { CakeGallery } from './CakeGallery';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { CakeIntakeData, CakeDesign, ProductionTask } from './types';
-import { saveCakeDesign, getTasksByDesignId, saveProductionTasks } from './CakeDesignStorage';
+import { saveCakeDesign, saveProductionTasks } from './CakeDesignStorage';
 
-// Suppress React import rule for TypeScript JSX
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+// Lazy load heavy components to avoid import issues
+const IntakeForm = lazy(() => import('./IntakeForm').then(m => ({ default: m.IntakeForm })));
+const CakeBuilder = lazy(() => import('./CakeBuilder').then(m => ({ default: m.CakeBuilder })));
+const ProductionScheduler = lazy(() => import('./ProductionScheduler').then(m => ({ default: m.ProductionScheduler })));
+const CakeGallery = lazy(() => import('./CakeGallery').then(m => ({ default: m.CakeGallery })));
 
 type WorkflowStep = 'home' | 'intake' | 'design' | 'schedule' | 'gallery';
 
