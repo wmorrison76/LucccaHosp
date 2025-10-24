@@ -15,8 +15,8 @@ import moduleUploadRoutes from './routes/moduleUpload.js';
 
 const app = express();
 
-// Increase request timeout to 20 minutes (1200s) to accommodate large file uploads
-const TIMEOUT_MS = 20 * 60 * 1000; // 20 minutes
+// Increase request timeout to 60 minutes to accommodate massive folder uploads (50k+ files)
+const TIMEOUT_MS = 60 * 60 * 1000; // 60 minutes
 
 app.use((req, res, next) => {
   req.setTimeout(TIMEOUT_MS);
