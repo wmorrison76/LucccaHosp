@@ -543,6 +543,24 @@ function AdvancedWhiteboardCore() {
             }}
           />
 
+          {/* LASER POINTER OVERLAY */}
+          {laserMode && laserPos && (
+            <div
+              style={{
+                position: 'absolute',
+                left: laserPos.x - 6,
+                top: laserPos.y - 6,
+                width: '12px',
+                height: '12px',
+                backgroundColor: '#ff0000',
+                borderRadius: '50%',
+                boxShadow: '0 0 20px rgba(255, 0, 0, 0.8), 0 0 40px rgba(255, 0, 0, 0.4)',
+                pointerEvents: 'none',
+                zIndex: 999
+              }}
+            />
+          )}
+
           {/* FLOATING PANELS OVERLAY */}
           <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
             {floatingPanels.map(panel => (
