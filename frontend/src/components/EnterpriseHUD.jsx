@@ -1,15 +1,16 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import * as RND_NS from 'react-rnd';
 const Rnd = RND_NS.Rnd ?? RND_NS.default ?? RND_NS;
 
 import {
   Plus, X, Settings, RotateCcw, Grid3x3, List, BarChart3,
   TrendingUp, AlertTriangle, Activity, DollarSign, Users, ChefHat,
-  Maximize2, Minimize2, Menu, Zap
+  Maximize2, Minimize2, Menu, Zap, GripHorizontal, ExternalLink, Pin, PinOff
 } from 'lucide-react';
 import { useUserRole, ROLES } from '../hooks/useUserRole';
 
-const LS_HUD = 'luccca:enterprise:hud:v1';
+const LS_HUD = 'luccca:enterprise:hud:v2';
+const LS_PANELS = 'luccca:enterprise:panels:v1';
 
 // Mock data for 20 outlets
 const MOCK_OUTLETS = Array.from({ length: 20 }, (_, i) => ({
@@ -31,23 +32,39 @@ export default function EnterpriseHUD() {
   const containerRef = useRef(null);
   const { user, canViewOutlet, canViewAllOutlets } = useUserRole();
 
-  const [viewMode, setViewMode] = useState('dashboard'); // dashboard | outlets
-  const [format, setFormat] = useState('grid'); // grid | list
+  const [viewMode, setViewMode] = useState('dashboard');
+  const [format, setFormat] = useState('grid');
   const [selectedOutlets, setSelectedOutlets] = useState([]);
   const [detailedModal, setDetailedModal] = useState(null);
   const [showRoleMenu, setShowRoleMenu] = useState(false);
   const [isMaximized, setIsMaximized] = useState(true);
+  const [currentTime, setCurrentTime] = useState(new Date());
+  
+  // Floating panels state
+  const [panels, setPanels] = useState(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(LS_PANELS) || 'null');
+      return saved || getDefaultPanels();
+    } catch {
+      return getDefaultPanels();
+    }
+  });
+  const [zIndex, setZIndex] = useState(10);
 
   // Filter outlets based on user role
   const visibleOutlets = useMemo(() => {
     return MOCK_OUTLETS.filter(o => canViewOutlet(o.id));
   }, [user.outletIds]);
 
-  // Emit dashboard ready event immediately on mount
+  // Update time every second
   useEffect(() => {
-    // Dispatch immediately
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Emit dashboard ready event
+  useEffect(() => {
     window.dispatchEvent(new Event('dashboard-ready'));
-    // Also dispatch after a tiny delay to ensure sidebar catches it
     const timer = setTimeout(() => {
       window.dispatchEvent(new Event('dashboard-ready'));
     }, 10);
@@ -62,6 +79,40 @@ export default function EnterpriseHUD() {
       selectedOutlets,
     }));
   }, [viewMode, format, selectedOutlets]);
+
+  // Save panel positions to localStorage
+  useEffect(() => {
+    localStorage.setItem(LS_PANELS, JSON.stringify(panels));
+  }, [panels]);
+
+  const updatePanel = useCallback((panelId, updates) => {
+    setPanels(prev => prev.map(p => p.id === panelId ? { ...p, ...updates } : p));
+  }, []);
+
+  const removePanel = useCallback((panelId) => {
+    setPanels(prev => prev.filter(p => p.id !== panelId));
+  }, []);
+
+  const bringToFront = useCallback((panelId) => {
+    setZIndex(z => z + 1);
+    updatePanel(panelId, { z: zIndex + 1 });
+  }, [zIndex, updatePanel]);
+
+  const addPanel = useCallback(() => {
+    const newPanel = {
+      id: 'panel-' + Math.random().toString(36).slice(2, 8),
+      title: 'New Panel',
+      x: 100 + Math.random() * 200,
+      y: 100 + Math.random() * 200,
+      width: 400,
+      height: 300,
+      z: zIndex + 1,
+      pinned: false,
+      color: '#00d9ff',
+    };
+    setPanels(prev => [...prev, newPanel]);
+    setZIndex(z => z + 1);
+  }, [zIndex]);
 
   return (
     <div
@@ -87,43 +138,79 @@ export default function EnterpriseHUD() {
         }}
       />
 
-      {/* HEADER */}
+      {/* WELCOME HEADER */}
+      <WelcomeHeader
+        user={user}
+        currentTime={currentTime}
+        outletCount={visibleOutlets.length}
+        isMaximized={isMaximized}
+        onMaximize={() => setIsMaximized(!isMaximized)}
+      />
+
+      {/* MAIN HUD HEADER */}
       <HUDHeader
         user={user}
         viewMode={viewMode}
         onViewChange={setViewMode}
         format={format}
         onFormatChange={setFormat}
-        onMaximize={() => setIsMaximized(!isMaximized)}
-        isMaximized={isMaximized}
         outletCount={visibleOutlets.length}
         showRoleMenu={showRoleMenu}
         onToggleRoleMenu={() => setShowRoleMenu(!showRoleMenu)}
       />
 
-      {/* CONTENT AREA */}
-      <div className="flex-1 overflow-auto relative">
-        {viewMode === 'dashboard' && (
-          <DashboardView
-            outlets={visibleOutlets}
-            user={user}
-            onOpenDetail={setDetailedModal}
-          />
-        )}
+      {/* CONTENT AREA WITH FLOATING PANELS */}
+      <div className="flex-1 overflow-auto relative" style={{ position: 'relative' }}>
+        {/* Background dashboard content */}
+        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
+          {viewMode === 'dashboard' && (
+            <DashboardView
+              outlets={visibleOutlets}
+              user={user}
+              onOpenDetail={setDetailedModal}
+            />
+          )}
 
-        {viewMode === 'outlets' && (
-          <OutletsView
-            outlets={visibleOutlets}
-            format={format}
-            selectedOutlets={selectedOutlets}
-            onSelectOutlet={(id) => setSelectedOutlets(prev =>
-              prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
-            )}
-            onOpenDetail={setDetailedModal}
-            canViewAll={canViewAllOutlets()}
-          />
-        )}
+          {viewMode === 'outlets' && (
+            <OutletsView
+              outlets={visibleOutlets}
+              format={format}
+              selectedOutlets={selectedOutlets}
+              onSelectOutlet={(id) => setSelectedOutlets(prev =>
+                prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+              )}
+              onOpenDetail={setDetailedModal}
+              canViewAll={canViewAllOutlets()}
+            />
+          )}
+        </div>
+
+        {/* Floating Panels */}
+        <div style={{ position: 'absolute', inset: 0 }}>
+          {panels.map(panel => (
+            <FloatingPanel
+              key={panel.id}
+              panel={panel}
+              onUpdate={(updates) => updatePanel(panel.id, updates)}
+              onRemove={() => removePanel(panel.id)}
+              onFocus={() => bringToFront(panel.id)}
+            />
+          ))}
+        </div>
       </div>
+
+      {/* Add Panel Button */}
+      <button
+        onClick={addPanel}
+        className="fixed bottom-6 right-6 p-3 bg-gradient-to-br from-cyan-500 to-blue-600 text-white rounded-full shadow-lg hover:shadow-cyan-500/50 transition-all hover:scale-110"
+        title="Add floating panel"
+        style={{
+          boxShadow: '0 0 20px rgba(0, 217, 255, 0.5)',
+          zIndex: 1000,
+        }}
+      >
+        <Plus size={24} />
+      </button>
 
       {/* DETAIL MODAL */}
       {detailedModal && (
@@ -138,17 +225,141 @@ export default function EnterpriseHUD() {
           0%, 100% { text-shadow: 0 0 5px rgba(0, 217, 255, 0.5); }
           50% { text-shadow: 0 0 20px rgba(0, 217, 255, 0.8); }
         }
+        @keyframes hologramFlicker {
+          0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+          20%, 24%, 55% { opacity: 0.8; }
+        }
+        @keyframes particleFloat {
+          0% { transform: translateY(0) translateX(0); opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { transform: translateY(-100px) translateX(20px); opacity: 0; }
+        }
         .jarvis-glow { animation: jarvisGlow 2s ease-in-out infinite; }
+        .hologram-effect { animation: hologramFlicker 0.15s infinite; }
+        .particle { animation: particleFloat 3s ease-out forwards; }
       `}</style>
     </div>
   );
 }
 
+function getDefaultPanels() {
+  return [
+    {
+      id: 'kpi-covers',
+      title: "Today's Covers",
+      x: 100,
+      y: 100,
+      width: 300,
+      height: 250,
+      z: 10,
+      pinned: true,
+      color: '#00d9ff',
+    },
+    {
+      id: 'kpi-revenue',
+      title: 'Revenue',
+      x: 420,
+      y: 100,
+      width: 300,
+      height: 250,
+      z: 11,
+      pinned: true,
+      color: '#00ff88',
+    },
+    {
+      id: 'kpi-labor',
+      title: 'Labor Cost %',
+      x: 740,
+      y: 100,
+      width: 300,
+      height: 250,
+      z: 12,
+      pinned: true,
+      color: '#ffc844',
+    },
+    {
+      id: 'kpi-food',
+      title: 'Food Cost %',
+      x: 250,
+      y: 370,
+      width: 300,
+      height: 250,
+      z: 13,
+      pinned: true,
+      color: '#ff4d7d',
+    },
+  ];
+}
+
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-function HUDHeader({ user, viewMode, onViewChange, format, onFormatChange, onMaximize, isMaximized, outletCount, showRoleMenu, onToggleRoleMenu }) {
-  const now = new Date().toLocaleTimeString();
+function WelcomeHeader({ user, currentTime, outletCount, isMaximized, onMaximize }) {
+  const hour = currentTime.getHours();
+  let greeting = '';
+  let emoji = '';
 
+  if (hour >= 5 && hour < 12) {
+    greeting = 'Good Morning, Chef';
+    emoji = '🌅';
+  } else if (hour >= 12 && hour < 17) {
+    greeting = 'Good Afternoon, Chef';
+    emoji = '🌤️';
+  } else if (hour >= 17 && hour < 21) {
+    greeting = 'Good Evening, Chef';
+    emoji = '🌙';
+  } else {
+    greeting = 'Night Service, Chef';
+    emoji = '🌃';
+  }
+
+  const timeStr = currentTime.toLocaleTimeString();
+  const dateStr = currentTime.toLocaleDateString();
+
+  return (
+    <div
+      className="flex-shrink-0 border-b border-cyan-400/20 px-8 py-6"
+      style={{
+        background: 'linear-gradient(90deg, rgba(0, 217, 255, 0.08), rgba(0, 217, 255, 0.03))',
+        backdropFilter: 'blur(20px)',
+        boxShadow: '0 4px 20px rgba(0, 217, 255, 0.1)',
+      }}
+    >
+      <div className="flex items-start justify-between gap-6">
+        <div className="flex-1 min-w-0">
+          <div className="flex items-baseline gap-3 mb-3">
+            <span className="text-4xl flex-shrink-0">{emoji}</span>
+            <div className="text-4xl font-bold tracking-tight bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300 bg-clip-text text-transparent jarvis-glow">
+              {greeting}
+            </div>
+          </div>
+          <div className="flex items-center gap-6 text-sm">
+            <div className="font-mono text-cyan-400/70 border border-cyan-400/30 px-3 py-1 rounded">
+              <span className="inline-block w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse mr-2" />
+              {timeStr} • {dateStr}
+            </div>
+            <div className="text-cyan-300/70">
+              {user.name} • {outletCount} outlet{outletCount !== 1 ? 's' : ''}
+            </div>
+          </div>
+          <div className="text-xs text-cyan-400/50 mt-2 flex items-center gap-2">
+            <GripHorizontal size={12} />
+            <span>Drag panels • Pin to grid • Pop out anytime</span>
+          </div>
+        </div>
+        <button
+          onClick={onMaximize}
+          className="flex-shrink-0 p-2 rounded hover:bg-cyan-400/10 transition-colors"
+          title={isMaximized ? 'Minimize' : 'Maximize'}
+        >
+          {isMaximized ? <Minimize2 size={20} className="text-cyan-300" /> : <Maximize2 size={20} className="text-cyan-300" />}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function HUDHeader({ user, viewMode, onViewChange, format, onFormatChange, outletCount, showRoleMenu, onToggleRoleMenu }) {
   return (
     <div
       className="flex-shrink-0 border-b border-cyan-400/30 px-6 py-3 flex items-center justify-between"
@@ -159,14 +370,7 @@ function HUDHeader({ user, viewMode, onViewChange, format, onFormatChange, onMax
       }}
     >
       <div className="flex items-center gap-4">
-        <h1 className="text-xl font-bold jarvis-glow text-cyan-300">NEXUS</h1>
-        <div className="text-xs font-mono text-cyan-400/60 border border-cyan-400/20 px-2 py-1 rounded">
-          <span className="inline-block w-1 h-1 bg-cyan-400 rounded-full animate-pulse mr-1" />
-          {now}
-        </div>
-        <div className="text-xs text-cyan-300/70">
-          {user.name} • {outletCount} outlet{outletCount !== 1 ? 's' : ''}
-        </div>
+        <h1 className="text-lg font-bold jarvis-glow text-cyan-300">NEXUS</h1>
       </div>
 
       <div className="flex items-center gap-3">
@@ -174,7 +378,7 @@ function HUDHeader({ user, viewMode, onViewChange, format, onFormatChange, onMax
         <div className="flex gap-1 bg-black/40 rounded-lg p-1 border border-cyan-400/20">
           {[
             { id: 'dashboard', label: 'Dashboard', icon: Zap },
-            { id: 'outlets', label: 'Outlets', icon: Grid3x3 },
+            { id: 'outlets', label: '20 Outlets', icon: Grid3x3 },
           ].map(({ id, label, icon: Icon }) => (
             <button
               key={id}
@@ -187,11 +391,12 @@ function HUDHeader({ user, viewMode, onViewChange, format, onFormatChange, onMax
               title={label}
             >
               <Icon size={14} />
+              {label}
             </button>
           ))}
         </div>
 
-        {/* Display Format (outlets only) */}
+        {/* Display Format */}
         {viewMode === 'outlets' && (
           <div className="flex gap-1 bg-black/40 rounded-lg p-1 border border-cyan-400/20">
             {[
@@ -201,12 +406,12 @@ function HUDHeader({ user, viewMode, onViewChange, format, onFormatChange, onMax
               <button
                 key={id}
                 onClick={() => onFormatChange(id)}
-                className={`p-1.5 rounded transition-all ${
+                className={`px-2.5 py-1.5 rounded transition-all ${
                   format === id
                     ? 'bg-cyan-400/30 text-cyan-100'
                     : 'text-cyan-400/60 hover:text-cyan-300'
                 }`}
-                title={id === 'grid' ? 'Grid View' : 'List View'}
+                title={id}
               >
                 <Icon size={14} />
               </button>
@@ -215,299 +420,312 @@ function HUDHeader({ user, viewMode, onViewChange, format, onFormatChange, onMax
         )}
 
         {/* Role Menu */}
-        <div className="relative">
-          <button
-            onClick={() => onToggleRoleMenu(!showRoleMenu)}
-            className="p-1.5 hover:bg-white/10 rounded text-cyan-300 hover:text-cyan-100 transition-all"
-            title="Change Role (Test)"
-          >
-            <Menu size={16} />
-          </button>
-          {showRoleMenu && <RoleMenu />}
-        </div>
-
-        {/* Maximize */}
         <button
-          onClick={onMaximize}
-          className="p-1.5 hover:bg-white/10 rounded text-cyan-300 hover:text-cyan-100 transition-all"
-          title={isMaximized ? 'Minimize' : 'Maximize'}
+          onClick={onToggleRoleMenu}
+          className="p-2 rounded hover:bg-cyan-400/10 transition-colors"
+          title="Role & Settings"
         >
-          {isMaximized ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+          <Menu size={16} className="text-cyan-400" />
         </button>
       </div>
     </div>
   );
 }
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-function RoleMenu() {
-  const { switchRole } = useUserRole();
-
-  const roles = [
-    { id: ROLES.CHEF, name: 'Chef (1 Outlet)', outlets: ['outlet-1'] },
-    { id: ROLES.MANAGER, name: 'Manager (5 Outlets)', outlets: ['outlet-1', 'outlet-2', 'outlet-3', 'outlet-4', 'outlet-5'] },
-    { id: ROLES.DIRECTOR, name: 'Director (10 Outlets)', outlets: Array.from({ length: 10 }, (_, i) => `outlet-${i + 1}`) },
-    { id: ROLES.OWNER, name: 'Owner (All 20)', outlets: Array.from({ length: 20 }, (_, i) => `outlet-${i + 1}`) },
-  ];
-
+function FloatingPanel({ panel, onUpdate, onRemove, onFocus }) {
   return (
-    <div
-      className="absolute top-full right-0 mt-2 bg-slate-800 rounded-lg border border-cyan-400/30 shadow-xl z-50"
-      style={{ backdropFilter: 'blur(8px)' }}
+    <Rnd
+      default={{
+        x: panel.x,
+        y: panel.y,
+        width: panel.width,
+        height: panel.height,
+      }}
+      onDragStop={(e, d) => onUpdate({ x: d.x, y: d.y })}
+      onResizeStop={(e, direction, ref, delta, position) => {
+        onUpdate({
+          width: ref.offsetWidth,
+          height: ref.offsetHeight,
+          x: position.x,
+          y: position.y,
+        });
+      }}
+      bounds="parent"
+      onMouseDown={onFocus}
+      style={{
+        zIndex: panel.z,
+      }}
+      dragHandleClassName="hud-drag-handle"
+      enableResizing={{
+        bottom: true,
+        right: true,
+        bottomRight: true,
+      }}
     >
-      {roles.map(role => (
-        <button
-          key={role.id}
-          onClick={() => switchRole(role.id, role.outlets)}
-          className="block w-full text-left px-4 py-2 text-xs text-cyan-300 hover:bg-cyan-400/20 border-b border-cyan-400/10 last:border-b-0"
+      <div
+        className="relative w-full h-full rounded-lg border border-cyan-400/40 overflow-hidden shadow-lg"
+        style={{
+          background: 'linear-gradient(135deg, rgba(0, 217, 255, 0.05), rgba(0, 217, 255, 0.02))',
+          backdropFilter: 'blur(20px)',
+          boxShadow: `0 0 30px ${panel.color}40, 0 0 60px ${panel.color}20, inset 0 0 20px ${panel.color}10`,
+        }}
+      >
+        {/* Panel Header */}
+        <div
+          className="hud-drag-handle border-b border-cyan-400/20 px-4 py-3 flex items-center justify-between cursor-grab active:cursor-grabbing select-none"
+          style={{
+            background: `linear-gradient(90deg, ${panel.color}15, ${panel.color}05)`,
+            backdropFilter: 'blur(10px)',
+          }}
         >
-          {role.name}
-        </button>
-      ))}
-    </div>
+          <div className="flex items-center gap-3 flex-1 min-w-0">
+            <GripHorizontal size={14} className="text-cyan-400/60 flex-shrink-0" />
+            <h3 className="text-sm font-semibold text-cyan-200 truncate">{panel.title}</h3>
+          </div>
+          <div className="flex items-center gap-1 flex-shrink-0">
+            <button
+              onClick={onRemove}
+              className="p-1 rounded hover:bg-red-500/20 transition-colors"
+              title="Close"
+            >
+              <X size={14} className="text-red-400" />
+            </button>
+          </div>
+        </div>
+
+        {/* Panel Content */}
+        <div className="flex-1 overflow-auto p-4 text-cyan-100/70 text-sm">
+          <div className="space-y-2">
+            <div className="flex justify-between">
+              <span>Panel ID:</span>
+              <span className="font-mono text-xs text-cyan-400">{panel.id}</span>
+            </div>
+            <div className="text-center mt-4 text-cyan-400/50">
+              💡 Drag by header to move
+            </div>
+            <div className="text-center text-cyan-400/50 text-xs">
+              Resize from bottom-right corner
+            </div>
+          </div>
+        </div>
+      </div>
+    </Rnd>
   );
 }
-
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 function DashboardView({ outlets, user, onOpenDetail }) {
   const totalCovers = outlets.reduce((sum, o) => sum + o.covers, 0);
   const totalRevenue = outlets.reduce((sum, o) => sum + o.revenue, 0);
-  const avgLabor = Math.round(outlets.reduce((sum, o) => sum + o.laborPercent, 0) / Math.max(outlets.length, 1));
-  const avgFood = Math.round(outlets.reduce((sum, o) => sum + o.foodPercent, 0) / Math.max(outlets.length, 1));
+  const avgLabor = Math.round(outlets.reduce((sum, o) => sum + o.laborPercent, 0) / outlets.length);
+  const avgFood = Math.round(outlets.reduce((sum, o) => sum + o.foodPercent, 0) / outlets.length);
 
   const highLaborOutlets = outlets.filter(o => o.laborPercent > 26);
   const highFoodOutlets = outlets.filter(o => o.foodPercent > 28);
 
   return (
-    <div className="p-6 space-y-6 overflow-auto">
-      {/* KPI CARDS */}
-      <div className="grid grid-cols-4 gap-4">
-        <KPICard
-          title="Total Covers"
-          value={totalCovers.toLocaleString()}
-          detail={`${outlets.length} outlet${outlets.length !== 1 ? 's' : ''}`}
-          color="#00d9ff"
-        />
-        <KPICard
-          title="Revenue"
-          value={'$' + (totalRevenue / 1000).toFixed(1) + 'K'}
-          detail="Daily total"
-          color="#4dff9e"
-        />
-        <KPICard
-          title="Labor Cost"
-          value={avgLabor + '%'}
-          detail="Target: 26%"
-          color={avgLabor > 26 ? '#ff6b4d' : '#00ff88'}
-        />
-        <KPICard
-          title="Food Cost"
-          value={avgFood + '%'}
-          detail="Target: 28%"
-          color={avgFood > 28 ? '#ff6b4d' : '#ffc844'}
-        />
+    <div className="w-full h-full p-8 overflow-auto" style={{ pointerEvents: 'auto' }}>
+      {/* KPI Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <KPICard icon={Activity} label="Total Covers" value={totalCovers.toLocaleString()} color="#00d9ff" target="" />
+        <KPICard icon={DollarSign} label="Revenue" value={`$${(totalRevenue / 1000).toFixed(1)}K`} color="#00ff88" target="" />
+        <KPICard icon={ChefHat} label="Labor Cost" value={`${avgLabor}%`} color={avgLabor > 26 ? '#ff6b4d' : '#00ff88'} target="Target: 26%" />
+        <KPICard icon={TrendingUp} label="Food Cost" value={`${avgFood}%`} color={avgFood > 28 ? '#ff6b4d' : '#00ff88'} target="Target: 28%" />
       </div>
 
-      {/* ALERTS */}
+      {/* Alert Section */}
       {(highLaborOutlets.length > 0 || highFoodOutlets.length > 0) && (
-        <div
-          className="p-6 rounded-lg border border-red-400/30 bg-red-400/5"
-          style={{ backdropFilter: 'blur(8px)' }}
-        >
-          <h3 className="text-lg font-bold text-red-400 mb-4">⚠️ Alerts</h3>
-          <div className="grid grid-cols-2 gap-4">
-            {highLaborOutlets.length > 0 && (
-              <div className="p-4 bg-red-400/10 rounded border border-red-400/20">
-                <p className="text-red-400 font-semibold mb-2">{highLaborOutlets.length} High Labor Outlets</p>
-                <p className="text-white/70 text-xs">{highLaborOutlets.map(o => o.name).join(', ')}</p>
-              </div>
-            )}
-            {highFoodOutlets.length > 0 && (
-              <div className="p-4 bg-orange-400/10 rounded border border-orange-400/20">
-                <p className="text-orange-400 font-semibold mb-2">{highFoodOutlets.length} High Food Cost</p>
-                <p className="text-white/70 text-xs">{highFoodOutlets.map(o => o.name).join(', ')}</p>
-              </div>
-            )}
+        <div className="mb-6 border border-yellow-500/40 rounded-lg p-4 bg-yellow-500/5">
+          <div className="flex items-center gap-2 mb-3 text-yellow-300">
+            <AlertTriangle size={18} />
+            <h3 className="font-semibold">Alerts</h3>
           </div>
+          {highLaborOutlets.length > 0 && (
+            <div className="text-sm text-yellow-200/70 mb-2">
+              🔴 {highLaborOutlets.length} outlet{highLaborOutlets.length > 1 ? 's' : ''} with high labor: {highLaborOutlets.map(o => o.name).join(', ')}
+            </div>
+          )}
+          {highFoodOutlets.length > 0 && (
+            <div className="text-sm text-yellow-200/70">
+              🔴 {highFoodOutlets.length} outlet{highFoodOutlets.length > 1 ? 's' : ''} with high food cost: {highFoodOutlets.map(o => o.name).join(', ')}
+            </div>
+          )}
         </div>
       )}
 
-      {/* OUTLET OVERVIEW */}
-      <div>
-        <h2 className="text-lg font-bold text-cyan-300 mb-4">Outlet Overview</h2>
-        <div className="grid grid-cols-3 gap-4">
-          {outlets.slice(0, 6).map(outlet => (
-            <OutletCard
-              key={outlet.id}
-              outlet={outlet}
-              onClick={() => onOpenDetail(outlet)}
-            />
-          ))}
-        </div>
+      {/* Outlet Overview Grid */}
+      <div className="text-cyan-300 font-semibold mb-3">Outlet Overview (First 6)</div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        {outlets.slice(0, 6).map(outlet => (
+          <div
+            key={outlet.id}
+            className="border border-cyan-400/30 rounded-lg p-3 cursor-pointer hover:border-cyan-300 hover:bg-cyan-400/5 transition-all"
+            onClick={() => onOpenDetail(outlet)}
+          >
+            <div className="text-sm font-semibold text-cyan-200 mb-2">{outlet.name}</div>
+            <div className="text-xs space-y-1 text-cyan-300/70">
+              <div className="flex justify-between">
+                <span>Covers:</span>
+                <span className="font-semibold text-cyan-300">{outlet.covers}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Labor:</span>
+                <span className={outlet.laborPercent > 26 ? 'text-red-400' : 'text-green-400'}>{outlet.laborPercent}%</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Food:</span>
+                <span className={outlet.foodPercent > 28 ? 'text-red-400' : 'text-green-400'}>{outlet.foodPercent}%</span>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 function OutletsView({ outlets, format, selectedOutlets, onSelectOutlet, onOpenDetail, canViewAll }) {
-  if (format === 'list') {
+  if (format === 'grid') {
     return (
-      <div className="p-6 overflow-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-cyan-400/20 sticky top-0 bg-slate-900/80 backdrop-blur">
-              <th className="text-left py-3 px-4 text-cyan-300 font-semibold">Outlet</th>
-              <th className="text-right py-3 px-4 text-cyan-300 font-semibold">Covers</th>
-              <th className="text-right py-3 px-4 text-cyan-300 font-semibold">Revenue</th>
-              <th className="text-right py-3 px-4 text-cyan-300 font-semibold">Labor</th>
-              <th className="text-right py-3 px-4 text-cyan-300 font-semibold">Food</th>
-              <th className="text-center py-3 px-4 text-cyan-300 font-semibold">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {outlets.map(outlet => (
-              <tr
-                key={outlet.id}
-                className={`border-b border-cyan-400/10 hover:bg-cyan-400/5 cursor-pointer transition-all ${
-                  selectedOutlets.includes(outlet.id) ? 'bg-cyan-400/10' : ''
-                }`}
+      <div className="w-full h-full p-8 overflow-auto" style={{ pointerEvents: 'auto' }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {outlets.map(outlet => (
+            <div
+              key={outlet.id}
+              className="border border-cyan-400/30 rounded-lg p-4 cursor-pointer hover:border-cyan-300 hover:bg-cyan-400/5 transition-all"
+              onClick={() => onOpenDetail(outlet)}
+            >
+              <div className="text-sm font-semibold text-cyan-200 mb-2">{outlet.name}</div>
+              <div className="text-xs space-y-2 text-cyan-300/70 mb-3">
+                <div className="flex justify-between">
+                  <span>Covers:</span>
+                  <span className="font-semibold">{outlet.covers}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Revenue:</span>
+                  <span className="font-semibold">${(outlet.revenue / 1000).toFixed(1)}K</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Labor:</span>
+                  <span className={outlet.laborPercent > 26 ? 'text-red-400' : 'text-green-400'}>{outlet.laborPercent}%</span>
+                </div>
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onOpenDetail(outlet);
+                }}
+                className="w-full text-xs bg-cyan-500/20 hover:bg-cyan-500/40 text-cyan-300 py-1.5 rounded transition-colors"
               >
-                <td className="py-3 px-4 font-semibold text-cyan-300">{outlet.name}</td>
-                <td className="text-right py-3 px-4">{outlet.covers}</td>
-                <td className="text-right py-3 px-4 text-green-400">${outlet.revenue.toLocaleString()}</td>
-                <td className={`text-right py-3 px-4 ${outlet.laborPercent > 26 ? 'text-red-400 font-bold' : ''}`}>
-                  {outlet.laborPercent}%
-                </td>
-                <td className={`text-right py-3 px-4 ${outlet.foodPercent > 28 ? 'text-red-400 font-bold' : ''}`}>
-                  {outlet.foodPercent}%
-                </td>
-                <td className="text-center py-3 px-4">
-                  <button
-                    onClick={() => onOpenDetail(outlet)}
-                    className="px-2 py-1 bg-cyan-400/20 rounded text-cyan-300 hover:bg-cyan-400/30 text-xs font-semibold"
-                  >
-                    Details
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                View Details
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="p-6 grid grid-cols-5 gap-4 overflow-auto">
-      {outlets.map(outlet => (
-        <OutletCard
-          key={outlet.id}
-          outlet={outlet}
-          selected={selectedOutlets.includes(outlet.id)}
-          onClick={() => onSelectOutlet(outlet.id)}
-          onDetail={() => onOpenDetail(outlet)}
-        />
-      ))}
+    <div className="w-full h-full p-8 overflow-auto" style={{ pointerEvents: 'auto' }}>
+      <table className="w-full text-sm text-cyan-100/70">
+        <thead>
+          <tr className="border-b border-cyan-400/20 text-cyan-300 font-semibold text-left">
+            <th className="pb-2 px-3">Outlet</th>
+            <th className="pb-2 px-3 text-right">Covers</th>
+            <th className="pb-2 px-3 text-right">Revenue</th>
+            <th className="pb-2 px-3 text-right">Labor %</th>
+            <th className="pb-2 px-3 text-right">Food %</th>
+            <th className="pb-2 px-3 text-right">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {outlets.map(outlet => (
+            <tr key={outlet.id} className="border-b border-cyan-400/10 hover:bg-cyan-400/5 transition-colors">
+              <td className="py-3 px-3 text-cyan-200">{outlet.name}</td>
+              <td className="py-3 px-3 text-right">{outlet.covers}</td>
+              <td className="py-3 px-3 text-right">${(outlet.revenue / 1000).toFixed(1)}K</td>
+              <td className={`py-3 px-3 text-right ${outlet.laborPercent > 26 ? 'text-red-400' : 'text-green-400'}`}>{outlet.laborPercent}%</td>
+              <td className={`py-3 px-3 text-right ${outlet.foodPercent > 28 ? 'text-red-400' : 'text-green-400'}`}>{outlet.foodPercent}%</td>
+              <td className="py-3 px-3 text-right">
+                <button
+                  onClick={() => onOpenDetail(outlet)}
+                  className="text-xs bg-cyan-500/20 hover:bg-cyan-500/40 text-cyan-300 px-2 py-1 rounded transition-colors"
+                >
+                  View
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-function OutletCard({ outlet, selected, onClick, onDetail }) {
+function KPICard({ icon: Icon, label, value, color, target }) {
   return (
     <div
-      onClick={onClick}
-      className={`p-4 rounded-lg border cursor-pointer transition-all ${
-        selected
-          ? 'border-cyan-400/60 bg-cyan-400/15'
-          : 'border-cyan-400/20 bg-black/40 hover:border-cyan-400/40'
-      }`}
-      style={{ backdropFilter: 'blur(8px)' }}
-    >
-      <h3 className="font-bold text-cyan-300 text-sm mb-3">{outlet.name}</h3>
-      <div className="space-y-2 text-xs mb-4">
-        <div className="flex justify-between"><span className="text-white/60">Covers</span><span className="text-cyan-300">{outlet.covers}</span></div>
-        <div className="flex justify-between"><span className="text-white/60">Revenue</span><span className="text-green-400">${outlet.revenue.toLocaleString()}</span></div>
-        <div className="flex justify-between"><span className="text-white/60">Labor</span><span className={outlet.laborPercent > 26 ? 'text-red-400' : ''}>{outlet.laborPercent}%</span></div>
-        <div className="flex justify-between"><span className="text-white/60">Food</span><span className={outlet.foodPercent > 28 ? 'text-red-400' : ''}>{outlet.foodPercent}%</span></div>
-      </div>
-      <button
-        onClick={(e) => { e.stopPropagation(); onDetail(); }}
-        className="w-full py-1.5 bg-cyan-400/20 rounded text-cyan-300 hover:bg-cyan-400/30 text-xs font-semibold"
-      >
-        View Details
-      </button>
-    </div>
-  );
-}
-
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-function KPICard({ title, value, detail, color }) {
-  return (
-    <div
-      className="p-4 rounded-lg border bg-black/40 hover:bg-black/60 transition-all"
+      className="rounded-lg p-4 border border-cyan-400/30 overflow-hidden"
       style={{
-        borderColor: `${color}4d`,
-        backdropFilter: 'blur(8px)',
+        background: `linear-gradient(135deg, ${color}15, ${color}05)`,
+        boxShadow: `0 0 20px ${color}30, inset 0 0 10px ${color}10`,
+        backdropFilter: 'blur(10px)',
       }}
     >
-      <p className="text-xs text-white/60 mb-1">{title}</p>
-      <p className="text-2xl font-bold mb-1" style={{ color }}>{value}</p>
-      <p className="text-xs text-white/40">{detail}</p>
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-xs font-semibold text-cyan-300">{label}</span>
+        <Icon size={14} style={{ color }} />
+      </div>
+      <div className="text-2xl font-bold" style={{ color }}>
+        {value}
+      </div>
+      {target && (
+        <div className="text-xs text-cyan-300/50 mt-1">{target}</div>
+      )}
     </div>
   );
 }
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 function DetailModal({ outlet, onClose }) {
-  const [format, setFormat] = useState('overview'); // overview | detail | ai
+  const [format, setFormat] = useState('overview');
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center z-[2000] p-4"
-      style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', backdropFilter: 'blur(5px)' }}
+      className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
       onClick={onClose}
     >
       <div
-        className="bg-slate-900 rounded-lg max-w-3xl w-full max-h-[85vh] overflow-auto border border-cyan-400/40"
-        style={{
-          boxShadow: '0 0 60px rgba(0, 217, 255, 0.3)',
-          backdropFilter: 'blur(20px)',
-        }}
+        className="bg-slate-900 rounded-lg border border-cyan-400/40 max-w-2xl w-full max-h-[80vh] overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
+        style={{
+          boxShadow: '0 0 40px rgba(0, 217, 255, 0.3)',
+        }}
       >
         {/* Modal Header */}
-        <div className="sticky top-0 flex items-center justify-between p-6 border-b border-cyan-400/20 bg-gradient-to-r from-slate-900 to-slate-800">
-          <h2 className="text-2xl font-bold text-cyan-300">{outlet.name}</h2>
+        <div className="border-b border-cyan-400/20 px-6 py-4 flex items-center justify-between bg-gradient-to-r from-cyan-500/10 to-blue-500/10">
+          <h2 className="text-lg font-bold text-cyan-200">{outlet.name}</h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-white/10 rounded text-white/60 hover:text-white"
+            className="p-2 hover:bg-red-500/20 rounded transition-colors"
           >
-            <X size={20} />
+            <X size={20} className="text-red-400" />
           </button>
         </div>
 
-        {/* Format Tabs */}
-        <div className="flex gap-1 p-4 border-b border-cyan-400/20 bg-black/50">
+        {/* Tabs */}
+        <div className="flex gap-1 border-b border-cyan-400/20 px-6 pt-4 bg-black/30">
           {[
             { id: 'overview', label: 'Overview' },
-            { id: 'detail', label: 'Detailed' },
+            { id: 'detail', label: 'Detail' },
             { id: 'ai', label: 'AI Analysis' },
           ].map(tab => (
             <button
               key={tab.id}
               onClick={() => setFormat(tab.id)}
-              className={`px-4 py-2 text-sm rounded font-semibold transition-all ${
+              className={`px-4 py-2 text-sm font-semibold rounded-t transition-colors ${
                 format === tab.id
-                  ? 'bg-cyan-400/30 text-cyan-100'
-                  : 'text-white/60 hover:text-white/80'
+                  ? 'bg-cyan-500/20 text-cyan-200 border-b-2 border-cyan-400'
+                  : 'text-cyan-400/60 hover:text-cyan-300'
               }`}
             >
               {tab.label}
@@ -515,66 +733,80 @@ function DetailModal({ outlet, onClose }) {
           ))}
         </div>
 
-        {/* Modal Content */}
-        <div className="p-6">
+        {/* Content */}
+        <div className="flex-1 overflow-auto p-6 text-cyan-100/70 text-sm space-y-4">
           {format === 'overview' && (
-            <div className="grid grid-cols-4 gap-4">
-              {[
-                { label: 'Covers', value: outlet.covers, color: '#00d9ff' },
-                { label: 'Revenue', value: '$' + outlet.revenue.toLocaleString(), color: '#4dff9e' },
-                { label: 'Labor %', value: outlet.laborPercent + '%', color: outlet.laborPercent > 26 ? '#ff6b4d' : '#00ff88' },
-                { label: 'Food %', value: outlet.foodPercent + '%', color: outlet.foodPercent > 28 ? '#ff6b4d' : '#ffc844' },
-              ].map((item, i) => (
-                <div key={i} className="p-4 rounded border border-cyan-400/20 bg-black/50">
-                  <p className="text-white/60 text-xs mb-2">{item.label}</p>
-                  <p className="text-2xl font-bold" style={{ color: item.color }}>{item.value}</p>
-                </div>
-              ))}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-cyan-500/10 rounded p-3 border border-cyan-400/20">
+                <div className="text-xs text-cyan-400 mb-1">Covers</div>
+                <div className="text-2xl font-bold text-cyan-300">{outlet.covers}</div>
+              </div>
+              <div className="bg-green-500/10 rounded p-3 border border-green-400/20">
+                <div className="text-xs text-green-400 mb-1">Revenue</div>
+                <div className="text-2xl font-bold text-green-300">${(outlet.revenue / 1000).toFixed(1)}K</div>
+              </div>
+              <div className={`${outlet.laborPercent > 26 ? 'bg-red-500/10 border-red-400/20' : 'bg-green-500/10 border-green-400/20'} rounded p-3 border`}>
+                <div className={`text-xs mb-1 ${outlet.laborPercent > 26 ? 'text-red-400' : 'text-green-400'}`}>Labor %</div>
+                <div className={`text-2xl font-bold ${outlet.laborPercent > 26 ? 'text-red-300' : 'text-green-300'}`}>{outlet.laborPercent}%</div>
+              </div>
+              <div className={`${outlet.foodPercent > 28 ? 'bg-red-500/10 border-red-400/20' : 'bg-green-500/10 border-green-400/20'} rounded p-3 border`}>
+                <div className={`text-xs mb-1 ${outlet.foodPercent > 28 ? 'text-red-400' : 'text-green-400'}`}>Food %</div>
+                <div className={`text-2xl font-bold ${outlet.foodPercent > 28 ? 'text-red-300' : 'text-green-300'}`}>{outlet.foodPercent}%</div>
+              </div>
             </div>
           )}
 
           {format === 'detail' && (
-            <div className="space-y-6">
-              <div className="grid grid-cols-2 gap-6">
-                <div className="p-4 rounded border border-cyan-400/20 bg-black/50">
-                  <h4 className="font-semibold text-cyan-300 mb-3">Front of House</h4>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between"><span className="text-white/60">Servers</span><span className="text-cyan-300 font-semibold">{outlet.fohStaff.servers}</span></div>
-                    <div className="flex justify-between"><span className="text-white/60">Hosts</span><span className="text-cyan-300 font-semibold">{outlet.fohStaff.hosts}</span></div>
-                    <div className="flex justify-between"><span className="text-white/60">Bartenders</span><span className="text-cyan-300 font-semibold">{outlet.fohStaff.bartenders}</span></div>
-                    <div className="flex justify-between border-t border-cyan-400/10 pt-2"><span className="text-white/80 font-semibold">Total</span><span className="text-cyan-300 font-bold">{outlet.fohStaff.servers + outlet.fohStaff.hosts + outlet.fohStaff.bartenders}</span></div>
-                  </div>
+            <div className="space-y-3">
+              <div className="border border-cyan-400/20 rounded p-3 bg-cyan-400/5">
+                <div className="font-semibold text-cyan-200 mb-2">FOH Staff</div>
+                <div className="text-xs space-y-1">
+                  <div>Servers: {outlet.fohStaff.servers}</div>
+                  <div>Hosts: {outlet.fohStaff.hosts}</div>
+                  <div>Bartenders: {outlet.fohStaff.bartenders}</div>
                 </div>
-
-                <div className="p-4 rounded border border-purple-400/20 bg-black/50">
-                  <h4 className="font-semibold text-purple-300 mb-3">Back of House</h4>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between"><span className="text-white/60">Line Cooks</span><span className="text-purple-300 font-semibold">{outlet.bohStaff.lineCooks}</span></div>
-                    <div className="flex justify-between"><span className="text-white/60">Prep Cooks</span><span className="text-purple-300 font-semibold">{outlet.bohStaff.prepCooks}</span></div>
-                    <div className="flex justify-between"><span className="text-white/60">Expeditor</span><span className="text-purple-300 font-semibold">{outlet.bohStaff.expeditor}</span></div>
-                    <div className="flex justify-between border-t border-purple-400/10 pt-2"><span className="text-white/80 font-semibold">Total</span><span className="text-purple-300 font-bold">{outlet.bohStaff.lineCooks + outlet.bohStaff.prepCooks + outlet.bohStaff.expeditor}</span></div>
-                  </div>
+              </div>
+              <div className="border border-cyan-400/20 rounded p-3 bg-cyan-400/5">
+                <div className="font-semibold text-cyan-200 mb-2">BOH Staff</div>
+                <div className="text-xs space-y-1">
+                  <div>Line Cooks: {outlet.bohStaff.lineCooks}</div>
+                  <div>Prep Cooks: {outlet.bohStaff.prepCooks}</div>
+                  <div>Expeditor: {outlet.bohStaff.expeditor}</div>
                 </div>
               </div>
             </div>
           )}
 
           {format === 'ai' && (
-            <div className="space-y-4">
-              <div className="p-4 rounded border border-yellow-400/20 bg-yellow-400/5">
-                <h4 className="font-semibold text-yellow-300 mb-2">⚠️ Issues Detected</h4>
-                <p className="text-white/70 text-sm">{outlet.laborPercent > 26 ? 'Labor cost above target. Consider reducing staff during off-peak hours.' : 'All metrics within target range.'}</p>
+            <div className="space-y-3">
+              <div className="border border-cyan-400/20 rounded p-3 bg-cyan-400/5">
+                <div className="font-semibold text-cyan-200 mb-1">Issues</div>
+                <div className="text-xs text-cyan-300/70">
+                  {outlet.laborPercent > 26 && '• High labor cost detected\n'}
+                  {outlet.foodPercent > 28 && '• High food cost detected\n'}
+                  {outlet.efficiency < 80 && '• Efficiency below target'}
+                </div>
               </div>
-              <div className="p-4 rounded border border-green-400/20 bg-green-400/5">
-                <h4 className="font-semibold text-green-300 mb-2">✓ Recommendations</h4>
-                <ul className="space-y-1 text-sm text-white/70">
-                  <li>• Cross-train staff for multiple roles</li>
-                  <li>• Optimize shift schedules based on peak hours</li>
-                  <li>• Review labor efficiency metrics</li>
-                </ul>
+              <div className="border border-cyan-400/20 rounded p-3 bg-cyan-400/5">
+                <div className="font-semibold text-cyan-200 mb-1">Recommendations</div>
+                <div className="text-xs text-cyan-300/70">
+                  • Review staff scheduling\n
+                  • Analyze portion control\n
+                  • Conduct waste audit
+                </div>
               </div>
             </div>
           )}
+        </div>
+
+        {/* Footer */}
+        <div className="border-t border-cyan-400/20 px-6 py-3 bg-black/30 flex gap-2 justify-end">
+          <button
+            onClick={onClose}
+            className="px-4 py-1.5 text-sm bg-cyan-500/20 hover:bg-cyan-500/40 text-cyan-300 rounded transition-colors"
+          >
+            Close
+          </button>
         </div>
       </div>
     </div>
