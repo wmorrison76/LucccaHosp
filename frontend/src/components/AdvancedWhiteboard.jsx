@@ -476,27 +476,40 @@ function AdvancedWhiteboardCore() {
     e.stopPropagation();
 
     const files = e.dataTransfer.files;
+    const rect = canvasRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
     for (let file of files) {
       if (file.type.startsWith('image/')) {
         const reader = new FileReader();
         reader.onload = (event) => {
           const img = new Image();
           img.onload = () => {
-            const canvas = canvasRef.current;
-            const ctx = canvas.getContext("2d");
-            const rect = canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
             setImages([...images, {
               src: event.target.result,
-              x, y,
+              x: x - 75, y: y - 75,
               width: 150,
               height: 150,
               id: Math.random().toString(36).slice(2)
             }]);
           };
           img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      } else if (file.type === 'application/pdf') {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          setMediaEmbeds([...mediaEmbeds, {
+            id: Math.random().toString(36).slice(2),
+            type: 'pdf',
+            url: event.target.result,
+            fileName: file.name,
+            x: x - 150,
+            y: y - 100,
+            width: 300,
+            height: 400
+          }]);
         };
         reader.readAsDataURL(file);
       }
