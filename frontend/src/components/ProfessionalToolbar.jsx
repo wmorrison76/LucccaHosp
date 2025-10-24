@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Settings, Sun, Moon, ChevronDown } from 'lucide-react';
+import { Settings, Sun, Moon, ChevronDown, X } from 'lucide-react';
 import { useThemeAndLanguageContext } from '../hooks/useThemeAndLanguage';
 import { colorSchemes, themeModes } from '../theme/themeSystem';
 import { SUPPORTED_LANGUAGES } from '../i18n/translations';
@@ -9,9 +9,9 @@ export default function ProfessionalToolbar() {
     useThemeAndLanguageContext();
   const colors = theme.colors;
 
-  const [showAppearance, setShowAppearance] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const [showLanguage, setShowLanguage] = useState(false);
-  const appearanceRef = useRef(null);
+  const settingsRef = useRef(null);
   const languageRef = useRef(null);
   const toolbarRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
