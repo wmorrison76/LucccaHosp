@@ -58,6 +58,8 @@ export default function AdvancedEchoWhiteboard() {
   const [snapshots, setSnapshots] = useState([]);
   const [snapshotName, setSnapshotName] = useState('');
   const [snapshotDialogOpen, setSnapshotDialogOpen] = useState(false);
+  const [templateDialogOpen, setTemplateDialogOpen] = useState(false);
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
 
   // Canvas Transform State
   const [zoom, setZoom] = useState(1);
