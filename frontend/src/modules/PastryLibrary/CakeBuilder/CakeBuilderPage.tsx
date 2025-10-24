@@ -424,3 +424,6 @@ const styles: Record<string, React.CSSProperties> = {
     marginLeft: '0.5rem',
   },
 };
+
+// Export default for dynamic imports
+export default CakeBuilderPage;
