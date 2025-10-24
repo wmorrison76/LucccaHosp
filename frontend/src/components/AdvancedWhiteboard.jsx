@@ -180,14 +180,23 @@ function AdvancedWhiteboardCore() {
     setIsDrawing(true);
   };
 
+  const snapCoordinate = (coord) => {
+    if (!snapToGrid) return coord;
+    return Math.round(coord / gridSize) * gridSize;
+  };
+
   const draw = (e) => {
     if (!isDrawing || isLocked) return;
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    let x = e.clientX - rect.left;
+    let y = e.clientY - rect.top;
+
+    // Apply snap-to-grid
+    x = snapCoordinate(x);
+    y = snapCoordinate(y);
 
     if (tool === "eraser") {
       ctx.clearRect(x - brushSize / 2, y - brushSize / 2, brushSize, brushSize);
