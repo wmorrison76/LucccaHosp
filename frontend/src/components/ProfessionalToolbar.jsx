@@ -28,8 +28,8 @@ export default function ProfessionalToolbar() {
   // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (appearanceRef.current && !appearanceRef.current.contains(e.target)) {
-        setShowAppearance(false);
+      if (settingsRef.current && !settingsRef.current.contains(e.target)) {
+        setShowSettings(false);
       }
       if (languageRef.current && !languageRef.current.contains(e.target)) {
         setShowLanguage(false);
