@@ -268,13 +268,11 @@ export default function ProfessionalDashboard() {
                     : `0 6px 20px rgba(0,0,0,0.25), inset 0 0 20px rgba(0,0,0,0.05)`,
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = colors.bg.panelHover;
                   e.currentTarget.style.boxShadow = themeMode === 'dark'
                     ? `0 0 30px ${cardColor.primary}99, 0 0 60px ${cardColor.primary}77, 0 8px 24px rgba(0,0,0,0.4), inset 0 0 20px ${cardColor.primary}44`
                     : `0 8px 24px rgba(0,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.08)`;
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = colors.bg.panel;
                   e.currentTarget.style.boxShadow = themeMode === 'dark'
                     ? `0 0 20px ${cardColor.primary}99, 0 0 40px ${cardColor.primary}66, 0 4px 12px rgba(0,0,0,0.3), inset 0 0 20px ${cardColor.primary}33`
                     : `0 6px 20px rgba(0,0,0,0.25), inset 0 0 20px rgba(0,0,0,0.05)`;
