@@ -106,6 +106,29 @@ function AdvancedWhiteboardCore() {
     }));
   }, [objects, zoom, pan, participants, chatMessages, images]);
 
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.ctrlKey || e.metaKey) {
+        if (e.key === 'z') {
+          e.preventDefault();
+          undo();
+        } else if (e.key === 's') {
+          e.preventDefault();
+          downloadCanvas();
+        }
+      }
+      if (e.key === 'Delete' || e.key === 'Backspace') {
+        if (tool === 'eraser' && isDrawing) {
+          clearCanvas();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [tool, isDrawing]);
+
   // Render images on canvas updates
   useEffect(() => {
     if (images.length === 0) return;
