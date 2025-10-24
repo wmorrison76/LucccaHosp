@@ -249,7 +249,7 @@ export default function ProfessionalDashboard() {
               style={{
                 zIndex: card.z || z,
               }}
-              bounds="parent"
+              bounds={false}
               enableResizing={true}
               disableDragging={!card.pinned}
               className="group"
