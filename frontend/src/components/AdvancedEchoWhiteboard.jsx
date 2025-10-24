@@ -396,6 +396,115 @@ export default function AdvancedEchoWhiteboard() {
     setGuideLines([]);
   };
 
+  // Drag/Drop Media File Handlers
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDraggingFile(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setIsDraggingFile(false);
+  };
+
+  const handleDrop = async (e) => {
+    e.preventDefault();
+    setIsDraggingFile(false);
+
+    const files = Array.from(e.dataTransfer.files || []);
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    let dropX = (e.clientX - rect.left - pan.x) / zoom;
+    let dropY = (e.clientY - rect.top - pan.y) / zoom;
+
+    for (const file of files) {
+      const mediaObj = await processMediaFile(file, { x: dropX, y: dropY });
+      if (mediaObj) {
+        setObjects(objs => [...objs, mediaObj]);
+        dropX += 120;
+        dropY += 100;
+      }
+    }
+  };
+
+  const processMediaFile = async (file, pos) => {
+    const type = file.type;
+    let mediaType = 'unknown';
+
+    if (type.startsWith('image/')) mediaType = 'image';
+    else if (type === 'application/pdf') mediaType = 'pdf';
+    else if (type.startsWith('video/')) mediaType = 'video';
+    else if (type.startsWith('audio/')) mediaType = 'audio';
+    else if (['.obj', '.gltf', '.glb', '.usdz'].some(ext => file.name.toLowerCase().endsWith(ext))) {
+      mediaType = 'model-link';
+    }
+
+    if (mediaType === 'image') {
+      return new Promise(resolve => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          resolve({
+            id: objectId,
+            type: 'image',
+            src: e.target.result,
+            x: pos.x,
+            y: pos.y,
+            width: 200,
+            height: 150,
+          });
+          setObjectId(id => id + 1);
+        };
+        reader.readAsDataURL(file);
+      });
+    } else {
+      return {
+        id: objectId,
+        type: mediaType,
+        fileName: file.name,
+        file: file,
+        fileUrl: URL.createObjectURL(file),
+        x: pos.x,
+        y: pos.y,
+        width: 150,
+        height: 100,
+      };
+    }
+  };
+
+  const handleCanvasClick = (e) => {
+    if (tool !== 'pointer') return;
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.clientX - rect.left - pan.x) / zoom;
+    const y = (e.clientY - rect.top - pan.y) / zoom;
+
+    for (const obj of objects) {
+      const isClickOnMedia = x > obj.x && x < obj.x + obj.width && y > obj.y && y < obj.y + obj.height;
+
+      if (isClickOnMedia && obj.type === 'pdf') {
+        setSelectedMediaObject(obj);
+        setPdfViewerOpen(true);
+        return;
+      }
+      if (isClickOnMedia && obj.type === 'video') {
+        setSelectedMediaObject(obj);
+        setVideoPlayerOpen(true);
+        return;
+      }
+      if (isClickOnMedia && obj.type === 'audio') {
+        setSelectedMediaObject(obj);
+        setAudioPlayerOpen(true);
+        return;
+      }
+      if (isClickOnMedia && obj.type === 'model-link') {
+        setSelectedMediaObject(obj);
+        window.open(`https://model-viewer.editing.web.app/?url=${obj.fileUrl}`, '_blank');
+        return;
+      }
+    }
+  };
+
   const handleWheel = (e) => {
     e.preventDefault();
     const zoomFactor = 0.1;
