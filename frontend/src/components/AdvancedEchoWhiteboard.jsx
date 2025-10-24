@@ -715,7 +715,15 @@ export default function AdvancedEchoWhiteboard() {
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
             onWheel={handleWheel}
-            style={{ cursor: isPanning ? 'grabbing' : 'crosshair' }}
+            onClick={handleCanvasClick}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            style={{
+              cursor: isDraggingFile ? 'copy' : isPanning ? 'grabbing' : 'crosshair',
+              border: isDraggingFile ? '2px dashed rgba(0, 217, 255, 0.8)' : 'none',
+              transition: 'border 0.2s'
+            }}
           />
 
           {/* FLOATING PANELS INJECTION */}
