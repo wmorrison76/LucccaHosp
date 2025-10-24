@@ -12,3 +12,4 @@ export * from './CakeDesignStorage';
 export * from './CakeBuilderPage';
 export * from './CakeGallery';
 export * from './EchoCanvasIntegration';
+export * from './EchoCanvasConfig';
