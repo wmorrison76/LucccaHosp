@@ -48,6 +48,11 @@ export default function AdvancedEchoWhiteboard() {
   const [snapToGrid, setSnapToGrid] = useState(true);
   const [showGuides, setShowGuides] = useState(true);
   const [guideLines, setGuideLines] = useState([]);
+  const [isDraggingFile, setIsDraggingFile] = useState(false);
+  const [pdfViewerOpen, setPdfViewerOpen] = useState(false);
+  const [videoPlayerOpen, setVideoPlayerOpen] = useState(false);
+  const [audioPlayerOpen, setAudioPlayerOpen] = useState(false);
+  const [selectedMediaObject, setSelectedMediaObject] = useState(null);
 
   // Canvas Transform State
   const [zoom, setZoom] = useState(1);
