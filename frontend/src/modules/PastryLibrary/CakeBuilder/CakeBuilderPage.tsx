@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { CakeIntakeData, CakeDesign, ProductionTask } from './types';
-import { saveCakeDesign, saveProductionTasks } from './CakeDesignStorage';
+import { saveCakeDesign, saveProductionTasks, getAllCakeDesigns, getAllProductionTasks } from './CakeDesignStorage';
 
 // Lazy load heavy components to avoid import issues
 const IntakeForm = lazy(() => import('./IntakeForm').then(m => ({ default: m.IntakeForm })));
