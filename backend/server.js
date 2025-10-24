@@ -12,6 +12,7 @@ import pastryRoutes from './routes/pastryRoutes.js';
 import cakeDesignerRoutes from './routes/cakeDesignerroutes.js';
 import echoRecipeProRoutes from './routes/echoRecipeProRoutes.js';
 import moduleUploadRoutes from './routes/moduleUpload.js';
+import { applyAllGuards } from './middleware/payloadGuards.js';
 
 const app = express();
 
