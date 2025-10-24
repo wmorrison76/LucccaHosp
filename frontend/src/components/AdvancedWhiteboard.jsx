@@ -27,6 +27,11 @@ function AdvancedWhiteboardCore() {
   const [zoom, setZoom] = React.useState(1);
   const [pan, setPan] = React.useState({ x: 0, y: 0 });
   const [isPanning, setIsPanning] = React.useState(false);
+  const [startPoint, setStartPoint] = React.useState(null);
+  const [textInputPos, setTextInputPos] = React.useState(null);
+  const [textInput, setTextInput] = React.useState('');
+  const [images, setImages] = React.useState([]);
+  const [draggingImage, setDraggingImage] = React.useState(null);
 
   // Advanced Features
   const [objects, setObjects] = React.useState([]);
