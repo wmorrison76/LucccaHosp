@@ -836,6 +836,32 @@ export default function AdvancedEchoWhiteboard() {
             />
           </div>
 
+          {/* Precision Tools */}
+          <div className="flex gap-1 bg-black/40 rounded-lg p-1 border border-cyan-400/20">
+            <button
+              onClick={() => setSnapToGrid(!snapToGrid)}
+              className={`p-2 rounded transition-colors ${
+                snapToGrid
+                  ? 'bg-cyan-400/30 text-cyan-200'
+                  : 'text-cyan-400/60 hover:text-cyan-300'
+              }`}
+              title={snapToGrid ? 'Snap-to-grid ON' : 'Snap-to-grid OFF'}
+            >
+              <Ruler size={16} />
+            </button>
+            <button
+              onClick={() => setShowGuides(!showGuides)}
+              className={`p-2 rounded transition-colors ${
+                showGuides
+                  ? 'bg-cyan-400/30 text-cyan-200'
+                  : 'text-cyan-400/60 hover:text-cyan-300'
+              }`}
+              title={showGuides ? 'Alignment guides ON' : 'Alignment guides OFF'}
+            >
+              <AlertTriangle size={16} />
+            </button>
+          </div>
+
           {/* Board Controls */}
           <div className="flex gap-1 bg-black/40 rounded-lg p-1 border border-cyan-400/20 ml-auto">
             <button
