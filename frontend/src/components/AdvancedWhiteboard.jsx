@@ -901,6 +901,100 @@ function AdvancedWhiteboardCore() {
                 History timeline coming soon...
               </div>
             )}
+
+            {/* SNAPSHOTS TAB */}
+            {activeTab === 'snapshots' && (
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+                <div style={{ padding: '8px', display: 'flex', gap: '4px' }}>
+                  <input
+                    type="text"
+                    value={snapshotName}
+                    onChange={e => setSnapshotName(e.target.value)}
+                    placeholder="Snapshot name..."
+                    style={{
+                      flex: 1,
+                      padding: '4px 6px',
+                      backgroundColor: 'rgba(0, 217, 255, 0.1)',
+                      border: '1px solid rgba(0, 217, 255, 0.2)',
+                      borderRadius: '3px',
+                      color: '#e2e8f0',
+                      fontSize: '11px',
+                      outline: 'none'
+                    }}
+                    onKeyPress={e => e.key === 'Enter' && createSnapshot()}
+                  />
+                  <button
+                    onClick={createSnapshot}
+                    style={{
+                      padding: '4px 8px',
+                      backgroundColor: 'rgba(0, 217, 255, 0.2)',
+                      border: '1px solid rgba(0, 217, 255, 0.3)',
+                      borderRadius: '3px',
+                      color: '#00d9ff',
+                      cursor: 'pointer',
+                      fontSize: '11px'
+                    }}
+                  >
+                    Save
+                  </button>
+                </div>
+                <div style={{ flex: 1, overflow: 'auto', padding: '8px' }}>
+                  {snapshots.length === 0 ? (
+                    <div style={{ fontSize: '11px', opacity: 0.5, textAlign: 'center', paddingTop: '20px' }}>No snapshots yet</div>
+                  ) : (
+                    snapshots.map(snap => (
+                      <div
+                        key={snap.id}
+                        style={{
+                          padding: '8px',
+                          marginBottom: '6px',
+                          backgroundColor: 'rgba(0, 217, 255, 0.05)',
+                          border: '1px solid rgba(0, 217, 255, 0.2)',
+                          borderRadius: '4px',
+                          fontSize: '11px'
+                        }}
+                      >
+                        <div style={{ fontWeight: 'bold', color: '#00d9ff', marginBottom: '2px' }}>{snap.name}</div>
+                        <div style={{ opacity: 0.6, fontSize: '10px', marginBottom: '4px' }}>
+                          {new Date(snap.timestamp).toLocaleString()}
+                        </div>
+                        <div style={{ display: 'flex', gap: '4px' }}>
+                          <button
+                            onClick={() => restoreSnapshot(snap.id)}
+                            style={{
+                              flex: 1,
+                              padding: '4px 6px',
+                              backgroundColor: 'rgba(0, 217, 255, 0.1)',
+                              border: '1px solid rgba(0, 217, 255, 0.2)',
+                              borderRadius: '3px',
+                              color: '#7ff3ff',
+                              cursor: 'pointer',
+                              fontSize: '10px'
+                            }}
+                          >
+                            Restore
+                          </button>
+                          <button
+                            onClick={() => deleteSnapshot(snap.id)}
+                            style={{
+                              padding: '4px 6px',
+                              backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                              border: '1px solid rgba(239, 68, 68, 0.2)',
+                              borderRadius: '3px',
+                              color: '#fca5a5',
+                              cursor: 'pointer',
+                              fontSize: '10px'
+                            }}
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
