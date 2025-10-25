@@ -47,6 +47,22 @@ app.use('/api/pastry', authMiddleware, pastryRoutes);
 app.use('/api/echo-recipe-pro', authMiddleware, echoRecipeProRoutes);
 app.use('/api/modules', moduleUploadRoutes);
 
+// Serve bundled EchoRecipePro app from modules folder
+// This serves the compiled Vite app that was uploaded from Builder.io
+const modulesPath = path.join(__dirname, '..', 'frontend', 'src', 'modules', 'EchoRecipe_Pro');
+app.use('/modules/EchoRecipe_Pro', express.static(modulesPath, {
+  maxAge: '1d',
+  etag: false,
+  setHeaders: (res, filePath) => {
+    // Ensure HTML files are always fresh (not cached)
+    if (filePath.endsWith('.html')) {
+      res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+    }
+    // Allow framing for iframe embedding
+    res.set('X-Frame-Options', 'ALLOWALL');
+  }
+}));
+
 // Serve static frontend files from dist directory
 const frontendPath = path.join(__dirname, '..', 'frontend', 'dist');
 app.use(express.static(frontendPath, {
