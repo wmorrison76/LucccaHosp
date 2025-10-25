@@ -116,7 +116,7 @@ import RulerSnapOverlay  from "../echodesk/stubs/RulerSnapOverlay.jsx";
 import LassoCopyTool     from "../echodesk/stubs/LassoCopyTool.jsx";
 // (AI chat removed)
 
-/* ─────────��───��── Assets ──────────────── */
+/* ──���──────��───��── Assets ──────────────── */
 import kitchenIcon  from "../assets/culinary_library.png";
 import pastryIcon   from "../assets/baking-&-Pastry.png";
 import mixologyIcon from "../assets/mixology.png";
@@ -167,13 +167,10 @@ console.log('[Board] ChefNetPanel:', !!ChefNetPanel);
 console.log('[Board] SupportPanel:', !!SupportPanel);
 console.log('[Board] SettingsSuite:', !!SettingsSuite);
 
-if (ProfessionalDashboard) PANEL_REGISTRY.dashboard = { title: "Professional Dashboard", Component: ProfessionalDashboard, icon: null };
-if (ProfessionalDashboard) PANEL_REGISTRY.home = { title: "Professional Dashboard", Component: ProfessionalDashboard, icon: null };
-if (ProfessionalDashboard) {
-  PANEL_REGISTRY['professional-dashboard'] = { title: "Professional Dashboard", Component: ProfessionalDashboard, icon: null };
-  PANEL_REGISTRY['dashboard'] = { title: "Professional Dashboard", Component: ProfessionalDashboard, icon: null };
-  PANEL_REGISTRY['home'] = { title: "Professional Dashboard", Component: ProfessionalDashboard, icon: null };
-}
+// Register Professional Dashboard (always, as it's lazy-loaded)
+PANEL_REGISTRY.dashboard = { title: "Professional Dashboard", Component: ProfessionalDashboard, icon: null };
+PANEL_REGISTRY.home = { title: "Professional Dashboard", Component: ProfessionalDashboard, icon: null };
+PANEL_REGISTRY['professional-dashboard'] = { title: "Professional Dashboard", Component: ProfessionalDashboard, icon: null };
 if (EnterpriseHUD) PANEL_REGISTRY.enterprise = { title: "Enterprise HUD", Component: EnterpriseHUD, icon: null };
 if (AdvancedHUD) PANEL_REGISTRY.advanced = { title: "Operations Nexus", Component: AdvancedHUD, icon: null };
 if (FuturisticHUD) PANEL_REGISTRY.futuristic = { title: "Futuristic HUD", Component: FuturisticHUD, icon: null };
@@ -213,7 +210,7 @@ if (AdvancedVideoConference) PANEL_REGISTRY.videoconference = { title: "Video Co
 if (ReminderWidget) PANEL_REGISTRY.reminders = { title: "Reminders", Component: ReminderWidget, icon: null };
 if (SettingsSuite) PANEL_REGISTRY.settings = { title: "Settings", Component: SettingsSuite, icon: null };
 
-/* ─────────────── Helpers ───────────���─── */
+/* ───────���─────── Helpers ───────────���─── */
 let zCounter = 10;
 const genToken = () => Math.random().toString(36).slice(2) + "-" + Date.now().toString(36);
 
