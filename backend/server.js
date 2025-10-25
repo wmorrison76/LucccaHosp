@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import http from 'http';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import echoRoutes from './routes/echoRoutes.js';
 import systemRoutes from './routes/systemRoutes.js';
 import versionRoutes from './routes/versionRoutes.js';
@@ -14,6 +16,8 @@ import echoRecipeProRoutes from './routes/echoRecipeProRoutes.js';
 import moduleUploadRoutes from './routes/moduleUpload.js';
 import { applyAllGuards } from './middleware/payloadGuards.js';
 import { initializeSocketServer } from './services/socketService.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
