@@ -108,25 +108,16 @@ export default function AdvancedEchoWhiteboard() {
   const [isMaximized, setIsMaximized] = useState(true);
   const [toolbarOpacity, setToolbarOpacity] = useState(1);
   const [showTemplate, setShowTemplate] = useState(false);
-  const [selectedTemplate, setSelectedTemplate] = useState(null);
-
-  // Communication State
-  const [participants, setParticipants] = useState([
-    { id: 'self', name: 'You', role: 'chef', isSpeaking: false, isMuted: false, isCameraOff: false }
-  ]);
   const [chatMessages, setChatMessages] = useState([
     { id: 1, author: 'System', text: 'Whiteboard initialized. Ready for collaboration.', timestamp: new Date() }
   ]);
   const [chatInput, setChatInput] = useState('');
-  const [isRecording, setIsRecording] = useState(false);
 
   // Floating Panels (GlowDesk Injection)
   const [floatingPanels, setFloatingPanels] = useState([]);
   const [zIndex, setZIndex] = useState(10);
 
-  // Board History
-  const [history, setHistory] = useState([]);
-  const [historyIndex, setHistoryIndex] = useState(-1);
+  // Board State
   const [isLocked, setIsLocked] = useState(false);
 
   // Initialize Canvas
