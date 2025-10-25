@@ -47,6 +47,24 @@ app.use('/api/pastry', authMiddleware, pastryRoutes);
 app.use('/api/echo-recipe-pro', authMiddleware, echoRecipeProRoutes);
 app.use('/api/modules', moduleUploadRoutes);
 
+// Serve static frontend files from dist directory
+const frontendPath = path.join(__dirname, '..', 'frontend', 'dist');
+app.use(express.static(frontendPath, {
+  maxAge: '1h',
+  etag: false
+}));
+
+// Fallback route for React Router - serve index.html for all non-API routes
+app.get('*', (req, res) => {
+  const indexPath = path.join(frontendPath, 'index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      console.error('[SERVER] Error serving index.html:', err.message);
+      res.status(404).json({ error: 'Frontend not found. Please build the frontend first.' });
+    }
+  });
+});
+
 // Create HTTP server with proper timeout settings
 const server = http.createServer(app);
 
