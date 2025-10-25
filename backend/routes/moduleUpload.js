@@ -9,19 +9,20 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const router = express.Router();
 
 // Configure multer for folder uploads - explicitly define fields
+// INCREASED LIMITS: Support uploading large compiled apps (100k+ files, multi-GB)
 const uploadMultiple = multer({
   dest: '/tmp/uploads/',
   limits: {
-    fileSize: 5 * 1024 * 1024 * 1024, // 5GB max per file
-    files: 50000, // max number of files
+    fileSize: 10 * 1024 * 1024 * 1024, // 10GB max per individual file
+    files: 100000, // max number of files in one batch
     fieldNameSize: 1000,
-    fieldSize: 500 * 1024 * 1024 // 500MB for field data
+    fieldSize: 5 * 1024 * 1024 * 1024 // 5GB for field data (cumulative batch size)
   },
   fileFilter: (req, file, cb) => {
     cb(null, true);
   }
 }).fields([
-  { name: 'files', maxCount: 50000 }, // Allow up to 50k files per batch
+  { name: 'files', maxCount: 100000 }, // Allow up to 100k files per batch
   { name: 'folderName', maxCount: 1 },
   { name: 'isFirstBatch', maxCount: 1 },
   { name: 'isLastBatch', maxCount: 1 },
