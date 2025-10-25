@@ -76,10 +76,18 @@ const Schedule           = safeImport(() => import("../modules/scheduling/Schedu
 const EchoRecipeProPanel = safeImport(() => import("../components/EchoRecipePro/EchoRecipeProPanel.jsx"), "EchoRecipeProPanel");
 const CulinaryPanel      = safeImport(() => import("../components/CulinaryPanel.jsx"), "CulinaryPanel");
 const PurchasingPanel    = safeImport(() => import("../components/Purchasing/PurchasingPanel.jsx"), "PurchasingPanel");
-const EchoEventStudioPanel = safeImport(() => import("../components/EchoEventStudio/EchoEventStudioPanel.jsx"), "EchoEventStudioPanel");
-const MaestroBQTPanel    = safeImport(() => import("../components/MaestroBQTPanel.jsx"), "MaestroBQTPanel");
-const EchoAurumPanel     = safeImport(() => import("../components/EchoAurumPanel.jsx"), "EchoAurumPanel");
-const ECHOLayoutPanel    = safeImport(() => import("../components/ECHOLayoutPanel.jsx"), "ECHOLayoutPanel");
+
+// DISABLED: Builder.io iframe panels timing out - causing "IFrame evaluation timeout" errors
+// Re-enable these after Builder.io connectivity is verified
+// const EchoEventStudioPanel = safeImport(() => import("../components/EchoEventStudio/EchoEventStudioPanel.jsx"), "EchoEventStudioPanel");
+// const MaestroBQTPanel    = safeImport(() => import("../components/MaestroBQTPanel.jsx"), "MaestroBQTPanel");
+// const EchoAurumPanel     = safeImport(() => import("../components/EchoAurumPanel.jsx"), "EchoAurumPanel");
+// const ECHOLayoutPanel    = safeImport(() => import("../components/ECHOLayoutPanel.jsx"), "ECHOLayoutPanel");
+
+const EchoEventStudioPanel = null;
+const MaestroBQTPanel    = null;
+const EchoAurumPanel     = null;
+const ECHOLayoutPanel    = null;
 const PastryLibrary      = safeImport(() => import("../components/PastryLibrary/PastryLibrary.jsx"), "PastryLibrary");
 const EchoCanvasStudio   = safeImport(() => import("../components/EchoCanvasStudio.jsx"), "EchoCanvasStudio");
 const AdvancedWhiteboard = safeImport(() => import("../components/AdvancedWhiteboard.jsx"), "AdvancedWhiteboard");
