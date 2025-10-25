@@ -12,34 +12,13 @@ export default function EchoEventStudioPanel() {
 
   useEffect(() => {
     console.log('[EchoEventStudio] Component mounted');
-    setIsLoading(true);
-    
-    try {
-      // Load Builder.io's RenderContent script if not already present
-      if (!window.builderContentLoaded) {
-        const script = document.createElement('script');
-        script.src = 'https://cdn.builder.io/js/react';
-        script.async = true;
-        script.onload = () => {
-          console.log('[EchoEventStudio] Builder.io script loaded');
-          window.builderContentLoaded = true;
-          renderEchoEventStudio();
-        };
-        script.onerror = (err) => {
-          console.error('[EchoEventStudio] Failed to load Builder.io script:', err);
-          setLoadError('Failed to load Builder.io script');
-          setIsLoading(false);
-        };
-        document.head.appendChild(script);
-      } else {
-        console.log('[EchoEventStudio] Builder.io script already loaded');
-        renderEchoEventStudio();
-      }
-    } catch (err) {
-      console.error('[EchoEventStudio] Error in useEffect:', err);
-      setLoadError(err.message);
-      setIsLoading(false);
-    }
+
+    // DISABLED: Builder.io SDK loading causing timeout errors
+    // The Echo Event Studio component requires Builder.io connectivity
+    // Re-enable after Builder.io API is available and responsive
+    console.log('[EchoEventStudio] Builder.io integration disabled - waiting for API availability');
+    setIsLoading(false);
+    setLoadError('Builder.io integration temporarily disabled for stability');
   }, []);
 
   const renderEchoEventStudio = () => {
