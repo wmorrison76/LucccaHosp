@@ -101,9 +101,8 @@ function ModuleUploadZone({ isDarkMode }) {
     }));
 
     try {
-      const uploadUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? `http://localhost:3001/api/modules/upload-folder`
-        : `/api/modules/upload-folder`;
+      // Always use the proxy path - Vite dev server proxies to backend
+      const uploadUrl = `/api/modules/upload-folder`;
 
       let filesToUpload = [];
 
