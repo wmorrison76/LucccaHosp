@@ -14,6 +14,19 @@ import { calculateCakeSpecs } from './CakeSizeCalculator';
 // These would be imported from /CakeDesigner_Patch_CD01_CD10/src/ in development
 // For production builds, using simplified internal implementations
 
+// Stub implementation of AutoRotateController
+class AutoRotateController {
+  constructor(target: any, speed: number) {
+    this.target = target;
+    this.speed = speed;
+  }
+  target: any;
+  speed: number;
+  tick() {}
+  setTarget(target: any) { this.target = target; }
+  toggle(enabled: boolean) {}
+}
+
 interface CakeBuilderProps {
   cakeData: CakeIntakeData;
   onExport?: (design: CakeDesign) => void;
