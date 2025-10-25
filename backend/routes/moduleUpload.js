@@ -39,13 +39,13 @@ const handleMulterError = (err, req, res, next) => {
     console.error('[MODULE_UPLOAD] Multer error - Limit:', err.limit);
 
     if (err.code === 'LIMIT_FILE_SIZE') {
-      return res.status(413).json({ success: false, message: 'File too large - single file exceeds 5GB limit' });
+      return res.status(413).json({ success: false, message: 'File too large - single file exceeds 10GB limit' });
     }
     if (err.code === 'LIMIT_FILE_COUNT') {
-      return res.status(413).json({ success: false, message: `Too many files - reached 50000 file limit` });
+      return res.status(413).json({ success: false, message: `Too many files - reached 100000 file limit` });
     }
     if (err.code === 'LIMIT_FIELD_SIZE') {
-      return res.status(413).json({ success: false, message: `Single field exceeds 500MB limit` });
+      return res.status(413).json({ success: false, message: `Batch exceeds 5GB limit - please split into smaller batches` });
     }
     return res.status(400).json({ success: false, message: err.message });
   }
