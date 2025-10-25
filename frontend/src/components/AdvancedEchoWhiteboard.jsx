@@ -3,7 +3,7 @@ import * as RND_NS from 'react-rnd';
 const Rnd = RND_NS.Rnd ?? RND_NS.default ?? RND_NS;
 
 import {
-  Pencil, Highlighter, Trash2, Square, Circle, Line, Type, StickyNote,
+  Pencil, Highlighter, Trash2, Square, Circle, Slash, Type, StickyNote,
   Ruler, Image, FileText, Video, Mic, MicOff, Video as VideoCam,
   VideoOff, Users, Send, Settings, MoreVertical, Save, Share2, Download,
   ZoomIn, ZoomOut, RotateCcw, Plus, GripHorizontal, X, Clock, Zap, Undo, Redo,
@@ -1847,7 +1847,7 @@ export default function AdvancedEchoWhiteboard() {
           {helpOpen && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-lg z-50 p-4">
               <div className="bg-slate-800 rounded-lg p-6 border border-cyan-400/40 shadow-2xl max-w-md max-h-96 overflow-auto">
-                <h2 className="text-lg font-bold text-cyan-300 mb-4">⌨️ Keyboard Shortcuts</h2>
+                <h2 className="text-lg font-bold text-cyan-300 mb-4">���️ Keyboard Shortcuts</h2>
                 <div className="space-y-3 text-sm">
                   <div>
                     <div style={{ color: '#00d9ff', fontWeight: '600', marginBottom: '4px' }}>Drawing</div>
