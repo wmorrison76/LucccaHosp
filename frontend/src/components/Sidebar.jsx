@@ -104,6 +104,20 @@ function ModuleUploadZone({ isDarkMode }) {
       // Always use the proxy path - Vite dev server proxies to backend
       const uploadUrl = `/api/modules/upload-folder`;
 
+      // Health check - verify backend is reachable
+      console.log(`[UPLOAD] Health check: testing backend connectivity...`);
+      try {
+        const healthResponse = await fetch('/api/health', { method: 'GET', timeout: 5000 });
+        if (!healthResponse.ok) {
+          console.warn(`[UPLOAD] Health check failed: ${healthResponse.status}`);
+        } else {
+          console.log(`[UPLOAD] Health check: Backend is reachable`);
+        }
+      } catch (healthErr) {
+        console.error(`[UPLOAD] Health check error:`, healthErr.message);
+        setMessage(`⚠️  Warning: Backend may not be running. Make sure 'npm run dev' is running in the backend/ folder.`);
+      }
+
       let filesToUpload = [];
 
       if (files && files.length > 0) {
