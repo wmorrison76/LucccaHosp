@@ -116,7 +116,7 @@ import RulerSnapOverlay  from "../echodesk/stubs/RulerSnapOverlay.jsx";
 import LassoCopyTool     from "../echodesk/stubs/LassoCopyTool.jsx";
 // (AI chat removed)
 
-/* ─────────��────── Assets ──────────────── */
+/* ─────────��───��── Assets ──────────────── */
 import kitchenIcon  from "../assets/culinary_library.png";
 import pastryIcon   from "../assets/baking-&-Pastry.png";
 import mixologyIcon from "../assets/mixology.png";
@@ -182,10 +182,11 @@ if (EchoRecipeProPanel) PANEL_REGISTRY.culinary = { title: "Culinary", Component
 if (Schedule) PANEL_REGISTRY.scheduling = { title: "Schedules", Component: Schedule, icon: scheduleIcon };
 if (EchoRecipeProPanel) PANEL_REGISTRY.recipepro = { title: "Recipes", Component: EchoRecipeProPanel, icon: null };
 if (PurchasingPanel) PANEL_REGISTRY.purchasing = { title: "Purchasing", Component: PurchasingPanel, icon: null };
-if (EchoEventStudioPanel) PANEL_REGISTRY.eventstudio = { title: "Echo Event Studio", Component: EchoEventStudioPanel, icon: null };
-if (MaestroBQTPanel) PANEL_REGISTRY.maestrobqt = { title: "Maestro BQT", Component: MaestroBQTPanel, icon: null };
-if (EchoAurumPanel) PANEL_REGISTRY.echoaurum = { title: "EchoAurum", Component: EchoAurumPanel, icon: null };
-if (ECHOLayoutPanel) PANEL_REGISTRY.echolayout = { title: "ECHOLayout", Component: ECHOLayoutPanel, icon: null };
+// DISABLED: Builder.io panels disabled due to timeout issues
+// if (EchoEventStudioPanel) PANEL_REGISTRY.eventstudio = { title: "Echo Event Studio", Component: EchoEventStudioPanel, icon: null };
+// if (MaestroBQTPanel) PANEL_REGISTRY.maestrobqt = { title: "Maestro BQT", Component: MaestroBQTPanel, icon: null };
+// if (EchoAurumPanel) PANEL_REGISTRY.echoaurum = { title: "EchoAurum", Component: EchoAurumPanel, icon: null };
+// if (ECHOLayoutPanel) PANEL_REGISTRY.echolayout = { title: "ECHOLayout", Component: ECHOLayoutPanel, icon: null };
 if (PastryLibrary) PANEL_REGISTRY.pastry = { title: "Baking & Pastry", Component: PastryLibrary, icon: pastryIcon };
 if (CakeBuilder) PANEL_REGISTRY.cakebuilder = { title: "🎂 CakeBuilder", Component: CakeBuilder, icon: pastryIcon };
 if (AdvancedWhiteboard) PANEL_REGISTRY.whiteboard = { title: "Whiteboard", Component: AdvancedWhiteboard, icon: null };
