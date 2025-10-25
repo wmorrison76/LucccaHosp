@@ -834,9 +834,20 @@ End: (${endX}, ${endY})`,
           <canvas
             ref={canvasRef}
             onMouseDown={startDrawing}
-            onMouseMove={draw}
+            onMouseMove={(e) => {
+              draw(e);
+              broadcastCursorPosition(e);
+              if (laserMode) {
+                const rect = canvasRef.current.getBoundingClientRect();
+                setLaserPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+              }
+            }}
             onMouseUp={stopDrawing}
-            onMouseLeave={stopDrawing}
+            onMouseLeave={(e) => {
+              stopDrawing(e);
+              laserMode && setLaserPos(null);
+              setParticipantCursors({});
+            }}
             onWheel={(e) => {
               e.preventDefault();
               setZoom(z => Math.max(0.1, Math.min(5, z + (e.deltaY > 0 ? -0.1 : 0.1))));
@@ -846,17 +857,6 @@ End: (${endX}, ${endY})`,
               e.stopPropagation();
             }}
             onDrop={handleImageDrop}
-            onMouseMove={(e) => {
-              broadcastCursorPosition(e);
-              if (laserMode) {
-                const rect = canvasRef.current.getBoundingClientRect();
-                setLaserPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-              }
-            }}
-            onMouseLeave={() => {
-              laserMode && setLaserPos(null);
-              setParticipantCursors({});
-            }}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
