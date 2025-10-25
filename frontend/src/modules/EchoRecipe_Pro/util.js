@@ -1,133 +1,104 @@
-export var util;
-(function (util) {
-    util.assertEqual = (_) => { };
-    function assertIs(_arg) { }
-    util.assertIs = assertIs;
-    function assertNever(_x) {
-        throw new Error();
-    }
-    util.assertNever = assertNever;
-    util.arrayToEnum = (items) => {
-        const obj = {};
-        for (const item of items) {
-            obj[item] = item;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.wrapNativeSuper = void 0;
+//@ts-ignore
+function wrapNativeSuper(Class) {
+    var _cache = typeof Map === "function" ? new Map() : undefined;
+    //@ts-ignore
+    exports.wrapNativeSuper = wrapNativeSuper = function wrapNativeSuper(Class) {
+        if (Class === null || !_isNativeFunction(Class))
+            return Class;
+        if (typeof Class !== "function") {
+            throw new TypeError("Super expression must either be null or a function");
         }
-        return obj;
-    };
-    util.getValidEnumValues = (obj) => {
-        const validKeys = util.objectKeys(obj).filter((k) => typeof obj[obj[k]] !== "number");
-        const filtered = {};
-        for (const k of validKeys) {
-            filtered[k] = obj[k];
+        if (typeof _cache !== "undefined") {
+            if (_cache.has(Class))
+                return _cache.get(Class);
+            _cache.set(Class, Wrapper);
         }
-        return util.objectValues(filtered);
-    };
-    util.objectValues = (obj) => {
-        return util.objectKeys(obj).map(function (e) {
-            return obj[e];
+        function Wrapper() {
+            //@ts-ignore
+            return _construct(Class, arguments, _getPrototypeOf(this).constructor);
+        }
+        Wrapper.prototype = Object.create(Class.prototype, {
+            constructor: {
+                value: Wrapper,
+                enumerable: false,
+                writable: true,
+                configurable: true,
+            },
         });
+        return _setPrototypeOf(Wrapper, Class);
     };
-    util.objectKeys = typeof Object.keys === "function" // eslint-disable-line ban/ban
-        ? (obj) => Object.keys(obj) // eslint-disable-line ban/ban
-        : (object) => {
-            const keys = [];
-            for (const key in object) {
-                if (Object.prototype.hasOwnProperty.call(object, key)) {
-                    keys.push(key);
-                }
-            }
-            return keys;
-        };
-    util.find = (arr, checker) => {
-        for (const item of arr) {
-            if (checker(item))
-                return item;
-        }
-        return undefined;
-    };
-    util.isInteger = typeof Number.isInteger === "function"
-        ? (val) => Number.isInteger(val) // eslint-disable-line ban/ban
-        : (val) => typeof val === "number" && Number.isFinite(val) && Math.floor(val) === val;
-    function joinValues(array, separator = " | ") {
-        return array.map((val) => (typeof val === "string" ? `'${val}'` : val)).join(separator);
+    return wrapNativeSuper(Class);
+}
+exports.wrapNativeSuper = wrapNativeSuper;
+function isNativeReflectConstruct() {
+    if (typeof Reflect === "undefined" || !Reflect.construct)
+        return false;
+    //@ts-ignore
+    if (Reflect.construct.sham)
+        return false;
+    if (typeof Proxy === "function")
+        return true;
+    try {
+        Date.prototype.toString.call(Reflect.construct(Date, [], function () { }));
+        return true;
     }
-    util.joinValues = joinValues;
-    util.jsonStringifyReplacer = (_, value) => {
-        if (typeof value === "bigint") {
-            return value.toString();
-        }
-        return value;
-    };
-})(util || (util = {}));
-export var objectUtil;
-(function (objectUtil) {
-    objectUtil.mergeShapes = (first, second) => {
-        return {
-            ...first,
-            ...second, // second overwrites first
-        };
-    };
-})(objectUtil || (objectUtil = {}));
-export const ZodParsedType = util.arrayToEnum([
-    "string",
-    "nan",
-    "number",
-    "integer",
-    "float",
-    "boolean",
-    "date",
-    "bigint",
-    "symbol",
-    "function",
-    "undefined",
-    "null",
-    "array",
-    "object",
-    "unknown",
-    "promise",
-    "void",
-    "never",
-    "map",
-    "set",
-]);
-export const getParsedType = (data) => {
-    const t = typeof data;
-    switch (t) {
-        case "undefined":
-            return ZodParsedType.undefined;
-        case "string":
-            return ZodParsedType.string;
-        case "number":
-            return Number.isNaN(data) ? ZodParsedType.nan : ZodParsedType.number;
-        case "boolean":
-            return ZodParsedType.boolean;
-        case "function":
-            return ZodParsedType.function;
-        case "bigint":
-            return ZodParsedType.bigint;
-        case "symbol":
-            return ZodParsedType.symbol;
-        case "object":
-            if (Array.isArray(data)) {
-                return ZodParsedType.array;
-            }
-            if (data === null) {
-                return ZodParsedType.null;
-            }
-            if (data.then && typeof data.then === "function" && data.catch && typeof data.catch === "function") {
-                return ZodParsedType.promise;
-            }
-            if (typeof Map !== "undefined" && data instanceof Map) {
-                return ZodParsedType.map;
-            }
-            if (typeof Set !== "undefined" && data instanceof Set) {
-                return ZodParsedType.set;
-            }
-            if (typeof Date !== "undefined" && data instanceof Date) {
-                return ZodParsedType.date;
-            }
-            return ZodParsedType.object;
-        default:
-            return ZodParsedType.unknown;
+    catch (e) {
+        return false;
     }
+}
+//@ts-ignore
+function _construct(Parent, args, Class) {
+    if (isNativeReflectConstruct()) {
+        //@ts-ignore
+        _construct = Reflect.construct;
+    }
+    else {
+        //@ts-ignore
+        _construct = function _construct(Parent, args, Class) {
+            var a = [null];
+            a.push.apply(a, args);
+            //@ts-ignore
+            var Constructor = Function.bind.apply(Parent, a);
+            //@ts-ignore
+            var instance = new Constructor();
+            if (Class)
+                _setPrototypeOf(instance, Class.prototype);
+            return instance;
+        };
+    }
+    //@ts-ignore
+    return _construct.apply(null, arguments);
+}
+function _isNativeFunction(fn) {
+    return Function.toString.call(fn).indexOf("[native code]") !== -1;
+}
+//@ts-ignore
+function _setPrototypeOf(o, p) {
+    //@ts-ignore
+    _setPrototypeOf =
+        Object.setPrototypeOf ||
+            //@ts-ignore
+            function _setPrototypeOf(o, p) {
+                o.__proto__ = p;
+                return o;
+            };
+    return _setPrototypeOf(o, p);
+}
+//@ts-ignore
+function _getPrototypeOf(o) {
+    //@ts-ignore
+    _getPrototypeOf = Object.setPrototypeOf
+        ? Object.getPrototypeOf
+        : function _getPrototypeOf(
+        //@ts-ignore
+        o) {
+            return o.__proto__ || Object.getPrototypeOf(o);
+        };
+    return _getPrototypeOf(o);
+}
+module.exports = {
+    wrapNativeSuper,
 };

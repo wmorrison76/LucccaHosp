@@ -1,64 +1,151 @@
-/** The Standard Schema interface. */
-export interface StandardSchemaV1<Input = unknown, Output = Input> {
-  /** The Standard Schema properties. */
-  readonly "~standard": StandardSchemaV1.Props<Input, Output>;
-}
+import { Resolver, SubmitHandler, useForm } from 'react-hook-form';
+import { z } from 'zod/v3';
+import { standardSchemaResolver } from '..';
+import {
+  customSchema,
+  fields,
+  invalidData,
+  schema,
+  validData,
+} from './__fixtures__/data';
 
-export declare namespace StandardSchemaV1 {
-  /** The Standard Schema properties interface. */
-  export interface Props<Input = unknown, Output = Input> {
-    /** The version number of the standard. */
-    readonly version: 1;
-    /** The vendor name of the schema library. */
-    readonly vendor: string;
-    /** Validates unknown input values. */
-    readonly validate: (value: unknown) => Result<Output> | Promise<Result<Output>>;
-    /** Inferred types associated with the schema. */
-    readonly types?: Types<Input, Output> | undefined;
-  }
+const shouldUseNativeValidation = false;
 
-  /** The result interface of the validate function. */
-  export type Result<Output> = SuccessResult<Output> | FailureResult;
+describe('standardSchemaResolver', () => {
+  it('should return values from standardSchemaResolver when validation pass', async () => {
+    const result = await standardSchemaResolver(schema)(validData, undefined, {
+      fields,
+      shouldUseNativeValidation,
+    });
 
-  /** The result interface if validation succeeds. */
-  export interface SuccessResult<Output> {
-    /** The typed output value. */
-    readonly value: Output;
-    /** The non-existent issues. */
-    readonly issues?: undefined;
-  }
+    expect(result).toMatchSnapshot();
+  });
 
-  /** The result interface if validation fails. */
-  export interface FailureResult {
-    /** The issues of failed validation. */
-    readonly issues: ReadonlyArray<Issue>;
-  }
+  it('should return a single error from standardSchemaResolver when validation fails', async () => {
+    const result = await standardSchemaResolver(schema)(
+      invalidData,
+      undefined,
+      {
+        fields,
+        shouldUseNativeValidation,
+      },
+    );
 
-  /** The issue interface of the failure output. */
-  export interface Issue {
-    /** The error message of the issue. */
-    readonly message: string;
-    /** The path of the issue, if any. */
-    readonly path?: ReadonlyArray<PropertyKey | PathSegment> | undefined;
-  }
+    expect(result).toMatchSnapshot();
+  });
 
-  /** The path segment interface of the issue. */
-  export interface PathSegment {
-    /** The key representing a path segment. */
-    readonly key: PropertyKey;
-  }
+  it('should return all the errors from standardSchemaResolver when validation fails with `validateAllFieldCriteria` set to true', async () => {
+    const result = await standardSchemaResolver(schema)(
+      invalidData,
+      undefined,
+      {
+        fields,
+        criteriaMode: 'all',
+        shouldUseNativeValidation,
+      },
+    );
 
-  /** The Standard Schema types interface. */
-  export interface Types<Input = unknown, Output = Input> {
-    /** The input type of the schema. */
-    readonly input: Input;
-    /** The output type of the schema. */
-    readonly output: Output;
-  }
+    expect(result).toMatchSnapshot();
+  });
 
-  /** Infers the input type of a Standard Schema. */
-  export type InferInput<Schema extends StandardSchemaV1> = NonNullable<Schema["~standard"]["types"]>["input"];
+  it('should return values from standardSchemaResolver when validation pass & raw=true', async () => {
+    const validateSpy = vi.spyOn(schema['~standard'], 'validate');
 
-  /** Infers the output type of a Standard Schema. */
-  export type InferOutput<Schema extends StandardSchemaV1> = NonNullable<Schema["~standard"]["types"]>["output"];
-}
+    const result = await standardSchemaResolver(schema, undefined, {
+      raw: true,
+    })(validData, undefined, {
+      fields,
+      shouldUseNativeValidation,
+    });
+
+    expect(validateSpy).toHaveBeenCalledTimes(1);
+    expect(result).toMatchSnapshot();
+  });
+  it('should correctly handle path segments that are objects', async () => {
+    const result = await standardSchemaResolver(customSchema)(
+      validData,
+      undefined,
+      {
+        fields,
+        shouldUseNativeValidation,
+      },
+    );
+
+    expect(result).toMatchSnapshot();
+  });
+
+  /**
+   * Type inference tests
+   */
+  it('should correctly infer the output type from a standardSchema schema', () => {
+    const resolver = standardSchemaResolver(z.object({ id: z.number() }));
+
+    expectTypeOf(resolver).toEqualTypeOf<
+      Resolver<{ id: number }, unknown, { id: number }>
+    >();
+  });
+
+  it('should correctly infer the output type from a standardSchema schema using a transform', () => {
+    const resolver = standardSchemaResolver(
+      z.object({ id: z.number().transform((val) => String(val)) }),
+    );
+
+    expectTypeOf(resolver).toEqualTypeOf<
+      Resolver<{ id: number }, unknown, { id: string }>
+    >();
+  });
+
+  it('should correctly infer the output type from a standardSchema schema when a different input type is specified', () => {
+    const schema = z.object({ id: z.number() }).transform(({ id }) => {
+      return { id: String(id) };
+    });
+
+    const resolver = standardSchemaResolver<
+      { id: number },
+      any,
+      z.output<typeof schema>
+    >(schema);
+
+    expectTypeOf(resolver).toEqualTypeOf<
+      Resolver<{ id: number }, any, { id: string }>
+    >();
+  });
+
+  it('should correctly infer the output type from a standardSchema schema for the handleSubmit function in useForm', () => {
+    const schema = z.object({ id: z.number() });
+
+    const form = useForm({
+      resolver: standardSchemaResolver(schema),
+      defaultValues: {
+        id: 3,
+      },
+    });
+
+    expectTypeOf(form.watch('id')).toEqualTypeOf<number>();
+
+    expectTypeOf(form.handleSubmit).parameter(0).toEqualTypeOf<
+      SubmitHandler<{
+        id: number;
+      }>
+    >();
+  });
+
+  it('should correctly infer the output type from a standardSchema schema with a transform for the handleSubmit function in useForm', () => {
+    const schema = z.object({ id: z.number().transform((val) => String(val)) });
+
+    const form = useForm({
+      resolver: standardSchemaResolver(schema),
+      defaultValues: {
+        id: 3,
+      },
+    });
+
+    expectTypeOf(form.watch('id')).toEqualTypeOf<number>();
+
+    expectTypeOf(form.handleSubmit).parameter(0).toEqualTypeOf<
+      SubmitHandler<{
+        id: string;
+      }>
+    >();
+  });
+});

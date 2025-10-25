@@ -1,4 +1,8 @@
-import type * as errors from "../core/errors.cjs";
-export default function (): {
-    localeError: errors.$ZodErrorMap;
-};
+import type { Locale } from "./types.js";
+/**
+ * @category Locales
+ * @summary Azerbaijani locale.
+ * @language Azerbaijani
+ * @iso-639-2 aze
+ */
+export declare const az: Locale;

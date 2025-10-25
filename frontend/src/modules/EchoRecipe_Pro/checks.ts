@@ -1,10 +1,8 @@
 export {
   _lt as lt,
   _lte as lte,
-  _lte as maximum,
   _gt as gt,
   _gte as gte,
-  _gte as minimum,
   _positive as positive,
   _negative as negative,
   _nonpositive as nonpositive,

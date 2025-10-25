@@ -1,5 +1,5 @@
 import { expect, expectTypeOf, test } from "vitest";
-import * as z from "zod/v4-mini";
+import * as z from "zod/v4";
 import type { util } from "zod/v4/core";
 
 test("z.boolean", () => {
@@ -266,6 +266,7 @@ test("z.tuple", () => {
   const c = z.tuple(cArgs, z.boolean());
   type c = z.output<typeof c>;
   expectTypeOf<c>().toEqualTypeOf<[string, number, string?, ...boolean[]]>();
+  // type c = z.output<typeof c>;
 });
 
 test("z.record", () => {
@@ -296,6 +297,11 @@ test("z.record", () => {
   expect(() => z.parse(c, { a: "hello", b: "world" })).toThrow();
   // extra keys
   expect(() => z.parse(c, { a: "hello", b: "world", c: "world", d: "world" })).toThrow();
+
+  // partial enum
+  const d = z.record(z.enum(["a", "b"]).or(z.never()), z.string());
+  type d = z.output<typeof d>;
+  expectTypeOf<d>().toEqualTypeOf<Record<"a" | "b", string>>();
 });
 
 test("z.map", () => {
@@ -370,10 +376,10 @@ test("z.enum", () => {
   expect(() => z.parse(a, "D")).toThrow();
   expect(() => z.parse(a, 123)).toThrow();
 
-  // expect(a.enum.A).toEqual("A");
-  // expect(a.enum.B).toEqual("B");
-  // expect(a.enum.C).toEqual("C");
-  // expect((a.enum as any).D).toEqual(undefined);
+  expect(a.enum.A).toEqual("A");
+  expect(a.enum.B).toEqual("B");
+  expect(a.enum.C).toEqual("C");
+  expect((a.enum as any).D).toEqual(undefined);
 });
 
 test("z.enum - native", () => {
@@ -393,9 +399,9 @@ test("z.enum - native", () => {
 
   // test a.enum
   a;
-  // expect(a.enum.A).toEqual(NativeEnum.A);
-  // expect(a.enum.B).toEqual(NativeEnum.B);
-  // expect(a.enum.C).toEqual(NativeEnum.C);
+  expect(a.enum.A).toEqual(NativeEnum.A);
+  expect(a.enum.B).toEqual(NativeEnum.B);
+  expect(a.enum.C).toEqual(NativeEnum.C);
 });
 
 test("z.nativeEnum", () => {
@@ -415,9 +421,9 @@ test("z.nativeEnum", () => {
 
   // test a.enum
   a;
-  // expect(a.enum.A).toEqual(NativeEnum.A);
-  // expect(a.enum.B).toEqual(NativeEnum.B);
-  // expect(a.enum.C).toEqual(NativeEnum.C);
+  expect(a.enum.A).toEqual(NativeEnum.A);
+  expect(a.enum.B).toEqual(NativeEnum.B);
+  expect(a.enum.C).toEqual(NativeEnum.C);
 });
 
 test("z.literal", () => {
@@ -427,8 +433,6 @@ test("z.literal", () => {
   expect(z.parse(a, "hello")).toEqual("hello");
   expect(() => z.parse(a, "world")).toThrow();
   expect(() => z.parse(a, 123)).toThrow();
-
-  z.literal(["adf"] as const);
 });
 
 test("z.file", () => {
@@ -612,22 +616,22 @@ test("z.templateLiteral", () => {
 });
 
 // this returns both a schema and a check
-test("z.custom", () => {
+test("z.custom schema", () => {
   const a = z.custom((val) => {
     return typeof val === "string";
   });
   expect(z.parse(a, "hello")).toEqual("hello");
   expect(() => z.parse(a, 123)).toThrow();
+});
 
-  const b = z.string().check(z.custom((val) => val.length > 3));
-
-  expect(z.parse(b, "hello")).toEqual("hello");
-  expect(() => z.parse(b, "hi")).toThrow();
+test("z.custom check", () => {
+  // @ts-expect-error Inference not possible, use z.refine()
+  z.date().check(z.custom((val) => val.getTime() > 0));
 });
 
 test("z.check", () => {
   // this is a more flexible version of z.custom that accepts an arbitrary _parse logic
-  // the function should return core.$ZodResult
+  // the function should return base.$ZodResult
   const a = z.any().check(
     z.check<string>((ctx) => {
       if (typeof ctx.value === "string") return;
@@ -722,8 +726,6 @@ test("z.lazy", () => {
 test("z.json", () => {
   const a = z.json();
   type a = z.output<typeof a>;
-  a._zod.output;
-
   expectTypeOf<a>().toEqualTypeOf<util.JSONType>();
 
   expect(z.parse(a, "hello")).toEqual("hello");
@@ -743,48 +745,6 @@ test("z.json", () => {
   expect(() => z.parse(a, { a: undefined })).toThrow();
 });
 
-test("z.stringbool", () => {
-  const a = z.stringbool();
-
-  expect(z.parse(a, "true")).toEqual(true);
-  expect(z.parse(a, "yes")).toEqual(true);
-  expect(z.parse(a, "1")).toEqual(true);
-  expect(z.parse(a, "on")).toEqual(true);
-  expect(z.parse(a, "y")).toEqual(true);
-  expect(z.parse(a, "enabled")).toEqual(true);
-  expect(z.parse(a, "TRUE")).toEqual(true);
-
-  expect(z.parse(a, "false")).toEqual(false);
-  expect(z.parse(a, "no")).toEqual(false);
-  expect(z.parse(a, "0")).toEqual(false);
-  expect(z.parse(a, "off")).toEqual(false);
-  expect(z.parse(a, "n")).toEqual(false);
-  expect(z.parse(a, "disabled")).toEqual(false);
-  expect(z.parse(a, "FALSE")).toEqual(false);
-
-  expect(z.safeParse(a, "other")).toMatchObject({ success: false });
-  expect(z.safeParse(a, "")).toMatchObject({ success: false });
-  expect(z.safeParse(a, undefined)).toMatchObject({ success: false });
-  expect(z.safeParse(a, {})).toMatchObject({ success: false });
-  expect(z.safeParse(a, true)).toMatchObject({ success: false });
-  expect(z.safeParse(a, false)).toMatchObject({ success: false });
-
-  const b = z.stringbool({
-    truthy: ["y"],
-    falsy: ["n"],
-  });
-  expect(z.parse(b, "y")).toEqual(true);
-  expect(z.parse(b, "n")).toEqual(false);
-  expect(z.safeParse(b, "true")).toMatchObject({ success: false });
-  expect(z.safeParse(b, "false")).toMatchObject({ success: false });
-
-  const c = z.stringbool({
-    case: "sensitive",
-  });
-  expect(z.parse(c, "true")).toEqual(true);
-  expect(z.safeParse(c, "TRUE")).toMatchObject({ success: false });
-});
-
 // promise
 test("z.promise", async () => {
   const a = z.promise(z.string());
@@ -802,7 +762,6 @@ test("z.promise", async () => {
   const b = z.string();
   expect(() => z.parse(b, Promise.resolve("hello"))).toThrow();
 });
-
 // test("type assertions", () => {
 //   const schema = z.pipe(
 //     z.string(),
@@ -817,27 +776,27 @@ test("z.promise", async () => {
 //   schema.assertOutput<string>();
 // });
 
-test("z.pipe type enforcement", () => {
-  z.pipe(
-    z.pipe(
-      z.string().check(z.regex(/asdf/)),
-      z.transform((v) => new Date(v))
-    ),
-    z.date().check(z.maximum(new Date()))
-  );
+test("isPlainObject", () => {
+  expect(z.core.util.isPlainObject({})).toEqual(true);
+  expect(z.core.util.isPlainObject(Object.create(null))).toEqual(true);
+  expect(z.core.util.isPlainObject([])).toEqual(false);
+  expect(z.core.util.isPlainObject(new Date())).toEqual(false);
+  expect(z.core.util.isPlainObject(null)).toEqual(false);
+  expect(z.core.util.isPlainObject(undefined)).toEqual(false);
+  expect(z.core.util.isPlainObject("string")).toEqual(false);
+  expect(z.core.util.isPlainObject(123)).toEqual(false);
+  expect(z.core.util.isPlainObject(Symbol())).toEqual(false);
 });
 
 test("def typing", () => {
   z.string().def.type satisfies "string";
-  z.email().def.format satisfies "email";
   z.number().def.type satisfies "number";
-  z.float64().def.format satisfies z.core.$ZodNumberFormats;
   z.bigint().def.type satisfies "bigint";
   z.boolean().def.type satisfies "boolean";
   z.date().def.type satisfies "date";
   z.symbol().def.type satisfies "symbol";
   z.undefined().def.type satisfies "undefined";
-  z.nullable(z.string()).def.type satisfies "nullable";
+  z.string().nullable().def.type satisfies "nullable";
   z.null().def.type satisfies "null";
   z.any().def.type satisfies "any";
   z.unknown().def.type satisfies "unknown";
@@ -852,20 +811,19 @@ test("def typing", () => {
   z.map(z.string(), z.number()).def.type satisfies "map";
   z.set(z.string()).def.type satisfies "set";
   z.literal("example").def.type satisfies "literal";
-  expectTypeOf(z.literal("example").def.values).toEqualTypeOf<"example"[]>();
   z.enum(["a", "b", "c"]).def.type satisfies "enum";
   z.promise(z.string()).def.type satisfies "promise";
   z.lazy(() => z.string()).def.type satisfies "lazy";
-  z.optional(z.string()).def.type satisfies "optional";
-  z._default(z.string(), "default").def.type satisfies "default";
+  z.string().optional().def.type satisfies "optional";
+  z.string().default("default").def.type satisfies "default";
   z.templateLiteral([z.literal("a"), z.literal("b")]).def.type satisfies "template_literal";
   z.custom<string>((val) => typeof val === "string").def.type satisfies "custom";
   z.transform((val) => val as string).def.type satisfies "transform";
-  z.nonoptional(z.string()).def.type satisfies "nonoptional";
-  z.readonly(z.unknown()).def.type satisfies "readonly";
+  z.string().optional().nonoptional().def.type satisfies "nonoptional";
+  z.object({ key: z.string() }).readonly().def.type satisfies "readonly";
   z.nan().def.type satisfies "nan";
-  z.pipe(z.unknown(), z.number()).def.type satisfies "pipe";
+  z.unknown().pipe(z.number()).def.type satisfies "pipe";
   z.success(z.string()).def.type satisfies "success";
-  z.catch(z.string(), "fallback").def.type satisfies "catch";
+  z.string().catch("fallback").def.type satisfies "catch";
   z.file().def.type satisfies "file";
 });
