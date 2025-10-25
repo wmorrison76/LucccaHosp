@@ -9,19 +9,10 @@ export default function Schedule() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    // Load Builder.io's RenderContent script if not already present
-    if (!window.builderContentLoaded) {
-      const script = document.createElement('script');
-      script.src = 'https://cdn.builder.io/js/react';
-      script.async = true;
-      script.onload = () => {
-        window.builderContentLoaded = true;
-        renderSchedule();
-      };
-      document.head.appendChild(script);
-    } else {
-      renderSchedule();
-    }
+    // DISABLED: Builder.io SDK loading causing timeout errors
+    // The Schedule component requires Builder.io connectivity
+    // Re-enable after Builder.io API is available and responsive
+    console.log('[Schedule] Builder.io integration disabled - waiting for API availability');
   }, []);
 
   const renderSchedule = () => {
