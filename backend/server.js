@@ -19,9 +19,6 @@ import { initializeSocketServer } from './services/socketService.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Increase Node.js limits for massive folder uploads (454MB+ EchoRecipePro)
-process.env.NODE_OPTIONS = '--max-http-header-size=16384 --max-old-space-size=4096';
-
 const app = express();
 
 // Increase request timeout to 60 minutes to accommodate massive folder uploads (50k+ files)
