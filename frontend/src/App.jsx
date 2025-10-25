@@ -1,60 +1,102 @@
-import React, { lazy, Suspense, useEffect, useState, useCallback } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import Sidebar from "./components/Sidebar.jsx";
-import Board from "./board/Board.jsx";
-import { PresenceProvider, MultiCursorOverlay } from "./framework/presence/PresenceProvider";
-import { TelemetryOverlay } from "./framework/telemetry/TelemetryOverlay";
-import { RescueShell } from "./framework/errors/RescueShell";
-import { CommandPalette } from "./framework/command/CommandPalette";
+import React, { useState, useCallback, Suspense, useEffect } from "react";
+import { ThemeAndLanguageProvider } from "./hooks/useThemeAndLanguage";
 
-const Culinary     = lazy(() => import("./components/KitchenLibraryTabs.jsx"));
-const BakingPastry = lazy(() => import("./components/PastryLibrary/PastryLibrary.jsx"));
-const Mixology     = lazy(() => import("./components/MixologyTabs.jsx"));
-const Scheduling   = lazy(() => import("./modules/scheduling/client/App.tsx"));
-const EchoBuilder  = lazy(() => import("./modules/EchoBuilder/EchoBuilder.jsx"));
+const Sidebar = React.lazy(() => import("./components/Sidebar.jsx"));
+const Board = React.lazy(() => import("./board/Board.jsx"));
 
-const REAL_DASHBOARD_PATH = "/whiteboard";
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error("App Error:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "#0f1c2e",
+          color: "#f87171",
+          fontFamily: "system-ui, sans-serif",
+          flexDirection: "column",
+          gap: "16px",
+          padding: "20px"
+        }}>
+          <div style={{ fontSize: "18px", fontWeight: "bold" }}>Application Error</div>
+          <pre style={{
+            maxWidth: "600px",
+            padding: "12px",
+            backgroundColor: "#1f2937",
+            borderRadius: "4px",
+            overflow: "auto",
+            fontSize: "12px"
+          }}>
+            {String(this.state.error?.message || this.state.error)}
+          </pre>
+          <button
+            onClick={() => window.location.reload()}
+            style={{
+              padding: "8px 16px",
+              backgroundColor: "#3b82f6",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer"
+            }}
+          >
+            Reload Page
+          </button>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
 
 export default function App() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false); // Start sidebar CLOSED
   const [isDark, setIsDark] = useState(true);
 
   const toggleSidebar = useCallback(() => setIsOpen(v => !v), []);
   const toggleDark = useCallback(() => setIsDark(v => !v), []);
 
-  const fallback = <div className="p-6 text-gray-400">Loading…</div>;
-
-  useEffect(() => { document.title = "LUCCCA | Unified Dashboard"; }, []);
-
   return (
-    <PresenceProvider>
-      <CommandPalette />
-      <RescueShell>
-        <div className={`flex h-screen w-screen ${isDark ? "bg-slate-900 text-white" : "bg-white text-slate-900"}`}>
-          <Sidebar
-            isOpen={isOpen}
-            toggleSidebar={toggleSidebar}
-            isDarkMode={isDark}
-            toggleDarkMode={toggleDark}
-          />
-          <main className="flex-1 overflow-hidden">
-            <Suspense fallback={fallback}>
-              <Routes>
-                <Route path="/" element={<Navigate to={REAL_DASHBOARD_PATH} replace />} />
-                <Route path={REAL_DASHBOARD_PATH} element={<Board />} />
-                <Route path="/kitchen-library" element={<Culinary />} />
-                <Route path="/baking-pastry" element={<BakingPastry />} />
-                <Route path="/mixology" element={<Mixology />} />
-                <Route path="/schedules" element={<Scheduling />} />
-                <Route path="/builder" element={<EchoBuilder />} />
-                <Route path="*" element={<Navigate to={REAL_DASHBOARD_PATH} replace />} />
-              </Routes>
+    <ThemeAndLanguageProvider>
+      <ErrorBoundary>
+        <div className={isDark ? "dark" : "light"} style={{ display: "flex", width: "100vw", height: "100vh", margin: 0, padding: 0, fontFamily: "system-ui, sans-serif" }}>
+          <Suspense fallback={<div style={{ width: "45px", flexShrink: 0 }} />}>
+            <Sidebar
+              isOpen={isOpen}
+              toggleSidebar={toggleSidebar}
+              isDarkMode={isDark}
+              toggleDarkMode={toggleDark}
+            />
+          </Suspense>
+
+          <main style={{ flex: 1, overflow: "hidden", position: "relative", zIndex: 1, width: "100%", height: "100%" }}>
+            <Suspense fallback={
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%", fontSize: "16px" }}>
+                Loading dashboard...
+              </div>
+            }>
+              <Board />
             </Suspense>
           </main>
         </div>
-        <TelemetryOverlay />
-      </RescueShell>
-      <MultiCursorOverlay />
-    </PresenceProvider>
+      </ErrorBoundary>
+    </ThemeAndLanguageProvider>
   );
 }

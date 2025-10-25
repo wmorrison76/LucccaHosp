@@ -1,0 +1,245 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   MODERN SAAS THEME - APPLE GLASS (LIGHT) & TRON NEON (DARK)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Root theme variables */
+:root {
+    /* Light mode (default) - Apple polished glass */
+    --bg-primary: #ffffff;
+    --bg-secondary: rgba(255, 255, 255, 0.7);
+    --bg-tertiary: rgba(255, 255, 255, 0.5);
+    
+    --text-primary: #1f2937;
+    --text-secondary: #374151;
+    --text-tertiary: #6b7280;
+    
+    --border-light: rgba(0, 0, 0, 0.06);
+    --border-medium: rgba(0, 0, 0, 0.12);
+    --border-dark: rgba(0, 0, 0, 0.15);
+    
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.15);
+    
+    --accent-primary: #1f2937;
+    --accent-secondary: #374151;
+    
+    --glass-blur: 20px;
+    --glass-opacity: 0.7;
+  }
+
+  /* Dark mode - TRON neon futuristic */
+  :root.dark {
+    --bg-primary: #0a1420;
+    --bg-secondary: rgba(10, 20, 35, 0.85);
+    --bg-tertiary: rgba(10, 20, 35, 0.7);
+    
+    --text-primary: #e0f2fe;
+    --text-secondary: #b0e0ff;
+    --text-tertiary: #7ff3ff;
+    
+    --border-light: rgba(0, 217, 255, 0.15);
+    --border-medium: rgba(0, 217, 255, 0.3);
+    --border-dark: rgba(0, 217, 255, 0.5);
+    
+    --shadow-sm: 0 0 12px rgba(0, 217, 255, 0.15);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 217, 255, 0.2);
+    --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 32px rgba(0, 217, 255, 0.25);
+    
+    --accent-primary: #00d9ff;
+    --accent-secondary: #7ff3ff;
+    
+    --glass-blur: 12px;
+    --glass-opacity: 0.85;
+  }
+
+/* ���══════════════════════════════════════════════════════════════════════════
+   GENERAL PANEL & CONTAINER STYLING
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.panel,
+[class*="panel"],
+[class*="card"],
+[class*="container"] {
+  border-radius: 14px;
+  border: 1px solid var(--border-light);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.panel {
+  background: var(--bg-secondary);
+  backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--shadow-md);
+}
+
+.panel:hover {
+  border-color: var(--border-medium);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BUTTON STYLING
+   ═════════════════════════════════════════════════════════���═════════════════ */
+
+button,
+input[type="button"],
+input[type="submit"],
+[role="button"] {
+  border-radius: 8px;
+  border: 1px solid var(--border-light);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  transition: all 0.15s ease;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+[role="button"]:hover {
+  border-color: var(--border-medium);
+  background: var(--bg-secondary);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+button:active,
+input[type="button"]:active,
+input[type="submit"]:active,
+[role="button"]:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ═══════════════════════════════════��═══════════════════════════════════════
+   INPUT STYLING
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+textarea,
+select {
+  border-radius: 8px;
+  border: 1px solid var(--border-light);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 8px 12px;
+  transition: all 0.15s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--border-dark);
+  box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCROLLBAR STYLING
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-dark);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-medium) transparent;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ANIMATIONS & TRANSITIONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Smooth transitions */
+  * {
+    transition-property: background-color, border-color, box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.2s;
+  }
+  
+  /* Hover animation for interactive elements */
+  button,
+  a,
+  [role="button"],
+  [role="menuitem"],
+  input[type="checkbox"],
+  input[type="radio"] {
+    transition-duration: 0.15s;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.glass {
+  background: var(--bg-secondary);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+}
+
+.glass-sm {
+  background: var(--bg-tertiary);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE & ACCESSIBILITY
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}
+
+/* Focus visible for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+:root.dark :focus-visible {
+  outline-color: var(--accent-primary);
+}

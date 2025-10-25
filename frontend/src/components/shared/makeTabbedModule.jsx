@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import DoubleTabs from "../shared/DoubleTabs.jsx";
+import DoubleTabs from "./DoubleTabs.jsx";
 
 /**
  * makeTabbedModule(config) ➜ returns a React component with:

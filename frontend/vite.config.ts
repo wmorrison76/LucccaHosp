@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 export default defineConfig(({ mode }) => ({
@@ -29,6 +29,22 @@ export default defineConfig(({ mode }) => ({
               "default-src * 'unsafe-inline' 'unsafe-eval' blob: data:;",
           }
         : {},
+
+    // Proxy API calls to backend with extended timeout for large uploads
+    proxy: {
+      "/api": {
+        target: "http://localhost:3001",
+        changeOrigin: true,
+        rewrite: (path) => path,
+        proxyTimeout: 120 * 60 * 1000, // 120 minutes for massive uploads
+        timeout: 120 * 60 * 1000, // 120 minutes
+      },
+    },
+  },
+
+  // Watch options - ignore modules folder to prevent reload during uploads
+  watch: {
+    ignored: ['**/node_modules/**', '**/src/modules/**']
   },
 
   // Optional build options (production tightening)

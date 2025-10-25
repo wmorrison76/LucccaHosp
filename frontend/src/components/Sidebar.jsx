@@ -1,26 +1,341 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { Menu, Sun, Moon, Clock3, Settings as Cog } from "lucide-react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
+import { Menu, Sun, Moon, LayoutDashboard, Zap, Gauge, Sparkles, Layout, Utensils, Cake, Wine, Calendar, Package, BarChart3, Users, Headphones, Settings } from "lucide-react";
 
-import dashboardIcon from "../assets/analytics.png";
-import kitchenIcon   from "../assets/culinary_library.png";
-import pastryIcon    from "../assets/baking-&-Pastry.png";
-import mixologyIcon  from "../assets/mixology.png";
-import inventoryIcon from "../assets/food_inventory.png";
-import LUCCCA_ECHO   from "../assets/LUCCCA_ECHO.png";
-import crmIcon       from "../assets/CRM.png";
-import scheduleIcon  from "../assets/schedule.png";
-import supportIcon   from "../assets/help-desk.png";
-import settingsIcon  from "../assets/settings.png";
-import chefNetIcon   from "../assets/ChefNet.png";
-import maestroBQT    from "../assets/MaestroBQT.png";
+// Map icon keys to lucide icons for fallback
+const lucideIcons = {
+  dashboard: LayoutDashboard,
+  eventStudio: Zap,
+  maestro: Gauge,
+  echoAurum: Sparkles,
+  echoLayout: Layout,
+  culinary: Utensils,
+  pastry: Cake,
+  mixology: Wine,
+  schedule: Calendar,
+  inventory: Package,
+  crm: BarChart3,
+  chefNet: Users,
+  support: Headphones,
+  settings: Settings,
+};
 
-const EVENT_STUDIO_URL =
-  (import.meta?.env?.VITE_EVENT_STUDIO_URL) || "http://localhost:8080";
+// Icon URLs using Vite asset resolution
+const iconUrls = {
+  dashboard: new URL("../assets/analytics.png", import.meta.url).href,
+  eventStudio: new URL("../assets/LUCCCA_ECHO.png", import.meta.url).href,
+  maestro: new URL("../assets/MaestroBQT.png", import.meta.url).href,
+  echoAurum: new URL("../assets/Echo-Ai.png", import.meta.url).href,
+  echoLayout: new URL("../assets/Echo_F.png", import.meta.url).href,
+  culinary: new URL("../assets/culinary_library.png", import.meta.url).href,
+  pastry: new URL("../assets/baking-&-Pastry.png", import.meta.url).href,
+  mixology: new URL("../assets/mixology.png", import.meta.url).href,
+  schedule: new URL("../assets/schedule.png", import.meta.url).href,
+  inventory: new URL("../assets/food_inventory.png", import.meta.url).href,
+  crm: new URL("../assets/CRM.png", import.meta.url).href,
+  chefNet: new URL("../assets/ChefNet.png", import.meta.url).href,
+  support: new URL("../assets/help-desk.png", import.meta.url).href,
+  settings: new URL("../assets/settings.png", import.meta.url).href,
+  logo: new URL("../assets/LUCCCA_Vertical_Inline.png", import.meta.url).href,
+};
 
-function openEventStudioWindow() {
-  try { window.open(EVENT_STUDIO_URL, "_blank", "noopener,noreferrer"); }
-  catch (e) { console.error("[Sidebar] Event Studio window failed:", e); }
+// Module Upload Component
+function ModuleUploadZone({ isDarkMode }) {
+  const [isDragging, setIsDragging] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [message, setMessage] = useState('');
+  const inputRef = useRef(null);
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+
+    // Handle folder drop
+    const items = e.dataTransfer.items;
+    if (items) {
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].webkitGetAsEntry().isDirectory) {
+          const entry = items[i].webkitGetAsEntry();
+          uploadFolder(entry);
+          return;
+        }
+      }
+    }
+
+    setMessage('⚠️ Please drop a folder');
+  };
+
+  const handleFolderSelect = async (e) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length > 0) {
+      // Extract folder name from first file path
+      const firstFilePath = files[0].webkitRelativePath || files[0].name;
+      const folderName = firstFilePath.split('/')[0];
+      uploadFolder(null, folderName, files);
+    }
+  };
+
+  const uploadFolder = async (folderEntry = null, folderName = null, files = null) => {
+    const displayName = folderName || folderEntry?.name || 'Module';
+    setIsUploading(true);
+
+    const totalSize = files?.reduce((sum, f) => sum + f.size, 0) || 0;
+    const totalMB = (totalSize / 1024 / 1024).toFixed(1);
+    const totalFiles = files?.length || 0;
+
+    console.log(`[UPLOAD] Folder: ${displayName}, Files: ${totalFiles}, Size: ${totalMB}MB`);
+    setMessage(`⏳ Uploading ${displayName} (${totalFiles} files, ${totalMB}MB)...`);
+
+    window.dispatchEvent(new CustomEvent('module-upload-start', {
+      detail: { fileName: displayName, fileSize: totalSize, fileCount: totalFiles }
+    }));
+
+    try {
+      const uploadUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? `http://localhost:3001/api/modules/upload-folder`
+        : `/api/modules/upload-folder`;
+
+      let filesToUpload = [];
+
+      if (files && files.length > 0) {
+        // Input files already have webkitRelativePath
+        filesToUpload = Array.from(files);
+      } else if (folderEntry) {
+        filesToUpload = await readFolderToArray(folderEntry, '');
+      }
+
+      const BATCH_SIZE = 500;
+      const batches = [];
+      for (let i = 0; i < filesToUpload.length; i += BATCH_SIZE) {
+        batches.push(filesToUpload.slice(i, i + BATCH_SIZE));
+      }
+
+      console.log(`[UPLOAD] Uploading in ${batches.length} batches of max ${BATCH_SIZE} files`);
+
+      for (let batchIndex = 0; batchIndex < batches.length; batchIndex++) {
+        const batch = batches[batchIndex];
+        const batchNum = batchIndex + 1;
+        const isFirstBatch = batchIndex === 0;
+        const isLastBatch = batchIndex === batches.length - 1;
+
+        console.log(`[UPLOAD] Batch ${batchNum}/${batches.length}: ${batch.length} files`);
+        setMessage(`⏳ Uploading ${displayName} (batch ${batchNum}/${batches.length})...`);
+
+        const formData = new FormData();
+        formData.append('folderName', displayName);
+        formData.append('isFirstBatch', isFirstBatch);
+        formData.append('isLastBatch', isLastBatch);
+        formData.append('batchNumber', batchNum);
+        formData.append('totalBatches', batches.length);
+
+        batch.forEach((item) => {
+          // Handle both File objects (from input) and {file, relativePath} objects (from drag-drop)
+          const file = item.file || item;
+          formData.append('files', file);
+        });
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15 * 60 * 1000);
+
+        try {
+          const response = await fetch(uploadUrl, {
+            method: 'POST',
+            body: formData,
+            signal: controller.signal
+          });
+
+          clearTimeout(timeoutId);
+
+          if (!response.ok) {
+            let errorData;
+            try {
+              errorData = await response.json();
+            } catch {
+              errorData = { message: response.statusText };
+            }
+            throw new Error(`Batch ${batchNum}: ${errorData.message || response.statusText}`);
+          }
+
+          await response.json();
+          console.log(`[UPLOAD] Batch ${batchNum} complete`);
+        } catch (batchError) {
+          throw new Error(`Batch ${batchNum}/${batches.length} failed: ${batchError.message}`);
+        }
+      }
+
+      const finalFormData = new FormData();
+      finalFormData.append('folderName', displayName);
+      finalFormData.append('finalize', 'true');
+
+      const finalController = new AbortController();
+      const finalTimeoutId = setTimeout(() => finalController.abort(), 10 * 60 * 1000);
+
+      const finalResponse = await fetch(uploadUrl, {
+        method: 'POST',
+        body: finalFormData,
+        signal: finalController.signal
+      });
+
+      clearTimeout(finalTimeoutId);
+
+      if (!finalResponse.ok) {
+        let errorData;
+        try {
+          errorData = await finalResponse.json();
+        } catch {
+          errorData = { message: finalResponse.statusText };
+        }
+        throw new Error(errorData.message || `Finalization failed`);
+      }
+
+      const data = await finalResponse.json();
+
+      if (data.success) {
+        setMessage(`✅ ${data.moduleName} loaded!`);
+        console.log(`[UPLOAD] Success: ${data.moduleName}`);
+
+        window.dispatchEvent(new CustomEvent('module-upload-complete', {
+          detail: { moduleName: data.moduleName, success: true }
+        }));
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      } else {
+        setMessage(`❌ Error: ${data.message}`);
+        window.dispatchEvent(new CustomEvent('module-upload-complete', {
+          detail: { moduleName: displayName, success: false, error: data.message }
+        }));
+      }
+    } catch (error) {
+      const errorMsg = error.name === 'AbortError'
+        ? 'Upload timeout. Check network and try again.'
+        : error.message;
+      setMessage(`❌ ${errorMsg}`);
+      console.error(`[UPLOAD] Failed:`, errorMsg);
+
+      window.dispatchEvent(new CustomEvent('module-upload-complete', {
+        detail: { moduleName: displayName, success: false, error: errorMsg }
+      }));
+    } finally {
+      setIsUploading(false);
+      setTimeout(() => {
+        setMessage('');
+      }, 5000);
+    }
+  };
+
+  const readFolderToArray = async (entry, path) => {
+    const files = [];
+    if (entry.isFile) {
+      const file = await new Promise((resolve, reject) => {
+        entry.file(resolve, reject);
+      });
+      // Don't modify file object - use webkitRelativePath if available, else use constructed path
+      // The webkitRelativePath property is read-only, so we can't set it
+      files.push({
+        file,
+        relativePath: file.webkitRelativePath || (path + file.name)
+      });
+    } else if (entry.isDirectory) {
+      const reader = entry.createReader();
+      const entries = await new Promise((resolve, reject) => {
+        reader.readEntries(resolve, reject);
+      });
+      for (const childEntry of entries) {
+        const childFiles = await readFolderToArray(childEntry, path + entry.name + '/');
+        files.push(...childFiles);
+      }
+    }
+    return files;
+  };
+
+  // Helper to recursively read folder entries (for drag-and-drop support)
+  const readFolderRecursive = async (entry, formData, path) => {
+    if (entry.isFile) {
+      const file = await new Promise((resolve, reject) => {
+        entry.file(resolve, reject);
+      });
+      formData.append('files', file);
+      console.log(`[UPLOAD] Added file via drag-drop: ${path}${file.name}`);
+    } else if (entry.isDirectory) {
+      const reader = entry.createReader();
+      const entries = await new Promise((resolve, reject) => {
+        reader.readEntries(resolve, reject);
+      });
+
+      for (const childEntry of entries) {
+        await readFolderRecursive(childEntry, formData, path + entry.name + '/');
+      }
+    }
+  };
+
+  return (
+    <div>
+      <div
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        onClick={() => inputRef.current?.click()}
+        style={{
+          border: isDragging
+            ? isDarkMode ? '2px dashed rgba(0, 217, 255, 0.6)' : '2px dashed rgba(0, 0, 0, 0.3)'
+            : isDarkMode ? '1px dashed rgba(0, 217, 255, 0.3)' : '1px dashed rgba(0, 0, 0, 0.2)',
+          borderRadius: '6px',
+          padding: '12px',
+          textAlign: 'center',
+          cursor: isUploading ? 'wait' : 'pointer',
+          backgroundColor: isDragging
+            ? isDarkMode ? 'rgba(0, 217, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)'
+            : 'transparent',
+          transition: 'all 0.2s',
+          opacity: isUploading ? 0.6 : 1
+        }}
+      >
+        <input
+          ref={inputRef}
+          type="file"
+          webkitdirectory="true"
+          mozdirectory="true"
+          directory="true"
+          onChange={handleFolderSelect}
+          style={{ display: 'none' }}
+          disabled={isUploading}
+        />
+        <p style={{
+          margin: 0,
+          fontSize: '11px',
+          fontWeight: '600',
+          color: isDarkMode ? '#7ff3ff' : '#1e293b',
+          textTransform: 'uppercase',
+          letterSpacing: '0.3px'
+        }}>
+          {isUploading ? '⏳ Uploading...' : '📁 Drop Folder'}
+        </p>
+      </div>
+      {message && (
+        <p style={{
+          margin: '8px 0 0 0',
+          fontSize: '11px',
+          color: message.includes('✅') ? '#10b981' : message.includes('⚠️') ? '#f59e0b' : '#ef4444',
+          textAlign: 'center',
+          fontWeight: '500'
+        }}>
+          {message}
+        </p>
+      )}
+    </div>
+  );
 }
 
 export default function Sidebar({
@@ -29,194 +344,342 @@ export default function Sidebar({
   isDarkMode: pDark,
   toggleDarkMode: pToggleDark
 }) {
-  const [localOpen, setLocalOpen]  = useState(true);
-  const [localDark, setLocalDark]  = useState(() => document.documentElement.classList.contains("dark"));
+  const sidebarRef = useRef(null);
+  const [localOpen, setLocalOpen] = useState(false); // Start CLOSED
+  const [localDark, setLocalDark] = useState(() =>
+    document.documentElement.classList.contains("dark")
+  );
 
-  const isOpen        = pOpen   ?? localOpen;
+  const isOpen = pOpen ?? localOpen;
   const toggleSidebar = pToggle ?? (() => setLocalOpen(v => !v));
-  const isDarkMode    = pDark   ?? localDark;
+  const isDarkMode = pDark ?? localDark;
   const toggleDarkMode = pToggleDark ?? (() => {
     const next = !localDark;
     setLocalDark(next);
     document.documentElement.classList.toggle("dark", next);
-    // persist via the same bus App listens to
     window.dispatchEvent(new CustomEvent("lu:settings:apply", { detail: { flags: { dark: next } } }));
   });
 
-  // collapsed/expanded width
-  const W_COLLAPSED = 62, W_EXPANDED = 214;
+  // Collapsed/expanded width
+  const W_COLLAPSED = 60;
+  const W_EXPANDED = 200;
   const widthPx = isOpen ? `${W_EXPANDED}px` : `${W_COLLAPSED}px`;
 
   useEffect(() => {
     document.body.classList.toggle("sb-collapsed", !isOpen);
   }, [isOpen]);
 
-  // open a Board panel by id
+  // Ensure sidebar stays closed when dashboard loads
+  useEffect(() => {
+    const handleDashboardLoad = () => {
+      setLocalOpen(false);
+    };
+
+    window.addEventListener('dashboard-ready', handleDashboardLoad);
+    return () => window.removeEventListener('dashboard-ready', handleDashboardLoad);
+  }, []);
+
+  // Open a Board panel by id
   const openPanel = (id, detail = {}) => {
     if (!id) return;
-    try { window.dispatchEvent(new CustomEvent("open-panel", { detail: { id, ...detail } })); }
+    try {
+      window.dispatchEvent(new CustomEvent("open-panel", { detail: { id, ...detail } }));
+      if (isOpen && window.innerWidth < 1024) {
+        setLocalOpen(false);
+      }
+    }
     catch (err) { console.error("[Sidebar] open-panel failed:", err); }
   };
 
-  // left column – panel buttons (no route change)
-  const panelModules = useMemo(() => [
-    { label: "DASHBOARD",         icon: dashboardIcon, panelId: "dashboard" },
-    { label: "ECHO EVENT STUDIO", icon: LUCCCA_ECHO,   panelId: "eventstudio" }, // external
-    { label: "MAESTRO BQT",       icon: maestroBQT,    panelId: "maestrobqt" },
-    { label: "CULINARY",          icon: kitchenIcon,   panelId: "culinary" },
-    { label: "BAKING & PASTRY",   icon: pastryIcon,    panelId: "pastry" },
-    { label: "MIXOLOGY",          icon: mixologyIcon,  panelId: "mixology" },
-    { label: "SCHEDULES",         icon: scheduleIcon,  panelId: "scheduling" },
-  ], []);
+  // Icon renderer - uses lucide-react icons
+  const IconRenderer = ({ iconKey, size = 28 }) => {
+    const IconComponent = lucideIcons[iconKey];
 
-  // examples that DO change the URL
-  const routeModules = useMemo(() => [
-    { path: "/inventory",   label: "INVENTORY",   icon: inventoryIcon },
-    { path: "/purchasing",  label: "PURCHASING",  icon: inventoryIcon },
-    { path: "/crm",         label: "CRM",         icon: crmIcon },
-  ], []);
+    if (IconComponent) {
+      return (
+        <IconComponent
+          size={size}
+          strokeWidth={1.5}
+          style={{ color: isDarkMode ? "#00d9ff" : "#1f2937", flexShrink: 0 }}
+        />
+      );
+    }
 
-  const bottomRoutes = useMemo(() => [
-    { path: "/chefnet",  label: "CHEFNET",  icon: chefNetIcon },
-    { path: "/support",  label: "SUPPORT",  icon: supportIcon },
-  ], []);
+    // Fallback letter
+    return (
+      <div style={{
+        width: `${size}px`,
+        height: `${size}px`,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "rgba(0, 217, 255, 0.15)",
+        borderRadius: "6px",
+        fontSize: "12px",
+        fontWeight: "bold",
+        color: "#00d9ff",
+        flexShrink: 0
+      }}>
+        ?
+      </div>
+    );
+  };
 
-  const itemClasses = (active = false) => [
-    isOpen ? "grid grid-cols-[44px_1fr]" : "grid grid-cols-[44px_0fr]",
-    "items-center rounded-xl px-0 py-2",
-    "bg-transparent border-0 ring-0 shadow-none",
-    "hover:bg-white/5 dark:hover:bg-cyan-400/10",
-    active ? "bg-white/6 dark:bg-cyan-500/10" : "",
-    "[box-shadow:none] [filter:none] transition-colors duration-150 w-full text-left"
-  ].join(" ");
+  // Safe image component - used for logo only
+  const SafeImage = ({ src, alt, size = 32 }) => {
+    const [hasError, setHasError] = useState(false);
 
-  const Label = ({ children }) => (
-    <span className={[
-      "text-[13px] uppercase whitespace-nowrap overflow-hidden text-ellipsis min-w-0",
-      isOpen ? "opacity-100 pr-1" : "opacity-0 pointer-events-none",
-      "transition-opacity duration-150",
-    ].join(" ")}>{children}</span>
-  );
+    if (hasError || !src) {
+      return (
+        <div style={{
+          width: `${size}px`,
+          height: `${size}px`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "rgba(0, 217, 255, 0.15)",
+          borderRadius: "6px",
+          fontSize: "14px",
+          fontWeight: "bold",
+          color: "#7ff3ff",
+          flexShrink: 0
+        }}>
+          {alt.charAt(0)}
+        </div>
+      );
+    }
+
+    return (
+      <img
+        src={src}
+        alt={alt}
+        style={{ width: `${size}px`, height: `${size}px`, objectFit: "contain", flexShrink: 0 }}
+        onError={() => {
+          console.warn(`[Sidebar] Could not load logo: ${alt}`);
+          setHasError(true);
+        }}
+      />
+    );
+  };
+
+  // Sidebar menu items with icon keys and panel IDs
+  const menuItems = [
+    { label: "DASHBOARD", iconKey: "dashboard", panelId: "dashboard" },
+    { label: "ECHO EVENT STUDIO", iconKey: "eventStudio", panelId: "eventstudio" },
+    { label: "MAESTRO BQT", iconKey: "maestro", panelId: "maestrobqt" },
+    { label: "ECHO AURUM", iconKey: "echoAurum", panelId: "echoaurum" },
+    { label: "ECHO LAYOUT", iconKey: "echoLayout", panelId: "echolayout" },
+    { label: "CULINARY", iconKey: "culinary", panelId: "culinary" },
+    { label: "BAKING & PASTRY", iconKey: "pastry", panelId: "pastry" },
+    { label: "MIXOLOGY", iconKey: "mixology", panelId: "mixology" },
+    { label: "SCHEDULES", iconKey: "schedule", panelId: "scheduling" },
+    { label: "INVENTORY", iconKey: "inventory", panelId: "purchasing" },
+    { label: "CRM", iconKey: "crm", panelId: "crm" },
+  ];
+
+  const bottomItems = [
+    { label: "CHEFNET", iconKey: "chefNet", panelId: "chefnet" },
+    { label: "SUPPORT", iconKey: "support", panelId: "support" },
+    { label: "SETTINGS", iconKey: "settings", panelId: "settings" },
+  ];
 
   return (
     <aside
+      ref={sidebarRef}
       aria-label="App sidebar"
       data-collapsed={!isOpen}
-      className="fixed top-0 left-0 h-screen z-[200000] transition-[width] duration-300 will-change-[width] pointer-events-none"
-      style={{ width: widthPx, minWidth: widthPx, flexBasis: widthPx }}
+      className="fixed top-0 left-0 h-screen z-[9999] transition-[width] duration-300"
+      style={{
+        width: widthPx,
+        minWidth: widthPx,
+        boxShadow: isDarkMode
+          ? "0 12px 48px rgba(0,0,0,0.6), 0 0 32px rgba(0,217,255,0.3), inset -1px 0 0 rgba(0,217,255,0.25)"
+          : "0 12px 36px rgba(0,0,0,0.18), inset -1px 0 0 rgba(0,0,0,0.12)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)"
+      }}
     >
-      <div className={[
-        "relative pointer-events-auto h-full flex flex-col backdrop-blur-xl border-r",
-        isDarkMode ? "sb-shell-dark text-cyan-50 border-cyan-400/30"
-                   : "sb-shell-light text-slate-900 border-black/10",
-      ].join(" ")}>
+      <div
+        className={[
+          "relative h-full w-full flex flex-col border-r overflow-y-auto overflow-x-hidden",
+          isDarkMode
+            ? "sb-shell-dark text-cyan-50 border-cyan-400/30 bg-gradient-to-b from-slate-900/80 to-slate-900/75"
+            : "sb-shell-light text-slate-900 border-black/10 bg-gradient-to-b from-white/75 to-white/70",
+        ].join(" ")}
+        style={{
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          background: isDarkMode
+            ? "linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(10, 20, 35, 0.75))"
+            : "linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(249, 250, 251, 0.75))"
+        }}>
+        {/* Glow effect on right edge (dark mode) */}
         {isDarkMode && (
           <span aria-hidden className="absolute top-0 right-[-1px] bottom-0 w-[2px] pointer-events-none"
                 style={{ background: "linear-gradient(180deg, transparent, rgba(22,224,255,0.95), transparent)",
                          filter: "drop-shadow(0 0 8px rgba(22,224,255,.55))" }} />
         )}
 
-        {/* Toggle puck */}
-        <div className="relative px-2 pt-2 pb-1">
-          <div className="absolute top-2 -right-[12px] z-[10000]">
-            <button
-              onClick={toggleSidebar}
-              className="rounded-full p-[6px] shadow-none border bg-white/90 text-cyan-700 border-cyan-400 dark:bg-slate-900/90 dark:text-cyan-300 hover:scale-110 active:scale-95 transition"
-              aria-label={isOpen ? "Collapse sidebar" : "Expand sidebar"}
-              style={{ boxShadow: "none" }}
-            >
-              <Menu size={16} />
-            </button>
-          </div>
+        {/* Header: Logo & Collapse Button */}
+        <div className="relative flex items-center justify-between px-3 py-4 flex-shrink-0">
+          {/* Collapse/Expand Toggle */}
+          <button
+            onClick={toggleSidebar}
+            className="rounded-lg p-1.5 transition-all duration-200 flex-shrink-0"
+            style={{
+              background: isDarkMode ? "rgba(0, 217, 255, 0.1)" : "rgba(0, 0, 0, 0.05)",
+              border: isDarkMode ? "1px solid rgba(0, 217, 255, 0.2)" : "1px solid rgba(0, 0, 0, 0.1)",
+              color: isDarkMode ? "#7ff3ff" : "#1e293b",
+            }}
+            aria-label={isOpen ? "Collapse sidebar" : "Expand sidebar"}
+          >
+            <Menu size={18} />
+          </button>
 
-          {isOpen && (
-            <div className="mt-2 leading-tight tracking-wide select-none text-center">
-              <div className="text-[20px] font-extrabold text-cyan-400 uppercase">COMPANY LOGO<br/>GOES HERE</div>
-              <div className="text-xs opacity-70">Outlet Name</div>
-            </div>
-          )}
+          {/* Logo removed per user request */}
         </div>
 
-        {/* Core panel list */}
-        <nav className={["px-2 pt-1 space-y-1 no-scrollbar", isOpen ? "overflow-y-auto flex-1" : "overflow-hidden flex-1"].join(" ")} style={{ msOverflowStyle: "none", scrollbarWidth: "none" }}>
-          {panelModules.map(({ label, icon, panelId }) => (
+        {/* Divider */}
+        <div className={`h-[1px] mx-2 ${isDarkMode ? "bg-cyan-400/20" : "bg-black/10"}`} />
+
+        {/* Main Menu Items */}
+        <nav className="flex-1 flex flex-col px-2 py-3 space-y-1 overflow-y-auto" style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+          {menuItems.map(({ label, iconKey, panelId }) => (
             <button
               key={panelId}
-              type="button"
-              onClick={() => panelId === "eventstudio" ? openEventStudioWindow() : openPanel(panelId)}
+              onClick={() => openPanel(panelId)}
+              className="sb-menu-item w-full flex items-center gap-2 px-2 py-2.5 rounded-lg transition-all duration-150 cursor-pointer"
               title={label}
-              aria-label={label}
-              data-panel-id={panelId}
-              className={itemClasses(false)}
-              style={{ boxShadow: "none", filter: "none" }}
+              style={{
+                background: isDarkMode ? "rgba(0, 217, 255, 0.08)" : "rgba(0, 0, 0, 0.04)",
+                border: isDarkMode ? "1px solid rgba(0, 217, 255, 0.15)" : "1px solid rgba(0, 0, 0, 0.06)",
+                color: isDarkMode ? "#b0e0ff" : "#475569",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: isOpen ? "flex-start" : "center",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = isDarkMode ? "rgba(0, 217, 255, 0.15)" : "rgba(0, 0, 0, 0.08)";
+                e.currentTarget.style.borderColor = isDarkMode ? "rgba(0, 217, 255, 0.25)" : "rgba(0, 0, 0, 0.12)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = isDarkMode ? "rgba(0, 217, 255, 0.08)" : "rgba(0, 0, 0, 0.04)";
+                e.currentTarget.style.borderColor = isDarkMode ? "rgba(0, 217, 255, 0.15)" : "rgba(0, 0, 0, 0.06)";
+              }}
             >
-              <img src={icon} alt="" className="justify-self-center w-[44px] h-[44px] object-contain aspect-square" />
-              <Label>{label}</Label>
+              {/* Icon - on the left */}
+              <div style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <IconRenderer iconKey={iconKey} size={28} />
+              </div>
+
+              {/* Label (visible when expanded, centered) */}
+              {isOpen && (
+                <span style={{
+                  fontSize: "10px",
+                  fontWeight: "600",
+                  letterSpacing: "0.4px",
+                  textTransform: "uppercase",
+                  flex: 1,
+                  textAlign: "center",
+                  lineHeight: "1.3",
+                  whiteSpace: "normal",
+                  wordWrap: "break-word",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}>
+                  {label}
+                </span>
+              )}
             </button>
           ))}
-
-          {/* Route-based modules */}
-          {routeModules.map(({ path, label, icon }) => (
-            <NavLink key={path} to={path} title={label} aria-label={label} className={({ isActive }) => itemClasses(isActive)}>
-              <img src={icon} alt="" className="justify-self-center w-[44px] h-[44px] object-contain aspect-square" />
-              <Label>{label}</Label>
-            </NavLink>
-          ))}
-
-          {/* Recent (opens a small panel via Board) */}
-          <button
-            type="button"
-            onClick={() => openPanel("recent", { allowDuplicate: true, title: "Recent" })}
-            className={itemClasses(false)}
-            title="Recent"
-            aria-label="Recent"
-          >
-            <Clock3 className="justify-self-center w-[44px] h-[44px]" />
-            <Label>RECENT</Label>
-          </button>
         </nav>
 
-        {/* Bottom section */}
-        <div className="px-2 pb-3 pt-1">
-          <hr className={`border-t ${isDarkMode ? "border-cyan-500/25" : "border-black/10"} mb-2`} />
-          <div className="space-y-1">
-            {bottomRoutes.map(({ path, label, icon }) => (
-              <NavLink key={path} to={path} title={label} aria-label={label} className={({ isActive }) => itemClasses(isActive)}>
-                <img src={icon} alt="" className="justify-self-center w-[44px] h-[44px] object-contain aspect-square" />
-                <Label>{label}</Label>
-              </NavLink>
-            ))}
+        {/* Divider before bottom section */}
+        <div className={`h-[1px] mx-2 ${isDarkMode ? "bg-cyan-400/20" : "bg-black/10"}`} />
 
-            {/* Settings opens the SettingsSuite panel directly */}
+        {/* Bottom Menu Items */}
+        <div className="px-2 py-3 space-y-1 flex-shrink-0" style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+          {bottomItems.map(({ label, iconKey, panelId }) => (
             <button
-              type="button"
-              onClick={() => openPanel("settings")}
-              className={itemClasses(false)}
-              title="Settings"
-              aria-label="Settings"
+              key={panelId}
+              onClick={() => openPanel(panelId)}
+              className="sb-menu-item w-full flex items-center gap-2 px-2 py-2.5 rounded-lg transition-all duration-150 cursor-pointer"
+              title={label}
+              style={{
+                background: isDarkMode ? "rgba(0, 217, 255, 0.08)" : "rgba(0, 0, 0, 0.04)",
+                border: isDarkMode ? "1px solid rgba(0, 217, 255, 0.15)" : "1px solid rgba(0, 0, 0, 0.06)",
+                color: isDarkMode ? "#b0e0ff" : "#475569",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: isOpen ? "flex-start" : "center",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = isDarkMode ? "rgba(0, 217, 255, 0.15)" : "rgba(0, 0, 0, 0.08)";
+                e.currentTarget.style.borderColor = isDarkMode ? "rgba(0, 217, 255, 0.25)" : "rgba(0, 0, 0, 0.12)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = isDarkMode ? "rgba(0, 217, 255, 0.08)" : "rgba(0, 0, 0, 0.04)";
+                e.currentTarget.style.borderColor = isDarkMode ? "rgba(0, 217, 255, 0.15)" : "rgba(0, 0, 0, 0.06)";
+              }}
             >
-              <img src={settingsIcon} alt="" className="justify-self-center w-[44px] h-[44px] object-contain aspect-square" />
-              <Label>SETTINGS</Label>
-            </button>
-          </div>
+              {/* Icon - on the left */}
+              <div style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <IconRenderer iconKey={iconKey} size={28} />
+              </div>
 
-          {/* Theme toggle */}
-          <div className={`mt-2 flex ${isOpen ? "justify-end pr-1" : "justify-center"}`}>
-            <button
-              onClick={toggleDarkMode}
-              className={[
-                "rounded-full border transition h-10 w-10 grid place-items-center shadow-none",
-                isDarkMode
-                  ? "bg-slate-900/85 text-cyan-300 border-cyan-400/60"
-                  : "bg-white/90 text-cyan-700 border-cyan-500/50 hover:bg-white",
-              ].join(" ")}
-              style={{ boxShadow: "none" }}
-              title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-              aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-            >
-              {isDarkMode ? <Moon size={18} /> : <Sun size={18} />}
+              {/* Label (visible when expanded, centered) */}
+              {isOpen && (
+                <span style={{
+                  fontSize: "10px",
+                  fontWeight: "600",
+                  letterSpacing: "0.4px",
+                  textTransform: "uppercase",
+                  flex: 1,
+                  textAlign: "center",
+                  lineHeight: "1.3",
+                  whiteSpace: "normal",
+                  wordWrap: "break-word",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}>
+                  {label}
+                </span>
+              )}
             </button>
+          ))}
+        </div>
+
+        {/* Module Upload Dropzone */}
+        {isOpen && (
+          <div
+            className="px-3 py-3 flex-shrink-0 border-t"
+            style={{
+              borderTopColor: isDarkMode ? "rgba(0, 217, 255, 0.1)" : "rgba(0, 0, 0, 0.1)"
+            }}
+          >
+            <ModuleUploadZone isDarkMode={isDarkMode} />
           </div>
+        )}
+
+        {/* Theme Toggle */}
+        <div className={`px-3 py-3 flex-shrink-0 ${isOpen ? "flex justify-end" : "flex justify-center"}`}>
+          <button
+            onClick={toggleDarkMode}
+            className="rounded-lg p-2 transition-all duration-200"
+            style={{
+              background: isDarkMode ? "rgba(0, 217, 255, 0.1)" : "rgba(0, 0, 0, 0.05)",
+              border: isDarkMode ? "1px solid rgba(0, 217, 255, 0.2)" : "1px solid rgba(0, 0, 0, 0.1)",
+              color: isDarkMode ? "#7ff3ff" : "#1e293b",
+            }}
+            title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          >
+            {isDarkMode ? <Moon size={18} /> : <Sun size={18} />}
+          </button>
         </div>
       </div>
     </aside>

@@ -1,110 +1,266 @@
-// src/board/Toolbar.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
-  RefreshCcw, SquareStack, LayoutDashboard,
-  ChevronUp, ChevronRight, ChevronDown, ChevronLeft,
-  Sun, Moon, Pin, PinOff, MoveDiagonal, Magnet,
-  StickyNote, Image as ImageIcon,
+  Menu, RotateCcw, ChevronLeft, ChevronRight, Grid3x3,
+  Image as ImageIcon, Calendar, Video, Link2, Settings, Zap, Square,
+  MessageSquare, Phone, PenTool, FileText, Bell
 } from "lucide-react";
+import useReminderStore from "../stores/reminderStore.js";
 
 export default function Toolbar({
-  // visibility
-  visible, pinned, setPinned, onHoverShow,
-  // prefs
-  autoDock, setAutoDock,
-  allowOffscreen, setAllowOffscreen,
-  dockPos, setDockPos,
-  // actions
-  onResetLayout, onDockAll, onRestoreAll,
-  // theme badge
+  visible,
+  pinned,
+  setPinned,
+  onHoverShow,
   isDark,
 }) {
+  const [showThemeMenu, setShowThemeMenu] = useState(false);
+  const [reminderCount, setReminderCount] = useState(0);
+
+  const getDueReminders = useReminderStore((state) => state.getDueReminders);
+
+  // Update reminder count
+  useEffect(() => {
+    const updateCount = () => {
+      setReminderCount(getDueReminders().length);
+    };
+    updateCount();
+    const interval = setInterval(updateCount, 60000);
+    return () => clearInterval(interval);
+  }, [getDueReminders]);
+
+  const themes = [
+    { id: "dark", label: "Dark TRON", color: "#0a1420" },
+    { id: "light", label: "Light", color: "#ffffff" },
+    { id: "midnight", label: "Midnight", color: "#0f172a" },
+  ];
+
   return (
     <div
-      className={[
-        "board-toolbar board-toolbar--icons pointer-events-auto fixed top-4 left-1/2 -translate-x-1/2 z-[1200] transition-all duration-200",
-        visible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3 pointer-events-none",
-      ].join(" ")}
+      className="fixed top-3 left-1/2 -translate-x-1/2 z-[1200] transition-opacity duration-200"
+      style={{
+        opacity: visible ? 1 : 0,
+        pointerEvents: visible ? "auto" : "none",
+      }}
       onMouseEnter={onHoverShow}
-      onMouseLeave={() => { if (!pinned) onHoverShow(false); }}
+      onMouseLeave={() => {
+        if (!pinned) onHoverShow(false);
+      }}
     >
-      <div className="echo-toolbar relative flex items-center gap-2 px-2">
-        {/* Layout */}
-        <button className="etb-btn" title="Reset layout" onClick={onResetLayout}><RefreshCcw size={16} /></button>
-        <button className="etb-btn" title="Dock all (⌘/Ctrl+⇧+H)" onClick={onDockAll}><SquareStack size={16} /></button>
-        <button className="etb-btn" title="Restore docked (⌘/Ctrl+⇧+R)" onClick={onRestoreAll}><LayoutDashboard size={16} /></button>
-
-        {/* Prefs */}
-        <button
-          className={`etb-btn ${autoDock ? "etb-active" : ""}`}
-          title={`Auto-dock: ${autoDock ? "On" : "Off"}`}
-          onClick={() => setAutoDock(v => !v)}
-          aria-pressed={autoDock}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "6px",
+          padding: "6px 10px",
+          backgroundColor: "rgba(15, 23, 42, 0.9)",
+          backdropFilter: "blur(10px)",
+          border: "1px solid rgba(0, 217, 255, 0.3)",
+          borderRadius: "12px",
+          boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 217, 255, 0.1)",
+          flexWrap: "wrap",
+          maxWidth: "90vw",
+          justifyContent: "center",
+        }}
+      >
+        {/* Toolbar Label */}
+        <span
+          style={{
+            fontSize: "11px",
+            fontWeight: "700",
+            color: "rgba(127, 243, 255, 0.8)",
+            textTransform: "uppercase",
+            letterSpacing: "0.6px",
+            paddingRight: "6px",
+            borderRight: "1px solid rgba(0, 217, 255, 0.2)",
+          }}
         >
-          <Magnet size={16} />
-        </button>
+          Toolbar
+        </span>
 
-        <button
-          className={`etb-btn ${allowOffscreen ? "etb-active" : ""}`}
-          title={`Off-screen drag: ${allowOffscreen ? "On" : "Off"}`}
-          onClick={() => setAllowOffscreen(v => !v)}
-          aria-pressed={allowOffscreen}
-        >
-          <MoveDiagonal size={16} />
-        </button>
+        {/* Icon Buttons */}
+        <ToolbarButton icon={<RotateCcw size={14} />} title="Reset" />
+        <ToolbarButton icon={<ChevronLeft size={14} />} title="Prev" />
+        <ToolbarButton icon={<ChevronRight size={14} />} title="Next" />
+        <ToolbarButton icon={<Grid3x3 size={14} />} title="Grid" />
+        <ToolbarButton icon={<ImageIcon size={14} />} title="Image" />
+        <ToolbarButton icon={<Calendar size={14} />} title="Calendar" />
 
-        {/* Dock position */}
-        <div className="etb-btn etb-seg" title="Dock position">
-          <button className={dockPos==="top"    ? "seg-on" : ""} onClick={() => setDockPos("top")}   aria-label="Dock top"><ChevronUp size={14}/></button>
-          <button className={dockPos==="right"  ? "seg-on" : ""} onClick={() => setDockPos("right")} aria-label="Dock right"><ChevronRight size={14}/></button>
-          <button className={dockPos==="bottom" ? "seg-on" : ""} onClick={() => setDockPos("bottom")}aria-label="Dock bottom"><ChevronDown size={14}/></button>
-          <button className={dockPos==="left"   ? "seg-on" : ""} onClick={() => setDockPos("left")}  aria-label="Dock left"><ChevronLeft size={14}/></button>
+        <ToolbarButton
+          icon={<FileText size={14} />}
+          title="Sticky Note"
+          onClick={() =>
+            window.dispatchEvent(
+              new CustomEvent("open-panel", {
+                detail: { id: "stickynote", allowDuplicate: true },
+              })
+            )
+          }
+        />
+
+        <ToolbarButton
+          icon={<PenTool size={14} />}
+          title="Whiteboard"
+          onClick={() =>
+            window.dispatchEvent(
+              new CustomEvent("open-panel", {
+                detail: { id: "whiteboard", allowDuplicate: true },
+              })
+            )
+          }
+        />
+
+        <ToolbarButton
+          icon={<Phone size={14} />}
+          title="Teleconference"
+          onClick={() =>
+            window.dispatchEvent(
+              new CustomEvent("open-panel", {
+                detail: { id: "teleconference", allowDuplicate: true },
+              })
+            )
+          }
+        />
+
+        <ToolbarButton
+          icon={<Video size={14} />}
+          title="Video Conference"
+          onClick={() =>
+            window.dispatchEvent(
+              new CustomEvent("open-panel", {
+                detail: { id: "videoconference", allowDuplicate: true },
+              })
+            )
+          }
+        />
+
+        <ToolbarButton
+          icon={
+            <div style={{ position: "relative" }}>
+              <Bell size={14} />
+              {reminderCount > 0 && (
+                <div style={{
+                  position: "absolute",
+                  top: "-4px",
+                  right: "-6px",
+                  backgroundColor: "#ef4444",
+                  color: "white",
+                  fontSize: "9px",
+                  fontWeight: "bold",
+                  borderRadius: "50%",
+                  width: "14px",
+                  height: "14px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}>
+                  {reminderCount > 9 ? "9+" : reminderCount}
+                </div>
+              )}
+            </div>
+          }
+          title={`Reminders (${reminderCount})`}
+          onClick={() =>
+            window.dispatchEvent(
+              new CustomEvent("open-panel", {
+                detail: { id: "reminders", allowDuplicate: false },
+              })
+            )
+          }
+        />
+
+        <ToolbarButton icon={<Link2 size={14} />} title="Link" />
+
+        {/* Settings with theme menu */}
+        <div style={{ position: "relative" }}>
+          <ToolbarButton
+            icon={<Settings size={14} />}
+            title="Settings"
+            onClick={() => setShowThemeMenu(!showThemeMenu)}
+          />
+          {showThemeMenu && (
+            <div
+              style={{
+                position: "absolute",
+                top: "32px",
+                right: 0,
+                backgroundColor: "rgba(15, 23, 42, 0.95)",
+                backdropFilter: "blur(10px)",
+                border: "1px solid rgba(0, 217, 255, 0.3)",
+                borderRadius: "8px",
+                padding: "6px",
+                minWidth: "140px",
+                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)",
+                zIndex: 2000,
+              }}
+            >
+              {themes.map((t) => (
+                <button
+                  key={t.id}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    padding: "6px 8px",
+                    borderRadius: "6px",
+                    border: "1px solid transparent",
+                    background: "transparent",
+                    color: "#7ff3ff",
+                    cursor: "pointer",
+                    fontSize: "11px",
+                    fontWeight: "500",
+                    textAlign: "left",
+                    marginBottom: "2px",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "rgba(0, 217, 255, 0.1)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "transparent";
+                  }}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Backboard sticky + Whiteboard */}
-        <button
-          className="etb-btn"
-          title="Drop a backboard sticky note"
-          onClick={() => window.dispatchEvent(new CustomEvent("backboard-add-sticky"))}
-        >
-          <StickyNote size={16}/>
-        </button>
-
-        <button
-          className="etb-btn"
-          title="Open Whiteboard"
-          onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "whiteboard", allowDuplicate: true } }))}
-        >
-          <ImageIcon size={16}/>
-        </button>
-
-        {/* Pin */}
-        <button
-          className={`etb-btn ${pinned ? "etb-active" : ""}`}
-          title={pinned ? "Unpin toolbar (auto-hide)" : "Pin toolbar (always show)"}
-          onClick={() => setPinned(v => !v)}
-          aria-pressed={pinned}
-        >
-          {pinned ? <Pin size={16}/> : <PinOff size={16}/>}
-        </button>
-
-        {/* Mode badge */}
-        <div className="etb-badge" title={isDark ? "Dark" : "Light"}>
-          {isDark ? <Moon size={14}/> : <Sun size={14}/>}
-        </div>
-
-        {/* little grip */}
-        <button
-          className="tb-grip"
-          title={pinned ? "Toolbar pinned" : "Show toolbar"}
-          onClick={onHoverShow}
-          aria-label="Show toolbar"
-        >
-          <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
-            <path fill="currentColor" d="M3 7h18v2H3zm0 4h18v2H3zm0 4h18v2H3z"/>
-          </svg>
-        </button>
+        <ToolbarButton icon={<Zap size={14} />} title="Boost" color="#ffa500" />
+        <ToolbarButton
+          icon={<Square size={14} />}
+          title={pinned ? "Pinned" : "Pin"}
+          onClick={() => setPinned(!pinned)}
+          active={pinned}
+        />
       </div>
     </div>
+  );
+}
+
+function ToolbarButton({ icon, title, onClick, color = "#7ff3ff", active = false }) {
+  const [hover, setHover] = React.useState(false);
+
+  return (
+    <button
+      title={title}
+      onClick={onClick}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "28px",
+        height: "28px",
+        borderRadius: "6px",
+        border: active || hover ? `1px solid ${color}40` : "1px solid rgba(0, 217, 255, 0.15)",
+        background: active || hover ? `${color}15` : "rgba(0, 217, 255, 0.05)",
+        color: color,
+        cursor: "pointer",
+        transition: "all 0.15s ease",
+        padding: 0,
+      }}
+    >
+      {icon}
+    </button>
   );
 }

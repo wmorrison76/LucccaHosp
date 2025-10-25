@@ -55,7 +55,9 @@ const PastryRecipeInputPage =
 const PastryGallery = lazyFrom(HERE_JSX, "./PastryGallery.jsx", "Photo Gallery");
 
 // Optional modules (graceful placeholders if the files don’t exist)
-const CakeBuilder = lazyFrom(UP_ONE_JSX, "../CakeBuilder.jsx", "Cake Builder");
+const CakeBuilder = React.lazy(() =>
+  import('./CakeBuilderTab.jsx').then(m => ({ default: m.default }))
+);
 
 // “Cake Orders” — you said the file is CustomCakeOrders.jsx in THIS folder.
 // If not present, fall back to placeholder.

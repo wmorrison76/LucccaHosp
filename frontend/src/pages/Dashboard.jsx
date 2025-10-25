@@ -17,7 +17,7 @@ import {
 
 // Lazy panels
 const KitchenLibraryTabs = React.lazy(() => import("../components/KitchenLibraryTabs.jsx"));
-const PastryLibrary      = React.lazy(() => import("../components/PastryLibrary/PastryLibrary.jsx.bak_scan/index.js"));
+const PastryLibrary      = React.lazy(() => import("../components/PastryLibrary/PastryLibrary.jsx"));
 const Mixology           = React.lazy(() => import("../components/MixologyTabs.jsx"));
 const WhiteboardPanel    = React.lazy(() => import("../components/WhiteboardPanel.jsx"));
 

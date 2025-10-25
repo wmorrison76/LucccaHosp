@@ -1,7 +1,7 @@
 // src/components/KitchenLibraryTabs/KitchenLibrary.jsx
 import React, { useState, useMemo } from "react";
-import DoubleTabs from "../shared/DoubleTabs.jsx";
-import "../shared/DoubleTabs.css";
+import DoubleTabs from "./shared/DoubleTabs.jsx";
+import "./shared/DoubleTabs.css";
 import { ExternalLink, Home, Settings } from "lucide-react";
 
 /* --- Rows --- */

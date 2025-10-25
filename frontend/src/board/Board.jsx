@@ -31,6 +31,7 @@ import {
   Ruler,
   LassoSelect,
   Copy,
+  FileText,
 } from "lucide-react";
 
 // Helper for named/default lazy exports
@@ -39,39 +40,74 @@ const lazyPick = (loader, key = "default") =>
     loader().then((m) => ({ default: m?.[key] ?? m?.default ?? m }))
   );
 
-/* ───────────────── Panels (lazy) ───────────────── */
+/* ──────────────���── Panels (lazy) ─��─────────────── */
 
-// Whiteboard (use lazyPick in case the module exports named)
-const WhiteboardPanel = lazyPick(
-  () => import("../modules/EchoDesk_Framework/src/panels/WhiteboardPanel.jsx"),
-  "default"
-);
+// Simplified lazy-loaded panels with error handling
+const safeImport = (importFn, name = 'Unknown') =>
+  React.lazy(() => {
+    console.log(`[safeImport] Loading panel: ${name}`);
+    return importFn()
+      .then(m => {
+        console.log(`[safeImport] Successfully loaded: ${name}`, m);
+        return m;
+      })
+      .catch(err => {
+        console.error(`[safeImport] Failed to load ${name}:`, err);
+        return {
+          default: () => (
+            <div style={{ padding: '20px', color: '#f87171', whiteSpace: 'pre-wrap', fontSize: '12px' }}>
+              <div style={{ fontWeight: 'bold', marginBottom: '8px' }}>Panel failed to load: {name}</div>
+              <div>{String(err?.message || err)}</div>
+              {err?.stack && <div style={{ marginTop: '8px', fontSize: '10px', opacity: 0.7 }}>{err.stack}</div>}
+            </div>
+          )
+        };
+      });
+  });
 
-// Settings + main app panels
-const SettingsSuite      = React.lazy(() => import("../components/settings/SettingsSuite.jsx"));
-const KitchenLibraryTabs = React.lazy(() => import("../components/KitchenLibraryTabs.jsx"));
-const PastryLibrary      = React.lazy(() => import("../components/PastryLibrary/PastryLibrary.jsx"));
-const Mixology           = React.lazy(() => import("../components/MixologyTabs.jsx"));
-const SchedulerPanel     = React.lazy(() => import("../modules/scheduling/client/App.tsx"));
-const GlowDesk           = React.lazy(() => import("../components/GlowyDesk.jsx"));
-const WidgetStudio       = React.lazy(() => import("../components/WidgetStudio.jsx"));
-const PageViewer         = React.lazy(() => import("../components/PageViewer.jsx"));
-const CakeBuilder        = React.lazy(() => import("../components/CakeBuilder.jsx"));
+const EnterpriseHUD     = safeImport(() => import("../components/EnterpriseHUD.jsx"), "EnterpriseHUD");
+const AdvancedHUD       = safeImport(() => import("../components/AdvancedHUD.jsx"), "AdvancedHUD");
+const FuturisticHUD     = safeImport(() => import("../components/FuturisticHUD.jsx"), "FuturisticHUD");
+const GlowDesk           = safeImport(() => import("../components/GlowyDesk.jsx"), "GlowyDesk");
+const ProfessionalDashboard = safeImport(() => import("../components/ProfessionalDashboard.jsx"), "ProfessionalDashboard");
+const ProfessionalToolbar = safeImport(() => import("../components/ProfessionalToolbar.jsx"), "ProfessionalToolbar");
+const KitchenLibraryTabs = safeImport(() => import("../components/KitchenLibraryTabs.jsx"), "KitchenLibraryTabs");
+const Schedule           = safeImport(() => import("../modules/scheduling/Schedule.jsx"), "Schedule");
+const EchoRecipeProPanel = safeImport(() => import("../components/EchoRecipePro/EchoRecipeProPanel.jsx"), "EchoRecipeProPanel");
+const CulinaryPanel      = safeImport(() => import("../components/CulinaryPanel.jsx"), "CulinaryPanel");
+const PurchasingPanel    = safeImport(() => import("../components/Purchasing/PurchasingPanel.jsx"), "PurchasingPanel");
 
-// NEW: EchoRecipePro (DoubleTabs-powered)
-const EchoRecipeProPanel = React.lazy(() =>
-  import("../components/EchoRecipePro/EchoRecipeProPanel.jsx")
-);
+// DISABLED: Builder.io iframe panels timing out - causing "IFrame evaluation timeout" errors
+// Re-enable these after Builder.io connectivity is verified
+// const EchoEventStudioPanel = safeImport(() => import("../components/EchoEventStudio/EchoEventStudioPanel.jsx"), "EchoEventStudioPanel");
+// const MaestroBQTPanel    = safeImport(() => import("../components/MaestroBQTPanel.jsx"), "MaestroBQTPanel");
+// const EchoAurumPanel     = safeImport(() => import("../components/EchoAurumPanel.jsx"), "EchoAurumPanel");
+// const ECHOLayoutPanel    = safeImport(() => import("../components/ECHOLayoutPanel.jsx"), "ECHOLayoutPanel");
 
-// Optional local widget (if present)
-let StickyNotePanelLazy = null;
-try {
-  const matches = import.meta.glob("../components/**/StickyNotePanel.jsx");
-  const key = Object.keys(matches)[0];
-  if (key) StickyNotePanelLazy = React.lazy(matches[key]);
-} catch {}
+const EchoEventStudioPanel = null;
+const MaestroBQTPanel    = null;
+const EchoAurumPanel     = null;
+const ECHOLayoutPanel    = null;
+const PastryLibrary      = safeImport(() => import("../components/PastryLibrary/PastryLibrary.jsx"), "PastryLibrary");
+const EchoCanvasStudio   = safeImport(() => import("../components/EchoCanvasStudio.jsx"), "EchoCanvasStudio");
+const AdvancedWhiteboard = safeImport(() => import("../components/AdvancedWhiteboard.jsx"), "AdvancedWhiteboard");
+const AdvancedVideoConference = safeImport(() => import("../components/AdvancedVideoConference.tsx"), "AdvancedVideoConference");
+const MixologyPanel      = safeImport(() => import("../components/MixologyFallback.jsx"), "Mixology");
+const CRMPanel           = safeImport(() => import("../components/CRMPanel.jsx"), "CRMPanel");
+const ChefNetPanel       = safeImport(() => import("../components/ChefNetPanel.jsx"), "ChefNetPanel");
+const SupportPanel       = safeImport(() => import("../components/SupportPanel.jsx"), "SupportPanel");
+const StickyNotePanel    = safeImport(() => import("../components/EchoCore/panels/StickyNotePanelEnhanced.jsx"), "StickyNotePanelEnhanced");
+const ReminderWidget     = safeImport(() => import("../components/ReminderWidget.jsx"), "ReminderWidget");
+const CakeBuilder        = safeImport(() => import("../modules/PastryLibrary/CakeBuilder/CakeBuilderPage.tsx"), "CakeBuilderPage");
 
-/* ───────────── EchoDesk stub tools/panels (installed by script) ───────────── */
+// Optional panels - set to null if not available
+const SettingsSuite      = safeImport(() => import("../settings/SettingsSuite.jsx"), "SettingsSuite");
+const SchedulerPanel     = Schedule;
+const WidgetStudio       = null;
+const PageViewer         = null;
+const StickyNotePanelLazy = null;
+
+/* ───────────── EchoDesk stub tools/panels (installed by script) ─────────���─── */
 import CalendarOverlay   from "../echodesk/stubs/CalendarOverlay.jsx";
 import Teleconference    from "../echodesk/stubs/TeleconferenceOverlay.jsx";
 import ExpoRailPanel     from "../echodesk/stubs/ExpoRailPanel.jsx";
@@ -80,13 +116,13 @@ import RulerSnapOverlay  from "../echodesk/stubs/RulerSnapOverlay.jsx";
 import LassoCopyTool     from "../echodesk/stubs/LassoCopyTool.jsx";
 // (AI chat removed)
 
-/* ──────────────── Assets ──────────────── */
+/* ─────────��───��── Assets ──────────────── */
 import kitchenIcon  from "../assets/culinary_library.png";
 import pastryIcon   from "../assets/baking-&-Pastry.png";
 import mixologyIcon from "../assets/mixology.png";
 import scheduleIcon from "../assets/schedule.png";
 
-/* ─────────────── Error boundary ─────────────── */
+/* ─��──��������────��─── Error boundary ─────────────── */
 class PanelErrorBoundary extends React.Component {
   constructor(p){ super(p); this.state = { error: null }; }
   static getDerivedStateFromError(error){ return { error }; }
@@ -105,36 +141,79 @@ class PanelErrorBoundary extends React.Component {
   }
 }
 
-/* ─────────────── Registry ─────────────── */
-const PANEL_REGISTRY = {
-  dashboard:   { title: "Dashboard",       Component: GlowDesk,            icon: null },
-  whiteboard:  { title: "Whiteboard",      Component: WhiteboardPanel,     icon: null },
-  home:        { title: "Welcome",         Component: GlowDesk,            icon: null },
-  viewer:      { title: "Page Viewer",     Component: PageViewer,          icon: null },
-  studio:      { title: "Widget Studio",   Component: WidgetStudio,        icon: null },
-  cake:        { title: "Cake Builder",    Component: CakeBuilder,         icon: null },
-  culinary:    { title: "Kitchen Library", Component: KitchenLibraryTabs,  icon: kitchenIcon },
-  pastry:      { title: "Baking & Pastry", Component: PastryLibrary,       icon: pastryIcon },
-  mixology:    { title: "Mixology",        Component: Mixology,            icon: mixologyIcon },
-  scheduling:  { title: "Schedules",       Component: SchedulerPanel,      icon: scheduleIcon },
+/* ──���──────────── Registry ─���───────────── */
+const PANEL_REGISTRY = {};
 
-  // NEW: EchoRecipePro panel (Recipe Search / Photos / Add Recipe / Production)
-  recipepro:   { title: "EchoRecipePro",   Component: EchoRecipeProPanel,  icon: null },
+// Add only panels with valid components
+console.log('[Board] Initializing PANEL_REGISTRY');
+console.log('[Board] ProfessionalDashboard:', !!ProfessionalDashboard);
+console.log('[Board] ProfessionalToolbar:', !!ProfessionalToolbar);
+console.log('[Board] GlowDesk:', !!GlowDesk);
+console.log('[Board] KitchenLibraryTabs:', !!KitchenLibraryTabs);
+console.log('[Board] Schedule:', !!Schedule);
+console.log('[Board] EchoRecipeProPanel:', !!EchoRecipeProPanel);
+console.log('[Board] PurchasingPanel:', !!PurchasingPanel);
+console.log('[Board] EchoEventStudioPanel:', !!EchoEventStudioPanel);
+console.log('[Board] MaestroBQTPanel:', !!MaestroBQTPanel);
+console.log('[Board] EchoAurumPanel:', !!EchoAurumPanel);
+console.log('[Board] ECHOLayoutPanel:', !!ECHOLayoutPanel);
+console.log('[Board] PastryLibrary:', !!PastryLibrary);
+console.log('[Board] EchoCanvasStudio:', !!EchoCanvasStudio);
+console.log('[Board] AdvancedWhiteboard:', !!AdvancedWhiteboard);
+console.log('[Board] AdvancedVideoConference:', !!AdvancedVideoConference);
+console.log('[Board] MixologyPanel:', !!MixologyPanel);
+console.log('[Board] CRMPanel:', !!CRMPanel);
+console.log('[Board] ChefNetPanel:', !!ChefNetPanel);
+console.log('[Board] SupportPanel:', !!SupportPanel);
+console.log('[Board] SettingsSuite:', !!SettingsSuite);
 
-  note:        { title: "Note",            Component: StickyNotePanelLazy, icon: null },
+if (ProfessionalDashboard) PANEL_REGISTRY.dashboard = { title: "Professional Dashboard", Component: ProfessionalDashboard, icon: null };
+if (ProfessionalDashboard) PANEL_REGISTRY.home = { title: "Professional Dashboard", Component: ProfessionalDashboard, icon: null };
+if (ProfessionalDashboard) {
+  PANEL_REGISTRY['professional-dashboard'] = { title: "Professional Dashboard", Component: ProfessionalDashboard, icon: null };
+  PANEL_REGISTRY['dashboard'] = { title: "Professional Dashboard", Component: ProfessionalDashboard, icon: null };
+  PANEL_REGISTRY['home'] = { title: "Professional Dashboard", Component: ProfessionalDashboard, icon: null };
+}
+if (EnterpriseHUD) PANEL_REGISTRY.enterprise = { title: "Enterprise HUD", Component: EnterpriseHUD, icon: null };
+if (AdvancedHUD) PANEL_REGISTRY.advanced = { title: "Operations Nexus", Component: AdvancedHUD, icon: null };
+if (FuturisticHUD) PANEL_REGISTRY.futuristic = { title: "Futuristic HUD", Component: FuturisticHUD, icon: null };
+if (GlowDesk) PANEL_REGISTRY.glowdesk = { title: "Legacy Dashboard", Component: GlowDesk, icon: null };
+if (EchoRecipeProPanel) PANEL_REGISTRY.culinary = { title: "Culinary", Component: EchoRecipeProPanel, icon: kitchenIcon };
+if (Schedule) PANEL_REGISTRY.scheduling = { title: "Schedules", Component: Schedule, icon: scheduleIcon };
+if (EchoRecipeProPanel) PANEL_REGISTRY.recipepro = { title: "Recipes", Component: EchoRecipeProPanel, icon: null };
+if (PurchasingPanel) PANEL_REGISTRY.purchasing = { title: "Purchasing", Component: PurchasingPanel, icon: null };
+// DISABLED: Builder.io panels disabled due to timeout issues
+// if (EchoEventStudioPanel) PANEL_REGISTRY.eventstudio = { title: "Echo Event Studio", Component: EchoEventStudioPanel, icon: null };
+// if (MaestroBQTPanel) PANEL_REGISTRY.maestrobqt = { title: "Maestro BQT", Component: MaestroBQTPanel, icon: null };
+// if (EchoAurumPanel) PANEL_REGISTRY.echoaurum = { title: "EchoAurum", Component: EchoAurumPanel, icon: null };
+// if (ECHOLayoutPanel) PANEL_REGISTRY.echolayout = { title: "ECHOLayout", Component: ECHOLayoutPanel, icon: null };
+if (PastryLibrary) PANEL_REGISTRY.pastry = { title: "Baking & Pastry", Component: PastryLibrary, icon: pastryIcon };
+if (CakeBuilder) PANEL_REGISTRY.cakebuilder = { title: "🎂 CakeBuilder", Component: CakeBuilder, icon: pastryIcon };
+if (AdvancedWhiteboard) PANEL_REGISTRY.whiteboard = { title: "Whiteboard", Component: AdvancedWhiteboard, icon: null };
+if (AdvancedVideoConference) PANEL_REGISTRY.videoconference = { title: "Video Conference", Component: AdvancedVideoConference, icon: null };
+if (MixologyPanel) PANEL_REGISTRY.mixology = { title: "Mixology", Component: MixologyPanel, icon: mixologyIcon };
+if (CRMPanel) PANEL_REGISTRY.crm = { title: "CRM & Client Tracker", Component: CRMPanel, icon: null };
+if (ChefNetPanel) PANEL_REGISTRY.chefnet = { title: "ChefNet", Component: ChefNetPanel, icon: null };
+if (SupportPanel) PANEL_REGISTRY.support = { title: "Support & Help", Component: SupportPanel, icon: null };
 
-  // EchoDesk stubs (quick open from toolbar or via open-panel)
-  calendar:       { title: "Calendar",        Component: CalendarOverlay,   icon: null },
-  teleconference: { title: "Teleconference",  Component: Teleconference,    icon: null },
-  exporail:       { title: "Expo Rail",       Component: ExpoRailPanel,     icon: null },
-  templates:      { title: "Templates",       Component: TemplatesLibrary,  icon: null },
-  ruler:          { title: "Ruler & Snap",    Component: RulerSnapOverlay,  icon: null },
-  lasso:          { title: "Lasso / Copy",    Component: LassoCopyTool,     icon: null },
+console.log('[Board] Final PANEL_REGISTRY keys:', Object.keys(PANEL_REGISTRY));
 
-  settings:    { title: "Settings",        Component: SettingsSuite,       icon: null },
-};
+// Always add EchoDesk stubs
+PANEL_REGISTRY.calendar = { title: "Calendar", Component: CalendarOverlay, icon: null };
+PANEL_REGISTRY.teleconference = { title: "Teleconference", Component: Teleconference, icon: null };
+PANEL_REGISTRY.exporail = { title: "Expo Rail", Component: ExpoRailPanel, icon: null };
+PANEL_REGISTRY.templates = { title: "Templates", Component: TemplatesLibrary, icon: null };
+PANEL_REGISTRY.ruler = { title: "Ruler & Snap", Component: RulerSnapOverlay, icon: null };
+PANEL_REGISTRY.lasso = { title: "Lasso / Copy", Component: LassoCopyTool, icon: null };
 
-/* ─────────────── Helpers ─────────────── */
+// Toolbar panel connections
+if (AdvancedWhiteboard) PANEL_REGISTRY.whiteboard = { title: "Whiteboard", Component: AdvancedWhiteboard, icon: null };
+if (StickyNotePanel) PANEL_REGISTRY.stickynote = { title: "Sticky Note", Component: StickyNotePanel, icon: null };
+if (AdvancedVideoConference) PANEL_REGISTRY.videoconference = { title: "Video Conference", Component: AdvancedVideoConference, icon: null };
+if (ReminderWidget) PANEL_REGISTRY.reminders = { title: "Reminders", Component: ReminderWidget, icon: null };
+if (SettingsSuite) PANEL_REGISTRY.settings = { title: "Settings", Component: SettingsSuite, icon: null };
+
+/* ─────────────── Helpers ───────────���─── */
 let zCounter = 10;
 const genToken = () => Math.random().toString(36).slice(2) + "-" + Date.now().toString(36);
 
@@ -143,8 +222,30 @@ const LS = {
   allowOffscreen: "lu:allowOffscreen",
 };
 
-/* ─────────────── Component ─────────────── */
+/* ────�����───────── Component ─��────────────��� */
 export default function Board() {
+  console.log('[Board] Component rendering, PANEL_REGISTRY keys:', Object.keys(PANEL_REGISTRY));
+
+  // Simple direct return if PANEL_REGISTRY is empty
+  if (Object.keys(PANEL_REGISTRY).length === 0) {
+    console.error('[Board] PANEL_REGISTRY is empty!');
+    return (
+      <div style={{
+        padding: '40px',
+        backgroundColor: '#f87171',
+        color: '#fff',
+        fontFamily: 'monospace',
+        fontSize: '14px',
+        whiteSpace: 'pre-wrap'
+      }}>
+        ERROR: PANEL_REGISTRY is empty
+        {'\n\n'}
+        This means ProfessionalDashboard component is not loading properly.
+        Check browser console for import errors.
+      </div>
+    );
+  }
+
   const layerRef = useRef(null);
   const [windows, setWindows] = useState([]);
   const [activeId, setActiveId] = useState(null);
@@ -171,6 +272,34 @@ export default function Board() {
     }
   });
   useEffect(() => { try { localStorage.setItem(LS.toolbar, JSON.stringify(tbPos)); } catch {} }, [tbPos]);
+
+  // Auto-open ProfessionalDashboard on mount
+  useEffect(() => {
+    console.log('[Board] Auto-open useEffect running');
+    console.log('[Board] PANEL_REGISTRY keys:', Object.keys(PANEL_REGISTRY));
+    console.log('[Board] ProfessionalDashboard:', PANEL_REGISTRY.dashboard?.Component?.name);
+    console.log('[Board] Setting initial window state');
+    try {
+      setWindows([{
+        id: 'dashboard',
+        title: "Professional Dashboard",
+        icon: null,
+        z: 10,
+        x: 40,
+        y: 40,
+        width: Math.min(window.innerWidth - 120, 1400),
+        height: Math.min(window.innerHeight - 140, 800),
+        minimized: false,
+        maximized: false,
+        props: {},
+      }]);
+      zCounter = 10;
+      setActiveId('dashboard');
+      console.log('[Board] Initial window state set successfully');
+    } catch (err) {
+      console.error('[Board] Error setting initial windows:', err);
+    }
+  }, []); // Run only once on mount
 
   const bringToFront = useCallback((id) => {
     zCounter += 1;
@@ -227,8 +356,15 @@ export default function Board() {
   }, []);
 
   const openPanelById = useCallback((panelId, opts = {}) => {
+    console.log(`[Board] openPanelById called with panelId: "${panelId}"`);
+    console.log(`[Board] Available panels in registry:`, Object.keys(PANEL_REGISTRY));
     const reg = PANEL_REGISTRY[panelId];
-    if (!reg || !reg.Component) { console.warn("[Board] unknown panel:", panelId); return; }
+    if (!reg || !reg.Component) {
+      console.warn("[Board] unknown panel:", panelId);
+      console.warn("[Board] Registry contents:", PANEL_REGISTRY);
+      return;
+    }
+    console.log(`[Board] Found panel in registry:`, reg);
 
     const allowDuplicate = !!opts.allowDuplicate;
     let createdId = null;
@@ -281,14 +417,31 @@ export default function Board() {
         detail: { id: "studio", allowDuplicate: true, title: `Add: ${title}` }
       }));
     };
+    const onStickyPin = (e) => {
+      const { panelId, isPinned } = e?.detail || {};
+      if (!panelId) return;
+      setWindows((w) => w.map((p) => {
+        if (p.id === panelId || p.id.startsWith(panelId + "-")) {
+          if (isPinned) {
+            zCounter += 1000;
+            return { ...p, z: zCounter };
+          } else {
+            return { ...p, z: Math.max(10, zCounter - 1000) };
+          }
+        }
+        return p;
+      }));
+    };
 
     window.addEventListener("open-panel", onOpen);
     window.addEventListener("board-close-by-token", onCloseByToken);
     window.addEventListener("hud-add-widget", onAddWidget);
+    window.addEventListener("sticky-pin", onStickyPin);
     return () => {
       window.removeEventListener("open-panel", onOpen);
       window.removeEventListener("board-close-by-token", onCloseByToken);
       window.removeEventListener("hud-add-widget", onAddWidget);
+      window.removeEventListener("sticky-pin", onStickyPin);
     };
   }, [openPanelById]);
 
@@ -337,50 +490,58 @@ export default function Board() {
         onRequestRestoreAll={() => setWindows(w => w.map(p => ({...p, minimized:false})))}
       />
 
-      {/* Toolbar (draggable, persistent) */}
+      {/* Professional Toolbar (Theme + Language Controls) */}
+      <Suspense fallback={null}>
+        {ProfessionalToolbar && <ProfessionalToolbar />}
+      </Suspense>
+
+      {/* Board Control Toolbar (draggable, persistent) */}
       <div className="tb2 pointer-events-auto fixed z-[1200]" style={{ left: tbPos.x, top: tbPos.y }}>
         <div className="tb2-shell">
           <button ref={dragRef} className="tb2-handle" title="Drag toolbar">
-            <GripHorizontal size={16} /><span className="ml-1">Toolbar</span>
+            <GripHorizontal size={12} />
           </button>
 
           <div className="tb2-group">
             <button className="tb2-btn" title="Reset layout" onClick={() => { setWindows([]); setActiveId(null); }}>
-              <RefreshCcw size={16} />
+              <RefreshCcw size={13} />
             </button>
             <button className="tb2-btn" title="Dock all" onClick={() => setWindows(w => w.map(p => ({...p, minimized:true, maximized:false}))) }>
-              <SquareStack size={16} />
+              <SquareStack size={13} />
             </button>
             <button className="tb2-btn" title="Restore docked" onClick={() => setWindows(w => w.map(p => ({...p, minimized:false}))) }>
-              <LayoutDashboard size={16} />
+              <LayoutDashboard size={13} />
             </button>
 
             <div className="tb2-sep" />
 
             {/* Quick openers */}
             <button className="tb2-btn" title="Open Whiteboard" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "whiteboard", allowDuplicate: true } }))}>
-              <ImageIcon size={16} />
+              <ImageIcon size={13} />
             </button>
             <button className="tb2-btn" title="Calendar" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "calendar", allowDuplicate: true } }))}>
-              <CalendarDays size={16} />
+              <CalendarDays size={13} />
             </button>
             <button className="tb2-btn" title="Teleconference" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "teleconference", allowDuplicate: true } }))}>
-              <Video size={16} />
+              <Video size={13} />
             </button>
             <button className="tb2-btn" title="Ruler & Snap" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "ruler", allowDuplicate: true } }))}>
-              <Ruler size={16} />
+              <Ruler size={13} />
             </button>
             <button className="tb2-btn" title="Lasso / Copy" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "lasso", allowDuplicate: true } }))}>
-              <LassoSelect size={16} />
+              <LassoSelect size={13} />
             </button>
             <button className="tb2-btn" title="Templates" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "templates", allowDuplicate: true } }))}>
-              <Copy size={16} />
+              <Copy size={13} />
+            </button>
+            <button className="tb2-btn" title="Sticky Note" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "stickynote", allowDuplicate: true, width: 180, height: 210 } }))}>
+              <FileText size={13} />
             </button>
 
             <div className="tb2-sep" />
 
             <button className="tb2-btn" title="Settings" onClick={() => window.dispatchEvent(new CustomEvent("open-panel", { detail: { id: "settings", allowDuplicate: false } }))}>
-              <Cog size={16} />
+              <Cog size={13} />
             </button>
           </div>
 
@@ -398,10 +559,34 @@ export default function Board() {
 
       {/* Panels */}
       <div ref={layerRef} className="pane-layer absolute inset-0" style={{ overflow: allowOffscreen ? "visible" : "hidden" }}>
+        {windows.length === 0 && (
+          <div style={{
+            padding: '40px',
+            fontSize: '18px',
+            color: '#fff',
+            backgroundColor: '#1a1a2e',
+            textAlign: 'center',
+            minHeight: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            gap: '20px'
+          }}>
+            <div>⏳ Loading Dashboard...</div>
+            <div style={{ fontSize: '12px', color: '#888' }}>windows.length={windows.length}</div>
+            <div style={{ fontSize: '12px', color: '#666' }}>Check console for details</div>
+          </div>
+        )}
         {windows.map((win) => {
           const baseKey = (win.id.includes("-") ? win.id.split("-")[0] : win.id);
+          console.log(`[Board] Rendering window: ${win.id}, baseKey: ${baseKey}`);
           const entry = PANEL_REGISTRY[baseKey];
-          if (!entry || !entry.Component) return null;
+          if (!entry || !entry.Component) {
+            console.warn(`[Board] No component found for baseKey "${baseKey}" in registry`);
+            return null;
+          }
+          console.log(`[Board] Rendering component for ${baseKey}`);
           const Component = entry.Component;
 
           return (
@@ -463,8 +648,9 @@ export default function Board() {
         })}
       </div>
 
-      {/* orb/chat removed → no portal, no extra styles */}
+      {/* Toolbar and Panel Styling */}
       <style>{`
+        /* ===== TOOLBAR ===== */
         .tb2-shell{ display:flex; align-items:center; gap:10px; padding:6px 8px; border-radius:14px; border:1px solid rgba(22,224,255,.28); background:rgba(10,16,28,.72); box-shadow:0 16px 60px rgba(0,0,0,.45), 0 0 16px rgba(22,224,255,.14), inset 0 0 0 1px rgba(255,255,255,.05); backdrop-filter: blur(8px); user-select:none; }
         .tb2-handle{ display:inline-flex; align-items:center; gap:6px; height:28px; padding:0 8px; font-size:12px; border-radius:10px; border:1px solid rgba(22,224,255,.28); background:rgba(255,255,255,.06); color:#d7f6ff; cursor:grab; }
         .tb2-group{ display:inline-flex; gap:6px; align-items:center; }
@@ -474,6 +660,146 @@ export default function Board() {
         .tb2-dock .dock-chip{ width:28px; height:28px; display:grid; place-items:center; border-radius:8px; border:1px solid rgba(22,224,255,.28); background:rgba(255,255,255,.04); }
         .tb2-dock img{ width:18px; height:18px; display:block; }
         .chip-fallback{ width:10px; height:10px; background:#9be; border-radius:3px; display:block; }
+
+        /* ===== PANELS - DARK MODE (NEON) ===== */
+        .panel-window {
+          border-radius: 12px;
+          border: 1px solid rgba(0, 217, 255, 0.35);
+          background: linear-gradient(135deg, rgba(10, 20, 35, 0.92), rgba(8, 15, 28, 0.92));
+          box-shadow:
+            0 12px 40px rgba(0, 0, 0, 0.5),
+            0 0 24px rgba(0, 217, 255, 0.25),
+            inset 0 1px 0 rgba(0, 217, 255, 0.15);
+          backdrop-filter: blur(10px);
+          overflow: hidden;
+        }
+
+        .panel-window.is-focused {
+          border-color: rgba(0, 217, 255, 0.6);
+          box-shadow:
+            0 16px 48px rgba(0, 0, 0, 0.6),
+            0 0 32px rgba(0, 217, 255, 0.4),
+            inset 0 1px 0 rgba(0, 217, 255, 0.25);
+        }
+
+        /* ===== PANELS - LIGHT MODE ===== */
+        html.light .panel-window {
+          border: 1px solid rgba(0, 0, 0, 0.12);
+          background: rgba(255, 255, 255, 0.85);
+          box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.6);
+          backdrop-filter: blur(20px);
+        }
+
+        html.light .panel-window.is-focused {
+          border-color: rgba(0, 0, 0, 0.18);
+          background: rgba(255, 255, 255, 0.95);
+          box-shadow:
+            0 12px 40px rgba(0, 0, 0, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        /* ===== PANEL HEADER ===== */
+        .panel-header {
+          background: linear-gradient(90deg, rgba(0, 217, 255, 0.08), rgba(0, 217, 255, 0.04));
+          border-bottom: 1px solid rgba(0, 217, 255, 0.15);
+          padding: 8px 12px;
+          user-select: none;
+          cursor: default;
+        }
+
+        html.light .panel-header {
+          background: linear-gradient(90deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.02));
+          border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .panel-title {
+          font-weight: 600;
+          font-size: 13px;
+          text-transform: uppercase;
+          letter-spacing: 0.3px;
+          color: #7ff3ff;
+        }
+
+        html.light .panel-title {
+          color: #1f2937;
+        }
+
+        /* ===== PANEL BODY ===== */
+        .panel-body {
+          background: transparent;
+          color: #e0f2fe;
+        }
+
+        html.light .panel-body {
+          color: #1f2937;
+        }
+
+        /* ===== CONTROL DOTS (MINIMIZE, CLOSE, ETC) ===== */
+        .dot {
+          width: 24px;
+          height: 24px;
+          border-radius: 4px;
+          border: 1px solid rgba(0, 217, 255, 0.2);
+          background: rgba(0, 217, 255, 0.08);
+          color: #7ff3ff;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.15s ease;
+          flex-shrink: 0;
+          padding: 0;
+          margin: 0;
+          font-size: 0;
+          line-height: 1;
+        }
+
+        .dot:hover {
+          background: rgba(0, 217, 255, 0.15);
+          border-color: rgba(0, 217, 255, 0.35);
+          box-shadow: 0 0 12px rgba(0, 217, 255, 0.2);
+        }
+
+        html.light .dot {
+          border-color: rgba(0, 0, 0, 0.1);
+          background: rgba(0, 0, 0, 0.05);
+          color: #374151;
+        }
+
+        html.light .dot:hover {
+          background: rgba(0, 0, 0, 0.1);
+          border-color: rgba(0, 0, 0, 0.15);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== RESET BUTTON STYLES ===== */
+        .panel-header button {
+          border: none;
+          padding: 0;
+          margin: 0;
+          font-family: inherit;
+          font-size: inherit;
+          line-height: inherit;
+          background: transparent;
+        }
+
+        /* ===== ENSURE HORIZONTAL LAYOUT ===== */
+        .panel-header {
+          display: flex !important;
+          flex-direction: row !important;
+          align-items: center !important;
+          justify-content: space-between !important;
+          gap: 8px;
+        }
+
+        .panel-header > div:first-child {
+          display: flex !important;
+          flex-direction: row !important;
+          align-items: center !important;
+          gap: 6px !important;
+        }
       `}</style>
     </div>
   );

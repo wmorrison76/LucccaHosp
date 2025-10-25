@@ -1,13 +1,18 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
-import "./index.css";
-import "./styles/theme-base.css";
 
-const root = document.getElementById("root");
-createRoot(root).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-);
+// Polyfill requestIdleCallback
+if (!window.requestIdleCallback) {
+  window.requestIdleCallback = (cb) => setTimeout(cb, 1);
+}
+if (!window.cancelIdleCallback) {
+  window.cancelIdleCallback = (id) => clearTimeout(id);
+}
+
+// Simple render without CSS
+const rootEl = document.getElementById("root");
+if (rootEl) {
+  const root = createRoot(rootEl);
+  root.render(<App />);
+}

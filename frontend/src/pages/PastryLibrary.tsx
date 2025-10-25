@@ -2,7 +2,13 @@ import React, { lazy, Suspense } from 'react';
 import { Tabs } from '../components/Tabs';
 
 // Lazy-load Studio from CustomCakeStudio and gracefully support either default or named export
-const LazyStudio = lazy(() => import('src/modules/CustomCakeStudio/pages/Studio.tsx').then(m => ({ default: (m as any).default ?? (m as any).Studio })));
+const LazyStudio = lazy(() =>
+  import('../modules/CustomCakeStudio/pages/Studio.tsx')
+    .then(m => ({ default: (m as any).default ?? (m as any).Studio }))
+    .catch(() => ({
+      default: () => <div className="p-4 text-amber-600">EchoCanvas module not available</div>
+    }))
+);
 
 class EchoBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean; err?: any }> {
   constructor(props: any){ super(props); this.state = { hasError: false } }

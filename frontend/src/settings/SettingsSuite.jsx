@@ -150,19 +150,53 @@ const labelFromId = (id) =>
 
 function SectionCard({ title, children }) {
   return (
-    <section className="panel rounded-2xl p-4">
-      <div className="text-lg font-semibold mb-3">{title}</div>
-      {children}
+    <section className="mb-6">
+      {title && <div className="text-xs font-semibold uppercase tracking-wider opacity-60 px-4 py-2 mb-2">{title}</div>}
+      <div className="rounded-xl overflow-hidden bg-white/[0.05] border border-white/10 divide-y divide-white/10">
+        {children}
+      </div>
     </section>
+  );
+}
+
+function SettingRow({ label, description, children, divider = true }) {
+  return (
+    <div className={`px-4 py-3 flex items-center justify-between gap-4 ${!divider ? 'border-b border-white/10' : ''}`}>
+      <div className="flex-1">
+        <div className="text-sm font-medium">{label}</div>
+        {description && <div className="text-xs opacity-60 mt-0.5">{description}</div>}
+      </div>
+      {children && <div className="flex-shrink-0">{children}</div>}
+    </div>
+  );
+}
+
+function Toggle({ checked, onChange }) {
+  return (
+    <button
+      onClick={() => onChange(!checked)}
+      className={`w-12 h-7 rounded-full transition-colors ${
+        checked ? 'bg-green-500' : 'bg-white/20'
+      }`}
+      style={{
+        position: 'relative',
+      }}
+    >
+      <div
+        className={`w-6 h-6 rounded-full bg-white shadow-md transition-transform absolute top-0.5 ${
+          checked ? 'translate-x-6' : 'translate-x-0.5'
+        }`}
+      />
+    </button>
   );
 }
 
 function LabeledInput({ label, value, onChange, placeholder }) {
   return (
-    <label className="text-[13px] grid gap-1">
-      <span className="opacity-80">{label}</span>
+    <label className="text-sm grid gap-2">
+      <span className="opacity-80 font-medium">{label}</span>
       <input
-        className="h-9 px-3 rounded-lg bg-white/5 border border-white/12 focus:outline-none focus:border-cyan-300/60"
+        className="h-10 px-3 rounded-lg bg-white/5 border border-white/12 focus:outline-none focus:border-cyan-300/60 text-sm"
         value={value}
         onChange={(e)=>onChange(e.target.value)}
         placeholder={placeholder}
@@ -214,161 +248,209 @@ export default function SettingsSuite() {
   const saveZaroUrl = () => localStorage.setItem("lu:zaro:url", zaroUrl || "/admin/zaro");
 
   return (
-    <div className="h-full w-full grid" style={{ gridTemplateColumns: "280px 1fr" }}>
-      {/* Sidebar */}
-      <aside className="sidebar border-r border-white/10 p-4 overflow-y-auto">
-        <div className="text-xl font-semibold mb-3">Settings</div>
-        <nav className="grid gap-1">
-          {SECTIONS.map(s => (
-            <button
-              key={s.id}
-              onClick={() => setSection(s.id)}
-              className={`flex items-center gap-2 px-3 h-9 rounded-lg text-left
-                ${section===s.id ? "bg-white/10 ring-1 ring-white/20" : "hover:bg-white/5"}`}
-            >
-              <span className="w-5 text-center">{s.icon}</span>
-              <span>{s.label}</span>
-            </button>
-          ))}
-        </nav>
-      </aside>
+    <div className="h-full w-full flex flex-col bg-gradient-to-b from-white/[0.03] to-white/0">
+      {/* Top Navigation */}
+      <div className="border-b border-white/10 px-6 py-4">
+        <div className="text-2xl font-semibold">Settings</div>
+        <div className="text-sm opacity-60 mt-1">Customize your experience</div>
+      </div>
+
+      {/* Section Tabs */}
+      <nav className="border-b border-white/10 px-6 flex gap-8 overflow-x-auto scrollbar-hide">
+        {SECTIONS.map(s => (
+          <button
+            key={s.id}
+            onClick={() => setSection(s.id)}
+            className={`py-4 text-sm font-medium whitespace-nowrap transition-colors ${
+              section===s.id
+                ? "text-white border-b-2 border-cyan-400"
+                : "opacity-60 hover:opacity-80 border-b-2 border-transparent"
+            }`}
+          >
+            <span className="mr-2">{s.icon}</span>
+            {s.label}
+          </button>
+        ))}
+      </nav>
 
       {/* Content */}
-      <main className="p-6 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto w-full">
         {section === "general" && (
-          <SectionCard title="Profile">
-            <div className="flex items-center gap-4">
-              <img src={avatar?.url} alt="" className="h-16 w-16 rounded-xl object-cover ring-1 ring-white/15"/>
-              <div className="grid gap-2">
-                <div className="text-sm opacity-80">Avatar</div>
-                <div className="flex gap-2">
-                  <button className="px-3 h-9 rounded-lg border border-white/20 hover:border-white/35"
+          <>
+            <SectionCard title="Profile">
+              <SettingRow label="Avatar" description="Choose or upload your profile picture" divider={false}>
+                <div className="flex items-center gap-3">
+                  <img src={avatar?.url} alt="" className="h-12 w-12 rounded-full object-cover ring-1 ring-white/20"/>
+                  <button className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-sm font-medium transition-colors"
                           onClick={() => setAvatarPickerOpen(true)}>
-                    Edit…
+                    Change
                   </button>
-                  {avatar?.id==="custom" && (
-                    <button className="px-3 h-9 rounded-lg border border-white/20 hover:border-white/35"
-                            onClick={() => usePresetAvatar(PRESET_AVATARS[0])}>
-                      Remove upload
-                    </button>
-                  )}
                 </div>
-              </div>
-            </div>
-          </SectionCard>
+              </SettingRow>
+            </SectionCard>
+          </>
         )}
 
         {section === "appearance" && (
-          <div className="grid gap-6 md:grid-cols-3">
+          <>
             <SectionCard title="Theme">
-              <div className="grid gap-2">
-                {themeIds.map(id => (
-                  <button
-                    key={id}
-                    onClick={() => setThemeId(id)}
-                    className={`text-left px-3 py-2 rounded-lg border bg-white/5
-                      ${themeId===id ? "border-cyan-400/60 outline outline-2 outline-cyan-300/50"
-                                      : "border-white/12 hover:border-white/25"}`}
-                  >
-                    {labelFromId(id)}
-                  </button>
-                ))}
-              </div>
-              <p className="text-[11px] opacity-70 mt-2">
-                Themes are starting points; tweak details on the right.
-              </p>
-            </SectionCard>
-
-            <SectionCard title="Panel chrome">
-              <div className="grid gap-3">
-                <LabeledInput label="Border width"  value={tweaks["--panel-border-width"] ?? ""} onChange={v=>setTweakVar("--panel-border-width", v)} placeholder="e.g. 1px or 2px"/>
-                <LabeledInput label="Border color"  value={tweaks["--panel-border-color"] ?? ""} onChange={v=>setTweakVar("--panel-border-color", v)} placeholder="rgba(...)"/>
-                <LabeledInput label="Glow (shadow px)" value={tweaks["--shadow"] ?? ""} onChange={v=>setTweakVar("--shadow", v)} placeholder="0 0 24px rgba(...)"/>
-                <LabeledInput label="Header (title) size" value={tweaks["--title-size"] ?? ""} onChange={v=>setTweakVar("--title-size", v)} placeholder="44px"/>
+              <div className="p-4">
+                <div className="grid grid-cols-3 gap-3">
+                  {themeIds.map(id => (
+                    <button
+                      key={id}
+                      onClick={() => setThemeId(id)}
+                      className={`p-3 rounded-xl transition-all text-center text-sm font-medium ${
+                        themeId===id
+                          ? "bg-cyan-500/20 ring-2 ring-cyan-400/60"
+                          : "bg-white/5 hover:bg-white/10 border border-white/10"
+                      }`}
+                    >
+                      {labelFromId(id)}
+                    </button>
+                  ))}
+                </div>
+                <p className="text-xs opacity-60 mt-4">
+                  Themes are starting points; customize below for fine-tuning.
+                </p>
               </div>
             </SectionCard>
 
-            <SectionCard title="Typography">
-              <div className="grid gap-3">
-                <LabeledInput label="Base size"  value={tweaks["--base-size"] ?? ""} onChange={v=>setTweakVar("--base-size", v)} placeholder="14px"/>
-                <LabeledInput label="Title size" value={tweaks["--title-size"] ?? ""} onChange={v=>setTweakVar("--title-size", v)} placeholder="18px"/>
-              </div>
-              <div className="mt-6">
-                <button className="px-3 h-9 rounded-lg border border-white/20 hover:border-white/35"
+            <SectionCard title="Customization">
+              <div className="p-4 grid gap-4">
+                <LabeledInput label="Base font size" value={tweaks["--base-size"] ?? ""} onChange={v=>setTweakVar("--base-size", v)} placeholder="14px"/>
+                <LabeledInput label="Title font size" value={tweaks["--title-size"] ?? ""} onChange={v=>setTweakVar("--title-size", v)} placeholder="18px"/>
+                <LabeledInput label="Panel border width" value={tweaks["--panel-border-width"] ?? ""} onChange={v=>setTweakVar("--panel-border-width", v)} placeholder="1px"/>
+                <LabeledInput label="Panel border color" value={tweaks["--panel-border-color"] ?? ""} onChange={v=>setTweakVar("--panel-border-color", v)} placeholder="rgba(...)"/>
+                <LabeledInput label="Shadow depth" value={tweaks["--shadow"] ?? ""} onChange={v=>setTweakVar("--shadow", v)} placeholder="0 0 24px rgba(...)"/>
+                <button className="mt-4 w-full px-4 py-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-sm font-medium transition-colors"
                         onClick={() => { setTweaksState({}); setTweaks({}); applyTheme(themeId); }}>
-                  Reset theme tweaks
+                  Reset all customizations
                 </button>
               </div>
             </SectionCard>
-          </div>
+          </>
         )}
 
         {section === "notifications" && (
-          <SectionCard title="Notifications">
-            <p className="opacity-80 text-sm">(stub) Configure toast sounds, DND schedule, and message previews here.</p>
-          </SectionCard>
+          <>
+            <SectionCard title="Notification Settings">
+              <SettingRow label="Enable Notifications" description="Receive alerts for important events" divider={false}>
+                <Toggle checked={true} onChange={() => {}} />
+              </SettingRow>
+            </SectionCard>
+            <SectionCard title="Sound">
+              <SettingRow label="Toast Sounds" description="Play sound for notifications" divider={true}>
+                <Toggle checked={true} onChange={() => {}} />
+              </SettingRow>
+              <SettingRow label="Do Not Disturb" description="Mute all notifications" divider={false}>
+                <Toggle checked={false} onChange={() => {}} />
+              </SettingRow>
+            </SectionCard>
+            <div className="text-xs opacity-60 px-4 py-2">
+              Message previews and DND schedule coming soon.
+            </div>
+          </>
         )}
 
         {section === "accounts" && (
-          <SectionCard title="Accounts">
-            <p className="opacity-80 text-sm">(stub) Sign-in methods and connected services.</p>
-          </SectionCard>
+          <>
+            <SectionCard title="Sign-In Methods">
+              <div className="p-4 text-sm opacity-80">
+                Connected services and authentication methods will appear here.
+              </div>
+            </SectionCard>
+          </>
         )}
 
         {section === "advanced" && (
-          <SectionCard title="Advanced">
-            <p className="opacity-80 text-sm">(stub) Experimental flags and developer options.</p>
-          </SectionCard>
+          <>
+            <SectionCard title="Developer Options">
+              <SettingRow label="Developer Mode" description="Enable advanced debugging tools" divider={true}>
+                <Toggle checked={false} onChange={() => {}} />
+              </SettingRow>
+              <SettingRow label="Beta Features" description="Try experimental features" divider={true}>
+                <Toggle checked={false} onChange={() => {}} />
+              </SettingRow>
+              <SettingRow label="Debug Logging" description="Log internal events to console" divider={false}>
+                <Toggle checked={false} onChange={() => {}} />
+              </SettingRow>
+            </SectionCard>
+            <SectionCard title="Performance">
+              <SettingRow label="Analytics" description="Help improve the app" divider={false}>
+                <Toggle checked={true} onChange={() => {}} />
+              </SettingRow>
+            </SectionCard>
+          </>
         )}
 
         {section === "zaro" && (
-          <SectionCard title="Super Admin (ZARO)">
-            <div className="grid gap-3">
-              <p className="opacity-80 text-sm">
-                Open the ZARO console to manage org-wide settings and elevated tasks.
-              </p>
-              <LabeledInput
-                label="ZARO URL"
-                value={zaroUrl}
-                onChange={setZaroUrl}
-                placeholder="/admin/zaro or https://admin.example.com/zaro"
-              />
-              <div className="flex gap-2">
-                <button className="px-3 h-9 rounded-lg border border-white/20 hover:border-white/35" onClick={saveZaroUrl}>
-                  Save
-                </button>
-                <a href={zaroUrl || "/admin/zaro"} className="px-3 h-9 inline-grid place-items-center rounded-lg border border-white/20 hover:border-white/35">
-                  Open ZARO
-                </a>
+          <>
+            <SectionCard title="Super Admin Portal">
+              <div className="p-4 grid gap-4">
+                <div>
+                  <p className="text-sm opacity-80 mb-3">
+                    Access the ZARO console to manage organization-wide settings and elevated administrative tasks.
+                  </p>
+                </div>
+                <LabeledInput
+                  label="ZARO Portal URL"
+                  value={zaroUrl}
+                  onChange={setZaroUrl}
+                  placeholder="/admin/zaro or https://admin.example.com/zaro"
+                />
+                <div className="flex gap-3">
+                  <button className="flex-1 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-sm font-medium transition-colors" onClick={saveZaroUrl}>
+                    Save URL
+                  </button>
+                  <a href={zaroUrl || "/admin/zaro"} className="flex-1 px-4 py-2 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 text-sm font-medium transition-colors text-center">
+                    Open Portal
+                  </a>
+                </div>
               </div>
-            </div>
-          </SectionCard>
+            </SectionCard>
+          </>
         )}
       </main>
 
       {/* Avatar picker modal */}
       {avatarPickerOpen && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm grid place-items-center z-50">
-          <div className="w-[520px] max-w-[92vw] rounded-2xl border border-white/15 bg-[rgba(18,24,36,.92)] p-4">
-            <div className="text-sm font-semibold mb-3">Choose avatar</div>
-            <div className="grid grid-cols-4 gap-3">
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-md grid place-items-center z-50">
+          <div className="w-[520px] max-w-[92vw] rounded-2xl border border-white/15 bg-gradient-to-b from-white/[0.08] to-white/[0.04] p-6 shadow-2xl">
+            <div className="mb-6">
+              <div className="text-xl font-semibold mb-1">Choose Avatar</div>
+              <div className="text-sm opacity-60">Select a profile picture or upload your own</div>
+            </div>
+
+            <div className="grid grid-cols-4 gap-4 mb-6">
               {PRESET_AVATARS.map(a => (
                 <button
                   key={a.id}
                   onClick={() => usePresetAvatar(a)}
-                  className={`h-20 w-full rounded-xl overflow-hidden ring-1
-                    ${avatar?.url===a.url ? "ring-cyan-300/60" : "ring-white/12 hover:ring-white/30"}`}
+                  className={`relative rounded-2xl overflow-hidden ring-2 transition-all ${
+                    avatar?.url===a.url
+                      ? "ring-cyan-400/80 scale-105"
+                      : "ring-white/20 hover:ring-white/40 hover:scale-103"
+                  }`}
                 >
-                  <img src={a.url} alt="" className="h-full w-full object-cover"/>
+                  <img src={a.url} alt="" className="h-24 w-full object-cover"/>
                 </button>
               ))}
-              <label className="h-20 w-full rounded-xl border border-dashed border-white/20 hover:border-white/35 grid place-items-center cursor-pointer text-sm">
-                Upload…
+              <label className="relative rounded-2xl border-2 border-dashed border-white/30 hover:border-white/50 grid place-items-center cursor-pointer transition-colors bg-white/5 hover:bg-white/10">
+                <div className="text-center">
+                  <div className="text-2xl mb-1">+</div>
+                  <div className="text-xs font-medium">Upload</div>
+                </div>
                 <input type="file" accept="image/*" className="hidden" onChange={(e)=>onUpload(e.target.files?.[0])}/>
               </label>
             </div>
-            <div className="mt-4 flex justify-end">
-              <button className="px-3 h-9 rounded-lg border border-white/20 hover:border-white/35"
+
+            <div className="flex gap-3">
+              <button className="flex-1 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-sm font-medium transition-colors"
+                      onClick={()=>setAvatarPickerOpen(false)}>
+                Cancel
+              </button>
+              <button className="flex-1 px-4 py-2 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 text-sm font-medium transition-colors"
                       onClick={()=>setAvatarPickerOpen(false)}>
                 Done
               </button>
