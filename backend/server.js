@@ -75,12 +75,21 @@ server.keepAliveTimeout = TIMEOUT_MS + 30000; // Keep-alive timeout slightly lon
 // Initialize Socket.IO for real-time collaboration
 initializeSocketServer(server);
 
-// Handle timeout errors
+// Handle timeout errors and HTTP parsing issues
 server.on('clientError', (err, socket) => {
   console.error('[SERVER] Client error:', err.code, err.message);
 
   if (err.code === 'ECONNRESET' || !socket.writable) {
     console.log('[SERVER] Connection already closed or reset');
+    return;
+  }
+
+  // Handle HPE errors (HTTP Parser Errors) - often from large multipart uploads
+  if (err.code && err.code.startsWith('HPE_')) {
+    console.error(`[SERVER] HTTP Parser Error: ${err.code} - likely from large file upload`);
+    if (socket.writable) {
+      socket.end('HTTP/1.1 413 Payload Too Large\r\n\r\n');
+    }
     return;
   }
 
