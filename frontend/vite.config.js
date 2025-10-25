@@ -15,7 +15,27 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '/api'),
       }
-    }
+    },
+    // Serve bundled modules (like EchoRecipePro) as static files
+    middlewares: [
+      {
+        apply: 'pre',
+        use: (req, res, next) => {
+          // Serve EchoRecipePro bundled app
+          if (req.url.startsWith('/modules/EchoRecipe_Pro/')) {
+            const modulePath = path.join(__dirname, 'src', req.url);
+            if (req.url.endsWith('/') || req.url === '/modules/EchoRecipe_Pro') {
+              // Serve index.html for root
+              const indexPath = path.join(__dirname, 'src', 'modules', 'EchoRecipe_Pro', 'index.html');
+              res.setHeader('Content-Type', 'text/html');
+              res.end(require('fs').readFileSync(indexPath));
+              return;
+            }
+          }
+          next();
+        }
+      }
+    ]
   },
   resolve: {
     alias: {
