@@ -163,13 +163,17 @@ function ModuleUploadZone({ isDarkMode }) {
             } catch {
               errorData = { message: response.statusText };
             }
-            throw new Error(`Batch ${batchNum}: ${errorData.message || response.statusText}`);
+            const errorMsg = errorData.message || errorData.error || response.statusText || 'Unknown error';
+            console.error(`[UPLOAD] Batch ${batchNum} error:`, errorMsg);
+            throw new Error(`${errorMsg} (Status: ${response.status})`);
           }
 
-          await response.json();
-          console.log(`[UPLOAD] Batch ${batchNum} complete`);
+          const data = await response.json();
+          console.log(`[UPLOAD] Batch ${batchNum} complete:`, data.message || 'Success');
         } catch (batchError) {
-          throw new Error(`Batch ${batchNum}/${batches.length} failed: ${batchError.message}`);
+          const fullError = batchError.message || String(batchError);
+          console.error(`[UPLOAD] Batch ${batchNum} error details:`, fullError);
+          throw new Error(`Batch ${batchNum}/${batches.length} failed: ${fullError}`);
         }
       }
 
