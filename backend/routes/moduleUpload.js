@@ -122,12 +122,31 @@ router.post('/upload-folder', uploadMultiple, handleMulterError, async (req, res
     }
 
     // Handle batch upload
-    const files = Array.isArray(req.files)
-      ? req.files.filter(f => f.filename && f.path)
-      : [];
+    let files = [];
+
+    // Multer can return files in different formats depending on .fields() configuration
+    if (req.files && typeof req.files === 'object') {
+      if (Array.isArray(req.files)) {
+        files = req.files.filter(f => f && f.path);
+      } else if (req.files.files && Array.isArray(req.files.files)) {
+        // When using .fields(), files come in req.files.files
+        files = req.files.files.filter(f => f && f.path);
+      }
+    }
+
+    console.log(`[MODULE_UPLOAD] Files received:`, {
+      hasReqFiles: !!req.files,
+      reqFilesType: typeof req.files,
+      filesCount: files.length,
+      reqFilesKeys: req.files ? Object.keys(req.files) : 'none'
+    });
 
     if (!files || files.length === 0) {
-      return res.status(400).json({ success: false, message: 'No files in batch' });
+      return res.status(400).json({
+        success: false,
+        message: 'No files in batch',
+        debug: { receivedReqFiles: !!req.files, receivedBody: Object.keys(req.body || {}) }
+      });
     }
 
     // On first batch, create/backup module folder
