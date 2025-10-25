@@ -12,34 +12,13 @@ export default function PurchasingPanel() {
 
   useEffect(() => {
     console.log('[Purchasing] Component mounted');
-    setIsLoading(true);
 
-    try {
-      // Load Builder.io's RenderContent script if not already present
-      if (!window.builderContentLoaded) {
-        const script = document.createElement('script');
-        script.src = 'https://cdn.builder.io/js/react';
-        script.async = true;
-        script.onload = () => {
-          console.log('[Purchasing] Builder.io script loaded');
-          window.builderContentLoaded = true;
-          renderPurchasing();
-        };
-        script.onerror = (err) => {
-          console.error('[Purchasing] Failed to load Builder.io script:', err);
-          setLoadError('Failed to load Builder.io script');
-          setIsLoading(false);
-        };
-        document.head.appendChild(script);
-      } else {
-        console.log('[Purchasing] Builder.io script already loaded');
-        renderPurchasing();
-      }
-    } catch (err) {
-      console.error('[Purchasing] Error in useEffect:', err);
-      setLoadError(err.message);
-      setIsLoading(false);
-    }
+    // DISABLED: Builder.io SDK loading causing timeout errors
+    // The Purchasing component requires Builder.io connectivity
+    // Re-enable after Builder.io API is available and responsive
+    console.log('[Purchasing] Builder.io integration disabled - waiting for API availability');
+    setIsLoading(false);
+    setLoadError('Builder.io integration temporarily disabled for stability');
   }, []);
 
   const renderPurchasing = () => {
