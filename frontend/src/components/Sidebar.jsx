@@ -147,6 +147,9 @@ function ModuleUploadZone({ isDarkMode }) {
         const timeoutId = setTimeout(() => controller.abort(), 15 * 60 * 1000);
 
         try {
+          console.log(`[UPLOAD] Batch ${batchNum}: Sending to ${uploadUrl}`);
+          console.log(`[UPLOAD] Batch ${batchNum}: FormData size estimate: ${batch.length} files`);
+
           const response = await fetch(uploadUrl, {
             method: 'POST',
             body: formData,
@@ -155,23 +158,35 @@ function ModuleUploadZone({ isDarkMode }) {
 
           clearTimeout(timeoutId);
 
+          console.log(`[UPLOAD] Batch ${batchNum}: Response status=${response.status}`);
+
           if (!response.ok) {
             let errorData;
             try {
               errorData = await response.json();
-            } catch {
-              errorData = { message: response.statusText };
+            } catch (parseErr) {
+              errorData = { message: response.statusText, parseError: parseErr.message };
             }
             const errorMsg = errorData.message || errorData.error || response.statusText || 'Unknown error';
-            console.error(`[UPLOAD] Batch ${batchNum} error:`, errorMsg);
-            throw new Error(`${errorMsg} (Status: ${response.status})`);
+            console.error(`[UPLOAD] Batch ${batchNum} HTTP ${response.status}:`, errorMsg);
+            throw new Error(`HTTP ${response.status}: ${errorMsg}`);
           }
 
           const data = await response.json();
-          console.log(`[UPLOAD] Batch ${batchNum} complete:`, data.message || 'Success');
+          console.log(`[UPLOAD] Batch ${batchNum} success:`, data.message || 'OK');
         } catch (batchError) {
-          const fullError = batchError.message || String(batchError);
-          console.error(`[UPLOAD] Batch ${batchNum} error details:`, fullError);
+          clearTimeout(timeoutId);
+          let fullError = batchError.message || String(batchError);
+
+          // Distinguish between different error types
+          if (batchError.name === 'AbortError') {
+            fullError = 'Request timeout (15 min) - upload took too long';
+          } else if (fullError.includes('Failed to fetch')) {
+            fullError = 'Network error - Backend may not be running. Check that npm run dev is running in backend/ folder.';
+          }
+
+          console.error(`[UPLOAD] Batch ${batchNum} FAILED:`, fullError);
+          console.error(`[UPLOAD] Batch ${batchNum} Error type:`, batchError.name);
           throw new Error(`Batch ${batchNum}/${batches.length} failed: ${fullError}`);
         }
       }
