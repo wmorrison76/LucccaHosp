@@ -198,6 +198,8 @@ function ModuleUploadZone({ isDarkMode }) {
       const finalController = new AbortController();
       const finalTimeoutId = setTimeout(() => finalController.abort(), 10 * 60 * 1000);
 
+      console.log(`[UPLOAD] Finalizing upload...`);
+
       const finalResponse = await fetch(uploadUrl, {
         method: 'POST',
         body: finalFormData,
@@ -206,14 +208,18 @@ function ModuleUploadZone({ isDarkMode }) {
 
       clearTimeout(finalTimeoutId);
 
+      console.log(`[UPLOAD] Finalize response status=${finalResponse.status}`);
+
       if (!finalResponse.ok) {
         let errorData;
         try {
           errorData = await finalResponse.json();
-        } catch {
-          errorData = { message: finalResponse.statusText };
+        } catch (parseErr) {
+          errorData = { message: finalResponse.statusText, parseError: parseErr.message };
         }
-        throw new Error(errorData.message || `Finalization failed`);
+        const errorMsg = errorData.message || `Finalization failed with status ${finalResponse.status}`;
+        console.error(`[UPLOAD] Finalize error:`, errorMsg);
+        throw new Error(errorMsg);
       }
 
       const data = await finalResponse.json();
