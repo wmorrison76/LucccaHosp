@@ -10,10 +10,9 @@ import * as THREE from 'three';
 import { CakeIntakeData, CakeDesign, CakeCalculation } from './types';
 import { calculateCakeSpecs } from './CakeSizeCalculator';
 
-// Import from extracted CakeDesigner components (same directory level)
-import { OrbitControls } from '../../../CakeDesigner_Patch_CD01_CD10/src/useOrbitControls';
-import { CameraRig } from '../../../CakeDesigner_Patch_CD01_CD10/src/CameraRig';
-import { AutoRotateController } from '../../../CakeDesigner_Patch_CD01_CD10/src/AutoRotateController';
+// NOTE: CakeDesigner components are external to frontend build
+// These would be imported from /CakeDesigner_Patch_CD01_CD10/src/ in development
+// For production builds, using simplified internal implementations
 
 interface CakeBuilderProps {
   cakeData: CakeIntakeData;
