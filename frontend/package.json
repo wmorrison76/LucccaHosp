@@ -96,6 +96,7 @@
     "@babel/parser": "^7.28.3",
     "@babel/traverse": "^7.28.3",
     "@excalidraw/excalidraw": "^0.18.0",
+    "@tailwindcss/postcss": "^4.1.16",
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
