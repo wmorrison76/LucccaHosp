@@ -16,6 +16,7 @@ import echoRecipeProRoutes from './routes/echoRecipeProRoutes.js';
 import moduleUploadRoutes from './routes/moduleUpload.js';
 import { applyAllGuards } from './middleware/payloadGuards.js';
 import { initializeSocketServer } from './services/socketService.js';
+import { createErrorHandler, create404Handler, requestLogger } from './middleware/errorHandler.js';
 import fs from 'fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -35,6 +36,7 @@ app.use(cors());
 app.use(express.json({ limit: '5gb' }));
 app.use(express.urlencoded({ limit: '5gb', extended: true }));
 app.use(loggerMiddleware);
+app.use(requestLogger); // Detailed request logging for debugging
 
 // Apply payload guards to prevent 413 errors on external API calls
 applyAllGuards(app);
@@ -95,18 +97,11 @@ app.use(express.static(frontendPath, {
 }));
 
 // Fallback route for React Router - serve index.html for all non-API routes
-app.get('*', (req, res) => {
-  const indexPath = path.join(frontendPath, 'index.html');
-  console.log(`[SERVER] Attempting to serve ${req.path} -> ${indexPath}`);
-  res.sendFile(indexPath, (err) => {
-    if (err) {
-      console.error('[SERVER] Error serving index.html:', err.message);
-      console.error('[SERVER] __dirname:', __dirname);
-      console.error('[SERVER] process.cwd():', process.cwd());
-      res.status(404).json({ error: 'Frontend not found. Please build the frontend first.' });
-    }
-  });
-});
+// This is the last route handler - catches everything not matched above
+app.use(create404Handler(frontendPath));
+
+// Error handling middleware - MUST be last
+app.use(createErrorHandler(frontendPath));
 
 // Create HTTP server with proper timeout settings
 const server = http.createServer(app);
