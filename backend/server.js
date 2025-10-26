@@ -14,6 +14,7 @@ import pastryRoutes from './routes/pastryRoutes.js';
 import cakeDesignerRoutes from './routes/cakeDesignerroutes.js';
 import echoRecipeProRoutes from './routes/echoRecipeProRoutes.js';
 import moduleUploadRoutes from './routes/moduleUpload.js';
+import diagnosticsRoutes from './routes/diagnosticsRoutes.js';
 import { applyAllGuards } from './middleware/payloadGuards.js';
 import { initializeSocketServer } from './services/socketService.js';
 import { createErrorHandler, create404Handler, requestLogger } from './middleware/errorHandler.js';
@@ -49,6 +50,7 @@ app.use('/api/health', healthRoutes);
 app.use('/api/pastry', authMiddleware, pastryRoutes);
 app.use('/api/echo-recipe-pro', authMiddleware, echoRecipeProRoutes);
 app.use('/api/modules', moduleUploadRoutes);
+app.use('/api/diagnostics', diagnosticsRoutes); // Diagnostic endpoints for debugging
 
 // Serve bundled EchoRecipePro app from modules folder
 // This serves the compiled Vite app that was uploaded from Builder.io
