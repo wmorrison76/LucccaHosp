@@ -121,7 +121,7 @@ import pastryIcon   from "../assets/baking-&-Pastry.png";
 import mixologyIcon from "../assets/mixology.png";
 import scheduleIcon from "../assets/schedule.png";
 
-/* ─��──��������─���──��─── Error boundary ─────────────── */
+/* ─��──��������────��─── Error boundary ─────────────── */
 class PanelErrorBoundary extends React.Component {
   constructor(p){ super(p); this.state = { error: null }; }
   static getDerivedStateFromError(error){ return { error }; }
@@ -181,7 +181,7 @@ if (PurchasingPanel) PANEL_REGISTRY.purchasing = { title: "Purchasing", Componen
 // if (EchoAurumPanel) PANEL_REGISTRY.echoaurum = { title: "EchoAurum", Component: EchoAurumPanel, icon: null };
 // if (ECHOLayoutPanel) PANEL_REGISTRY.echolayout = { title: "ECHOLayout", Component: ECHOLayoutPanel, icon: null };
 if (PastryLibrary) PANEL_REGISTRY.pastry = { title: "Baking & Pastry", Component: PastryLibrary, icon: pastryIcon };
-if (CakeBuilder) PANEL_REGISTRY.cakebuilder = { title: "���� CakeBuilder", Component: CakeBuilder, icon: pastryIcon };
+if (CakeBuilder) PANEL_REGISTRY.cakebuilder = { title: "🎂 CakeBuilder", Component: CakeBuilder, icon: pastryIcon };
 if (AdvancedWhiteboard) PANEL_REGISTRY.whiteboard = { title: "Whiteboard", Component: AdvancedWhiteboard, icon: null };
 if (AdvancedVideoConference) PANEL_REGISTRY.videoconference = { title: "Video Conference", Component: AdvancedVideoConference, icon: null };
 if (MixologyPanel) PANEL_REGISTRY.mixology = { title: "Mixology", Component: MixologyPanel, icon: mixologyIcon };
@@ -191,13 +191,13 @@ if (SupportPanel) PANEL_REGISTRY.support = { title: "Support & Help", Component:
 
 console.log('[Board] Final PANEL_REGISTRY keys:', Object.keys(PANEL_REGISTRY));
 
-// Always add EchoDesk stubs
-PANEL_REGISTRY.calendar = { title: "Calendar", Component: CalendarOverlay, icon: null };
-PANEL_REGISTRY.teleconference = { title: "Teleconference", Component: Teleconference, icon: null };
-PANEL_REGISTRY.exporail = { title: "Expo Rail", Component: ExpoRailPanel, icon: null };
-PANEL_REGISTRY.templates = { title: "Templates", Component: TemplatesLibrary, icon: null };
-PANEL_REGISTRY.ruler = { title: "Ruler & Snap", Component: RulerSnapOverlay, icon: null };
-PANEL_REGISTRY.lasso = { title: "Lasso / Copy", Component: LassoCopyTool, icon: null };
+// EchoDesk stubs disabled - components not yet imported
+// PANEL_REGISTRY.calendar = { title: "Calendar", Component: CalendarOverlay, icon: null };
+// PANEL_REGISTRY.teleconference = { title: "Teleconference", Component: Teleconference, icon: null };
+// PANEL_REGISTRY.exporail = { title: "Expo Rail", Component: ExpoRailPanel, icon: null };
+// PANEL_REGISTRY.templates = { title: "Templates", Component: TemplatesLibrary, icon: null };
+// PANEL_REGISTRY.ruler = { title: "Ruler & Snap", Component: RulerSnapOverlay, icon: null };
+// PANEL_REGISTRY.lasso = { title: "Lasso / Copy", Component: LassoCopyTool, icon: null };
 
 // Toolbar panel connections
 if (AdvancedWhiteboard) PANEL_REGISTRY.whiteboard = { title: "Whiteboard", Component: AdvancedWhiteboard, icon: null };
