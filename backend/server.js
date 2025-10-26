@@ -64,7 +64,31 @@ app.use('/modules/EchoRecipe_Pro', express.static(modulesPath, {
 }));
 
 // Serve static frontend files from dist directory
-const frontendPath = path.join(__dirname, '..', 'frontend', 'dist');
+// Support multiple possible paths for Docker and development environments
+let frontendPath = path.join(__dirname, '..', 'frontend', 'dist');
+
+// Check if running in Docker with alternative paths
+const fs = require('fs');
+const alternativePaths = [
+  path.join(__dirname, '..', 'frontend', 'dist'),
+  path.join(process.cwd(), '..', 'frontend', 'dist'),
+  path.join('/', 'app', 'frontend', 'dist')
+];
+
+for (const altPath of alternativePaths) {
+  if (fs.existsSync(altPath)) {
+    frontendPath = altPath;
+    console.log(`[SERVER] Using frontend path: ${frontendPath}`);
+    break;
+  }
+}
+
+console.log(`[SERVER] Attempting to serve frontend from: ${frontendPath}`);
+console.log(`[SERVER] Frontend directory exists: ${fs.existsSync(frontendPath)}`);
+if (fs.existsSync(frontendPath)) {
+  console.log(`[SERVER] Contents: ${fs.readdirSync(frontendPath).slice(0, 5).join(', ')}...`);
+}
+
 app.use(express.static(frontendPath, {
   maxAge: '1h',
   etag: false
@@ -73,9 +97,12 @@ app.use(express.static(frontendPath, {
 // Fallback route for React Router - serve index.html for all non-API routes
 app.get('*', (req, res) => {
   const indexPath = path.join(frontendPath, 'index.html');
+  console.log(`[SERVER] Attempting to serve ${req.path} -> ${indexPath}`);
   res.sendFile(indexPath, (err) => {
     if (err) {
       console.error('[SERVER] Error serving index.html:', err.message);
+      console.error('[SERVER] __dirname:', __dirname);
+      console.error('[SERVER] process.cwd():', process.cwd());
       res.status(404).json({ error: 'Frontend not found. Please build the frontend first.' });
     }
   });
