@@ -18,12 +18,17 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy the entire project structure
-COPY --from=builder /app .
+# Copy package files first for better layer caching
+COPY package.json package-lock.json ./
+COPY backend/package.json backend/package-lock.json ./backend/
 
-# Install backend dependencies only
-WORKDIR /app/backend
-RUN npm install --legacy-peer-deps --production
+# Copy the entire project structure
+COPY --from=builder /app/frontend/dist ./frontend/dist
+COPY --from=builder /app/backend ./backend
+COPY --from=builder /app/frontend/src/modules ./frontend/src/modules
+
+# Install backend dependencies
+RUN cd /app/backend && npm install --legacy-peer-deps --production
 
 # Set working directory to backend
 WORKDIR /app/backend
@@ -35,5 +40,9 @@ EXPOSE 3000
 ENV NODE_ENV=production
 ENV PORT=3000
 
-# Start the backend server
-CMD ["node", "server.js"]
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3000/api/health', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"
+
+# Start the backend server with detailed logging
+CMD ["node", "--trace-warnings", "server.js"]
