@@ -9,6 +9,17 @@ export default defineConfig({
     host: '0.0.0.0',
     open: false,
     strictPort: false,
+    middlewareMode: false,
+    middleware: [
+      // Custom middleware for SPA fallback in dev mode
+      (req, res, next) => {
+        // If it's not an asset and not an API request, fall through to Vite's default behavior
+        if (!req.url.includes('.') && !req.url.startsWith('/api') && !req.url.startsWith('/modules')) {
+          req.url = '/index.html';
+        }
+        next();
+      }
+    ],
     proxy: {
       '/api': {
         target: 'http://localhost:3001',
