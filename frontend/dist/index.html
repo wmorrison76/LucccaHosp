@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="nightfall">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LUCCCA</title>
+
+    <!-- CSP toggle for dev vs production -->
+    <script>
+      const isLocal =
+        location.hostname === "localhost" || location.hostname === "127.0.0.1";
+      const meta = document.createElement("meta");
+      meta.httpEquiv = "Content-Security-Policy";
+
+      if (isLocal) {
+        // Relaxed CSP for dev
+        meta.content =
+          "default-src * 'unsafe-inline' 'unsafe-eval' blob: data:; " +
+          "script-src * 'unsafe-inline' 'unsafe-eval' blob: data:; " +
+          "style-src * 'unsafe-inline' blob: data:; " +
+          "img-src * data: blob:; " +
+          "font-src * data:; " +
+          "connect-src *;";
+        console.log("🔓 Localhost CSP relaxed for development");
+      } else {
+        // Production CSP with unsafe-eval support for dynamic code execution
+        meta.content =
+          "default-src 'self'; " +
+          "script-src 'self' 'unsafe-eval'; " +
+          "style-src 'self' 'unsafe-inline'; " +
+          "img-src 'self' data: blob:; " +
+          "font-src 'self' data:; " +
+          "connect-src 'self' blob:; " +
+          "object-src 'none'; " +
+          "base-uri 'self'; " +
+          "frame-ancestors 'none';";
+        console.log("🔐 Production CSP active");
+      }
+
+      document.head.appendChild(meta);
+    </script>
+    <style>
+      html, body, #root {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #0f1c2e;
+        color: white;
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-DfBvRGLH.js"></script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

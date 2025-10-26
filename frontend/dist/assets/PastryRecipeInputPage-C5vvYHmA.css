@@ -1,0 +1,92 @@
+/* frontend/src/RecipeApp.css */
+
+/* Panel look that matches your glass UI */
+:root {
+  --panel-bg: rgba(4, 10, 22, 0.78);
+  --panel-border: rgba(34, 211, 238, 0.35);
+  --panel-inset: rgba(0, 0, 0, 0.35);
+}
+
+.recipe-panel {
+  border: 1px solid var(--panel-border);
+  background: var(--panel-bg);
+  box-shadow: 0 28px 120px rgba(0, 255, 240, 0.08),
+    inset 0 0 0 1px var(--panel-inset);
+  border-radius: 12px;
+}
+
+/* Form basics (scoped so we don't collide with the rest of the app) */
+.recipe-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.recipe-label {
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  opacity: 0.8;
+}
+
+.recipe-input,
+.recipe-select,
+.recipe-textarea {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.recipe-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.recipe-input:focus,
+.recipe-select:focus,
+.recipe-textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.4);
+  border-color: rgba(34, 211, 238, 0.45);
+}
+
+/* Small “chip” tags for allergens, courses, etc. */
+.recipe-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 12px;
+  color: #fff;
+}
+
+/* Modal shell for image editor / pickers (optional) */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+.modal {
+  width: min(920px, 95vw);
+  margin: 6vh auto;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(4, 10, 22, 0.96), rgba(4, 10, 22, 0.92));
+  border: 1px solid rgba(34, 211, 238, 0.28);
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.55);
+}
+
+/* Hide scrollbars helper */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

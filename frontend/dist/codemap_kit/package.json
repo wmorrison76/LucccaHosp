@@ -1,0 +1,14 @@
+{
+  "name": "codemap-kit",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "codemap": "node codemap.mjs ."
+  },
+  "devDependencies": {
+    "@babel/parser": "^7.25.0",
+    "@babel/traverse": "^7.25.0",
+    "fast-glob": "^3.3.2"
+  }
+}
