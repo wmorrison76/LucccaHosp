@@ -121,7 +121,7 @@ import pastryIcon   from "../assets/baking-&-Pastry.png";
 import mixologyIcon from "../assets/mixology.png";
 import scheduleIcon from "../assets/schedule.png";
 
-/* ─��──��������────��─── Error boundary ─────────────── */
+/* ─��──��������─���──��─── Error boundary ─────────────── */
 class PanelErrorBoundary extends React.Component {
   constructor(p){ super(p); this.state = { error: null }; }
   static getDerivedStateFromError(error){ return { error }; }
@@ -152,10 +152,7 @@ console.log('[Board] KitchenLibraryTabs:', !!KitchenLibraryTabs);
 console.log('[Board] Schedule:', !!Schedule);
 console.log('[Board] EchoRecipeProPanel:', !!EchoRecipeProPanel);
 console.log('[Board] PurchasingPanel:', !!PurchasingPanel);
-console.log('[Board] EchoEventStudioPanel:', !!EchoEventStudioPanel);
-console.log('[Board] MaestroBQTPanel:', !!MaestroBQTPanel);
-console.log('[Board] EchoAurumPanel:', !!EchoAurumPanel);
-console.log('[Board] ECHOLayoutPanel:', !!ECHOLayoutPanel);
+// Note: Builder.io panels disabled due to timeout issues
 console.log('[Board] PastryLibrary:', !!PastryLibrary);
 console.log('[Board] EchoCanvasStudio:', !!EchoCanvasStudio);
 console.log('[Board] AdvancedWhiteboard:', !!AdvancedWhiteboard);
@@ -184,7 +181,7 @@ if (PurchasingPanel) PANEL_REGISTRY.purchasing = { title: "Purchasing", Componen
 // if (EchoAurumPanel) PANEL_REGISTRY.echoaurum = { title: "EchoAurum", Component: EchoAurumPanel, icon: null };
 // if (ECHOLayoutPanel) PANEL_REGISTRY.echolayout = { title: "ECHOLayout", Component: ECHOLayoutPanel, icon: null };
 if (PastryLibrary) PANEL_REGISTRY.pastry = { title: "Baking & Pastry", Component: PastryLibrary, icon: pastryIcon };
-if (CakeBuilder) PANEL_REGISTRY.cakebuilder = { title: "🎂 CakeBuilder", Component: CakeBuilder, icon: pastryIcon };
+if (CakeBuilder) PANEL_REGISTRY.cakebuilder = { title: "���� CakeBuilder", Component: CakeBuilder, icon: pastryIcon };
 if (AdvancedWhiteboard) PANEL_REGISTRY.whiteboard = { title: "Whiteboard", Component: AdvancedWhiteboard, icon: null };
 if (AdvancedVideoConference) PANEL_REGISTRY.videoconference = { title: "Video Conference", Component: AdvancedVideoConference, icon: null };
 if (MixologyPanel) PANEL_REGISTRY.mixology = { title: "Mixology", Component: MixologyPanel, icon: mixologyIcon };
