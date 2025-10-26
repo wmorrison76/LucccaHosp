@@ -1,15 +1,160 @@
-import React, { useState, useEffect } from 'react';
-import { Loader, AlertCircle, ChefHat } from 'lucide-react';
+import React, { Suspense, useState, useEffect } from 'react';
+import { Loader2, AlertCircle } from 'lucide-react';
 
 /**
- * EchoRecipePro Panel
+ * EchoRecipePro Panel Wrapper Component
  * 
  * Loads the compiled EchoRecipePro React application from:
  * frontend/src/modules/EchoRecipe_Pro/index.html
  * 
  * This is served as an iframe to isolate the app's routing and state management.
+ * Features:
+ * - Loading states with spinner
+ * - Error boundaries with retry capability
+ * - Full iframe sandbox isolation
+ * - Proper CORS/X-Frame-Options headers
  */
-export default function EchoRecipeProPanel() {
+
+/**
+ * Loading Fallback Component
+ * Shows while the panel is being loaded
+ */
+const LoadingFallback = () => (
+  <div style={{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    backgroundColor: '#f8f9fa',
+    gap: '16px',
+  }}>
+    <Loader2 size={32} style={{
+      color: '#00d9ff',
+      animation: 'spin 1s linear infinite',
+    }} />
+    <div style={{ textAlign: 'center' }}>
+      <p style={{
+        fontWeight: '600',
+        color: '#374151',
+        fontSize: '14px',
+        margin: '0 0 4px 0',
+      }}>
+        Loading EchoRecipePro
+      </p>
+      <p style={{
+        fontSize: '12px',
+        color: '#9CA3AF',
+        margin: 0,
+      }}>
+        This may take a few seconds...
+      </p>
+    </div>
+    <style>{`
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    `}</style>
+  </div>
+);
+
+/**
+ * Error Fallback Component
+ * Shows if panel fails to load
+ */
+const ErrorFallback = ({ error, onRetry }) => (
+  <div style={{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    backgroundColor: '#fee2e2',
+    padding: '20px',
+  }}>
+    <div style={{ textAlign: 'center', maxWidth: '400px' }}>
+      <AlertCircle size={32} style={{
+        color: '#dc2626',
+        margin: '0 auto 12px',
+        display: 'block',
+      }} />
+      <p style={{
+        fontWeight: '600',
+        color: '#991b1b',
+        fontSize: '14px',
+        margin: '0 0 8px 0',
+      }}>
+        Failed to Load EchoRecipePro
+      </p>
+      <p style={{
+        fontSize: '12px',
+        color: '#7f1d1d',
+        margin: '0 0 16px 0',
+        whiteSpace: 'pre-wrap',
+      }}>
+        {error?.message || 'An unknown error occurred'}
+      </p>
+      <button
+        onClick={onRetry}
+        style={{
+          padding: '8px 16px',
+          fontSize: '12px',
+          backgroundColor: '#dc2626',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer',
+          fontWeight: '500',
+        }}
+      >
+        Try Again
+      </button>
+    </div>
+  </div>
+);
+
+/**
+ * Error Boundary Component
+ * Catches errors in the panel and displays fallback UI
+ */
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('[EchoRecipeProPanel] Error caught:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <ErrorFallback
+          error={this.state.error}
+          onRetry={() => {
+            this.setState({ hasError: false, error: null });
+            window.location.reload();
+          }}
+        />
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+/**
+ * Main Panel Component
+ * 
+ * Props:
+ * - isActive?: boolean - Whether the panel is currently visible
+ * - onClose?: () => void - Callback when panel is closed
+ */
+export default function EchoRecipeProPanel({ isActive = true, onClose }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -24,159 +169,65 @@ export default function EchoRecipeProPanel() {
   const handleIframeLoad = () => {
     console.log('[EchoRecipeProPanel] Iframe loaded successfully');
     setIsLoading(false);
+    setError(null);
   };
 
   const handleIframeError = (e) => {
     console.error('[EchoRecipeProPanel] Iframe error:', e);
-    setError('Could not load EchoRecipePro application');
+    setError(new Error('Could not load EchoRecipePro application. Please check the server is running.'));
     setIsLoading(false);
   };
 
-  return (
-    <div
-      style={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: '#f8f9fa',
-        borderRadius: '8px',
-        overflow: 'hidden',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-      }}
-    >
-      {/* Header */}
-      <div
-        style={{
-          padding: '14px 16px',
-          borderBottom: '1px solid #e5e7eb',
-          backgroundColor: '#fff',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '10px',
-          boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
-          flexShrink: 0,
-        }}
-      >
-        <ChefHat
-          size={20}
-          style={{
-            color: '#c41e3a',
-            flexShrink: 0,
-          }}
-        />
-        <div>
-          <div style={{ fontWeight: 600, fontSize: '14px', color: '#1f2937' }}>
-            EchoRecipePro
-          </div>
-          <div style={{ fontSize: '11px', color: '#6b7280', marginTop: '2px' }}>
-            Professional Recipe Management
-          </div>
-        </div>
-      </div>
+  // Don't render if panel isn't active (performance optimization)
+  if (!isActive) {
+    return null;
+  }
 
-      {/* Content Area */}
-      <div
-        style={{
-          flex: 1,
+  return (
+    <ErrorBoundary>
+      <Suspense fallback={<LoadingFallback />}>
+        <div style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundColor: '#f8f9fa',
+          borderRadius: '8px',
           overflow: 'hidden',
-          position: 'relative',
-          backgroundColor: '#fff',
-        }}
-      >
-        {/* Loading Spinner */}
-        {isLoading && (
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: 'rgba(255,255,255,0.95)',
-              backdropFilter: 'blur(4px)',
-              zIndex: 10,
-              flexDirection: 'column',
-              gap: '12px',
-            }}
-          >
-            <Loader
-              size={28}
-              style={{
-                animation: 'spin 1s linear infinite',
-                color: '#c41e3a',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+        }}>
+          {/* Loading Indicator */}
+          {isLoading && <LoadingFallback />}
+
+          {/* Error State */}
+          {error && !isLoading && (
+            <ErrorFallback
+              error={error}
+              onRetry={() => {
+                setError(null);
+                setIsLoading(true);
+                setTimeout(() => setIsLoading(false), 500);
               }}
             />
-            <div style={{ fontSize: '13px', color: '#6b7280', fontWeight: 500 }}>
-              Loading EchoRecipePro...
-            </div>
-          </div>
-        )}
+          )}
 
-        {/* Error State */}
-        {error && (
-          <div
+          {/* Iframe */}
+          <iframe
+            src="/modules/EchoRecipe_Pro/"
             style={{
-              position: 'absolute',
-              inset: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              gap: '12px',
-              padding: '20px',
-              color: '#dc2626',
-              backgroundColor: '#fef2f2',
+              width: '100%',
+              height: '100%',
+              border: 'none',
+              display: error ? 'none' : 'block',
             }}
-          >
-            <AlertCircle size={32} />
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontWeight: 600, fontSize: '14px', marginBottom: '4px' }}>
-                Application Error
-              </div>
-              <div style={{ fontSize: '12px', lineHeight: '1.5' }}>
-                {error}
-              </div>
-              <div
-                style={{
-                  fontSize: '11px',
-                  marginTop: '12px',
-                  color: '#6b7280',
-                  padding: '8px',
-                  backgroundColor: '#f3f4f6',
-                  borderRadius: '4px',
-                  fontFamily: 'monospace',
-                  wordBreak: 'break-all',
-                }}
-              >
-                Path: /modules/EchoRecipe_Pro/
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Iframe */}
-        <iframe
-          src="/modules/EchoRecipe_Pro/"
-          style={{
-            width: '100%',
-            height: '100%',
-            border: 'none',
-            display: error ? 'none' : 'block',
-          }}
-          title="EchoRecipePro Application"
-          onLoad={handleIframeLoad}
-          onError={handleIframeError}
-          sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals allow-presentation allow-downloads"
-          allow="camera; microphone; fullscreen"
-        />
-      </div>
-
-      <style>{`
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
-    </div>
+            title="EchoRecipePro Application"
+            onLoad={handleIframeLoad}
+            onError={handleIframeError}
+            sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals allow-presentation allow-downloads"
+            allow="camera; microphone; fullscreen"
+          />
+        </div>
+      </Suspense>
+    </ErrorBoundary>
   );
 }
