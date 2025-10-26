@@ -69,7 +69,6 @@ app.use('/modules/EchoRecipe_Pro', express.static(modulesPath, {
 let frontendPath = path.join(__dirname, '..', 'frontend', 'dist');
 
 // Check if running in Docker with alternative paths
-const fs = require('fs');
 const alternativePaths = [
   path.join(__dirname, '..', 'frontend', 'dist'),
   path.join(process.cwd(), '..', 'frontend', 'dist'),
