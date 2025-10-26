@@ -1,0 +1,25 @@
+[build]
+  command = "cd frontend && npm run build"
+  publish = "frontend/dist"
+  base = "."
+
+[build.environment]
+  NODE_VERSION = "18"
+  NODE_ENV = "production"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[context.production.environment]
+  VITE_API_URL = "https://luccca-backend.up.railway.app"
+  NODE_ENV = "production"
+
+[context.preview.environment]
+  VITE_API_URL = "https://luccca-backend-preview.up.railway.app"
+  NODE_ENV = "production"
+
+[context.deploy-preview.environment]
+  VITE_API_URL = "http://localhost:3001"
+  NODE_ENV = "development"
