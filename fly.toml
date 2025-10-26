@@ -3,10 +3,7 @@ app = "luccca-core"
 primary_region = "pdx"
 
 [build]
-  builder = "paas"
-  
-  [build.args]
-    NODE_ENV = "production"
+  builder = "dockerfile"
 
 [env]
   NODE_ENV = "production"
