@@ -74,7 +74,6 @@ const ProfessionalToolbar = safeImport(() => import("../components/ProfessionalT
 const KitchenLibraryTabs = safeImport(() => import("../components/KitchenLibraryTabs.jsx"), "KitchenLibraryTabs");
 const Schedule           = safeImport(() => import("../modules/scheduling/Schedule.jsx"), "Schedule");
 const EchoRecipeProPanel = safeImport(() => import("../components/EchoRecipePro/EchoRecipeProPanel.jsx"), "EchoRecipeProPanel");
-const CulinaryPanel      = safeImport(() => import("../components/CulinaryPanel.jsx"), "CulinaryPanel");
 const PurchasingPanel    = safeImport(() => import("../components/Purchasing/PurchasingPanel.jsx"), "PurchasingPanel");
 
 // DISABLED: Builder.io iframe panels timing out - causing "IFrame evaluation timeout" errors
@@ -141,7 +140,7 @@ class PanelErrorBoundary extends React.Component {
   }
 }
 
-/* ──���──────────── Registry ─���───────────── */
+/* ──���──────���───── Registry ─���───────────── */
 const PANEL_REGISTRY = {};
 
 // Add only panels with valid components
