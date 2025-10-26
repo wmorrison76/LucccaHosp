@@ -16,6 +16,7 @@ import echoRecipeProRoutes from './routes/echoRecipeProRoutes.js';
 import moduleUploadRoutes from './routes/moduleUpload.js';
 import { applyAllGuards } from './middleware/payloadGuards.js';
 import { initializeSocketServer } from './services/socketService.js';
+import fs from 'fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
